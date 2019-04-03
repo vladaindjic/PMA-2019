@@ -27,4 +27,7 @@ public interface LoginMvpView extends MvpView {
 
     void openUserRegistrationActivity();
 
+    // tri prikaza restorana
+    void openUserRestaurantsActivity();
+
 }

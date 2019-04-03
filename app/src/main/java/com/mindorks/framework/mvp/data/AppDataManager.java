@@ -195,6 +195,8 @@ public class AppDataManager implements DataManager {
             String email,
             String profilePicPath) {
 
+        // TODO vi3: sacuvati sve sta treba u skladu sa nasim korisnicima
+
         setAccessToken(accessToken);
         setCurrentUserId(userId);
         setCurrentUserLoggedInMode(loggedInMode);

@@ -65,6 +65,7 @@ public class UserRegistrationActivity extends BaseActivity implements UserRegist
 
         mPresenter.onAttach(UserRegistrationActivity.this);
 
+        setUp();
 
     }
 

@@ -24,6 +24,10 @@
     <string name="delete">Delete</string>
     <string name="share">Share</string>
 
+    <string name="search">Search</string>
+    <string name="filter">Filter</string>
+
+
     <!--Drawer-->
     <string name="open_drawer">Drawer Open</string>
     <string name="close_drawer">Drawer Close</string>

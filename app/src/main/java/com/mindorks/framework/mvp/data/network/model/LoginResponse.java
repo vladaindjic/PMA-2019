@@ -29,6 +29,10 @@ public class LoginResponse {
     private String statusCode;
 
     @Expose
+    @SerializedName("user_role")
+    private String userRole;
+
+    @Expose
     @SerializedName("user_id")
     private Long userId;
 
@@ -130,6 +134,14 @@ public class LoginResponse {
 
     public void setServerProfilePicUrl(String serverProfilePicUrl) {
         this.serverProfilePicUrl = serverProfilePicUrl;
+    }
+
+    public String getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
     }
 
     @Override

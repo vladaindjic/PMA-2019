@@ -14,8 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <!--User Registration Activity-->
-        <activity android:name=".ui.userRegistration.UserRegistrationActivity"/>
+        <activity android:name=".ui.restaurant.user.UserRestaurantsActivity"></activity>
+        <!-- User Registration Activity -->
+        <activity android:name=".ui.userRegistration.UserRegistrationActivity" />
 
         <service android:name=".service.SyncService" />
 

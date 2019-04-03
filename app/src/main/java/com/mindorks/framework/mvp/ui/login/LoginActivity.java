@@ -24,6 +24,7 @@ import android.widget.EditText;
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.ui.base.BaseActivity;
 import com.mindorks.framework.mvp.ui.main.MainActivity;
+import com.mindorks.framework.mvp.ui.restaurant.user.UserRestaurantsActivity;
 import com.mindorks.framework.mvp.ui.userRegistration.UserRegistrationActivity;
 
 import javax.inject.Inject;
@@ -89,6 +90,14 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
         Intent intent = UserRegistrationActivity.getStartIntent(LoginActivity.this);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void openUserRestaurantsActivity() {
+        Intent intent = UserRestaurantsActivity.getStartIntent(LoginActivity.this);
+        startActivity(intent);
+        finish();
+
     }
 
     @Override

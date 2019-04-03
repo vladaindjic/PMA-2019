@@ -47,6 +47,9 @@ import com.mindorks.framework.mvp.ui.main.MainPresenter;
 import com.mindorks.framework.mvp.ui.main.rating.RatingDialogMvpPresenter;
 import com.mindorks.framework.mvp.ui.main.rating.RatingDialogMvpView;
 import com.mindorks.framework.mvp.ui.main.rating.RatingDialogPresenter;
+import com.mindorks.framework.mvp.ui.restaurant.user.UserRestaurantsMvpPresenter;
+import com.mindorks.framework.mvp.ui.restaurant.user.UserRestaurantsMvpView;
+import com.mindorks.framework.mvp.ui.restaurant.user.UserRestaurantsPresenter;
 import com.mindorks.framework.mvp.ui.splash.SplashMvpPresenter;
 import com.mindorks.framework.mvp.ui.splash.SplashMvpView;
 import com.mindorks.framework.mvp.ui.splash.SplashPresenter;
@@ -120,6 +123,13 @@ public class ActivityModule {
     @PerActivity
     UserRegistrationMvpPresenter<UserRegistrationMvpView> provideUserRegistrationPresenter(
             UserRegistrationPresenter<UserRegistrationMvpView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    @PerActivity
+    UserRestaurantsMvpPresenter<UserRestaurantsMvpView> provideUserRestaurantsPresenter(
+            UserRestaurantsPresenter<UserRestaurantsMvpView> presenter) {
         return presenter;
     }
 

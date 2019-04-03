@@ -81,8 +81,14 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
                             return;
                         }
 
-                        getMvpView().hideLoading();
-                        getMvpView().openMainActivity();
+                        if (response.getUserRole().equals("USER")) {
+                            getMvpView().hideLoading();
+                            getMvpView().openUserRestaurantsActivity();
+                        } else {
+                            getMvpView().hideLoading();
+                            getMvpView().openMainActivity();
+                        }
+
 
                     }
                 }, new Consumer<Throwable>() {
