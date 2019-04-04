@@ -27,5 +27,7 @@ public interface SplashMvpView extends MvpView {
 
     void openMainActivity();
 
+    void openUserRestaurantsActivity();
+
     void startSyncService();
 }

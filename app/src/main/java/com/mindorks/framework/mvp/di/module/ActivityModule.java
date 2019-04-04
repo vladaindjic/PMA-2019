@@ -21,6 +21,7 @@ import android.support.v7.widget.LinearLayoutManager;
 
 import com.mindorks.framework.mvp.data.network.model.BlogResponse;
 import com.mindorks.framework.mvp.data.network.model.OpenSourceResponse;
+import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.di.ActivityContext;
 import com.mindorks.framework.mvp.di.PerActivity;
 import com.mindorks.framework.mvp.ui.about.AboutMvpPresenter;
@@ -49,7 +50,16 @@ import com.mindorks.framework.mvp.ui.main.rating.RatingDialogMvpView;
 import com.mindorks.framework.mvp.ui.main.rating.RatingDialogPresenter;
 import com.mindorks.framework.mvp.ui.restaurant.user.UserRestaurantsMvpPresenter;
 import com.mindorks.framework.mvp.ui.restaurant.user.UserRestaurantsMvpView;
+import com.mindorks.framework.mvp.ui.restaurant.user.UserRestaurantsPagerAdapter;
 import com.mindorks.framework.mvp.ui.restaurant.user.UserRestaurantsPresenter;
+import com.mindorks.framework.mvp.ui.restaurant.user.grid.RestaurantsGridAdapter;
+import com.mindorks.framework.mvp.ui.restaurant.user.grid.RestaurantsGridMvpPresenter;
+import com.mindorks.framework.mvp.ui.restaurant.user.grid.RestaurantsGridMvpView;
+import com.mindorks.framework.mvp.ui.restaurant.user.grid.RestaurantsGridPresenter;
+import com.mindorks.framework.mvp.ui.restaurant.user.list.RestaurantsListAdapter;
+import com.mindorks.framework.mvp.ui.restaurant.user.list.RestaurantsListMvpPresenter;
+import com.mindorks.framework.mvp.ui.restaurant.user.list.RestaurantsListMvpView;
+import com.mindorks.framework.mvp.ui.restaurant.user.list.RestaurantsListPresenter;
 import com.mindorks.framework.mvp.ui.splash.SplashMvpPresenter;
 import com.mindorks.framework.mvp.ui.splash.SplashMvpView;
 import com.mindorks.framework.mvp.ui.splash.SplashPresenter;
@@ -183,4 +193,35 @@ public class ActivityModule {
     LinearLayoutManager provideLinearLayoutManager(AppCompatActivity activity) {
         return new LinearLayoutManager(activity);
     }
+
+    @Provides
+    UserRestaurantsPagerAdapter provideUserRestaurantsPagerAdapter(AppCompatActivity activity) {
+        return new UserRestaurantsPagerAdapter(activity.getSupportFragmentManager());
+    }
+
+    @Provides
+    RestaurantsListMvpPresenter<RestaurantsListMvpView> provideRestaurantsListPresenter(
+            RestaurantsListPresenter<RestaurantsListMvpView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    RestaurantsGridMvpPresenter<RestaurantsGridMvpView> provideRestaurantsGridPresenter(
+            RestaurantsGridPresenter<RestaurantsGridMvpView> presenter) {
+        return presenter;
+    }
+
+
+    // FIXME vi3: dodati da prima listu
+    @Provides
+    RestaurantsListAdapter provideRestaurantsListAdapter() {
+        return new RestaurantsListAdapter(new ArrayList<RestaurantsResponse.Restaurant>());
+    }
+
+    @Provides
+    RestaurantsGridAdapter provideRestaurantsGridAdapter() {
+        return new RestaurantsGridAdapter(new ArrayList<RestaurantsResponse.Restaurant>());
+    }
+    
+
 }

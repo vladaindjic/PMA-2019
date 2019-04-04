@@ -20,6 +20,7 @@ import com.mindorks.framework.mvp.data.network.model.LoginRequest;
 import com.mindorks.framework.mvp.data.network.model.LoginResponse;
 import com.mindorks.framework.mvp.data.network.model.LogoutResponse;
 import com.mindorks.framework.mvp.data.network.model.OpenSourceResponse;
+import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.data.network.model.UserRegistrationRequest;
 import com.mindorks.framework.mvp.data.network.model.UserRegistrationResponse;
 
@@ -47,4 +48,7 @@ public interface ApiHelper {
     Single<BlogResponse> getBlogApiCall();
 
     Single<OpenSourceResponse> getOpenSourceApiCall();
+
+    Single<RestaurantsResponse> getRestaurantsApiCall();
+
 }

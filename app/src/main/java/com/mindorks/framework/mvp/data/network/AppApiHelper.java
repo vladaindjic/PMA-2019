@@ -20,6 +20,7 @@ import com.mindorks.framework.mvp.data.network.model.LoginRequest;
 import com.mindorks.framework.mvp.data.network.model.LoginResponse;
 import com.mindorks.framework.mvp.data.network.model.LogoutResponse;
 import com.mindorks.framework.mvp.data.network.model.OpenSourceResponse;
+import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.data.network.model.UserRegistrationRequest;
 import com.mindorks.framework.mvp.data.network.model.UserRegistrationResponse;
 import com.rx2androidnetworking.Rx2AndroidNetworking;
@@ -109,6 +110,16 @@ public class AppApiHelper implements ApiHelper {
                 .addHeaders(mApiHeader.getProtectedApiHeader())
                 .build()
                 .getObjectSingle(OpenSourceResponse.class);
+    }
+
+    @Override
+    public Single<RestaurantsResponse> getRestaurantsApiCall() {
+        // TODO vi3: dodati parametre za filterisanje
+        // i ustedu saobracaja
+        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_RESTAURANTS)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .build()
+                .getObjectSingle(RestaurantsResponse.class);
     }
 }
 

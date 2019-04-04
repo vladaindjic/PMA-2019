@@ -23,6 +23,7 @@ import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.ui.base.BaseActivity;
 import com.mindorks.framework.mvp.ui.login.LoginActivity;
 import com.mindorks.framework.mvp.ui.main.MainActivity;
+import com.mindorks.framework.mvp.ui.restaurant.user.UserRestaurantsActivity;
 
 import javax.inject.Inject;
 
@@ -68,6 +69,13 @@ public class SplashActivity extends BaseActivity implements SplashMvpView {
     @Override
     public void openMainActivity() {
         Intent intent = MainActivity.getStartIntent(SplashActivity.this);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void openUserRestaurantsActivity() {
+        Intent intent = UserRestaurantsActivity.getStartIntent(SplashActivity.this);
         startActivity(intent);
         finish();
     }

@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.restaurant.user.UserRestaurantsActivity"></activity>
+        <activity android:name=".ui.restaurant.user.UserRestaurantsActivity"
+            android:launchMode="singleTop"/>
         <!-- User Registration Activity -->
         <activity android:name=".ui.userRegistration.UserRegistrationActivity" />
 

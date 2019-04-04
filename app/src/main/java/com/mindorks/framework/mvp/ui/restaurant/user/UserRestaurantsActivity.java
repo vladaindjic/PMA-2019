@@ -3,6 +3,8 @@ package com.mindorks.framework.mvp.ui.restaurant.user;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -22,6 +24,14 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
     @Inject
     UserRestaurantsMvpPresenter<UserRestaurantsMvpView> mPresenter;
 
+    @Inject
+    UserRestaurantsPagerAdapter mPagerAdapter;
+
+    @BindView(R.id.users_restaurants_view_pager)
+    ViewPager mViewPager;
+
+    @BindView(R.id.user_restaurants_tabs)
+    TabLayout mTabLayout;
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -50,29 +60,39 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
     protected void setUp() {
 
         setSupportActionBar(mToolbar);
-//        mDrawerToggle = new ActionBarDrawerToggle(
-//                this,
-//                mDrawer,
-//                mToolbar,
-//                R.string.open_drawer,
-//                R.string.close_drawer) {
-//            @Override
-//            public void onDrawerOpened(View drawerView) {
-//                super.onDrawerOpened(drawerView);
-//                hideKeyboard();
-//            }
-//
-//            @Override
-//            public void onDrawerClosed(View drawerView) {
-//                super.onDrawerClosed(drawerView);
-//            }
-//        };
-//        mDrawer.addDrawerListener(mDrawerToggle);
-//        mDrawerToggle.syncState();
-//        setupNavMenu();
-//        mPresenter.onNavMenuCreated();
-//        setupCardContainerView();
-//        mPresenter.onViewInitialized();
+
+//        if (getSupportActionBar() != null) {
+//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//            getSupportActionBar().setDisplayShowHomeEnabled(true);
+//        }
+
+        mPagerAdapter.setCount(2);
+
+        mViewPager.setAdapter(mPagerAdapter);
+
+        mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.list)));
+        mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.grid)));
+
+        mViewPager.setOffscreenPageLimit(mTabLayout.getTabCount());
+
+        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
+
+        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                mViewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
 
     }
 

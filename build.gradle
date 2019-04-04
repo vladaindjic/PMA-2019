@@ -49,7 +49,11 @@ ext {
     buildToolsVersion = '28.0.3'
 
     // App dependencies
-    supportLibraryVersion = '26.1.0'
+    // FIXME vi3: zasto je ovo ikada pravilo problem kada je bilo 26.1.0
+    // javljala se greska
+    // Error : Program type already present: android.support.design.widget
+    // .CoordinatorLayout$Behavior
+    supportLibraryVersion = '27.1.0'
     gsonVersion = '2.8.0'
     calligraphyVersion = '2.2.0'
     glideVersion = '3.7.0'

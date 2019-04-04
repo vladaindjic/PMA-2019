@@ -106,4 +106,13 @@
     <string name="please_retry">Please Retry</string>
     <string name="retry">Retry</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+
+    <!--User Restaurant-->
+    <string name="list">List</string>
+    <string name="grid">Grid</string>
+
 </resources>

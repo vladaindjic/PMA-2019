@@ -84,7 +84,10 @@ public class SplashPresenter<V extends SplashMvpView> extends BasePresenter<V>
                 == DataManager.LoggedInMode.LOGGED_IN_MODE_LOGGED_OUT.getType()) {
             getMvpView().openLoginActivity();
         } else {
-            getMvpView().openMainActivity();
+//            getMvpView().openMainActivity();
+            getMvpView().openUserRestaurantsActivity();
         }
+
+        // TODO vi3: proveriti koji si user, pa onda dodaj
     }
 }
