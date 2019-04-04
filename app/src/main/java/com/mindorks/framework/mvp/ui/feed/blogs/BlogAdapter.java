@@ -140,8 +140,8 @@ public class BlogAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             if (blog.getCoverImgUrl() != null) {
                 Glide.with(itemView.getContext())
                         .load(blog.getCoverImgUrl())
-                        .asBitmap()
-                        .centerCrop()
+                        //.asBitmap()
+                        //.centerCrop()
                         .into(coverImageView);
             }
 

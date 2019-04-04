@@ -56,7 +56,7 @@ ext {
     supportLibraryVersion = '27.1.0'
     gsonVersion = '2.8.0'
     calligraphyVersion = '2.2.0'
-    glideVersion = '3.7.0'
+    glideVersion = '4.7.1'
 
     rx2FastAndroidNetworking = '1.0.1'
 

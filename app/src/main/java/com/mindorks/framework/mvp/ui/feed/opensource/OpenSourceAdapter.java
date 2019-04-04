@@ -132,8 +132,8 @@ public class OpenSourceAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             if (repo.getCoverImgUrl() != null) {
                 Glide.with(itemView.getContext())
                         .load(repo.getCoverImgUrl())
-                        .asBitmap()
-                        .centerCrop()
+//                        .asBitmap()
+//                        .centerCrop()
                         .into(coverImageView);
             }
 

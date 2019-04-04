@@ -53,7 +53,7 @@ public final class ApiEndPoint {
 
     // TODO: Mica provide mi restaurants list
     public static final String ENDPOINT_RESTAURANTS = BuildConfig.BASE_URL
-            + "/5926c34212000035026871cd";
+            + "/5ca5f7c93300008f532eaab3";
 
     private ApiEndPoint() {
         // This class is not publicly instantiable

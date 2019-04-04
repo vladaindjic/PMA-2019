@@ -114,8 +114,8 @@ public class RestaurantsListAdapter extends RecyclerView.Adapter<BaseViewHolder>
             if (restaurant.getImageUrl() != null) {
                 Glide.with(itemView.getContext())
                         .load(restaurant.getImageUrl())
-                        .asBitmap()
-                        .centerCrop()
+//                        .asBitmap()
+//                        .centerCrop()
                         .into(coverImageView);
             }
 
