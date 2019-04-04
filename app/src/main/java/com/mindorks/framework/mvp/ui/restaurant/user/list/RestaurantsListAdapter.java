@@ -12,7 +12,6 @@ import com.bumptech.glide.Glide;
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.ui.base.BaseViewHolder;
-import com.mindorks.framework.mvp.ui.feed.blogs.BlogAdapter;
 
 import java.util.List;
 

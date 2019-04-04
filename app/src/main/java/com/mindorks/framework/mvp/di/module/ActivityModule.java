@@ -17,6 +17,7 @@ package com.mindorks.framework.mvp.di.module;
 
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.mindorks.framework.mvp.data.network.model.BlogResponse;
@@ -195,6 +196,11 @@ public class ActivityModule {
     }
 
     @Provides
+    GridLayoutManager provideGridLayoutManager(AppCompatActivity activity) {
+        return new GridLayoutManager(activity, 2);
+    }
+
+    @Provides
     UserRestaurantsPagerAdapter provideUserRestaurantsPagerAdapter(AppCompatActivity activity) {
         return new UserRestaurantsPagerAdapter(activity.getSupportFragmentManager());
     }
@@ -211,8 +217,6 @@ public class ActivityModule {
         return presenter;
     }
 
-
-    // FIXME vi3: dodati da prima listu
     @Provides
     RestaurantsListAdapter provideRestaurantsListAdapter() {
         return new RestaurantsListAdapter(new ArrayList<RestaurantsResponse.Restaurant>());
@@ -222,6 +226,5 @@ public class ActivityModule {
     RestaurantsGridAdapter provideRestaurantsGridAdapter() {
         return new RestaurantsGridAdapter(new ArrayList<RestaurantsResponse.Restaurant>());
     }
-    
 
 }
