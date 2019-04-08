@@ -1,4 +1,4 @@
-package com.mindorks.framework.mvp.ui.restaurant.user.grid;
+package com.mindorks.framework.mvp.ui.user.restaurants.list;
 
 import com.androidnetworking.error.ANError;
 import com.mindorks.framework.mvp.data.DataManager;
@@ -6,39 +6,38 @@ import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.ui.base.BasePresenter;
 import com.mindorks.framework.mvp.utils.rx.SchedulerProvider;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.inject.Inject;
 
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
 
-public class RestaurantsGridPresenter<V extends RestaurantsGridMvpView> extends BasePresenter<V>
-        implements RestaurantsGridMvpPresenter<V> {
+public class RestaurantsListPresenter<V extends RestaurantsListMvpView> extends BasePresenter<V>
+        implements RestaurantsListMvpPresenter<V> {
 
     @Inject
-    public RestaurantsGridPresenter(DataManager dataManager,
+    public RestaurantsListPresenter(DataManager dataManager,
                                     SchedulerProvider schedulerProvider,
                                     CompositeDisposable compositeDisposable) {
         super(dataManager, schedulerProvider, compositeDisposable);
+
+
     }
 
     @Override
     public void onViewPrepared() {
-
         getMvpView().showLoading();
 
 
 //        List<RestaurantsResponse.Restaurant> restaurants = new ArrayList<>();
-//        restaurants.add(new RestaurantsResponse.Restaurant(1L, "Restoran 1", "https://s3.ap-south-1.amazonaws.com/mindorks/blogs/mindorks-blog-learn-kotlin%E2%80%8A%E2%80%94%E2%80%8Alateinit-vs-lazy.png"));
+//        restaurants.add(new RestaurantsResponse.Restaurant(1L, "Restoran " +
+//                "1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbasdakjs;dkas;ldka;sldka;lsdklkjlkjlkqqqqqqqqqqqqqqqqqqqqqqqqqqqvvvv",
+//                "https://s3.ap-south-1.amazonaws.com/mindorks/blogs/mindorks-blog-learn-kotlin%E2%80%8A%E2%80%94%E2%80%8Alateinit-vs-lazy.png"));
 //        restaurants.add(new RestaurantsResponse.Restaurant(1L, "Restoran 2", "https://s3.ap-south-1.amazonaws.com/mindorks/blogs/mindorks-blog-learn-kotlin%E2%80%8A%E2%80%94%E2%80%8Alateinit-vs-lazy.png"));
 //        restaurants.add(new RestaurantsResponse.Restaurant(1L, "Restoran 3", "https://s3.ap-south-1.amazonaws.com/mindorks/blogs/mindorks-blog-learn-kotlin%E2%80%8A%E2%80%94%E2%80%8Alateinit-vs-lazy.png"));
 //
 //        getMvpView().updateRestaurantsList(restaurants);
 //        getMvpView().hideLoading();
-
 
         getCompositeDisposable().add(getDataManager()
                 .getRestaurantsApiCall()
@@ -70,6 +69,5 @@ public class RestaurantsGridPresenter<V extends RestaurantsGridMvpView> extends 
                         }
                     }
                 }));
-
     }
 }

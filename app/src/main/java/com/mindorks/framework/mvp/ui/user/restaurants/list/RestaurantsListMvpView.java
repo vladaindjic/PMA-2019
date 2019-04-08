@@ -1,4 +1,4 @@
-package com.mindorks.framework.mvp.ui.restaurant.user.list;
+package com.mindorks.framework.mvp.ui.user.restaurants.list;
 
 import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.ui.base.MvpView;

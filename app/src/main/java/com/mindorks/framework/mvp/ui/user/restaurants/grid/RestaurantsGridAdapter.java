@@ -1,4 +1,4 @@
-package com.mindorks.framework.mvp.ui.restaurant.user.grid;
+package com.mindorks.framework.mvp.ui.user.restaurants.grid;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

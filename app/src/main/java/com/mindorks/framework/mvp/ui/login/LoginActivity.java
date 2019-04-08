@@ -24,7 +24,7 @@ import android.widget.EditText;
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.ui.base.BaseActivity;
 import com.mindorks.framework.mvp.ui.main.MainActivity;
-import com.mindorks.framework.mvp.ui.restaurant.user.UserRestaurantsActivity;
+import com.mindorks.framework.mvp.ui.user.restaurants.UserRestaurantsActivity;
 import com.mindorks.framework.mvp.ui.userRegistration.UserRegistrationActivity;
 
 import javax.inject.Inject;

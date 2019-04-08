@@ -1,4 +1,4 @@
-package com.mindorks.framework.mvp.ui.restaurant.user.grid;
+package com.mindorks.framework.mvp.ui.user.restaurants.grid;
 
 import com.mindorks.framework.mvp.ui.base.MvpPresenter;
 

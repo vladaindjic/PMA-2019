@@ -1,4 +1,4 @@
-package com.mindorks.framework.mvp.ui.restaurant.user;
+package com.mindorks.framework.mvp.ui.user.restaurants;
 
 import android.content.Context;
 import android.content.Intent;

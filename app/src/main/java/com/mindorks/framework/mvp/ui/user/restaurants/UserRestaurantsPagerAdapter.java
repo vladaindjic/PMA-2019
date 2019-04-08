@@ -1,11 +1,11 @@
-package com.mindorks.framework.mvp.ui.restaurant.user;
+package com.mindorks.framework.mvp.ui.user.restaurants;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.mindorks.framework.mvp.ui.restaurant.user.grid.RestaurantsGridFragment;
-import com.mindorks.framework.mvp.ui.restaurant.user.list.RestaurantsListFragment;
+import com.mindorks.framework.mvp.ui.user.restaurants.grid.RestaurantsGridFragment;
+import com.mindorks.framework.mvp.ui.user.restaurants.list.RestaurantsListFragment;
 
 public class UserRestaurantsPagerAdapter extends FragmentStatePagerAdapter {
 

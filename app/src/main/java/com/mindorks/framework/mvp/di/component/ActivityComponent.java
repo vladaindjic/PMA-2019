@@ -24,9 +24,9 @@ import com.mindorks.framework.mvp.ui.feed.opensource.OpenSourceFragment;
 import com.mindorks.framework.mvp.ui.login.LoginActivity;
 import com.mindorks.framework.mvp.ui.main.MainActivity;
 import com.mindorks.framework.mvp.ui.main.rating.RateUsDialog;
-import com.mindorks.framework.mvp.ui.restaurant.user.UserRestaurantsActivity;
-import com.mindorks.framework.mvp.ui.restaurant.user.grid.RestaurantsGridFragment;
-import com.mindorks.framework.mvp.ui.restaurant.user.list.RestaurantsListFragment;
+import com.mindorks.framework.mvp.ui.user.restaurants.UserRestaurantsActivity;
+import com.mindorks.framework.mvp.ui.user.restaurants.grid.RestaurantsGridFragment;
+import com.mindorks.framework.mvp.ui.user.restaurants.list.RestaurantsListFragment;
 import com.mindorks.framework.mvp.ui.splash.SplashActivity;
 import com.mindorks.framework.mvp.ui.userRegistration.UserRegistrationActivity;
 

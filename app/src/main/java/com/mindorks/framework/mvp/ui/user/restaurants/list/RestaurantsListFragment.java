@@ -1,4 +1,4 @@
-package com.mindorks.framework.mvp.ui.restaurant.user.list;
+package com.mindorks.framework.mvp.ui.user.restaurants.list;
 
 
 import android.os.Bundle;
