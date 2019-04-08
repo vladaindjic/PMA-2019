@@ -110,9 +110,14 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
-
-    <!--User Restaurant-->
+    <!--User Restaurants-->
     <string name="list">List</string>
     <string name="grid">Grid</string>
+
+
+    <!--User Restaurant-->
+    <string name="details">Details</string>
+    <string name="promotions">Promotions</string>
+
 
 </resources>

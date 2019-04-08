@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.ui.base.BaseViewHolder;
+import com.mindorks.framework.mvp.ui.user.restaurants.utils.UserRestaurantsCallback;
 
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class RestaurantsListAdapter extends RecyclerView.Adapter<BaseViewHolder>
     public static final int VIEW_TYPE_NORMAL = 1;
 
 
-    private Callback mCallback;
+    private UserRestaurantsCallback mCallback;
 
     private List<RestaurantsResponse.Restaurant> mRestaurantsResponseList;
 
@@ -33,15 +34,11 @@ public class RestaurantsListAdapter extends RecyclerView.Adapter<BaseViewHolder>
         this.mRestaurantsResponseList = mRestaurantsResponseList;
     }
 
-    public interface Callback {
-        void onRestaurantsEmptyViewRetryClick();
-    }
-
-    public Callback getmCallback() {
+    public UserRestaurantsCallback getmCallback() {
         return mCallback;
     }
 
-    public void setmCallback(Callback mCallback) {
+    public void setmCallback(UserRestaurantsCallback mCallback) {
         this.mCallback = mCallback;
     }
 
@@ -124,9 +121,12 @@ public class RestaurantsListAdapter extends RecyclerView.Adapter<BaseViewHolder>
             }
 
             /// TODO: open restaurant when click
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mCallback != null) {
+                        mCallback.openRestaurantDetailsActivity(restaurant);
+                    }
 //                    if (restaurant.getBlogUrl() != null) {
 //                        try {
 //                            Intent intent = new Intent();
@@ -138,8 +138,8 @@ public class RestaurantsListAdapter extends RecyclerView.Adapter<BaseViewHolder>
 //                            AppLogger.d("url error");
 //                        }
 //                    }
-//                }
-//            });
+                }
+            });
         }
     }
 

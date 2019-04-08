@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.ui.base.BaseViewHolder;
+import com.mindorks.framework.mvp.ui.user.restaurants.utils.UserRestaurantsCallback;
 
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class RestaurantsGridAdapter extends RecyclerView.Adapter<BaseViewHolder>
     public static final int VIEW_TYPE_EMPTY = 0;
     public static final int VIEW_TYPE_NORMAL = 1;
 
-    private Callback mCallback;
+    private UserRestaurantsCallback mCallback;
 
     private List<RestaurantsResponse.Restaurant> mRestaurantsResponseList;
 
@@ -32,16 +33,11 @@ public class RestaurantsGridAdapter extends RecyclerView.Adapter<BaseViewHolder>
         this.mRestaurantsResponseList = mRestaurantsResponseList;
     }
 
-
-    public interface Callback {
-        void onRestaurantsEmptyViewRetryClick();
-    }
-
-    public RestaurantsGridAdapter.Callback getmCallback() {
+    public UserRestaurantsCallback getmCallback() {
         return mCallback;
     }
 
-    public void setmCallback(RestaurantsGridAdapter.Callback mCallback) {
+    public void setmCallback(UserRestaurantsCallback mCallback) {
         this.mCallback = mCallback;
     }
 
@@ -124,9 +120,17 @@ public class RestaurantsGridAdapter extends RecyclerView.Adapter<BaseViewHolder>
             }
 
             /// TODO: open restaurant when click
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // FIXME: nisam siguran da li ovako treba, ali mislim da je najlakse
+                    // druga opcija je da zovem view od Fragmenta, a on dalje da redirektuje na
+                    // aktivnost
+
+                    if (mCallback != null) {
+                        mCallback.openRestaurantDetailsActivity(restaurant);
+                    }
+
 //                    if (restaurant.getBlogUrl() != null) {
 //                        try {
 //                            Intent intent = new Intent();
@@ -138,8 +142,8 @@ public class RestaurantsGridAdapter extends RecyclerView.Adapter<BaseViewHolder>
 //                            AppLogger.d("url error");
 //                        }
 //                    }
-//                }
-//            });
+                }
+            });
         }
     }
 

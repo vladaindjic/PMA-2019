@@ -49,6 +49,19 @@ import com.mindorks.framework.mvp.ui.main.MainPresenter;
 import com.mindorks.framework.mvp.ui.main.rating.RatingDialogMvpPresenter;
 import com.mindorks.framework.mvp.ui.main.rating.RatingDialogMvpView;
 import com.mindorks.framework.mvp.ui.main.rating.RatingDialogPresenter;
+import com.mindorks.framework.mvp.ui.splash.SplashMvpPresenter;
+import com.mindorks.framework.mvp.ui.splash.SplashMvpView;
+import com.mindorks.framework.mvp.ui.splash.SplashPresenter;
+import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantMvpPresenter;
+import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantMvpView;
+import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantPagerAdapter;
+import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantPresenter;
+import com.mindorks.framework.mvp.ui.user.restaurant.details.UserRestaurantDetailsMvpPresenter;
+import com.mindorks.framework.mvp.ui.user.restaurant.details.UserRestaurantDetailsMvpView;
+import com.mindorks.framework.mvp.ui.user.restaurant.details.UserRestaurantDetailsPresenter;
+import com.mindorks.framework.mvp.ui.user.restaurant.promotions.UserRestaurantPromotionsMvpPresenter;
+import com.mindorks.framework.mvp.ui.user.restaurant.promotions.UserRestaurantPromotionsMvpView;
+import com.mindorks.framework.mvp.ui.user.restaurant.promotions.UserRestaurantPromotionsPresenter;
 import com.mindorks.framework.mvp.ui.user.restaurants.UserRestaurantsMvpPresenter;
 import com.mindorks.framework.mvp.ui.user.restaurants.UserRestaurantsMvpView;
 import com.mindorks.framework.mvp.ui.user.restaurants.UserRestaurantsPagerAdapter;
@@ -61,9 +74,6 @@ import com.mindorks.framework.mvp.ui.user.restaurants.list.RestaurantsListAdapte
 import com.mindorks.framework.mvp.ui.user.restaurants.list.RestaurantsListMvpPresenter;
 import com.mindorks.framework.mvp.ui.user.restaurants.list.RestaurantsListMvpView;
 import com.mindorks.framework.mvp.ui.user.restaurants.list.RestaurantsListPresenter;
-import com.mindorks.framework.mvp.ui.splash.SplashMvpPresenter;
-import com.mindorks.framework.mvp.ui.splash.SplashMvpView;
-import com.mindorks.framework.mvp.ui.splash.SplashPresenter;
 import com.mindorks.framework.mvp.ui.userRegistration.UserRegistrationMvpPresenter;
 import com.mindorks.framework.mvp.ui.userRegistration.UserRegistrationMvpView;
 import com.mindorks.framework.mvp.ui.userRegistration.UserRegistrationPresenter;
@@ -226,5 +236,38 @@ public class ActivityModule {
     RestaurantsGridAdapter provideRestaurantsGridAdapter() {
         return new RestaurantsGridAdapter(new ArrayList<RestaurantsResponse.Restaurant>());
     }
+
+
+    // =================================== UserRestaurantActivity
+
+    @Provides
+    UserRestaurantPagerAdapter provideUserRestaurantPagerAdapter(AppCompatActivity activity) {
+        return new UserRestaurantPagerAdapter(activity.getSupportFragmentManager());
+    }
+
+    @Provides
+    @PerActivity
+    UserRestaurantMvpPresenter<UserRestaurantMvpView> provideUserRestaurantPresenter(
+            UserRestaurantPresenter<UserRestaurantMvpView> presenter) {
+        return presenter;
+    }
+
+    // =================================== UserRestaurantDetailsFragment
+    @Provides
+    UserRestaurantDetailsMvpPresenter<UserRestaurantDetailsMvpView> UserRestaurantDetailsPresenter(
+            UserRestaurantDetailsPresenter<UserRestaurantDetailsMvpView> presenter) {
+        return presenter;
+    }
+
+
+    // =================================== UserRestaurantPromotionsFragment
+    @Provides
+    UserRestaurantPromotionsMvpPresenter<UserRestaurantPromotionsMvpView> UserRestaurantPromotionsPresenter(
+            UserRestaurantPromotionsPresenter<UserRestaurantPromotionsMvpView> presenter) {
+        return presenter;
+    }
+
+
+
 
 }

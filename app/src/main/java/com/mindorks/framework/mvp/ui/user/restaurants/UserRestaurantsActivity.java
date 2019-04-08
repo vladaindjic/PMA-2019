@@ -12,7 +12,10 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.mindorks.framework.mvp.R;
+import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.ui.base.BaseActivity;
+import com.mindorks.framework.mvp.ui.login.LoginActivity;
+import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantActivity;
 
 import javax.inject.Inject;
 
@@ -27,7 +30,7 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
     @Inject
     UserRestaurantsPagerAdapter mPagerAdapter;
 
-    @BindView(R.id.users_restaurants_view_pager)
+    @BindView(R.id.user_restaurants_view_pager)
     ViewPager mViewPager;
 
     @BindView(R.id.user_restaurants_tabs)
@@ -136,4 +139,12 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
     }
 
 
+    @Override
+    public void openRestaurantDetailsActivity(RestaurantsResponse.Restaurant restaurant) {
+        // take care about plural
+        Intent intent = UserRestaurantActivity.getStartIntent(UserRestaurantsActivity.this);
+        startActivity(intent);
+        finish();
+
+    }
 }
