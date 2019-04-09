@@ -20,6 +20,7 @@ import com.mindorks.framework.mvp.data.network.model.LoginRequest;
 import com.mindorks.framework.mvp.data.network.model.LoginResponse;
 import com.mindorks.framework.mvp.data.network.model.LogoutResponse;
 import com.mindorks.framework.mvp.data.network.model.OpenSourceResponse;
+import com.mindorks.framework.mvp.data.network.model.RestaurantDetailsResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.data.network.model.UserRegistrationRequest;
 import com.mindorks.framework.mvp.data.network.model.UserRegistrationResponse;
@@ -114,12 +115,22 @@ public class AppApiHelper implements ApiHelper {
 
     @Override
     public Single<RestaurantsResponse> getRestaurantsApiCall() {
-        // TODO vi3: dodati parametre za filterisanje
+        // TODO vi3: dodati parametre za filterisanje, treba ubaciti i id korisnika koji salje
+        // zahtev; to mozda moze i na serveru preko tokena da se gleda
         // i ustedu saobracaja
         return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_RESTAURANTS)
                 .addHeaders(mApiHeader.getProtectedApiHeader())
                 .build()
                 .getObjectSingle(RestaurantsResponse.class);
+    }
+
+    @Override
+    public Single<RestaurantDetailsResponse> getRestaurantDetailsApiCall(Long restaurantId) {
+        //
+        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_RESTAURANT_DETAILS)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .build()
+                .getObjectSingle(RestaurantDetailsResponse.class);
     }
 }
 

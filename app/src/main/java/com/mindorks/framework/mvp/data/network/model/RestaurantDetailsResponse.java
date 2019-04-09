@@ -3,6 +3,8 @@ package com.mindorks.framework.mvp.data.network.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class RestaurantDetailsResponse {
 
     @Expose
@@ -16,6 +18,30 @@ public class RestaurantDetailsResponse {
     @Expose
     @SerializedName("data")
     private RestaurantDetails data;
+
+    public int getHttpStatusCode() {
+        return httpStatusCode;
+    }
+
+    public void setHttpStatusCode(int httpStatusCode) {
+        this.httpStatusCode = httpStatusCode;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public RestaurantDetails getData() {
+        return data;
+    }
+
+    public void setData(RestaurantDetails data) {
+        this.data = data;
+    }
 
     public static class RestaurantDetails {
         @Expose
@@ -49,10 +75,15 @@ public class RestaurantDetailsResponse {
         @SerializedName("email")
         private String email;
 
+        @Expose
+        @SerializedName("kitchens")
+        private List<Kitchen> kitchens;
+
+
         public RestaurantDetails() {
         }
 
-        public RestaurantDetails(Long id, String name, String imageUrl, String address, boolean delivery, String workTime, String phone, String email) {
+        public RestaurantDetails(Long id, String name, String imageUrl, String address, boolean delivery, String workTime, String phone, String email, List<Kitchen> kitchens) {
             this.id = id;
             this.name = name;
             this.imageUrl = imageUrl;
@@ -61,6 +92,7 @@ public class RestaurantDetailsResponse {
             this.workTime = workTime;
             this.phone = phone;
             this.email = email;
+            this.kitchens = kitchens;
         }
 
         public Long getId() {
@@ -125,6 +157,14 @@ public class RestaurantDetailsResponse {
 
         public void setEmail(String email) {
             this.email = email;
+        }
+
+        public List<Kitchen> getKitchens() {
+            return kitchens;
+        }
+
+        public void setKitchens(List<Kitchen> kitchens) {
+            this.kitchens = kitchens;
         }
     }
 

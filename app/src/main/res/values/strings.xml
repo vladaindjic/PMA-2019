@@ -120,4 +120,10 @@
     <string name="promotions">Promotions</string>
 
 
+    <string name="delivery">Delivery:</string>
+    <string name="phone">Phone:</string>
+    <string name="work_time">Work Time:</string>
+    <string name="email_restaurant">E-mail:</string>
+    <string name="how_to_find_us">How To Find Us</string>
+
 </resources>
