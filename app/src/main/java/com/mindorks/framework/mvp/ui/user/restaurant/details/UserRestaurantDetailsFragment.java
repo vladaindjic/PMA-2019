@@ -6,6 +6,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.RestaurantDetailsResponse;
@@ -14,6 +19,7 @@ import com.mindorks.framework.mvp.ui.base.BaseFragment;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -26,6 +32,34 @@ public class UserRestaurantDetailsFragment extends BaseFragment implements
 
     @Inject
     UserRestaurantDetailsMvpPresenter<UserRestaurantDetailsMvpView> mPresenter;
+
+
+    @BindView(R.id.user_restaurant_details_img)
+    ImageView imageView;
+
+    @BindView(R.id.user_restaurant_details_name)
+    TextView txtViewName;
+
+    @BindView(R.id.user_restaurant_details_address)
+    TextView txtViewAddress;
+
+    @BindView(R.id.user_restaurant_details_star_button)
+    CheckBox checkBoxStar;
+
+    @BindView(R.id.user_restaurant_details_checkbox_delivery_values)
+    CheckBox checkBoxDelivery;
+
+    @BindView(R.id.user_restaurant_details_txt_phone_values)
+    TextView txtViewPhone;
+
+    @BindView(R.id.user_restaurant_details_txt_work_time_values)
+    TextView txtViewWorkTime;
+
+    @BindView(R.id.user_restaurant_details_txt_email_values)
+    TextView txtViewEmail;
+
+    @BindView(R.id.btn_how_to_find_us)
+    Button btnHowToFindUs;
 
     private RestaurantDetailsResponse.RestaurantDetails restaurantDetails;
 
@@ -66,7 +100,42 @@ public class UserRestaurantDetailsFragment extends BaseFragment implements
     }
 
     @Override
-    public void updateRestaurantDetails(RestaurantDetailsResponse.RestaurantDetails restaurantDetails) {
+    public void updateRestaurantDetails(final RestaurantDetailsResponse.RestaurantDetails restaurantDetails) {
         this.restaurantDetails = restaurantDetails;
+
+        // azuriranje polja koja se prikazuje
+        txtViewName.setText(restaurantDetails.getName());
+        txtViewAddress.setText(restaurantDetails.getAddress());
+
+        checkBoxDelivery.setChecked(restaurantDetails.isDelivery());
+        txtViewPhone.setText(restaurantDetails.getPhone());
+        txtViewPhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO vi3: intent koji ce otvoriti pozivanje broja
+                Toast.makeText(getContext(),
+                        "Treba pozvati broj: " + restaurantDetails.getPhone(),
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        txtViewWorkTime.setText(restaurantDetails.getWorkTime());
+        txtViewEmail.setText(restaurantDetails.getEmail());
+
+        btnHowToFindUs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO vi3: integracija sa Google mapama
+                Toast.makeText(getContext(),
+                        "Samo jako do lokacije: " + restaurantDetails.getAddress(),
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // TODO vi3: postaviti stanje zvezde na osnovu dobijenih podataka
+        // verovatno ce nam trebati poseban poziv koji ce porveriti da li je restoran
+        // u favourites-ima
+        checkBoxStar.setChecked(true);
+        // TODO vi3: prikazati kuhinju
     }
 }
