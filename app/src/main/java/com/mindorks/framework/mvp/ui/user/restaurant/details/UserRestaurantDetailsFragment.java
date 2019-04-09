@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -136,6 +137,17 @@ public class UserRestaurantDetailsFragment extends BaseFragment implements
         // verovatno ce nam trebati poseban poziv koji ce porveriti da li je restoran
         // u favourites-ima
         checkBoxStar.setChecked(true);
+        checkBoxStar.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // TODO vi3: poslati zahtev o promeni stanja
+                String ispis = isChecked ? " prijavio na restoran " : " odjavio sa restorana ";
+                Toast.makeText(getContext(),
+                        "Korisnik se " + ispis + restaurantDetails.getId(),
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+
         // TODO vi3: prikazati kuhinju
     }
 }
