@@ -119,5 +119,9 @@
     <string name="details">Details</string>
     <string name="promotions">Promotions</string>
 
-
+    
+    <!--Milan dodao-->
+    <!--Promotion details-->
+    <string name="price">Price</string>
+    <string name="duration">Duration</string>
 </resources>

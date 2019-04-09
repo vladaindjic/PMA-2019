@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.ui.base.BaseActivity;
@@ -11,6 +12,7 @@ import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantActivity;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class PromotionDetailsActivity extends BaseActivity implements PromotionDetailsMvpView {
@@ -18,6 +20,9 @@ public class PromotionDetailsActivity extends BaseActivity implements PromotionD
     @Inject
     PromotionDetailsMvpPresenter<PromotionDetailsMvpView> mPresenter;
 
+
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +41,7 @@ public class PromotionDetailsActivity extends BaseActivity implements PromotionD
     @Override
     protected void setUp() {
 
-
-
+        setSupportActionBar(mToolbar);
     }
 
     public static Intent getStartIntent(Context context) {
