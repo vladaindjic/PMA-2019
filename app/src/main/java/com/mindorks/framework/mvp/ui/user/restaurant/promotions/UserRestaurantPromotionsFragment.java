@@ -9,11 +9,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.RestaurantPromotionsResponse;
 import com.mindorks.framework.mvp.di.component.ActivityComponent;
 import com.mindorks.framework.mvp.ui.base.BaseFragment;
+import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantActivity;
+import com.mindorks.framework.mvp.ui.user.restaurants.UserRestaurantsActivity;
 
 import java.util.List;
 
@@ -92,5 +95,15 @@ public class UserRestaurantPromotionsFragment extends BaseFragment implements
     @Override
     public void onRestaurantsEmptyViewRetryClick() {
 
+    }
+
+    @Override
+    public void openPromotionDetailsActivity(RestaurantPromotionsResponse.Promotion promotion) {
+        UserRestaurantActivity userRestaurantActivity = (UserRestaurantActivity)getActivity();
+        if (userRestaurantActivity != null) {
+            userRestaurantActivity.openRestaurantDetailsActivity(promotion);
+        } else {
+            Toast.makeText(getContext(), "NASISES MI SE KARINE AKO SE DESIS", Toast.LENGTH_SHORT).show();
+        }
     }
 }

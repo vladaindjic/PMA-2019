@@ -8,7 +8,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 
 import com.mindorks.framework.mvp.R;
+import com.mindorks.framework.mvp.data.network.model.RestaurantPromotionsResponse;
 import com.mindorks.framework.mvp.ui.base.BaseActivity;
+import com.mindorks.framework.mvp.ui.user.restaurant.promotions.details.PromotionDetailsActivity;
 import com.mindorks.framework.mvp.ui.user.restaurants.UserRestaurantsActivity;
 
 import javax.inject.Inject;
@@ -89,5 +91,12 @@ public class UserRestaurantActivity extends BaseActivity implements UserRestaura
     public static Intent getStartIntent(Context context) {
         Intent intent = new Intent(context, UserRestaurantActivity.class);
         return intent;
+    }
+
+    @Override
+    public void openRestaurantDetailsActivity(RestaurantPromotionsResponse.Promotion promotion) {
+        Intent intent = PromotionDetailsActivity.getStartIntent(UserRestaurantActivity.this);
+        startActivity(intent);
+        finish();
     }
 }

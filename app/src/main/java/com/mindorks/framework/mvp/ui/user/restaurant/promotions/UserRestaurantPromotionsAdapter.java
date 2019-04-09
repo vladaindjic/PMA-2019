@@ -122,6 +122,15 @@ public class UserRestaurantPromotionsAdapter extends RecyclerView.Adapter<BaseVi
             if (promotion.getTitle() != null) {
                 titleTextView.setText(promotion.getTitle());
             }
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mCallback != null) {
+                        mCallback.openPromotionDetailsActivity(promotion);
+                    }
+                }
+            });
         }
     }
 

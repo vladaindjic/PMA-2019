@@ -27,6 +27,7 @@ import com.mindorks.framework.mvp.ui.main.rating.RateUsDialog;
 import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantActivity;
 import com.mindorks.framework.mvp.ui.user.restaurant.details.UserRestaurantDetailsFragment;
 import com.mindorks.framework.mvp.ui.user.restaurant.promotions.UserRestaurantPromotionsFragment;
+import com.mindorks.framework.mvp.ui.user.restaurant.promotions.details.PromotionDetailsActivity;
 import com.mindorks.framework.mvp.ui.user.restaurants.UserRestaurantsActivity;
 import com.mindorks.framework.mvp.ui.user.restaurants.grid.RestaurantsGridFragment;
 import com.mindorks.framework.mvp.ui.user.restaurants.list.RestaurantsListFragment;
@@ -73,5 +74,8 @@ public interface ActivityComponent {
 
     void inject(UserRestaurantPromotionsFragment fragment);
 
+
+    //Milan dodao
+    void inject(PromotionDetailsActivity activity);
 
 }
