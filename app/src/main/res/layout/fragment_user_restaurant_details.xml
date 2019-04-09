@@ -220,6 +220,32 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
 
+            <TextView
+                android:id="@+id/user_restaurant_details_txt_kitchens"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="64dp"
+                android:text="@string/kitchens"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/user_restaurant_details_txt_email"
+                android:textStyle="bold"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="32dp"
+                app:layout_constraintTop_toTopOf="@id/user_restaurant_details_txt_kitchens"
+                android:id="@+id/user_resturant_details_kitchens_recyclerview"
+                android:scrollbars="vertical"
+                />
+
+
         </android.support.constraint.ConstraintLayout>
 
     </LinearLayout>

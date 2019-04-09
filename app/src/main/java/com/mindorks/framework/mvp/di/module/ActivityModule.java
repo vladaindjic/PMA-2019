@@ -22,6 +22,7 @@ import android.support.v7.widget.LinearLayoutManager;
 
 import com.mindorks.framework.mvp.data.network.model.BlogResponse;
 import com.mindorks.framework.mvp.data.network.model.OpenSourceResponse;
+import com.mindorks.framework.mvp.data.network.model.RestaurantDetailsResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.di.ActivityContext;
 import com.mindorks.framework.mvp.di.PerActivity;
@@ -56,6 +57,7 @@ import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantMvpPresenter;
 import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantMvpView;
 import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantPagerAdapter;
 import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantPresenter;
+import com.mindorks.framework.mvp.ui.user.restaurant.details.UserRestaurantDetailsKitchensAdapter;
 import com.mindorks.framework.mvp.ui.user.restaurant.details.UserRestaurantDetailsMvpPresenter;
 import com.mindorks.framework.mvp.ui.user.restaurant.details.UserRestaurantDetailsMvpView;
 import com.mindorks.framework.mvp.ui.user.restaurant.details.UserRestaurantDetailsPresenter;
@@ -267,7 +269,10 @@ public class ActivityModule {
         return presenter;
     }
 
-
-
+    // =================================== UserRestaurantDetailsKitchensAdapter
+    @Provides
+    UserRestaurantDetailsKitchensAdapter provideUserRestaurantDetailsKitchensAdapter() {
+        return new UserRestaurantDetailsKitchensAdapter(new ArrayList<RestaurantDetailsResponse.Kitchen>());
+    }
 
 }

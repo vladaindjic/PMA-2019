@@ -6,6 +6,9 @@ import com.mindorks.framework.mvp.data.network.model.RestaurantDetailsResponse;
 import com.mindorks.framework.mvp.ui.base.BasePresenter;
 import com.mindorks.framework.mvp.utils.rx.SchedulerProvider;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import io.reactivex.annotations.NonNull;
@@ -37,6 +40,13 @@ public class UserRestaurantDetailsPresenter<V extends UserRestaurantDetailsMvpVi
                     public void accept(@NonNull RestaurantDetailsResponse response)
                             throws Exception {
                         if (response != null && response.getData() != null) {
+                            // TODO vi3: ovo je samo za tesiranje
+                            List<RestaurantDetailsResponse.Kitchen> kitchenList = new ArrayList<>();
+                            kitchenList.add(new RestaurantDetailsResponse.Kitchen(1L, "Kineska"));
+                            kitchenList.add(new RestaurantDetailsResponse.Kitchen(2L,
+                                    "Italijanska"));
+                            kitchenList.add(new RestaurantDetailsResponse.Kitchen(3L, "Srpska"));
+                            response.getData().setKitchens(kitchenList);
                             getMvpView().updateRestaurantDetails(response.getData());
                         }
                         getMvpView().hideLoading();

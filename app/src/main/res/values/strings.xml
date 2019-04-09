@@ -126,4 +126,7 @@
     <string name="email_restaurant">E-mail:</string>
     <string name="how_to_find_us">How To Find Us</string>
 
+    <string name="kitchens">Kitchens:</string>
+    <string name="bullet">•</string>
+
 </resources>

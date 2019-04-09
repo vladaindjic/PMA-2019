@@ -3,6 +3,9 @@ package com.mindorks.framework.mvp.ui.user.restaurant.details;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +20,7 @@ import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.RestaurantDetailsResponse;
 import com.mindorks.framework.mvp.di.component.ActivityComponent;
 import com.mindorks.framework.mvp.ui.base.BaseFragment;
+import com.mindorks.framework.mvp.ui.user.restaurants.list.RestaurantsListAdapter;
 
 import javax.inject.Inject;
 
@@ -62,6 +66,17 @@ public class UserRestaurantDetailsFragment extends BaseFragment implements
     @BindView(R.id.btn_how_to_find_us)
     Button btnHowToFindUs;
 
+    // Kitchen
+    @Inject
+    UserRestaurantDetailsKitchensAdapter mKitchensAdapter;
+
+    @Inject
+    LinearLayoutManager mLayoutManager;
+
+    @BindView(R.id.user_resturant_details_kitchens_recyclerview)
+    RecyclerView mRecyclerView;
+
+
     private RestaurantDetailsResponse.RestaurantDetails restaurantDetails;
 
     public static UserRestaurantDetailsFragment newInstance() {
@@ -88,7 +103,7 @@ public class UserRestaurantDetailsFragment extends BaseFragment implements
             component.inject(this);
             setUnBinder(ButterKnife.bind(this, view));
             mPresenter.onAttach(this);
-            // mRestaurantsListAdapter.setmCallback(this);
+            // mKitchensAdapter.setmCallback(this);
         }
         return view;
     }
@@ -97,6 +112,12 @@ public class UserRestaurantDetailsFragment extends BaseFragment implements
     protected void setUp(View view) {
         Bundle bundle = getArguments();
         Long restaurantId = bundle.getLong("restaurantId");
+
+        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView.setAdapter(mKitchensAdapter);
+
         mPresenter.onViewPrepared(restaurantId);
     }
 
@@ -149,5 +170,14 @@ public class UserRestaurantDetailsFragment extends BaseFragment implements
         });
 
         // TODO vi3: prikazati kuhinju
+        if (restaurantDetails.getKitchens() != null) {
+            mKitchensAdapter.addItems(restaurantDetails.getKitchens());
+        } else {
+            Toast.makeText(getContext(),
+                    "Nema kuhinja za ovaj restoran",
+                    Toast.LENGTH_SHORT).show();
+        }
+
+
     }
 }
