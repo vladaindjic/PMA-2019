@@ -20,6 +20,8 @@ import com.mindorks.framework.mvp.data.network.model.LoginRequest;
 import com.mindorks.framework.mvp.data.network.model.LoginResponse;
 import com.mindorks.framework.mvp.data.network.model.LogoutResponse;
 import com.mindorks.framework.mvp.data.network.model.OpenSourceResponse;
+import com.mindorks.framework.mvp.data.network.model.PromotionDetailsResponse;
+import com.mindorks.framework.mvp.data.network.model.RestaurantDetailsResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantPromotionsResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.data.network.model.UserRegistrationRequest;
@@ -130,6 +132,15 @@ public class AppApiHelper implements ApiHelper {
                 .addHeaders(mApiHeader.getProtectedApiHeader())
                 .build()
                 .getObjectSingle(RestaurantPromotionsResponse.class);
+    }
+
+    @Override
+    public Single<PromotionDetailsResponse> getPromotionDetails() {
+        //TODO milan: dodati id resorana cije promocije dobavljamo
+        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_PROMOTION_DETAILS)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .build()
+                .getObjectSingle(PromotionDetailsResponse.class);
     }
 
 

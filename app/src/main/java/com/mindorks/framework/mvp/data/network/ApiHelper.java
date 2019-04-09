@@ -20,6 +20,7 @@ import com.mindorks.framework.mvp.data.network.model.LoginRequest;
 import com.mindorks.framework.mvp.data.network.model.LoginResponse;
 import com.mindorks.framework.mvp.data.network.model.LogoutResponse;
 import com.mindorks.framework.mvp.data.network.model.OpenSourceResponse;
+import com.mindorks.framework.mvp.data.network.model.PromotionDetailsResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantPromotionsResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.data.network.model.UserRegistrationRequest;
@@ -54,5 +55,8 @@ public interface ApiHelper {
 
     //TODO Milan: Dodati id restorana
     Single<RestaurantPromotionsResponse> getRestaurantPromotions();
+
+    //TODO Milan: Dodati id promocije
+    Single<PromotionDetailsResponse> getPromotionDetails();
 
 }
