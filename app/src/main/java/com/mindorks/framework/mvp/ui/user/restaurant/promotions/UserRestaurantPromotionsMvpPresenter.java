@@ -5,4 +5,6 @@ import com.mindorks.framework.mvp.ui.user.restaurant.details.UserRestaurantDetai
 
 public interface UserRestaurantPromotionsMvpPresenter<V extends UserRestaurantPromotionsMvpView>
         extends MvpPresenter<V> {
+    public void onViewPrepared();
+
 }
