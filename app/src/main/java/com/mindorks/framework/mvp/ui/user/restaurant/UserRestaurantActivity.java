@@ -59,11 +59,13 @@ public class UserRestaurantActivity extends BaseActivity implements UserRestaura
 //            getSupportActionBar().setDisplayShowHomeEnabled(true);
 //        }
 
-        mPagerAdapter.setCount(2);
+        mPagerAdapter.setCount(3);
 
         mViewPager.setAdapter(mPagerAdapter);
 
         mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.details)));
+        //Dodan tab sa utiscima
+        mTabLayout.addTab(mTabLayout.newTab().setText(R.string.rating));
         mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.promotions)));
 
         mViewPager.setOffscreenPageLimit(mTabLayout.getTabCount());

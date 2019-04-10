@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.mindorks.framework.mvp.ui.user.restaurant.details.UserRestaurantDetailsFragment;
 import com.mindorks.framework.mvp.ui.user.restaurant.promotions.UserRestaurantPromotionsFragment;
+import com.mindorks.framework.mvp.ui.user.restaurant.ratings.UserRestaurantRatingFragment;
 
 public class UserRestaurantPagerAdapter extends FragmentStatePagerAdapter {
 
@@ -23,6 +24,8 @@ public class UserRestaurantPagerAdapter extends FragmentStatePagerAdapter {
             case 0:
                 return UserRestaurantDetailsFragment.newInstance();
             case 1:
+                return UserRestaurantRatingFragment.newInstance();
+            case 2:
                 return UserRestaurantPromotionsFragment.newInstance();
             default:
                 return null;

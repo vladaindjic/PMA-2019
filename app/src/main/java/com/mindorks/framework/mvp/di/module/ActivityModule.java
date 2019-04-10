@@ -69,6 +69,9 @@ import com.mindorks.framework.mvp.ui.user.restaurant.promotions.UserRestaurantPr
 import com.mindorks.framework.mvp.ui.user.restaurant.promotions.details.PromotionDetailsMvpPresenter;
 import com.mindorks.framework.mvp.ui.user.restaurant.promotions.details.PromotionDetailsMvpView;
 import com.mindorks.framework.mvp.ui.user.restaurant.promotions.details.PromotionDetailsPresenter;
+import com.mindorks.framework.mvp.ui.user.restaurant.ratings.UserRestaurantRatingMvpPresenter;
+import com.mindorks.framework.mvp.ui.user.restaurant.ratings.UserRestaurantRatingMvpView;
+import com.mindorks.framework.mvp.ui.user.restaurant.ratings.UserRestaurantRatingPresenter;
 import com.mindorks.framework.mvp.ui.user.restaurants.UserRestaurantsMvpPresenter;
 import com.mindorks.framework.mvp.ui.user.restaurants.UserRestaurantsMvpView;
 import com.mindorks.framework.mvp.ui.user.restaurants.UserRestaurantsPagerAdapter;
@@ -294,4 +297,14 @@ public class ActivityModule {
             PromotionDetailsPresenter<PromotionDetailsMvpView> presenter) {
         return presenter;
     }
+
+
+    //Milan Dodao
+    //Rating Presenter
+    @Provides
+    UserRestaurantRatingMvpPresenter<UserRestaurantRatingMvpView> UserRestaurantRatingPresenter(
+            UserRestaurantRatingPresenter<UserRestaurantRatingMvpView> presenter) {
+        return presenter;
+    }
+
 }
