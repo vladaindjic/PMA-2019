@@ -11,7 +11,6 @@ import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.RestaurantPromotionsResponse;
 import com.mindorks.framework.mvp.ui.base.BaseActivity;
 import com.mindorks.framework.mvp.ui.user.restaurant.promotions.details.PromotionDetailsActivity;
-import com.mindorks.framework.mvp.ui.user.restaurants.UserRestaurantsActivity;
 
 import javax.inject.Inject;
 
@@ -35,6 +34,10 @@ public class UserRestaurantActivity extends BaseActivity implements UserRestaura
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
 
+    public static Intent getStartIntent(Context context) {
+        Intent intent = new Intent(context, UserRestaurantActivity.class);
+        return intent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,13 +62,14 @@ public class UserRestaurantActivity extends BaseActivity implements UserRestaura
 //            getSupportActionBar().setDisplayShowHomeEnabled(true);
 //        }
 
-        mPagerAdapter.setCount(3);
+        mPagerAdapter.setCount(5);
 
         mViewPager.setAdapter(mPagerAdapter);
 
         mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.details)));
-        //Dodan tab sa utiscima
-        mTabLayout.addTab(mTabLayout.newTab().setText(R.string.rating));
+        mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.rating)));
+        mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.restaurant_menu)));
+        mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.daily_menu)));
         mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.promotions)));
 
         mViewPager.setOffscreenPageLimit(mTabLayout.getTabCount());
@@ -88,11 +92,6 @@ public class UserRestaurantActivity extends BaseActivity implements UserRestaura
 
             }
         });
-    }
-
-    public static Intent getStartIntent(Context context) {
-        Intent intent = new Intent(context, UserRestaurantActivity.class);
-        return intent;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.mindorks.framework.mvp.ui.user.restaurant.ratings;
+package com.mindorks.framework.mvp.ui.user.restaurant.dailyMenu;
 
 
 import android.os.Bundle;
@@ -18,21 +18,21 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class UserRestaurantRatingFragment extends BaseFragment implements UserRestaurantRatingMvpView {
+public class UserRestaurantDailyMenuFragment extends BaseFragment implements UserRestaurantDailyMenuMvpView {
 
-    private static final String TAG = "UserRestaurantRatingFragment";
+    private static final String TAG = "UserRestaurantDailyMenuFragment";
+
 
     @Inject
-    UserRestaurantRatingMvpPresenter<UserRestaurantRatingMvpView> mPresenter;
+    UserRestaurantDailyMenuMvpPresenter<UserRestaurantDailyMenuMvpView> mPresenter;
 
-
-    public UserRestaurantRatingFragment() {
+    public UserRestaurantDailyMenuFragment() {
         // Required empty public constructor
     }
 
-    public static UserRestaurantRatingFragment newInstance() {
+    public static UserRestaurantDailyMenuFragment newInstance() {
         Bundle args = new Bundle();
-        UserRestaurantRatingFragment fragment = new UserRestaurantRatingFragment();
+        UserRestaurantDailyMenuFragment fragment = new UserRestaurantDailyMenuFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -41,7 +41,7 @@ public class UserRestaurantRatingFragment extends BaseFragment implements UserRe
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_user_restaurant_rating, container, false);
+        View view = inflater.inflate(R.layout.fragment_user_restaurant_daily_menu, container, false);
         ActivityComponent component = getActivityComponent();
         if (component != null) {
             component.inject(this);
@@ -56,4 +56,5 @@ public class UserRestaurantRatingFragment extends BaseFragment implements UserRe
     protected void setUp(View view) {
 
     }
+
 }

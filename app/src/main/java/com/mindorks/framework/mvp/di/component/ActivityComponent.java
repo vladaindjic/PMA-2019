@@ -25,7 +25,9 @@ import com.mindorks.framework.mvp.ui.login.LoginActivity;
 import com.mindorks.framework.mvp.ui.main.MainActivity;
 import com.mindorks.framework.mvp.ui.main.rating.RateUsDialog;
 import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantActivity;
+import com.mindorks.framework.mvp.ui.user.restaurant.dailyMenu.UserRestaurantDailyMenuFragment;
 import com.mindorks.framework.mvp.ui.user.restaurant.details.UserRestaurantDetailsFragment;
+import com.mindorks.framework.mvp.ui.user.restaurant.menu.UserRestaurantMenuFragment;
 import com.mindorks.framework.mvp.ui.user.restaurant.promotions.UserRestaurantPromotionsFragment;
 import com.mindorks.framework.mvp.ui.user.restaurant.promotions.details.PromotionDetailsActivity;
 import com.mindorks.framework.mvp.ui.user.restaurant.ratings.UserRestaurantRatingFragment;
@@ -81,4 +83,7 @@ public interface ActivityComponent {
 
     void inject(UserRestaurantRatingFragment fragment);
 
+    void inject(UserRestaurantMenuFragment fragment);
+
+    void inject(UserRestaurantDailyMenuFragment fragment);
 }

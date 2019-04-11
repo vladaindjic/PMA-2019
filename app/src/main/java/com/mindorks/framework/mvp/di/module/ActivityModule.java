@@ -58,10 +58,16 @@ import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantMvpPresenter;
 import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantMvpView;
 import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantPagerAdapter;
 import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantPresenter;
+import com.mindorks.framework.mvp.ui.user.restaurant.dailyMenu.UserRestaurantDailyMenuMvpPresenter;
+import com.mindorks.framework.mvp.ui.user.restaurant.dailyMenu.UserRestaurantDailyMenuMvpView;
+import com.mindorks.framework.mvp.ui.user.restaurant.dailyMenu.UserRestaurantDailyMenuPresenter;
 import com.mindorks.framework.mvp.ui.user.restaurant.details.UserRestaurantDetailsKitchensAdapter;
 import com.mindorks.framework.mvp.ui.user.restaurant.details.UserRestaurantDetailsMvpPresenter;
 import com.mindorks.framework.mvp.ui.user.restaurant.details.UserRestaurantDetailsMvpView;
 import com.mindorks.framework.mvp.ui.user.restaurant.details.UserRestaurantDetailsPresenter;
+import com.mindorks.framework.mvp.ui.user.restaurant.menu.UserRestaurantMenuMvpPresenter;
+import com.mindorks.framework.mvp.ui.user.restaurant.menu.UserRestaurantMenuMvpView;
+import com.mindorks.framework.mvp.ui.user.restaurant.menu.UserRestaurantMenuPresenter;
 import com.mindorks.framework.mvp.ui.user.restaurant.promotions.UserRestaurantPromotionsAdapter;
 import com.mindorks.framework.mvp.ui.user.restaurant.promotions.UserRestaurantPromotionsMvpPresenter;
 import com.mindorks.framework.mvp.ui.user.restaurant.promotions.UserRestaurantPromotionsMvpView;
@@ -304,6 +310,18 @@ public class ActivityModule {
     @Provides
     UserRestaurantRatingMvpPresenter<UserRestaurantRatingMvpView> UserRestaurantRatingPresenter(
             UserRestaurantRatingPresenter<UserRestaurantRatingMvpView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    UserRestaurantMenuMvpPresenter<UserRestaurantMenuMvpView> UserRestaurantMenuPresenter(
+            UserRestaurantMenuPresenter<UserRestaurantMenuMvpView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    UserRestaurantDailyMenuMvpPresenter<UserRestaurantDailyMenuMvpView> UserRestaurantDailyMenuPresenter(
+            UserRestaurantDailyMenuPresenter<UserRestaurantDailyMenuMvpView> presenter) {
         return presenter;
     }
 
