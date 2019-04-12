@@ -1,4 +1,4 @@
-package com.mindorks.framework.mvp.ui.user.restaurant;
+package com.mindorks.framework.mvp.ui.user.dish;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,7 +12,6 @@ import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.MenuResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantPromotionsResponse;
 import com.mindorks.framework.mvp.ui.base.BaseActivity;
-import com.mindorks.framework.mvp.ui.user.dish.UserDishActivity;
 import com.mindorks.framework.mvp.ui.user.restaurant.menu.DishListAdapter;
 import com.mindorks.framework.mvp.ui.user.restaurant.menu.DishTypeListAdapter;
 import com.mindorks.framework.mvp.ui.user.restaurant.promotions.details.PromotionDetailsActivity;
@@ -22,39 +21,38 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class UserRestaurantActivity extends BaseActivity implements UserRestaurantMvpView,
-        DishTypeListAdapter.DishTypeItemListCallback, DishListAdapter.DishListItemCallback {
+public class UserDishActivity extends BaseActivity implements UserDishMvpView {
 
     @Inject
-    UserRestaurantMvpPresenter<UserRestaurantMvpView> mPresenter;
+    UserDishMvpPresenter<UserDishMvpView> mPresenter;
 
     @Inject
-    UserRestaurantPagerAdapter mPagerAdapter;
+    UserDishPagerAdapter mPagerAdapter;
 
-    @BindView(R.id.user_restaurant_view_pager)
+    @BindView(R.id.user_dish_view_pager)
     ViewPager mViewPager;
 
-    @BindView(R.id.user_restaurant_tabs)
+    @BindView(R.id.user_dish_tabs)
     TabLayout mTabLayout;
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
 
     public static Intent getStartIntent(Context context) {
-        Intent intent = new Intent(context, UserRestaurantActivity.class);
+        Intent intent = new Intent(context, UserDishActivity.class);
         return intent;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_restaurant);
+        setContentView(R.layout.activity_user_dish);
 
         getActivityComponent().inject(this);
 
         setUnBinder(ButterKnife.bind(this));
 
-        mPresenter.onAttach(UserRestaurantActivity.this);
+        mPresenter.onAttach(UserDishActivity.this);
 
         setUp();
     }
@@ -68,15 +66,12 @@ public class UserRestaurantActivity extends BaseActivity implements UserRestaura
 //            getSupportActionBar().setDisplayShowHomeEnabled(true);
 //        }
 
-        mPagerAdapter.setCount(5);
+        mPagerAdapter.setCount(2);
 
         mViewPager.setAdapter(mPagerAdapter);
 
         mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.details)));
         mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.rating)));
-        mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.restaurant_menu)));
-        mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.daily_menu)));
-        mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.promotions)));
 
         mViewPager.setOffscreenPageLimit(mTabLayout.getTabCount());
 
@@ -100,26 +95,5 @@ public class UserRestaurantActivity extends BaseActivity implements UserRestaura
         });
     }
 
-    // FIXME vi3 mica: treba li ovako da se zove???
-    @Override
-    public void openRestaurantDetailsActivity(RestaurantPromotionsResponse.Promotion promotion) {
-        Intent intent = PromotionDetailsActivity.getStartIntent(UserRestaurantActivity.this);
-        startActivity(intent);
-        finish();
-    }
 
-    // TODO vi3: Kako reagovati, ako je nesto empty
-    @Override
-    public void onsEmptyViewRetryButtonClick() {
-
-    }
-
-    @Override
-    public void openDishActivity(MenuResponse.Dish dish) {
-        Intent intent = UserDishActivity.getStartIntent(this);
-        Bundle bundle = new Bundle();
-        bundle.putLong("dishId", dish.getId());
-        startActivity(intent);
-        finish();
-    }
 }

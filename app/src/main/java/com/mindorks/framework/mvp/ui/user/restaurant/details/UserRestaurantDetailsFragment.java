@@ -16,11 +16,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.RestaurantDetailsResponse;
 import com.mindorks.framework.mvp.di.component.ActivityComponent;
 import com.mindorks.framework.mvp.ui.base.BaseFragment;
-import com.mindorks.framework.mvp.ui.user.restaurants.list.RestaurantsListAdapter;
 
 import javax.inject.Inject;
 
@@ -33,7 +33,7 @@ import butterknife.ButterKnife;
 public class UserRestaurantDetailsFragment extends BaseFragment implements
         UserRestaurantDetailsMvpView {
 
-    private static final String TAG = "UserRestaurantDetailsFragment";
+    private static final String TAG = "UserDishDetailsFragment";
 
     @Inject
     UserRestaurantDetailsMvpPresenter<UserRestaurantDetailsMvpView> mPresenter;
@@ -51,10 +51,10 @@ public class UserRestaurantDetailsFragment extends BaseFragment implements
     @BindView(R.id.user_restaurant_details_star_button)
     CheckBox checkBoxStar;
 
-    @BindView(R.id.user_restaurant_details_checkbox_delivery_values)
+    @BindView(R.id.user_dish_details_txt_description_values)
     CheckBox checkBoxDelivery;
 
-    @BindView(R.id.user_restaurant_details_txt_phone_values)
+    @BindView(R.id.user_dish_details_txt_price_values)
     TextView txtViewPhone;
 
     @BindView(R.id.user_restaurant_details_txt_work_time_values)
@@ -73,7 +73,7 @@ public class UserRestaurantDetailsFragment extends BaseFragment implements
     @Inject
     LinearLayoutManager mLayoutManager;
 
-    @BindView(R.id.user_resturant_details_kitchens_recyclerview)
+    @BindView(R.id.user_dish_details_nutritive_values_recyclerview)
     RecyclerView mRecyclerView;
 
 
@@ -173,11 +173,16 @@ public class UserRestaurantDetailsFragment extends BaseFragment implements
         if (restaurantDetails.getKitchens() != null) {
             mKitchensAdapter.addItems(restaurantDetails.getKitchens());
         } else {
+            // TODO vi3: ne bi bilo lose prikazati prazan prikaz kada kuhinja nema
             Toast.makeText(getContext(),
                     "Nema kuhinja za ovaj restoran",
                     Toast.LENGTH_SHORT).show();
         }
 
-
+        if (restaurantDetails.getImageUrl() != null) {
+            Glide.with(this)
+                    .load(restaurantDetails.getImageUrl())
+                    .into(imageView);
+        }
     }
 }

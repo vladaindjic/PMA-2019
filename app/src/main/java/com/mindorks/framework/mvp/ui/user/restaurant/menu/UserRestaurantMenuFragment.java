@@ -3,16 +3,23 @@ package com.mindorks.framework.mvp.ui.user.restaurant.menu;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.mindorks.framework.mvp.R;
+import com.mindorks.framework.mvp.data.network.model.MenuResponse;
 import com.mindorks.framework.mvp.di.component.ActivityComponent;
 import com.mindorks.framework.mvp.ui.base.BaseFragment;
+import com.mindorks.framework.mvp.ui.user.restaurants.list.RestaurantsListAdapter;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -24,6 +31,18 @@ public class UserRestaurantMenuFragment extends BaseFragment implements UserRest
 
     @Inject
     UserRestaurantMenuMvpPresenter<UserRestaurantMenuMvpView> mPresenter;
+
+    @Inject
+    DishTypeListAdapter mDishTypeListAdapter;
+
+    @Inject
+    LinearLayoutManager mLayoutManager;
+
+    @BindView(R.id.dish_type_list_recyclerview)
+    RecyclerView mRecyclerView;
+
+    @BindView(R.id.txt_menu_name)
+    TextView txtMenuName;
 
 
     public UserRestaurantMenuFragment() {
@@ -47,6 +66,7 @@ public class UserRestaurantMenuFragment extends BaseFragment implements UserRest
             component.inject(this);
             setUnBinder(ButterKnife.bind(this, view));
             mPresenter.onAttach(this);
+            // TODO: eventualno callback za RETRY dugme
             // mKitchensAdapter.setmCallback(this);
         }
         return view;
@@ -55,7 +75,22 @@ public class UserRestaurantMenuFragment extends BaseFragment implements UserRest
     @Override
     protected void setUp(View view) {
 
+        Bundle bundle = getArguments();
+        Long restaurantId = bundle.getLong("restaurantId");
+
+        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView.setAdapter(mDishTypeListAdapter);
+
+        mPresenter.onViewPrepared(restaurantId);
+
     }
 
+    @Override
+    public void updateMenu(MenuResponse.Menu menu) {
+        txtMenuName.setText(menu.getName());
+        mDishTypeListAdapter.addItems(menu.getDishTypeList());
 
+    }
 }

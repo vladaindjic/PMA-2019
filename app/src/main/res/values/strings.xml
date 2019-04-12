@@ -139,4 +139,11 @@
     <string name="kitchens">Kitchens:</string>
     <string name="bullet">•</string>
 
+    <string name="description">Description:</string>
+    <string name="price_colon">Price:</string>
+    <string name="nutritive_values">Nutritive Values:</string>
+    <string name="eat_me">Eat me</string>
+
+
+
 </resources>

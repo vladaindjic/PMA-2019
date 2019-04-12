@@ -1,4 +1,4 @@
-package com.mindorks.framework.mvp.ui.user.restaurant.ratings;
+package com.mindorks.framework.mvp.ui.user.dish.ratings;
 
 
 import android.os.Bundle;
@@ -18,21 +18,21 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class UserRestaurantRatingFragment extends BaseFragment implements UserRestaurantRatingMvpView {
+public class UserDishRatingFragment extends BaseFragment implements UserDishRatingMvpView {
 
     private static final String TAG = "UserDishRatingFragment";
 
     @Inject
-    UserRestaurantRatingMvpPresenter<UserRestaurantRatingMvpView> mPresenter;
+    UserDishRatingMvpPresenter<UserDishRatingMvpView> mPresenter;
 
 
-    public UserRestaurantRatingFragment() {
+    public UserDishRatingFragment() {
         // Required empty public constructor
     }
 
-    public static UserRestaurantRatingFragment newInstance() {
+    public static UserDishRatingFragment newInstance() {
         Bundle args = new Bundle();
-        UserRestaurantRatingFragment fragment = new UserRestaurantRatingFragment();
+        UserDishRatingFragment fragment = new UserDishRatingFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -41,7 +41,7 @@ public class UserRestaurantRatingFragment extends BaseFragment implements UserRe
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_user_restaurant_rating, container, false);
+        View view = inflater.inflate(R.layout.fragment_user_dish_rating, container, false);
         ActivityComponent component = getActivityComponent();
         if (component != null) {
             component.inject(this);

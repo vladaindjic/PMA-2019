@@ -93,11 +93,12 @@ public class RestaurantsListFragment extends BaseFragment implements
     }
 
     // FIXME vi3: sta koji kurac sa ovime da radim
+
+
     @Override
-    public void onRestaurantsEmptyViewRetryClick() {
+    public void onsEmptyViewRetryButtonClick() {
 
     }
-
 
     @Override
     public void openRestaurantDetailsActivity(RestaurantsResponse.Restaurant restaurant) {

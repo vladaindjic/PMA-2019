@@ -24,6 +24,9 @@ import com.mindorks.framework.mvp.ui.feed.opensource.OpenSourceFragment;
 import com.mindorks.framework.mvp.ui.login.LoginActivity;
 import com.mindorks.framework.mvp.ui.main.MainActivity;
 import com.mindorks.framework.mvp.ui.main.rating.RateUsDialog;
+import com.mindorks.framework.mvp.ui.user.dish.UserDishActivity;
+import com.mindorks.framework.mvp.ui.user.dish.details.UserDishDetailsFragment;
+import com.mindorks.framework.mvp.ui.user.dish.ratings.UserDishRatingFragment;
 import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantActivity;
 import com.mindorks.framework.mvp.ui.user.restaurant.dailyMenu.UserRestaurantDailyMenuFragment;
 import com.mindorks.framework.mvp.ui.user.restaurant.details.UserRestaurantDetailsFragment;
@@ -78,7 +81,7 @@ public interface ActivityComponent {
     void inject(UserRestaurantPromotionsFragment fragment);
 
 
-    //Milan dodao
+    //Milan dodao - to, majstore ;)
     void inject(PromotionDetailsActivity activity);
 
     void inject(UserRestaurantRatingFragment fragment);
@@ -86,4 +89,10 @@ public interface ActivityComponent {
     void inject(UserRestaurantMenuFragment fragment);
 
     void inject(UserRestaurantDailyMenuFragment fragment);
+
+    // vi3 Dish package
+    void inject(UserDishActivity activity);
+    void inject(UserDishDetailsFragment fragment);
+    void inject(UserDishRatingFragment fragment);
+
 }

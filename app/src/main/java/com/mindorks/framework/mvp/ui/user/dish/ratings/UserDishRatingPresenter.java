@@ -1,4 +1,4 @@
-package com.mindorks.framework.mvp.ui.user.restaurant;
+package com.mindorks.framework.mvp.ui.user.dish.ratings;
 
 import com.mindorks.framework.mvp.data.DataManager;
 import com.mindorks.framework.mvp.ui.base.BasePresenter;
@@ -8,15 +8,15 @@ import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
 
-public class UserRestaurantPresenter<V extends UserRestaurantMvpView> extends BasePresenter<V>
-        implements UserRestaurantMvpPresenter<V> {
-    private static final String TAG = "UserDishPresenter";
+public class UserDishRatingPresenter<V extends UserDishRatingMvpView> extends BasePresenter<V>
+        implements UserDishRatingMvpPresenter<V> {
+
+    private static final String TAG = "UserDishRatingPresenter";
 
     @Inject
-    public UserRestaurantPresenter(DataManager dataManager,
+    public UserDishRatingPresenter(DataManager dataManager,
                                    SchedulerProvider schedulerProvider,
                                    CompositeDisposable compositeDisposable) {
         super(dataManager, schedulerProvider, compositeDisposable);
     }
-
 }

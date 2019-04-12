@@ -111,7 +111,7 @@
 
             <!--Delivery-->
             <TextView
-                android:id="@+id/user_restaurant_details_txt_delivery"
+                android:id="@+id/user_dish_details_txt_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
@@ -123,13 +123,13 @@
                 android:textStyle="bold"/>
 
             <CheckBox
-                android:id="@+id/user_restaurant_details_checkbox_delivery_values"
+                android:id="@+id/user_dish_details_txt_description_values"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:textSize="20sp"
-                app:layout_constraintBaseline_toBaselineOf="@+id/user_restaurant_details_txt_delivery"
-                app:layout_constraintStart_toEndOf="@+id/user_restaurant_details_txt_delivery"
+                app:layout_constraintBaseline_toBaselineOf="@+id/user_dish_details_txt_description"
+                app:layout_constraintStart_toEndOf="@+id/user_dish_details_txt_description"
                 android:checked="true"
                 android:clickable="false"
                 />
@@ -137,7 +137,7 @@
 
             <!--Phone-->
             <TextView
-                android:id="@+id/user_restaurant_details_txt_phone"
+                android:id="@+id/user_dish_details_txt_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
@@ -145,18 +145,18 @@
                 android:text="@string/phone"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/user_restaurant_details_txt_delivery"
+                app:layout_constraintTop_toTopOf="@id/user_dish_details_txt_description"
                 android:textStyle="bold"/>
 
             <TextView
-                android:id="@+id/user_restaurant_details_txt_phone_values"
+                android:id="@+id/user_dish_details_txt_price_values"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:text="011/555-333"
                 android:textSize="20sp"
-                app:layout_constraintBaseline_toBaselineOf="@+id/user_restaurant_details_txt_phone"
-                app:layout_constraintStart_toEndOf="@+id/user_restaurant_details_txt_phone"
+                app:layout_constraintBaseline_toBaselineOf="@+id/user_dish_details_txt_price"
+                app:layout_constraintStart_toEndOf="@+id/user_dish_details_txt_price"
                 android:textStyle="bold"/>
 
 
@@ -170,7 +170,7 @@
                 android:text="@string/work_time"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/user_restaurant_details_txt_phone"
+                app:layout_constraintTop_toTopOf="@id/user_dish_details_txt_price"
                 android:textStyle="bold"/>
 
             <TextView
@@ -241,7 +241,7 @@
                 android:layout_marginEnd="32dp"
                 android:layout_marginBottom="32dp"
                 app:layout_constraintTop_toTopOf="@id/user_restaurant_details_txt_kitchens"
-                android:id="@+id/user_resturant_details_kitchens_recyclerview"
+                android:id="@+id/user_dish_details_nutritive_values_recyclerview"
                 android:scrollbars="vertical"
                 />
 

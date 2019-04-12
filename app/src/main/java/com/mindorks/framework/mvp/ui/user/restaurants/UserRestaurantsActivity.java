@@ -58,6 +58,7 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
 
         setUp();
     }
+
     // add toolbar
     @Override
     protected void setUp() {
@@ -105,7 +106,7 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
         getMenuInflater().inflate(R.menu.user_restaurants_menu, menu);
 
         final MenuItem searchItem = menu.findItem(R.id.action_restaurants_search);
-        final SearchView searchView = (SearchView)searchItem.getActionView();
+        final SearchView searchView = (SearchView) searchItem.getActionView();
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

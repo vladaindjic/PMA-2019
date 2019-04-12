@@ -1,27 +1,22 @@
-package com.mindorks.framework.mvp.ui.user.restaurant.details;
+package com.mindorks.framework.mvp.ui.user.dish.details;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.mindorks.framework.mvp.R;
-import com.mindorks.framework.mvp.data.network.model.RestaurantDetailsResponse;
-import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
+import com.mindorks.framework.mvp.data.network.model.DishDetailsResponse;
 import com.mindorks.framework.mvp.ui.base.BaseViewHolder;
-import com.mindorks.framework.mvp.ui.user.restaurants.utils.UserRestaurantsCallback;
 
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
-public class UserRestaurantDetailsKitchensAdapter extends RecyclerView.Adapter<BaseViewHolder> {
+public class UserDishDetailsNutritiveValuesAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public static final int VIEW_TYPE_EMPTY = 0;
     public static final int VIEW_TYPE_NORMAL = 1;
@@ -29,10 +24,10 @@ public class UserRestaurantDetailsKitchensAdapter extends RecyclerView.Adapter<B
 
 //    private UserRestaurantsCallback mCallback;
 
-    private List<RestaurantDetailsResponse.Kitchen> mKitchenList;
+    private List<DishDetailsResponse.NutritiveValue> mNutritiveValues;
 
-    public UserRestaurantDetailsKitchensAdapter(List<RestaurantDetailsResponse.Kitchen> mKitchenList) {
-        this.mKitchenList = mKitchenList;
+    public UserDishDetailsNutritiveValuesAdapter(List<DishDetailsResponse.NutritiveValue> mNutritiveValues) {
+        this.mNutritiveValues = mNutritiveValues;
     }
 
 //    public UserRestaurantsCallback getmCallback() {
@@ -43,8 +38,8 @@ public class UserRestaurantDetailsKitchensAdapter extends RecyclerView.Adapter<B
 //        this.mCallback = mCallback;
 //    }
 
-    public void addItems(List<RestaurantDetailsResponse.Kitchen> kitchenList) {
-        mKitchenList.addAll(kitchenList);
+    public void addItems(List<DishDetailsResponse.NutritiveValue> nutritiveValues) {
+        mNutritiveValues.addAll(nutritiveValues);
         notifyDataSetChanged();
     }
 
@@ -55,8 +50,8 @@ public class UserRestaurantDetailsKitchensAdapter extends RecyclerView.Adapter<B
 
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new UserRestaurantDetailsKitchensAdapter.ViewHolder(
-                LayoutInflater.from(parent.getContext()).inflate(R.layout.user_restaurant_details_kitchen_item_layout, parent,
+        return new UserDishDetailsNutritiveValuesAdapter.ViewHolder(
+                LayoutInflater.from(parent.getContext()).inflate(R.layout.user_dish_details_nutritive_value_item_layout, parent,
                         false));
 
 //        switch (viewType) {
@@ -73,7 +68,7 @@ public class UserRestaurantDetailsKitchensAdapter extends RecyclerView.Adapter<B
 
     @Override
     public int getItemViewType(int position) {
-        if (mKitchenList != null && mKitchenList.size() > 0) {
+        if (mNutritiveValues != null && mNutritiveValues.size() > 0) {
             return VIEW_TYPE_NORMAL;
         } else {
             return VIEW_TYPE_EMPTY;
@@ -82,8 +77,8 @@ public class UserRestaurantDetailsKitchensAdapter extends RecyclerView.Adapter<B
 
     @Override
     public int getItemCount() {
-        if (mKitchenList != null && mKitchenList.size() > 0) {
-            return mKitchenList.size();
+        if (mNutritiveValues != null && mNutritiveValues.size() > 0) {
+            return mNutritiveValues.size();
         } else {
             return 1;
         }
@@ -91,8 +86,16 @@ public class UserRestaurantDetailsKitchensAdapter extends RecyclerView.Adapter<B
 
     public class ViewHolder extends BaseViewHolder {
 
-        @BindView(R.id.user_restaurant_details_kitchen_item_txt)
-        TextView titleTextView;
+        @BindView(R.id.user_dish_details_nutritive_values_item_txt_name)
+        TextView txtViewName;
+
+        @BindView(R.id.user_dish_details_nutritive_values_item_txt_value)
+        TextView txtViewValue;
+
+        @BindView(R.id.user_dish_details_nutritive_values_item_txt_unit)
+        TextView txtViewUnit;
+
+
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -100,21 +103,32 @@ public class UserRestaurantDetailsKitchensAdapter extends RecyclerView.Adapter<B
         }
 
         protected void clear() {
-            titleTextView.setText("");
+            txtViewName.setText("");
+            txtViewValue.setText("");
+            txtViewUnit.setText("");
+
         }
 
         public void onBind(int position) {
             super.onBind(position);
 
-            if (mKitchenList == null || mKitchenList.size() <= 0) {
+            if (mNutritiveValues == null || mNutritiveValues.size() <= 0) {
                 return;
             }
 
-            final RestaurantDetailsResponse.Kitchen kitchen = mKitchenList.get(position);
+            final DishDetailsResponse.NutritiveValue nutritiveValue = mNutritiveValues.get(position);
 
 
-            if (kitchen.getName() != null) {
-                titleTextView.setText(kitchen.getName());
+            if (nutritiveValue.getName() != null) {
+                txtViewName.setText(nutritiveValue.getName());
+            }
+
+            if(nutritiveValue.getValue() != null) {
+                txtViewValue.setText(String.format(Locale.US,"%.2f", nutritiveValue.getValue()));
+            }
+
+            if (nutritiveValue.getUnit() != null) {
+                txtViewUnit.setText(nutritiveValue.getUnit());
             }
 
             /// TODO: open restaurant when click

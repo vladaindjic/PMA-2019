@@ -21,6 +21,8 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.mindorks.framework.mvp.data.network.model.BlogResponse;
+import com.mindorks.framework.mvp.data.network.model.DishDetailsResponse;
+import com.mindorks.framework.mvp.data.network.model.MenuResponse;
 import com.mindorks.framework.mvp.data.network.model.OpenSourceResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantPromotionsResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantDetailsResponse;
@@ -54,6 +56,17 @@ import com.mindorks.framework.mvp.ui.main.rating.RatingDialogPresenter;
 import com.mindorks.framework.mvp.ui.splash.SplashMvpPresenter;
 import com.mindorks.framework.mvp.ui.splash.SplashMvpView;
 import com.mindorks.framework.mvp.ui.splash.SplashPresenter;
+import com.mindorks.framework.mvp.ui.user.dish.UserDishMvpPresenter;
+import com.mindorks.framework.mvp.ui.user.dish.UserDishMvpView;
+import com.mindorks.framework.mvp.ui.user.dish.UserDishPagerAdapter;
+import com.mindorks.framework.mvp.ui.user.dish.UserDishPresenter;
+import com.mindorks.framework.mvp.ui.user.dish.details.UserDishDetailsMvpPresenter;
+import com.mindorks.framework.mvp.ui.user.dish.details.UserDishDetailsMvpView;
+import com.mindorks.framework.mvp.ui.user.dish.details.UserDishDetailsNutritiveValuesAdapter;
+import com.mindorks.framework.mvp.ui.user.dish.details.UserDishDetailsPresenter;
+import com.mindorks.framework.mvp.ui.user.dish.ratings.UserDishRatingMvpPresenter;
+import com.mindorks.framework.mvp.ui.user.dish.ratings.UserDishRatingMvpView;
+import com.mindorks.framework.mvp.ui.user.dish.ratings.UserDishRatingPresenter;
 import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantMvpPresenter;
 import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantMvpView;
 import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantPagerAdapter;
@@ -65,6 +78,8 @@ import com.mindorks.framework.mvp.ui.user.restaurant.details.UserRestaurantDetai
 import com.mindorks.framework.mvp.ui.user.restaurant.details.UserRestaurantDetailsMvpPresenter;
 import com.mindorks.framework.mvp.ui.user.restaurant.details.UserRestaurantDetailsMvpView;
 import com.mindorks.framework.mvp.ui.user.restaurant.details.UserRestaurantDetailsPresenter;
+import com.mindorks.framework.mvp.ui.user.restaurant.menu.DishListAdapter;
+import com.mindorks.framework.mvp.ui.user.restaurant.menu.DishTypeListAdapter;
 import com.mindorks.framework.mvp.ui.user.restaurant.menu.UserRestaurantMenuMvpPresenter;
 import com.mindorks.framework.mvp.ui.user.restaurant.menu.UserRestaurantMenuMvpView;
 import com.mindorks.framework.mvp.ui.user.restaurant.menu.UserRestaurantMenuPresenter;
@@ -254,7 +269,7 @@ public class ActivityModule {
     }
 
 
-    // =================================== UserRestaurantActivity
+    // =================================== UserDishActivity
 
     @Provides
     UserRestaurantPagerAdapter provideUserRestaurantPagerAdapter(AppCompatActivity activity) {
@@ -268,7 +283,7 @@ public class ActivityModule {
         return presenter;
     }
 
-    // =================================== UserRestaurantDetailsFragment
+    // =================================== UserDishDetailsFragment
     @Provides
     UserRestaurantDetailsMvpPresenter<UserRestaurantDetailsMvpView> UserRestaurantDetailsPresenter(
             UserRestaurantDetailsPresenter<UserRestaurantDetailsMvpView> presenter) {
@@ -287,11 +302,11 @@ public class ActivityModule {
     //Milan dodao
     //UserRestaurantPromotionsAdapter
     @Provides
-    UserRestaurantPromotionsAdapter  provideRestaurantPromotionsAdapter() {
+    UserRestaurantPromotionsAdapter provideRestaurantPromotionsAdapter() {
         return new UserRestaurantPromotionsAdapter(new ArrayList<RestaurantPromotionsResponse.Promotion>());
     }
 
-    // =================================== UserRestaurantDetailsKitchensAdapter
+    // =================================== UserDishDetailsKitchensAdapter
     @Provides
     UserRestaurantDetailsKitchensAdapter provideUserRestaurantDetailsKitchensAdapter() {
         return new UserRestaurantDetailsKitchensAdapter(new ArrayList<RestaurantDetailsResponse.Kitchen>());
@@ -305,7 +320,7 @@ public class ActivityModule {
     }
 
 
-    //Milan Dodao
+    //Milan Dodao - to, Mica, majstore ;)
     //Rating Presenter
     @Provides
     UserRestaurantRatingMvpPresenter<UserRestaurantRatingMvpView> UserRestaurantRatingPresenter(
@@ -325,4 +340,48 @@ public class ActivityModule {
         return presenter;
     }
 
+
+    // =================================== DishTypeListAdapter
+    @Provides
+    DishTypeListAdapter provideDishTypeListAdapter(AppCompatActivity activity) {
+        return new DishTypeListAdapter(new ArrayList<MenuResponse.DishType>(), activity);
+    }
+
+    // =================================== DishListAdapter
+    @Provides
+    DishListAdapter provideDishListAdapter() {
+        return new DishListAdapter(new ArrayList<MenuResponse.Dish>());
+    }
+    
+    // =================================== UserDishMvpPresenter
+    @Provides
+    @PerActivity
+    UserDishMvpPresenter<UserDishMvpView> provideUserDishPresenter(
+            UserDishPresenter<UserDishMvpView> presenter) {
+        return presenter;
+    }
+    // =================================== UserDishPagerAdapter
+    @Provides
+    UserDishPagerAdapter provideUserDishPagerAdapter(AppCompatActivity activity) {
+        return new UserDishPagerAdapter(activity.getSupportFragmentManager());
+    }
+    // =================================== UserDishRatingMvpPresenter
+    @Provides
+    UserDishRatingMvpPresenter<UserDishRatingMvpView> UserDishRatingPresenter(
+            UserDishRatingPresenter<UserDishRatingMvpView> presenter) {
+        return presenter;
+    }
+    
+    // =================================== UserDishDetailsMvpPresenter
+    @Provides
+    UserDishDetailsMvpPresenter<UserDishDetailsMvpView> UserDishDetailsPresenter(
+            UserDishDetailsPresenter<UserDishDetailsMvpView> presenter) {
+        return presenter;
+    }
+
+    // =================================== UserDishDetailsNutritiveValuesAdapter
+    @Provides
+    UserDishDetailsNutritiveValuesAdapter provideUserDishDetailsNutritiveValuesAdapter() {
+        return new UserDishDetailsNutritiveValuesAdapter(new ArrayList<DishDetailsResponse.NutritiveValue>());
+    }
 }
