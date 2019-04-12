@@ -80,7 +80,7 @@
     <string name="version">"version"</string>
 
     <!--rating dialog-->
-    <string name="rate_us">Rate Us</string>
+    <!--<string name="rate_us">Rate Us</string>-->
     <string name="rating_message">Please let us know, how can we improve ourselves?</string>
     <string name="rating_play_store_redirect_message_line_1">Awesome! Thank you for the 5 stars.</string>
     <string name="rating_play_store_redirect_message_line_2">Please help others, in knowing some good things about this app.</string>
@@ -138,5 +138,11 @@
 
     <string name="kitchens">Kitchens:</string>
     <string name="bullet">•</string>
+    
+    <string name="restaurant_rating">Rating:</string>
+    <string name="rate_us">Rate Us </string>
+    <string name="comment_us">Leave Your Comment Here</string>
+    <string name="leave_comment">Comment</string>
+    <string name="comments">Comments</string>
 
 </resources>

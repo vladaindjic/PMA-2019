@@ -75,6 +75,7 @@ import com.mindorks.framework.mvp.ui.user.restaurant.promotions.UserRestaurantPr
 import com.mindorks.framework.mvp.ui.user.restaurant.promotions.details.PromotionDetailsMvpPresenter;
 import com.mindorks.framework.mvp.ui.user.restaurant.promotions.details.PromotionDetailsMvpView;
 import com.mindorks.framework.mvp.ui.user.restaurant.promotions.details.PromotionDetailsPresenter;
+import com.mindorks.framework.mvp.ui.user.restaurant.ratings.UserRestaurantCommentAdapter;
 import com.mindorks.framework.mvp.ui.user.restaurant.ratings.UserRestaurantRatingMvpPresenter;
 import com.mindorks.framework.mvp.ui.user.restaurant.ratings.UserRestaurantRatingMvpView;
 import com.mindorks.framework.mvp.ui.user.restaurant.ratings.UserRestaurantRatingPresenter;
@@ -323,6 +324,11 @@ public class ActivityModule {
     UserRestaurantDailyMenuMvpPresenter<UserRestaurantDailyMenuMvpView> UserRestaurantDailyMenuPresenter(
             UserRestaurantDailyMenuPresenter<UserRestaurantDailyMenuMvpView> presenter) {
         return presenter;
+    }
+
+    @Provides
+    UserRestaurantCommentAdapter provideUserRestaurantCommentAdapter() {
+        return new UserRestaurantCommentAdapter(new ArrayList<String>());
     }
 
 }
