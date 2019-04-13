@@ -120,6 +120,7 @@ public class DishTypeListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         protected void clear() {
             txtDishTypeName.setText("");
+            mDishListAdapter.addItems(new ArrayList<MenuResponse.Dish>());
         }
 
         public void onBind(int position) {
@@ -145,11 +146,7 @@ public class DishTypeListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
 
             if (context instanceof UserRestaurantActivity) {
-                System.out.println("ALOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
                 mDishListAdapter.setmCallback((UserRestaurantActivity) context);
-            } else {
-                System.out.println("KURAAAAAAAAAAAAAAAAAAAAC " + context);
-
             }
 
 

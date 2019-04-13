@@ -1,59 +1,50 @@
-package com.mindorks.framework.mvp.ui.user.restaurant.menu;
+package com.mindorks.framework.mvp.ui.user.restaurant.dailyMenu;
 
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.mindorks.framework.mvp.R;
+import com.mindorks.framework.mvp.data.network.model.DailyMenuResponse;
 import com.mindorks.framework.mvp.data.network.model.MenuResponse;
 import com.mindorks.framework.mvp.ui.base.BaseViewHolder;
-import com.mindorks.framework.mvp.ui.user.restaurants.utils.UserRestaurantsCallback;
 
 import java.util.List;
 import java.util.Locale;
 
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
-public class DishListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
+public class MealListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public static final int VIEW_TYPE_EMPTY = 0;
     public static final int VIEW_TYPE_NORMAL = 1;
 
 
-    private DishListItemCallback mCallback;
+    private MealListItemCallback mCallback;
 
-    private List<MenuResponse.Dish> mDishList;
+    private List<DailyMenuResponse.Meal> mMealList;
 
-    public DishListAdapter(List<MenuResponse.Dish> mDishList) {
-        this.mDishList = mDishList;
+    public MealListAdapter(List<DailyMenuResponse.Meal> mMealList) {
+        this.mMealList = mMealList;
     }
 
-    public interface DishListItemCallback {
-        void openDishActivity(MenuResponse.Dish dish);
+    public interface MealListItemCallback {
+        void openMealActivity(DailyMenuResponse.Meal meal);
     }
 
-    public DishListItemCallback getmCallback() {
+    public MealListItemCallback getmCallback() {
         return mCallback;
     }
 
-    public void setmCallback(DishListItemCallback mCallback) {
+    public void setmCallback(MealListItemCallback mCallback) {
         this.mCallback = mCallback;
     }
 
-    public void addItems(List<MenuResponse.Dish> dishList) {
-        mDishList.addAll(dishList);
+    public void addItems(List<DailyMenuResponse.Meal> mealList) {
+        mMealList.addAll(mealList);
         notifyDataSetChanged();
     }
 
@@ -65,8 +56,9 @@ public class DishListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        return new DishListAdapter.ViewHolder(
-                LayoutInflater.from(parent.getContext()).inflate(R.layout.dish_list_item_layout, parent,
+        return new MealListAdapter.ViewHolder(
+                LayoutInflater.from(parent.getContext()).inflate(R.layout.meal_list_item_layout,
+                        parent,
                         false));
 
 //        switch (viewType) {
@@ -83,7 +75,7 @@ public class DishListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        if (mDishList != null && mDishList.size() > 0) {
+        if (mMealList != null && mMealList.size() > 0) {
             return VIEW_TYPE_NORMAL;
         } else {
             return VIEW_TYPE_EMPTY;
@@ -92,8 +84,8 @@ public class DishListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     @Override
     public int getItemCount() {
-        if (mDishList != null && mDishList.size() > 0) {
-            return mDishList.size();
+        if (mMealList != null && mMealList.size() > 0) {
+            return mMealList.size();
         } else {
             return 1;
         }
@@ -101,14 +93,14 @@ public class DishListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public class ViewHolder extends BaseViewHolder {
 
-        @BindView(R.id.txt_dish_name)
-        TextView txtDishName;
+        @BindView(R.id.txt_meal_name)
+        TextView txtMealName;
 
-        @BindView(R.id.img_dish)
-        ImageView imgDish;
+        @BindView(R.id.txt_meal_description)
+        TextView txtMealDescription;
 
-        @BindView(R.id.txt_dish_price)
-        TextView txtDishPrice;
+        @BindView(R.id.txt_meal_price)
+        TextView txtMealPrice;
 
 
         public ViewHolder(View itemView) {
@@ -117,29 +109,28 @@ public class DishListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
 
         protected void clear() {
-            txtDishName.setText("");
-            imgDish.setImageBitmap(null);
-            txtDishPrice.setText("");
+            txtMealName.setText("");
+            txtMealDescription.setText("");
+            txtMealName.setText("");
+
         }
 
         public void onBind(int position) {
             super.onBind(position);
 
-            final MenuResponse.Dish dish = mDishList.get(position);
+            final DailyMenuResponse.Meal meal = mMealList.get(position);
 
-            if (dish.getName() != null) {
-                txtDishName.setText(dish.getName());
+            if (meal.getName() != null) {
+                txtMealName.setText(meal.getName());
             }
 
-            if (dish.getImgUrl() != null) {
-                Glide.with(itemView.getContext())
-                        .load(dish.getImgUrl())
-                        .into(imgDish);
+            if (meal.getDescription() != null) {
+                txtMealDescription.setText(meal.getDescription());
             }
 
-            if (dish.getPrice() != null) {
+            if (meal.getPrice() != null) {
                 // FIXME vi3: ovde dodate izabrani locale
-                txtDishPrice.setText(String.format(Locale.US,"%.2f", dish.getPrice()));
+                txtMealPrice.setText(String.format(Locale.US,"%.2f", meal.getPrice()));
             }
 
             /// TODO: open restaurant when click
@@ -147,19 +138,8 @@ public class DishListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                 @Override
                 public void onClick(View v) {
                     if (mCallback != null) {
-                        mCallback.openDishActivity(dish);
+                        mCallback.openMealActivity(meal);
                     }
-//                    if (restaurant.getBlogUrl() != null) {
-//                        try {
-//                            Intent intent = new Intent();
-//                            intent.setAction(Intent.ACTION_VIEW);
-//                            intent.addCategory(Intent.CATEGORY_BROWSABLE);
-//                            intent.setData(Uri.parse(restaurant.getBlogUrl()));
-//                            itemView.getContext().startActivity(intent);
-//                        } catch (Exception e) {
-//                            AppLogger.d("url error");
-//                        }
-//                    }
                 }
             });
         }

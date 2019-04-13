@@ -146,4 +146,7 @@
 
 
 
+    <!--Daily menu-->
+    <string name="time_format">HH:mm</string>
+
 </resources>
