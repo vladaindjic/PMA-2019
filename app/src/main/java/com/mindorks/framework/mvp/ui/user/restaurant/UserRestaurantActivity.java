@@ -14,6 +14,7 @@ import com.mindorks.framework.mvp.data.network.model.MenuResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantPromotionsResponse;
 import com.mindorks.framework.mvp.ui.base.BaseActivity;
 import com.mindorks.framework.mvp.ui.user.dish.UserDishActivity;
+import com.mindorks.framework.mvp.ui.user.meal.UserMealActivity;
 import com.mindorks.framework.mvp.ui.user.restaurant.dailyMenu.MealListAdapter;
 import com.mindorks.framework.mvp.ui.user.restaurant.menu.DishListAdapter;
 import com.mindorks.framework.mvp.ui.user.restaurant.menu.DishTypeListAdapter;
@@ -119,14 +120,16 @@ public class UserRestaurantActivity extends BaseActivity implements UserRestaura
     @Override
     public void openDishActivity(MenuResponse.Dish dish) {
         Intent intent = UserDishActivity.getStartIntent(this);
-        Bundle bundle = new Bundle();
-        bundle.putLong("dishId", dish.getId());
+        intent.putExtra("dishId", dish.getId());
         startActivity(intent);
         finish();
     }
 
     @Override
     public void openMealActivity(DailyMenuResponse.Meal meal) {
-        Toast.makeText(this, "Otvori obrok: " + meal.getId(), Toast.LENGTH_SHORT).show();
+        Intent intent = UserMealActivity.getStartIntent(this);
+        intent.putExtra("mealId", meal.getId());
+        startActivity(intent);
+        finish();
     }
 }

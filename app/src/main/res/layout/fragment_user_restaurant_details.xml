@@ -137,7 +137,7 @@
 
             <!--Phone-->
             <TextView
-                android:id="@+id/user_dish_details_txt_price"
+                android:id="@+id/user_meal_details_txt_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
@@ -155,8 +155,8 @@
                 android:layout_marginStart="16dp"
                 android:text="011/555-333"
                 android:textSize="20sp"
-                app:layout_constraintBaseline_toBaselineOf="@+id/user_dish_details_txt_price"
-                app:layout_constraintStart_toEndOf="@+id/user_dish_details_txt_price"
+                app:layout_constraintBaseline_toBaselineOf="@+id/user_meal_details_txt_price"
+                app:layout_constraintStart_toEndOf="@+id/user_meal_details_txt_price"
                 android:textStyle="bold"/>
 
 
@@ -170,7 +170,7 @@
                 android:text="@string/work_time"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/user_dish_details_txt_price"
+                app:layout_constraintTop_toTopOf="@id/user_meal_details_txt_price"
                 android:textStyle="bold"/>
 
             <TextView

@@ -149,8 +149,7 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
     public void openRestaurantDetailsActivity(RestaurantsResponse.Restaurant restaurant) {
         // take care about plural
         Intent intent = UserRestaurantActivity.getStartIntent(UserRestaurantsActivity.this);
-        Bundle bundle = new Bundle();
-        bundle.putLong("restaurantId", restaurant.getId());
+        intent.putExtra("restaurantId", restaurant.getId());
         startActivity(intent);
         finish();
 

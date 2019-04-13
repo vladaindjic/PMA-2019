@@ -74,6 +74,9 @@ import com.mindorks.framework.mvp.ui.user.dish.details.UserDishDetailsPresenter;
 import com.mindorks.framework.mvp.ui.user.dish.ratings.UserDishRatingMvpPresenter;
 import com.mindorks.framework.mvp.ui.user.dish.ratings.UserDishRatingMvpView;
 import com.mindorks.framework.mvp.ui.user.dish.ratings.UserDishRatingPresenter;
+import com.mindorks.framework.mvp.ui.user.meal.UserMealMvpPresenter;
+import com.mindorks.framework.mvp.ui.user.meal.UserMealMvpView;
+import com.mindorks.framework.mvp.ui.user.meal.UserMealPresenter;
 import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantMvpPresenter;
 import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantMvpView;
 import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantPagerAdapter;
@@ -413,5 +416,12 @@ public class ActivityModule {
     RestaurantFilterOptionsAdapter provideRestaurantFilterOptionsAdapter() {
         return new RestaurantFilterOptionsAdapter(new ArrayList<RestaurantFilterResponse.RestaurantFilter.RestaurantFilterOptions>());
     }
-
+    
+    // =================================== UserMealMvpPresenter
+    @Provides
+    @PerActivity
+    UserMealMvpPresenter<UserMealMvpView> provideUserMealPresenter(
+            UserMealPresenter<UserMealMvpView> presenter) {
+        return presenter;
+    }
 }

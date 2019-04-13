@@ -84,7 +84,7 @@
 
 
             <TextView
-                android:id="@+id/user_dish_details_txt_price"
+                android:id="@+id/user_meal_details_txt_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
@@ -103,8 +103,8 @@
                 android:text="0.5"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintBaseline_toBaselineOf="@+id/user_dish_details_txt_price"
-                app:layout_constraintStart_toEndOf="@+id/user_dish_details_txt_price" />
+                app:layout_constraintBaseline_toBaselineOf="@+id/user_meal_details_txt_price"
+                app:layout_constraintStart_toEndOf="@+id/user_meal_details_txt_price" />
 
 
             <LinearLayout
@@ -115,7 +115,7 @@
                 android:layout_marginTop="16dp"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/user_dish_details_txt_price">
+                app:layout_constraintTop_toBottomOf="@+id/user_meal_details_txt_price">
 
 
                 <!--Delivery-->

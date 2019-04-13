@@ -151,8 +151,9 @@
     <string name="eat_me">Eat me</string>
 
 
-
     <!--Daily menu-->
     <string name="time_format">HH:mm</string>
+    <string name="dishes">Dishes:</string>
+
 
 </resources>
