@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.ui.base.BaseActivity;
+import com.mindorks.framework.mvp.ui.filter.RestaurantFilterActivity;
 import com.mindorks.framework.mvp.ui.login.LoginActivity;
 import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantActivity;
 
@@ -131,7 +132,11 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
         // sta je korisnik selektovao
         switch (item.getItemId()) {
             case R.id.action_restaurants_filter:
+
                 Toast.makeText(this, "Share option selected", Toast.LENGTH_SHORT).show();
+                Intent intent = RestaurantFilterActivity.getStartIntent(UserRestaurantsActivity.this);
+                startActivity(intent);
+                finish();
                 return true;
         }
         // ako nismo nista izabrali, pozovemo super metodu

@@ -22,8 +22,9 @@ import android.support.v7.widget.LinearLayoutManager;
 
 import com.mindorks.framework.mvp.data.network.model.BlogResponse;
 import com.mindorks.framework.mvp.data.network.model.OpenSourceResponse;
-import com.mindorks.framework.mvp.data.network.model.RestaurantPromotionsResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantDetailsResponse;
+import com.mindorks.framework.mvp.data.network.model.RestaurantFilterResponse;
+import com.mindorks.framework.mvp.data.network.model.RestaurantPromotionsResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.di.ActivityContext;
 import com.mindorks.framework.mvp.di.PerActivity;
@@ -42,6 +43,11 @@ import com.mindorks.framework.mvp.ui.feed.opensource.OpenSourceAdapter;
 import com.mindorks.framework.mvp.ui.feed.opensource.OpenSourceMvpPresenter;
 import com.mindorks.framework.mvp.ui.feed.opensource.OpenSourceMvpView;
 import com.mindorks.framework.mvp.ui.feed.opensource.OpenSourcePresenter;
+import com.mindorks.framework.mvp.ui.filter.RestaurantFilterKitchenOptionsAdapter;
+import com.mindorks.framework.mvp.ui.filter.RestaurantFilterMvpPresenter;
+import com.mindorks.framework.mvp.ui.filter.RestaurantFilterMvpView;
+import com.mindorks.framework.mvp.ui.filter.RestaurantFilterOptionsAdapter;
+import com.mindorks.framework.mvp.ui.filter.RestaurantFilterPresenter;
 import com.mindorks.framework.mvp.ui.login.LoginMvpPresenter;
 import com.mindorks.framework.mvp.ui.login.LoginMvpView;
 import com.mindorks.framework.mvp.ui.login.LoginPresenter;
@@ -287,7 +293,7 @@ public class ActivityModule {
     //Milan dodao
     //UserRestaurantPromotionsAdapter
     @Provides
-    UserRestaurantPromotionsAdapter  provideRestaurantPromotionsAdapter() {
+    UserRestaurantPromotionsAdapter provideRestaurantPromotionsAdapter() {
         return new UserRestaurantPromotionsAdapter(new ArrayList<RestaurantPromotionsResponse.Promotion>());
     }
 
@@ -323,6 +329,22 @@ public class ActivityModule {
     UserRestaurantDailyMenuMvpPresenter<UserRestaurantDailyMenuMvpView> UserRestaurantDailyMenuPresenter(
             UserRestaurantDailyMenuPresenter<UserRestaurantDailyMenuMvpView> presenter) {
         return presenter;
+    }
+
+    @Provides
+    RestaurantFilterMvpPresenter<RestaurantFilterMvpView> RestaurantFilterPresenter(
+            RestaurantFilterPresenter<RestaurantFilterMvpView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    RestaurantFilterKitchenOptionsAdapter provideRestaurantFilterKitchenOptionAdapter() {
+        return new RestaurantFilterKitchenOptionsAdapter(new ArrayList<RestaurantFilterResponse.RestaurantFilter.KitchenOptions>());
+    }
+
+    @Provides
+    RestaurantFilterOptionsAdapter provideRestaurantFilterOptionsAdapter() {
+        return new RestaurantFilterOptionsAdapter(new ArrayList<RestaurantFilterResponse.RestaurantFilter.RestaurantFilterOptions>());
     }
 
 }

@@ -64,6 +64,9 @@ public final class ApiEndPoint {
     public static final String ENDPOINT_RESTAURANT_DETAILS = BuildConfig.BASE_URL
             + "/5cabcb913000004c00103250";
 
+    public static final String ENDPOINT_RESTAURANT_FILTER = BuildConfig.BASE_URL
+            + "/5cb118753300003f0c571fd7";
+
     private ApiEndPoint() {
         // This class is not publicly instantiable
     }

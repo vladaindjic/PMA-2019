@@ -22,8 +22,8 @@ import com.mindorks.framework.mvp.data.network.model.LogoutResponse;
 import com.mindorks.framework.mvp.data.network.model.OpenSourceResponse;
 import com.mindorks.framework.mvp.data.network.model.PromotionDetailsResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantDetailsResponse;
+import com.mindorks.framework.mvp.data.network.model.RestaurantFilterResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantPromotionsResponse;
-import com.mindorks.framework.mvp.data.network.model.RestaurantDetailsResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.data.network.model.UserRegistrationRequest;
 import com.mindorks.framework.mvp.data.network.model.UserRegistrationResponse;
@@ -151,6 +151,14 @@ public class AppApiHelper implements ApiHelper {
                 .addHeaders(mApiHeader.getProtectedApiHeader())
                 .build()
                 .getObjectSingle(RestaurantDetailsResponse.class);
+    }
+
+    @Override
+    public Single<RestaurantFilterResponse> getRestaurantFilterApiCall() {
+        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_RESTAURANT_FILTER)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .build()
+                .getObjectSingle(RestaurantFilterResponse.class);
     }
 }
 
