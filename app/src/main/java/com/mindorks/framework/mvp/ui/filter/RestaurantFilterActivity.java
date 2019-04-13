@@ -8,6 +8,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.RestaurantFilterResponse;
 import com.mindorks.framework.mvp.ui.base.BaseActivity;
+import com.mindorks.framework.mvp.ui.user.restaurants.UserRestaurantsActivity;
 
 import java.util.List;
 
@@ -100,6 +102,24 @@ public class RestaurantFilterActivity extends BaseActivity implements Restaurant
         mKitchenOptionsView.setAdapter(mRestaurantFilterKitchenOptionsAdapter);
 
         mPresenter.onViewPrepared();
+
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = UserRestaurantsActivity.getStartIntent(RestaurantFilterActivity.this);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        buttonSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = UserRestaurantsActivity.getStartIntent(RestaurantFilterActivity.this);
+                startActivity(intent);
+                finish();
+            }
+        });
 
     }
 
