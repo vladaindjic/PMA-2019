@@ -40,6 +40,7 @@ import com.mindorks.framework.mvp.ui.user.restaurants.UserRestaurantsActivity;
 import com.mindorks.framework.mvp.ui.user.restaurants.grid.RestaurantsGridFragment;
 import com.mindorks.framework.mvp.ui.user.restaurants.list.RestaurantsListFragment;
 import com.mindorks.framework.mvp.ui.splash.SplashActivity;
+import com.mindorks.framework.mvp.ui.user.restaurants.map.RestaurantsMapFragment;
 import com.mindorks.framework.mvp.ui.userRegistration.UserRegistrationActivity;
 
 import dagger.Component;
@@ -77,6 +78,8 @@ public interface ActivityComponent {
     void inject(RestaurantsListFragment fragment);
 
     void inject(RestaurantsGridFragment fragment);
+
+    void inject(RestaurantsMapFragment fragment);
 
     void inject(UserRestaurantDetailsFragment fragment);
 

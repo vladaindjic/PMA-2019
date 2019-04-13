@@ -113,6 +113,7 @@
     <!--User Restaurants-->
     <string name="list">List</string>
     <string name="grid">Grid</string>
+    <string name="map">Map</string>
 
 
     <!--User Restaurant-->
@@ -154,6 +155,7 @@
     <!--Daily menu-->
     <string name="time_format">HH:mm</string>
     <string name="dishes">Dishes:</string>
+    <string name="title_activity_pokusaj_maps">Map</string>
 
 
 </resources>

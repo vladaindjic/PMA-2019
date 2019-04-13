@@ -71,12 +71,13 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
 //            getSupportActionBar().setDisplayShowHomeEnabled(true);
 //        }
 
-        mPagerAdapter.setCount(2);
+        mPagerAdapter.setCount(3);
 
         mViewPager.setAdapter(mPagerAdapter);
 
         mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.list)));
         mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.grid)));
+        mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.map)));
 
         mViewPager.setOffscreenPageLimit(mTabLayout.getTabCount());
 

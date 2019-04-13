@@ -116,6 +116,9 @@ import com.mindorks.framework.mvp.ui.user.restaurants.list.RestaurantsListAdapte
 import com.mindorks.framework.mvp.ui.user.restaurants.list.RestaurantsListMvpPresenter;
 import com.mindorks.framework.mvp.ui.user.restaurants.list.RestaurantsListMvpView;
 import com.mindorks.framework.mvp.ui.user.restaurants.list.RestaurantsListPresenter;
+import com.mindorks.framework.mvp.ui.user.restaurants.map.RestaurantsMapMvpPresenter;
+import com.mindorks.framework.mvp.ui.user.restaurants.map.RestaurantsMapMvpView;
+import com.mindorks.framework.mvp.ui.user.restaurants.map.RestaurantsMapPresenter;
 import com.mindorks.framework.mvp.ui.userRegistration.UserRegistrationMvpPresenter;
 import com.mindorks.framework.mvp.ui.userRegistration.UserRegistrationMvpView;
 import com.mindorks.framework.mvp.ui.userRegistration.UserRegistrationPresenter;
@@ -422,6 +425,13 @@ public class ActivityModule {
     @PerActivity
     UserMealMvpPresenter<UserMealMvpView> provideUserMealPresenter(
             UserMealPresenter<UserMealMvpView> presenter) {
+        return presenter;
+    }
+    
+    // =================================== RestaurantsMapMvpPresenter<RestaurantsMapMvpView>
+    @Provides
+    RestaurantsMapMvpPresenter<RestaurantsMapMvpView> provideRestaurantsMapPresenter(
+            RestaurantsMapPresenter<RestaurantsMapMvpView> presenter) {
         return presenter;
     }
 }
