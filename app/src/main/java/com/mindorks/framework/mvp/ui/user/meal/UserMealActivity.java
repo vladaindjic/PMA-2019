@@ -14,7 +14,9 @@ import android.widget.Toast;
 
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.MealResponse;
+import com.mindorks.framework.mvp.data.network.model.MenuResponse;
 import com.mindorks.framework.mvp.ui.base.BaseActivity;
+import com.mindorks.framework.mvp.ui.user.dish.UserDishActivity;
 import com.mindorks.framework.mvp.ui.user.dish.details.UserDishDetailsNutritiveValuesAdapter;
 import com.mindorks.framework.mvp.ui.user.restaurant.menu.DishListAdapter;
 
@@ -26,7 +28,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class UserMealActivity extends BaseActivity implements UserMealMvpView {
+public class UserMealActivity extends BaseActivity implements UserMealMvpView, DishListAdapter.DishListItemCallback {
 
     @Inject
     UserMealMvpPresenter<UserMealMvpView> mPresenter;
@@ -118,6 +120,8 @@ public class UserMealActivity extends BaseActivity implements UserMealMvpView {
         mRecyclerViewNutritiveValues.setItemAnimator(new DefaultItemAnimator());
         mRecyclerViewNutritiveValues.setAdapter(mNutritiveValuesAdapter);
 
+        mDishListAdapter.setmCallback(this);
+
         mPresenter.onViewPrepared(mealId);
 
 
@@ -166,5 +170,13 @@ public class UserMealActivity extends BaseActivity implements UserMealMvpView {
             mNutritiveValuesAdapter.addItems(mealDetails.getNutritiveValues());
         }
 
+    }
+
+    @Override
+    public void openDishActivity(MenuResponse.Dish dish) {
+        Intent intent = UserDishActivity.getStartIntent(this);
+        intent.putExtra("dishId", dish.getId());
+        startActivity(intent);
+        finish();
     }
 }
