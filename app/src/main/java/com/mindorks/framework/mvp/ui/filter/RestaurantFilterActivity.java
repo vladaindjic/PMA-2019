@@ -2,6 +2,8 @@ package com.mindorks.framework.mvp.ui.filter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,6 +21,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class RestaurantFilterActivity extends BaseActivity implements RestaurantFilterMvpView {
 
@@ -50,7 +53,11 @@ public class RestaurantFilterActivity extends BaseActivity implements Restaurant
     Button buttonCancel;
 
     @Inject
-    LinearLayoutManager mLayoutManager;
+    LinearLayoutManager mLayoutManager1;
+
+    @Inject
+    LinearLayoutManager mLayoutManager2;
+
 
     private RestaurantFilterResponse.RestaurantFilter restaurantFilter;
 
@@ -60,16 +67,32 @@ public class RestaurantFilterActivity extends BaseActivity implements Restaurant
     }
 
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_restaurant_filter);
+
+        getActivityComponent().inject(this);
+
+        setUnBinder(ButterKnife.bind(this));
+
+        mPresenter.onAttach(RestaurantFilterActivity.this);
+
+        setUp();
+    }
+
+
+    @Override
     protected void setUp() {
         setSupportActionBar(mToolbar);
 
         System.out.println("Ovde sam");
-        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mFilterOptionsView.setLayoutManager(mLayoutManager);
+        mLayoutManager1.setOrientation(LinearLayoutManager.VERTICAL);
+        mFilterOptionsView.setLayoutManager(mLayoutManager1);
         mFilterOptionsView.setItemAnimator(new DefaultItemAnimator());
         mFilterOptionsView.setAdapter(mRestaurantFilterOptionsAdapter);
 
-        mKitchenOptionsView.setLayoutManager(mLayoutManager);
+        mLayoutManager2.setOrientation(LinearLayoutManager.VERTICAL);
+        mKitchenOptionsView.setLayoutManager(mLayoutManager2);
         mKitchenOptionsView.setItemAnimator(new DefaultItemAnimator());
         mKitchenOptionsView.setAdapter(mRestaurantFilterKitchenOptionsAdapter);
 
@@ -79,12 +102,14 @@ public class RestaurantFilterActivity extends BaseActivity implements Restaurant
 
     @Override
     public void updateRestaurantFilterOptions(List<RestaurantFilterResponse.RestaurantFilter.RestaurantFilterOptions> restaurantFilterOptions) {
-
+        System.out.println("**************---------------+++++++++++" + restaurantFilterOptions.size());
+        mRestaurantFilterOptionsAdapter.addItems(restaurantFilterOptions);
     }
 
     @Override
     public void updateKitchenOptions(List<RestaurantFilterResponse.RestaurantFilter.KitchenOptions> kitchenOptions) {
-
+        System.out.println("************** " + kitchenOptions.size());
+        mRestaurantFilterKitchenOptionsAdapter.addItems(kitchenOptions);
     }
 
     @Override

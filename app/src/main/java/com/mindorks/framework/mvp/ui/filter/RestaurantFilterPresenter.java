@@ -57,6 +57,7 @@ public class RestaurantFilterPresenter<V extends RestaurantFilterMvpView> extend
 
                         // handle the error here
                         if (throwable instanceof ANError) {
+                            System.out.println("********************* " + throwable);
                             ANError anError = (ANError) throwable;
                             handleApiError(anError);
                         }

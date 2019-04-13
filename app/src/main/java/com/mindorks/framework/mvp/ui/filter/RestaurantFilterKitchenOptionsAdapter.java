@@ -77,6 +77,7 @@ public class RestaurantFilterKitchenOptionsAdapter extends RecyclerView.Adapter<
             final RestaurantFilterResponse.RestaurantFilter.KitchenOptions kitchen = mKitchenOptionList.get(position);
 
 
+            System.out.println("+++++++++++++" + kitchen);
             if (kitchen.getName() != null) {
                 checkBox.setText(kitchen.getName());
                 checkBox.setChecked(kitchen.getValue());
