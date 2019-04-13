@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.widget.Button;
 import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mindorks.framework.mvp.R;
@@ -58,6 +59,8 @@ public class RestaurantFilterActivity extends BaseActivity implements Restaurant
     @Inject
     LinearLayoutManager mLayoutManager2;
 
+    @BindView(R.id.filterDistanceText)
+    TextView distanceProgres;
 
     private RestaurantFilterResponse.RestaurantFilter restaurantFilter;
 
@@ -114,13 +117,12 @@ public class RestaurantFilterActivity extends BaseActivity implements Restaurant
 
     @Override
     public void updateDistance(int distance) {
-        distanceBar.scrollTo(0, distance);
+        distanceProgres.setText("Distance "+ distance +"/"+ distanceBar.getMax());
+        distanceBar.setProgress(distance);
         distanceBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                Toast.makeText(getApplicationContext(),
-                        "STAGOD " + distanceBar.getScrollX() + "do" + distanceBar.getScrollY(),
-                        Toast.LENGTH_SHORT).show();
+                distanceProgres.setText("Distance "+ progress +"/"+ distanceBar.getMax());
             }
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {

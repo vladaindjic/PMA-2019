@@ -142,5 +142,7 @@
     <string name="cancelBtn">Cancel</string>
     <string name="submitBtn">Submit</string>
     <string name="kitchen">Kitchen</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
 
 </resources>

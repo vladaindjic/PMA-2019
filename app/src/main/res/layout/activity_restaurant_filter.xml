@@ -40,7 +40,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/filter_restaurant_options_view"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:background="@color/cyan_light"
         app:layout_constraintStart_toStartOf="@id/filterDistanceText"
@@ -50,7 +50,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/filter_kitchen_options_view"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:background="@color/light_gray"
         app:layout_constraintStart_toStartOf="@id/filter_restaurant_options_view"

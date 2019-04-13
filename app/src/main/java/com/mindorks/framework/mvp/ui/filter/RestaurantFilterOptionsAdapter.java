@@ -82,18 +82,6 @@ public class RestaurantFilterOptionsAdapter extends RecyclerView.Adapter<BaseVie
                 optionSwitch.setChecked(kitchen.getValue());
             }
 
-            optionSwitch.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (kitchen.getName() != null) {
-                        try {
-                            optionSwitch.setChecked(!optionSwitch.isChecked());
-                        } catch (Exception e) {
-                            AppLogger.d("url error");
-                        }
-                    }
-                }
-            });
         }
 
     }
