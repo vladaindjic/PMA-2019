@@ -64,6 +64,11 @@ public final class ApiEndPoint {
     public static final String ENDPOINT_RESTAURANT_DETAILS = BuildConfig.BASE_URL
             + "/5cabcb913000004c00103250";
 
+    public static final String ENDPOINT_RESTAURANT_FILTER = BuildConfig.BASE_URL
+            + "/5cb1d31c330000c9255720ef";
+
+//    http://www.mocky.io/v2/5cb1d31c330000c9255720ef
+
     private ApiEndPoint() {
         // This class is not publicly instantiable
     }
