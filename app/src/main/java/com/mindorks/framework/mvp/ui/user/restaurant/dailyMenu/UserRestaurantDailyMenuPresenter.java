@@ -7,6 +7,7 @@ import com.mindorks.framework.mvp.ui.base.BasePresenter;
 import com.mindorks.framework.mvp.utils.rx.SchedulerProvider;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -30,40 +31,57 @@ public class UserRestaurantDailyMenuPresenter<V extends UserRestaurantDailyMenuM
     public void onViewPrepared(Long restaurantId) {
         getMvpView().showLoading();
 
-        MenuResponse.Menu menu = new MenuResponse.Menu(1L, "Moj menu", new ArrayList<MenuResponse.DishType>());
 
-        List<MenuResponse.DishType> dishTypeList = new ArrayList<>();
-        List<MenuResponse.Dish> glavnaJela = new ArrayList<>();
+        DailyMenuResponse.DailyMenu dailyMenu = new DailyMenuResponse.DailyMenu();
+        dailyMenu.setId(1L);
+        dailyMenu.setName("Dnevni meniji nasega restorana");
+        dailyMenu.setStartTime(new Date());
+        dailyMenu.setEndTime(new Date());
 
-        final String imgUrl = "https://www.themediterraneandish" +
-                ".com/wp-content/uploads/2017/01/Shakshuka-Recipe-The-Mediterranean-Dish-102.jpg";
-        final double price = 333.33;
-        glavnaJela.add(new MenuResponse.Dish(1L, "Piletina", imgUrl, price));
-        glavnaJela.add(new MenuResponse.Dish(2L, "Prasetina", imgUrl, price));
-        glavnaJela.add(new MenuResponse.Dish(3L, "Jagnjetina", imgUrl, price));
-        MenuResponse.DishType glavnoJelo = new MenuResponse.DishType(1L, "Glavno jelo", glavnaJela);
+        DailyMenuResponse.Meal m1 = new DailyMenuResponse.Meal();
+        m1.setId(1L);
+        m1.setName("Prvi obrok");
+        m1.setPrice(300.00);
+        m1.setDescription("Ovo je jedan odlican obrok. Supica, glavno jelo, salata");
+        
+        DailyMenuResponse.Meal m2 = new DailyMenuResponse.Meal();
+        m2.setId(2L);
+        m2.setName("Drugi obrok");
+        m2.setPrice(200.00);
+        m2.setDescription("Ovo je jos bolji obrok. Supica, glavno jelo, prilog, salata");
+        
+        DailyMenuResponse.Meal m3 = new DailyMenuResponse.Meal();
+        m3.setId(3L);
+        m3.setName("Treci obrok");
+        m3.setPrice(350.00);
+        m3.setDescription("Ovo je najbolji obrok. Supica, glavno jelo, prilog, salata");
 
-        List<MenuResponse.Dish> supe = new ArrayList<>();
-        supe.add(new MenuResponse.Dish(1L, "pileca", imgUrl, price));
-        supe.add(new MenuResponse.Dish(2L, "teleca", imgUrl, price));
-        supe.add(new MenuResponse.Dish(3L, "paradajz", imgUrl, price));
-        MenuResponse.DishType supa = new MenuResponse.DishType(1L, "Supa", supe);
+        DailyMenuResponse.Meal m4 = new DailyMenuResponse.Meal();
+        m4.setId(4L);
+        m4.setName("Cetvrti obrok");
+        m4.setPrice(350.00);
+        m4.setDescription("Ovo je najbolji obrok. Supica, glavno jelo, prilog, prilog, prilog, " +
+                "prilog, prilog, prilog, prilog,prilog, prilog,prilog, prilog,prilog, prilog,prilog, prilog," +
+                " salata");
 
 
-        List<MenuResponse.Dish> dezerti = new ArrayList<>();
-        dezerti.add(new MenuResponse.Dish(1L, "sladoled", imgUrl, price));
-        dezerti.add(new MenuResponse.Dish(2L, "sufle", imgUrl, price));
-        dezerti.add(new MenuResponse.Dish(3L, "sladoled kod rajka", imgUrl, price));
-        MenuResponse.DishType dezert = new MenuResponse.DishType(1L, "Dezert", dezerti);
+        DailyMenuResponse.Meal m5 = new DailyMenuResponse.Meal();
+        m5.setId(5L);
+        m5.setName("Peti obrok");
+        m5.setPrice(350.00);
+        m5.setDescription("Ovo je najbolji obrok. Supica, glavno jelo, prilog, salata");
 
 
-        menu.getDishTypeList().add(glavnoJelo);
-        menu.getDishTypeList().add(supa);
-        menu.getDishTypeList().add(dezert);
+        List<DailyMenuResponse.Meal> meals = new ArrayList<>();
+        meals.add(m1);
+        meals.add(m2);
+        meals.add(m3);
+        meals.add(m4);
+        meals.add(m5);
 
+        dailyMenu.setMeals(meals);
 
-        // TODO vi3: ovde doraditi
-        getMvpView().updateDailyMenu(new DailyMenuResponse.DailyMenu());
+        getMvpView().updateDailyMenu(dailyMenu);
 
         getMvpView().hideLoading();
 

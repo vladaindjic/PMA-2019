@@ -9,10 +9,12 @@ import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
 import com.mindorks.framework.mvp.R;
+import com.mindorks.framework.mvp.data.network.model.DailyMenuResponse;
 import com.mindorks.framework.mvp.data.network.model.MenuResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantPromotionsResponse;
 import com.mindorks.framework.mvp.ui.base.BaseActivity;
 import com.mindorks.framework.mvp.ui.user.dish.UserDishActivity;
+import com.mindorks.framework.mvp.ui.user.restaurant.dailyMenu.MealListAdapter;
 import com.mindorks.framework.mvp.ui.user.restaurant.menu.DishListAdapter;
 import com.mindorks.framework.mvp.ui.user.restaurant.menu.DishTypeListAdapter;
 import com.mindorks.framework.mvp.ui.user.restaurant.promotions.details.PromotionDetailsActivity;
@@ -23,7 +25,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class UserRestaurantActivity extends BaseActivity implements UserRestaurantMvpView,
-        DishTypeListAdapter.DishTypeItemListCallback, DishListAdapter.DishListItemCallback {
+        DishTypeListAdapter.DishTypeItemListCallback, DishListAdapter.DishListItemCallback, MealListAdapter.MealListItemCallback {
 
     @Inject
     UserRestaurantMvpPresenter<UserRestaurantMvpView> mPresenter;
@@ -121,5 +123,10 @@ public class UserRestaurantActivity extends BaseActivity implements UserRestaura
         bundle.putLong("dishId", dish.getId());
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void openMealActivity(DailyMenuResponse.Meal meal) {
+        Toast.makeText(this, "Otvori obrok: " + meal.getId(), Toast.LENGTH_SHORT).show();
     }
 }

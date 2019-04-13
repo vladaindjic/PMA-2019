@@ -120,7 +120,9 @@ public class DishTypeListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         protected void clear() {
             txtDishTypeName.setText("");
-            mDishListAdapter.addItems(new ArrayList<MenuResponse.Dish>());
+            if (mDishListAdapter != null) {
+                mDishListAdapter.addItems(new ArrayList<MenuResponse.Dish>());
+            }
         }
 
         public void onBind(int position) {
