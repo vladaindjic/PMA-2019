@@ -56,6 +56,9 @@ public interface ApiHelper {
 
     Single<RestaurantsResponse> getRestaurantsApiCall();
 
+    // TODO vi3: treba dodati i proveru koji user salji ili to sa servera gledati po jwt-u
+    public Single<RestaurantsResponse> getSubscriptionsApiCall();
+
     //TODO Milan: Dodati id restorana
     Single<RestaurantPromotionsResponse> getRestaurantPromotions();
 

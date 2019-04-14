@@ -6,8 +6,12 @@ import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.ui.base.BasePresenter;
 import com.mindorks.framework.mvp.utils.rx.SchedulerProvider;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 
+import io.reactivex.Single;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
@@ -25,7 +29,7 @@ public class RestaurantsListPresenter<V extends RestaurantsListMvpView> extends 
     }
 
     @Override
-    public void onViewPrepared() {
+    public void onViewPrepared(int whatToPrepare) {
         getMvpView().showLoading();
 
 
@@ -39,8 +43,22 @@ public class RestaurantsListPresenter<V extends RestaurantsListMvpView> extends 
 //        getMvpView().updateRestaurantsList(restaurants);
 //        getMvpView().hideLoading();
 
-        getCompositeDisposable().add(getDataManager()
-                .getRestaurantsApiCall()
+        DataManager dataManager = getDataManager();
+
+        Single<RestaurantsResponse> restaurantsResponseSingle;
+        switch (whatToPrepare) {
+            case PREPARE_ALL_RESTAURANTS:
+                restaurantsResponseSingle = dataManager.getRestaurantsApiCall();
+                break;
+            case PREPARE_MY_RESTAURANTS:
+                restaurantsResponseSingle = dataManager.getSubscriptionsApiCall();
+                break;
+            default:
+                System.out.println("PAZIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII*************");
+                return;
+        }
+
+        getCompositeDisposable().add(restaurantsResponseSingle
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(new Consumer<RestaurantsResponse>() {

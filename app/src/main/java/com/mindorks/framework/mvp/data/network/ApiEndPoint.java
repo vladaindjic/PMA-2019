@@ -53,6 +53,8 @@ public final class ApiEndPoint {
 
     public static final String ENDPOINT_RESTAURANTS = BuildConfig.BASE_URL
             + "/5ca5f7c93300008f532eaab3";
+    public static final String ENDPOINT_SUBSCRIPTIONS = BuildConfig.BASE_URL
+            + "/5cb3921f330000670011b6c1";
 
     public static final String ENDPOINT_PROMOTION_DETAILS = BuildConfig.BASE_URL
             +"/5cacd9762f00005f003a93a9";
