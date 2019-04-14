@@ -245,7 +245,7 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
         Bundle bundle = new Bundle();
         bundle.putLong("restaurantId", restaurant.getId());
         startActivity(intent);
-        finish();
+        //finish();
 
     }
 

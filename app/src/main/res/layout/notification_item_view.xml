@@ -5,13 +5,13 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <!--<ImageView-->
-        <!--android:id="@+id/notification_image_view"-->
-        <!--android:padding="8dp"-->
-        <!--android:layout_width="128dp"-->
-        <!--android:layout_height="128dp"-->
-        <!--android:scaleType="fitXY"-->
-        <!--android:src="@drawable/notification"/>-->
+    <ImageView
+        android:id="@+id/notification_image_view"
+        android:padding="8dp"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/notification"/>
 
     <TextView
         android:id="@+id/notification_text_view"
