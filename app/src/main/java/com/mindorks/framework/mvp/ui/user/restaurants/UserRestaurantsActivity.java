@@ -3,19 +3,33 @@ package com.mindorks.framework.mvp.ui.user.restaurants;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
+import com.mindorks.framework.mvp.ui.about.AboutFragment;
 import com.mindorks.framework.mvp.ui.base.BaseActivity;
+import com.mindorks.framework.mvp.ui.custom.RoundedImageView;
 import com.mindorks.framework.mvp.ui.filter.RestaurantFilterActivity;
 import com.mindorks.framework.mvp.ui.login.LoginActivity;
+import com.mindorks.framework.mvp.ui.main.MainActivity;
+import com.mindorks.framework.mvp.ui.notification.NotificationFragment;
 import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantActivity;
 
 import javax.inject.Inject;
@@ -40,6 +54,19 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
 
+    @BindView(R.id.drawer_view)
+    DrawerLayout mDrawer;
+
+    @BindView(R.id.navigation_view)
+    NavigationView mNavigationView;
+
+    private RoundedImageView mProfileImageView;
+
+    private TextView mNameTextView;
+
+    private TextView mEmailTextView;
+
+    private ActionBarDrawerToggle mDrawerToggle;
 
     public static Intent getStartIntent(Context context) {
         Intent intent = new Intent(context, UserRestaurantsActivity.class);
@@ -99,6 +126,72 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
             }
         });
 
+        mDrawerToggle = new ActionBarDrawerToggle(
+                this,
+                mDrawer,
+                mToolbar,
+                R.string.open_drawer,
+                R.string.close_drawer) {
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                hideKeyboard();
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+            }
+        };
+        mDrawer.addDrawerListener(mDrawerToggle);
+        mDrawerToggle.syncState();
+        setupNavMenu();
+//        mPresenter.onNavMenuCreated();
+//        setupCardContainerView();
+//        mPresenter.onViewInitialized();
+
+    }
+
+    void setupNavMenu() {
+        View headerLayout = mNavigationView.getHeaderView(0);
+        mProfileImageView = (RoundedImageView) headerLayout.findViewById(R.id.iv_profile_pic);
+        mNameTextView = (TextView) headerLayout.findViewById(R.id.tv_name);
+        mEmailTextView = (TextView) headerLayout.findViewById(R.id.tv_email);
+        mNavigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        mDrawer.closeDrawer(GravityCompat.START);
+                        switch (item.getItemId()) {
+                            case R.id.nav_item_about:
+                                mPresenter.onDrawerOptionAboutClick();
+                                return true;
+//                            case R.id.nav_item_rate_us:
+////                                mPresenter.onDrawerRateUsClick();
+//                                return true;
+                            case R.id.nav_item_feed:
+                                mPresenter.onDrawerMyNotificationsClick();
+                                return true;
+                            case R.id.nav_item_restaurants:
+                                mPresenter.onDrawerRestaurantsClick();
+                                return true;
+                            case R.id.nav_item_my_restaurants:
+                                mPresenter.onDrawerMyRestaurantsClick();
+                                return true;
+                            case R.id.nav_item_my_profile:
+                                mPresenter.onDrawerMyProfileClick();
+                                return true;
+                            case R.id.nav_item_settings:
+                                mPresenter.onDrawerMySettingsClick();
+                                return true;
+                            case R.id.nav_item_logout:
+                                mPresenter.onDrawerOptionLogoutClick();
+                                return true;
+                            default:
+                                return false;
+                        }
+                    }
+                });
     }
 
     @Override
@@ -137,7 +230,6 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
                 Toast.makeText(this, "Share option selected", Toast.LENGTH_SHORT).show();
                 Intent intent = RestaurantFilterActivity.getStartIntent(UserRestaurantsActivity.this);
                 startActivity(intent);
-                finish();
                 return true;
         }
         // ako nismo nista izabrali, pozovemo super metodu
@@ -154,5 +246,114 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
         startActivity(intent);
         finish();
 
+    }
+
+    @Override
+    public void closeNavigationDrawer() {
+        if (mDrawer != null) {
+            mDrawer.closeDrawer(Gravity.START);
+        }
+    }
+
+    @Override
+    public void showAboutFragment() {
+        lockDrawer();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .disallowAddToBackStack()
+                .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
+                .add(R.id.cl_root_view, AboutFragment.newInstance(), AboutFragment.TAG)
+                .commit();
+    }
+
+    @Override
+    public void lockDrawer() {
+        if (mDrawer != null)
+            mDrawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+    }
+
+    @Override
+    public void unlockDrawer() {
+        if (mDrawer != null)
+            mDrawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+    }
+
+
+    @Override
+    public void openLoginActivity() {
+        startActivity(LoginActivity.getStartIntent(this));
+        System.out.println("OVDI SAM");
+        finish();
+    }
+
+
+    @Override
+    public void updateUserName(String currentUserName) {
+        mNameTextView.setText(currentUserName);
+    }
+
+    @Override
+    public void updateUserEmail(String currentUserEmail) {
+        mEmailTextView.setText(currentUserEmail);
+    }
+
+    @Override
+    public void updateUserProfilePic(String currentUserProfilePicUrl) {
+        //load profile pic url into ANImageView
+    }
+
+    @Override
+    public void onFragmentAttached() {
+    }
+
+    @Override
+    public void onFragmentDetached(String tag) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment fragment = fragmentManager.findFragmentByTag(tag);
+        if (fragment != null) {
+            fragmentManager
+                    .beginTransaction()
+                    .disallowAddToBackStack()
+                    .setCustomAnimations(R.anim.slide_right, R.anim.slide_left)
+                    .remove(fragment)
+                    .commitNow();
+            unlockDrawer();
+        }
+    }
+
+
+    @Override
+    public void openNotificationsActivity() {
+        lockDrawer();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .disallowAddToBackStack()
+                .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
+                .add(R.id.cl_root_view, NotificationFragment.newInstance(), NotificationFragment.TAG)
+                .commit();
+    }
+
+    @Override
+    public void openRestaurantsActivity() {
+        Intent intent = MainActivity.getStartIntent(this);
+        startActivity(intent);
+
+    }
+
+    @Override
+    public void openMyRestaurantsActivity() {
+        Intent intent = MainActivity.getStartIntent(this);
+        startActivity(intent);
+
+    }
+
+    @Override
+    public void openMyProfileActivity() {
+        Intent intent = MainActivity.getStartIntent(this);
+    }
+
+    @Override
+    public void openSettingsActivity() {
+        Intent intent = MainActivity.getStartIntent(this);
     }
 }

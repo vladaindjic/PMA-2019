@@ -16,20 +16,40 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group>
         <item
-            android:id="@+id/nav_item_about"
+            android:id="@+id/nav_item_restaurants"
             android:checked="true"
-            android:icon="@drawable/ic_info_24px"
-            android:title="@string/about" />
+            android:icon="@drawable/restaurant"
+            android:title="@string/restaurants" />
         <item
-            android:id="@+id/nav_item_rate_us"
+            android:id="@+id/nav_item_my_restaurants"
             android:checked="true"
-            android:icon="@drawable/ic_star"
-            android:title="@string/rate_us" />
+            android:icon="@drawable/my_restaurant"
+            android:title="@string/my_restaurants" />
+
         <item
             android:id="@+id/nav_item_feed"
             android:checked="true"
             android:icon="@drawable/ic_rss_symbol"
-            android:title="@string/feed" />
+            android:title="@string/notifications" />
+
+        <item
+            android:id="@+id/nav_item_settings"
+            android:checked="true"
+            android:icon="@drawable/settings"
+            android:title="@string/settings" />
+
+        <item
+            android:id="@+id/nav_item_about"
+            android:checked="true"
+            android:icon="@drawable/ic_info_24px"
+            android:title="@string/about" />
+
+        <item
+            android:id="@+id/nav_item_my_profile"
+            android:checked="true"
+            android:icon="@drawable/person_details"
+            android:title="@string/myProfile" />
+
         <item
             android:id="@+id/nav_item_logout"
             android:checked="true"
