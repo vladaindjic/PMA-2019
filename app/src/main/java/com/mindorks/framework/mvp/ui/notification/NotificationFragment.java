@@ -8,11 +8,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.NotificationResponse;
+import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.di.component.ActivityComponent;
 import com.mindorks.framework.mvp.ui.base.BaseFragment;
+import com.mindorks.framework.mvp.ui.user.restaurants.UserRestaurantsActivity;
+import com.mindorks.framework.mvp.ui.user.restaurants.utils.UserRestaurantsCallback;
 
 import java.util.List;
 
@@ -22,7 +26,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class NotificationFragment extends BaseFragment implements NotificationMvpView {
+public class NotificationFragment extends BaseFragment implements NotificationMvpView, UserRestaurantsCallback {
 
     public static final String TAG = "NotificationFragment";
 
@@ -56,6 +60,7 @@ public class NotificationFragment extends BaseFragment implements NotificationMv
             component.inject(this);
             setUnBinder(ButterKnife.bind(this, view));
             mPresenter.onAttach(this);
+            mNotificationListAdapter.setmCallback(this);
         }
 
         return view;
@@ -87,5 +92,20 @@ public class NotificationFragment extends BaseFragment implements NotificationMv
     @Override
     public void updateNotifications(List<NotificationResponse.Notifications.Notification> notificationsList) {
         mNotificationListAdapter.addItems(notificationsList);
+    }
+
+    @Override
+    public void openRestaurantDetailsActivity(RestaurantsResponse.Restaurant restaurant) {
+        UserRestaurantsActivity userRestaurantsActivity = (UserRestaurantsActivity) getActivity();
+        if (userRestaurantsActivity != null) {
+            userRestaurantsActivity.openRestaurantDetailsActivity(restaurant);
+        } else {
+            Toast.makeText(getContext(), "NASISES MI SE KARINE AKO SE DESIS", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onsEmptyViewRetryButtonClick() {
+
     }
 }

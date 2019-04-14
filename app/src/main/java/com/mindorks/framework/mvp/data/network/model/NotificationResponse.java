@@ -84,6 +84,10 @@ public class NotificationResponse {
             @SerializedName("notificationData")
             private String notificationData;
 
+            @Expose
+            @SerializedName("restaurant_id")
+            Long restaurantId;
+
             public Notification(Long id) {
                 this.id = id;
             }
@@ -91,6 +95,13 @@ public class NotificationResponse {
             public Notification(Long id, String notificationData) {
                 this.id = id;
                 this.notificationData = notificationData;
+            }
+
+
+            public Notification(Long id, String notificationData, Long restaurantId) {
+                this.id = id;
+                this.notificationData = notificationData;
+                this.restaurantId = restaurantId;
             }
 
             public Long getId() {
@@ -109,6 +120,13 @@ public class NotificationResponse {
                 this.notificationData = notificationData;
             }
 
+            public Long getRestaurantId() {
+                return restaurantId;
+            }
+
+            public void setRestaurantId(Long restaurantId) {
+                this.restaurantId = restaurantId;
+            }
         }
     }
 }

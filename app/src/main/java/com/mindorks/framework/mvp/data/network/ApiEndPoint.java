@@ -68,7 +68,7 @@ public final class ApiEndPoint {
             + "/5cb1d31c330000c9255720ef";
 
     public static final String ENDPOINT_NOTIFICATIONS = BuildConfig.BASE_URL
-            + "/5cb26d793000006d00a78c7c";
+            + "/5cb35e20300000d124a78e0c";
 
 //    http://www.mocky.io/v2/5cb1d31c330000c9255720ef
 

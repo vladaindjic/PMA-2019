@@ -11,7 +11,9 @@ import android.widget.TextView;
 
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.NotificationResponse;
+import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.ui.base.BaseViewHolder;
+import com.mindorks.framework.mvp.ui.user.restaurants.utils.UserRestaurantsCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +27,17 @@ public class NotificationListAdapter extends RecyclerView.Adapter<BaseViewHolder
     public static final int VIEW_TYPE_NORMAL = 1;
 
     private List<NotificationResponse.Notifications.Notification> mNotifications;
+
+    private UserRestaurantsCallback mCallback;
+
+    public UserRestaurantsCallback getmCallback() {
+        return mCallback;
+    }
+
+    public void setmCallback(UserRestaurantsCallback mCallback) {
+        this.mCallback = mCallback;
+    }
+
 
     public NotificationListAdapter(ArrayList<NotificationResponse.Notifications.Notification> mNotifications) {
         this.mNotifications = mNotifications;
@@ -88,6 +101,14 @@ public class NotificationListAdapter extends RecyclerView.Adapter<BaseViewHolder
                 @Override
                 public void onClick(View v) {
                     mNotifications.remove(notification);
+                    if (notification.getRestaurantId() != null) {
+                        if (mCallback != null) {
+                            RestaurantsResponse.Restaurant restaurant =
+                                    new RestaurantsResponse.Restaurant();
+                            restaurant.setId(notification.getRestaurantId());
+                            mCallback.openRestaurantDetailsActivity(restaurant);
+                        }
+                    }
                     notifyDataSetChanged();
                 }
             });
