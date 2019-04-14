@@ -156,6 +156,7 @@
     <string name="time_format">HH:mm</string>
     <string name="dishes">Dishes:</string>
     <string name="title_activity_pokusaj_maps">Map</string>
+    <string name="title_activity_maps">Map</string>
 
 
 </resources>
