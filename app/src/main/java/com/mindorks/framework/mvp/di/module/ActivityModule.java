@@ -30,6 +30,7 @@ import com.mindorks.framework.mvp.data.network.model.RestaurantDetailsResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantFilterResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantPromotionsResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
+import com.mindorks.framework.mvp.data.network.model.SettingsResponse;
 import com.mindorks.framework.mvp.di.ActivityContext;
 import com.mindorks.framework.mvp.di.PerActivity;
 import com.mindorks.framework.mvp.ui.about.AboutMvpPresenter;
@@ -65,6 +66,12 @@ import com.mindorks.framework.mvp.ui.notification.NotificationListAdapter;
 import com.mindorks.framework.mvp.ui.notification.NotificationMvpPresenter;
 import com.mindorks.framework.mvp.ui.notification.NotificationMvpView;
 import com.mindorks.framework.mvp.ui.notification.NotificationPresenter;
+import com.mindorks.framework.mvp.ui.settings.GeneralSettingsOptionsAdapter;
+import com.mindorks.framework.mvp.ui.settings.LanguageSettingsOptionsAdapter;
+import com.mindorks.framework.mvp.ui.settings.SettingsFragment;
+import com.mindorks.framework.mvp.ui.settings.SettingsMvpPresenter;
+import com.mindorks.framework.mvp.ui.settings.SettingsMvpView;
+import com.mindorks.framework.mvp.ui.settings.SettingsPresenter;
 import com.mindorks.framework.mvp.ui.splash.SplashMvpPresenter;
 import com.mindorks.framework.mvp.ui.splash.SplashMvpView;
 import com.mindorks.framework.mvp.ui.splash.SplashPresenter;
@@ -109,6 +116,7 @@ import com.mindorks.framework.mvp.ui.user.restaurant.promotions.details.Promotio
 import com.mindorks.framework.mvp.ui.user.restaurant.ratings.UserRestaurantRatingMvpPresenter;
 import com.mindorks.framework.mvp.ui.user.restaurant.ratings.UserRestaurantRatingMvpView;
 import com.mindorks.framework.mvp.ui.user.restaurant.ratings.UserRestaurantRatingPresenter;
+import com.mindorks.framework.mvp.ui.user.restaurants.UserRestaurantsActivity;
 import com.mindorks.framework.mvp.ui.user.restaurants.UserRestaurantsMvpPresenter;
 import com.mindorks.framework.mvp.ui.user.restaurants.UserRestaurantsMvpView;
 import com.mindorks.framework.mvp.ui.user.restaurants.UserRestaurantsPagerAdapter;
@@ -450,6 +458,23 @@ public class ActivityModule {
             NotificationPresenter<NotificationMvpView> presenter) {
         return presenter;
     }
+
+    @Provides
+    SettingsMvpPresenter<SettingsMvpView> SettingsPresenter(
+            SettingsPresenter<SettingsMvpView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    GeneralSettingsOptionsAdapter provideGeneralSettingsOptionsAdapter() {
+        return new GeneralSettingsOptionsAdapter(new ArrayList<SettingsResponse.SettingsData.SettingsGeneralOption>());
+    }
+
+//    @Provides
+//    LanguageSettingsOptionsAdapter provideLanguageSettingsOptionsAdapter(Context context) {
+//        return new LanguageSettingsOptionsAdapter(context, new ArrayList<SettingsResponse.SettingsData.LanguageOption>());
+//    }
+
 
 
 }

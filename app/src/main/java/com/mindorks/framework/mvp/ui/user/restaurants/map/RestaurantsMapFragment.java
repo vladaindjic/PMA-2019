@@ -215,75 +215,76 @@ public class RestaurantsMapFragment extends BaseFragment implements
 
     @Override
     public void updateRestaurantsList(final List<RestaurantsResponse.Restaurant> restaurants) {
-        if (this.restaurantList == null) {
-            this.restaurantList = new ArrayList<>();
-        }
-
-        if (this.restaurantsDrawablesMap == null) {
-            this.restaurantsDrawablesMap = new HashMap<>();
-        }
-
-        if (this.stringRestaurantMap == null) {
-            this.stringRestaurantMap = new HashMap<>();
-        }
-
-        if (restaurants == null) {
-            return;
-        }
-
-        this.restaurantList.clear();
-        this.restaurantsDrawablesMap.clear();
-        this.stringRestaurantMap.clear();
-
-        this.restaurantList.addAll(restaurants);
-
-        List<LatLng> restaurantsLocations = new ArrayList<>();
-        for (final RestaurantsResponse.Restaurant restaurant : this.restaurantList) {
-            if (restaurant.getLatitude() == null || restaurant.getLongitude() == null) {
-                continue;
-            }
-//            restaurantLocation = new LatLng(28.583911, 77.319116);
-            final LatLng restaurantLocation = new LatLng(restaurant.getLatitude(),
-                    restaurant.getLongitude());
-            // pamtimo lokaciju
-            restaurantsLocations.add(restaurantLocation);
-
-            Glide.with(getActivity()).load(restaurant.getImageUrl())
-                    .into(new SimpleTarget<Drawable>() {
-                        @Override
-                        public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                            Marker marker = mMap.addMarker(new MarkerOptions()
-                                    .position(restaurantLocation));
-
-                            // postavljamo ikonicu, nazv restorana i adresu
-                            BitmapDescriptor bitmapDescriptor =
-                                    BitmapDescriptorFactory.fromBitmap(createCustomMarker(getContext(), resource));
-                            // zakomentarisati, ako ne treba slika da se prikaze
-                            marker.setIcon(bitmapDescriptor);
-                            marker.setTitle(restaurant.getName());
-                            if (restaurant.getAddress() != null) {
-                                marker.setSnippet(restaurant.getAddress());
-                            }
-                            // cuvamo drawable
-                            restaurantsDrawablesMap.put(marker.getId(), resource);
-                            // vezemo restoran za marker
-                            stringRestaurantMap.put(marker.getId(), restaurant);
-                        }
-                    });
-
-        }
-
-        if (restaurantsLocations.size() > 0) {
-            //LatLngBound will cover all your marker on Google Maps
-            LatLngBounds.Builder builder = new LatLngBounds.Builder();
-            for (LatLng location : restaurantsLocations) {
-                builder.include(location); //Taking Point A (First LatLng)
-            }
-            LatLngBounds bounds = builder.build();
-            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 200);
-            mMap.moveCamera(cu);
-            mMap.animateCamera(CameraUpdateFactory.zoomTo(14), 2000, null);
-        }
+        return;
+//        if (this.restaurantList == null) {
+//            this.restaurantList = new ArrayList<>();
+//        }
+//
+//        if (this.restaurantsDrawablesMap == null) {
+//            this.restaurantsDrawablesMap = new HashMap<>();
+//        }
+//
+//        if (this.stringRestaurantMap == null) {
+//            this.stringRestaurantMap = new HashMap<>();
+//        }
+//
+//        if (restaurants == null) {
+//            return;
+//        }
+//
+//        this.restaurantList.clear();
+//        this.restaurantsDrawablesMap.clear();
+//        this.stringRestaurantMap.clear();
+//
+//        this.restaurantList.addAll(restaurants);
+//
+//        List<LatLng> restaurantsLocations = new ArrayList<>();
+//        for (final RestaurantsResponse.Restaurant restaurant : this.restaurantList) {
+//            if (restaurant.getLatitude() == null || restaurant.getLongitude() == null) {
+//                continue;
+//            }
+////            restaurantLocation = new LatLng(28.583911, 77.319116);
+//            final LatLng restaurantLocation = new LatLng(restaurant.getLatitude(),
+//                    restaurant.getLongitude());
+//            // pamtimo lokaciju
+//            restaurantsLocations.add(restaurantLocation);
+//
+//            Glide.with(getActivity()).load(restaurant.getImageUrl())
+//                    .into(new SimpleTarget<Drawable>() {
+//                        @Override
+//                        public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+//                            Marker marker = mMap.addMarker(new MarkerOptions()
+//                                    .position(restaurantLocation));
+//
+//                            // postavljamo ikonicu, nazv restorana i adresu
+//                            BitmapDescriptor bitmapDescriptor =
+//                                    BitmapDescriptorFactory.fromBitmap(createCustomMarker(getContext(), resource));
+//                            // zakomentarisati, ako ne treba slika da se prikaze
+//                            marker.setIcon(bitmapDescriptor);
+//                            marker.setTitle(restaurant.getName());
+//                            if (restaurant.getAddress() != null) {
+//                                marker.setSnippet(restaurant.getAddress());
+//                            }
+//                            // cuvamo drawable
+//                            restaurantsDrawablesMap.put(marker.getId(), resource);
+//                            // vezemo restoran za marker
+//                            stringRestaurantMap.put(marker.getId(), restaurant);
+//                        }
+//                    });
+//
+//        }
+//
+//        if (restaurantsLocations.size() > 0) {
+//            //LatLngBound will cover all your marker on Google Maps
+//            LatLngBounds.Builder builder = new LatLngBounds.Builder();
+//            for (LatLng location : restaurantsLocations) {
+//                builder.include(location); //Taking Point A (First LatLng)
+//            }
+//            LatLngBounds bounds = builder.build();
+//            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 200);
+//            mMap.moveCamera(cu);
+//            mMap.animateCamera(CameraUpdateFactory.zoomTo(14), 2000, null);
+//        }
 
         // FIXME vi3: sta raditi ako ne dobavljamo slicice
 
