@@ -55,11 +55,9 @@ public class NotificationFragment extends BaseFragment implements NotificationMv
         if (component != null) {
             component.inject(this);
             setUnBinder(ButterKnife.bind(this, view));
-            System.out.println("POZIVAM ON ATTACH");
             mPresenter.onAttach(this);
         }
 
-        setUp(view);
         return view;
     }
 

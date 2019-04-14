@@ -69,7 +69,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<BaseViewHolder
             textView.setText("");
         }
 
-        public void onBind(int position) {
+        public void onBind(final int position) {
             super.onBind(position);
 
             if (mNotifications == null || mNotifications.size() <= 0) {
@@ -87,8 +87,8 @@ public class NotificationListAdapter extends RecyclerView.Adapter<BaseViewHolder
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    System.out.println("KLIKCEM KO DEBIL");
-                    v.setBackgroundColor(Color.parseColor("#123456"));
+                    mNotifications.remove(notification);
+                    notifyDataSetChanged();
                 }
             });
         }

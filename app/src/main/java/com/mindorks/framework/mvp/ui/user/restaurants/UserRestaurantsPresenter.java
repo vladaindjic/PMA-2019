@@ -71,17 +71,20 @@ public class UserRestaurantsPresenter<V extends UserRestaurantsMvpView> extends 
         if (!isViewAttached()) {
             return;
         }
-        final String currentUserName = getDataManager().getCurrentUserName();
+        //final String currentUserName = getDataManager().getCurrentUserName();
+        final String currentUserName = "BOGOSAV";
         if (currentUserName != null && !currentUserName.isEmpty()) {
             getMvpView().updateUserName(currentUserName);
         }
 
-        final String currentUserEmail = getDataManager().getCurrentUserEmail();
+//        final String currentUserEmail = getDataManager().getCurrentUserEmail();
+        final String currentUserEmail = "BOGOSAVIC";
         if (currentUserEmail != null && !currentUserEmail.isEmpty()) {
             getMvpView().updateUserEmail(currentUserEmail);
         }
 
-        final String profilePicUrl = getDataManager().getCurrentUserProfilePicUrl();
+//        final String profilePicUrl = getDataManager().getCurrentUserProfilePicUrl();
+        final String profilePicUrl = "https://www.google.rs/url?sa=i&source=images&cd=&cad=rja&uact=8&ved=2ahUKEwiV0enQ5M_hAhUSyKQKHUiYC-EQjRx6BAgBEAU&url=https%3A%2F%2Fgfycat.com%2Fminorkeenibis&psig=AOvVaw15Er7zclR1vkMs9nZvj4Fb&ust=1555338197637009";
         if (profilePicUrl != null && !profilePicUrl.isEmpty()) {
             getMvpView().updateUserProfilePic(profilePicUrl);
         }
