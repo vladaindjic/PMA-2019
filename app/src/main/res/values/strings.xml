@@ -158,5 +158,10 @@
     <string name="title_activity_pokusaj_maps">Map</string>
     <string name="title_activity_maps">Map</string>
 
+    <string name="settings">Settings</string>
+    <string name="myProfile">My Profile</string>
+    <string name="restaurants">Restaurants</string>
+    <string name="my_restaurants">My Restaurants</string>
+    <string name="notifications">Notifications</string>
 
 </resources>

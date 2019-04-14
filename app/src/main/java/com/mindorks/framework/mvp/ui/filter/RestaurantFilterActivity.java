@@ -4,10 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NavUtils;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
@@ -90,6 +92,12 @@ public class RestaurantFilterActivity extends BaseActivity implements Restaurant
     protected void setUp() {
         setSupportActionBar(mToolbar);
 
+        System.out.println("OVDE");
+        if (getSupportActionBar() != null){
+            System.out.println("OVDI ?");
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
         System.out.println("Ovde sam");
         mLayoutManager1.setOrientation(LinearLayoutManager.VERTICAL);
         mFilterOptionsView.setLayoutManager(mLayoutManager1);
@@ -164,4 +172,15 @@ public class RestaurantFilterActivity extends BaseActivity implements Restaurant
     public void onPointerCaptureChanged(boolean hasCapture) {
 
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }

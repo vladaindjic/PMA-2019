@@ -24,6 +24,7 @@ import com.mindorks.framework.mvp.data.network.model.BlogResponse;
 import com.mindorks.framework.mvp.data.network.model.DailyMenuResponse;
 import com.mindorks.framework.mvp.data.network.model.DishDetailsResponse;
 import com.mindorks.framework.mvp.data.network.model.MenuResponse;
+import com.mindorks.framework.mvp.data.network.model.NotificationResponse;
 import com.mindorks.framework.mvp.data.network.model.OpenSourceResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantDetailsResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantFilterResponse;
@@ -60,6 +61,10 @@ import com.mindorks.framework.mvp.ui.main.MainPresenter;
 import com.mindorks.framework.mvp.ui.main.rating.RatingDialogMvpPresenter;
 import com.mindorks.framework.mvp.ui.main.rating.RatingDialogMvpView;
 import com.mindorks.framework.mvp.ui.main.rating.RatingDialogPresenter;
+import com.mindorks.framework.mvp.ui.notification.NotificationListAdapter;
+import com.mindorks.framework.mvp.ui.notification.NotificationMvpPresenter;
+import com.mindorks.framework.mvp.ui.notification.NotificationMvpView;
+import com.mindorks.framework.mvp.ui.notification.NotificationPresenter;
 import com.mindorks.framework.mvp.ui.splash.SplashMvpPresenter;
 import com.mindorks.framework.mvp.ui.splash.SplashMvpView;
 import com.mindorks.framework.mvp.ui.splash.SplashPresenter;
@@ -419,7 +424,7 @@ public class ActivityModule {
     RestaurantFilterOptionsAdapter provideRestaurantFilterOptionsAdapter() {
         return new RestaurantFilterOptionsAdapter(new ArrayList<RestaurantFilterResponse.RestaurantFilter.RestaurantFilterOptions>());
     }
-    
+
     // =================================== UserMealMvpPresenter
     @Provides
     @PerActivity
@@ -434,4 +439,17 @@ public class ActivityModule {
             RestaurantsMapPresenter<RestaurantsMapMvpView> presenter) {
         return presenter;
     }
+
+    @Provides
+    NotificationListAdapter provideNotificationAdapter() {
+        return new NotificationListAdapter(new ArrayList<NotificationResponse.Notifications.Notification>());
+    }
+
+    @Provides
+    NotificationMvpPresenter<NotificationMvpView> NotificationPresenter(
+            NotificationPresenter<NotificationMvpView> presenter) {
+        return presenter;
+    }
+
+
 }

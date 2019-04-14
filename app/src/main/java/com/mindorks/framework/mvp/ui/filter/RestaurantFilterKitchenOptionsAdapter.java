@@ -105,19 +105,14 @@ public class RestaurantFilterKitchenOptionsAdapter extends RecyclerView.Adapter<
 
         public void onBind(int position) {
             super.onBind(position);
-            System.out.println("Position " + position);
-            System.out.println("LIST SIZE " + mKitchenOptionList.size());
 
             if (mKitchenOptionList == null || mKitchenOptionList.size() <= 0) {
-                System.out.println("NEVALJA AKO SAM OVDE");
                 return;
             }
 
             final RestaurantFilterResponse.RestaurantFilter.KitchenOptions kitchen = mKitchenOptionList.get(position);
 
 
-            System.out.println("+++++++++++++" + kitchen.getName());
-            System.out.println("+++++++++++++" + kitchen.getValue());
 
             if (kitchen.getName() != null) {
                 checkBox.setText(kitchen.getName());

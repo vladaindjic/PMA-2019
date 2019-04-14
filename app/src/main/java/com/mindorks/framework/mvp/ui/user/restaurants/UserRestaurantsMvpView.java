@@ -6,4 +6,30 @@ import com.mindorks.framework.mvp.ui.base.MvpView;
 public interface UserRestaurantsMvpView extends MvpView {
 
     public void openRestaurantDetailsActivity(RestaurantsResponse.Restaurant restaurant);
+
+    void closeNavigationDrawer();
+
+    void showAboutFragment();
+
+    void openLoginActivity();
+
+    void updateUserName(String currentUserName);
+
+    void updateUserEmail(String currentUserEmail);
+
+    void updateUserProfilePic(String profilePicUrl);
+
+    void lockDrawer();
+
+    void unlockDrawer();
+
+    void openNotificationsActivity();
+
+    void openRestaurantsActivity();
+
+    void openMyRestaurantsActivity();
+
+    void openMyProfileActivity();
+
+    void openSettingsActivity();
 }

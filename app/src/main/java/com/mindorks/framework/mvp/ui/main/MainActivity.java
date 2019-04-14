@@ -191,7 +191,7 @@ public class MainActivity extends BaseActivity implements MainMvpView {
             fragmentManager
                     .beginTransaction()
                     .disallowAddToBackStack()
-                    .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
+                    .setCustomAnimations(R.anim.slide_right, R.anim.slide_right)
                     .remove(fragment)
                     .commitNow();
             unlockDrawer();
@@ -323,9 +323,9 @@ public class MainActivity extends BaseActivity implements MainMvpView {
                             case R.id.nav_item_about:
                                 mPresenter.onDrawerOptionAboutClick();
                                 return true;
-                            case R.id.nav_item_rate_us:
-                                mPresenter.onDrawerRateUsClick();
-                                return true;
+//                            case R.id.nav_item_rate_us:
+//                                mPresenter.onDrawerRateUsClick();
+//                                return true;
                             case R.id.nav_item_feed:
                                 mPresenter.onDrawerMyFeedClick();
                                 return true;
