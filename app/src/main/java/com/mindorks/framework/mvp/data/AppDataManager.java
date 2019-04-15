@@ -40,6 +40,7 @@ import com.mindorks.framework.mvp.data.network.model.RestaurantPromotionsRespons
 import com.mindorks.framework.mvp.data.network.model.RestaurantDetailsResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.data.network.model.SettingsResponse;
+import com.mindorks.framework.mvp.data.network.model.UserDetailsResponse;
 import com.mindorks.framework.mvp.data.network.model.UserRegistrationRequest;
 import com.mindorks.framework.mvp.data.network.model.UserRegistrationResponse;
 import com.mindorks.framework.mvp.data.prefs.PreferencesHelper;
@@ -364,4 +365,8 @@ public class AppDataManager implements DataManager {
         return mApiHelper.getSettingsApiCall();
     }
 
+    @Override
+    public Single<UserDetailsResponse> getUserDetailsApiCall(Long userId) {
+        return mApiHelper.getUserDetailsApiCall(userId);
+    }
 }

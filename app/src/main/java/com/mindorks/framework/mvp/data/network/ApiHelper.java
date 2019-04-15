@@ -27,6 +27,7 @@ import com.mindorks.framework.mvp.data.network.model.RestaurantPromotionsRespons
 import com.mindorks.framework.mvp.data.network.model.RestaurantDetailsResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.data.network.model.SettingsResponse;
+import com.mindorks.framework.mvp.data.network.model.UserDetailsResponse;
 import com.mindorks.framework.mvp.data.network.model.UserRegistrationRequest;
 import com.mindorks.framework.mvp.data.network.model.UserRegistrationResponse;
 
@@ -73,4 +74,6 @@ public interface ApiHelper {
     Single<NotificationResponse> getNotificationsApiCall();
 
     Single<SettingsResponse> getSettingsApiCall();
+
+    Single<UserDetailsResponse> getUserDetailsApiCall(Long userId);
 }

@@ -75,6 +75,9 @@ import com.mindorks.framework.mvp.ui.settings.SettingsPresenter;
 import com.mindorks.framework.mvp.ui.splash.SplashMvpPresenter;
 import com.mindorks.framework.mvp.ui.splash.SplashMvpView;
 import com.mindorks.framework.mvp.ui.splash.SplashPresenter;
+import com.mindorks.framework.mvp.ui.user.details.UserDetailsMvpPresenter;
+import com.mindorks.framework.mvp.ui.user.details.UserDetailsMvpView;
+import com.mindorks.framework.mvp.ui.user.details.UserDetailsPresenter;
 import com.mindorks.framework.mvp.ui.user.dish.UserDishMvpPresenter;
 import com.mindorks.framework.mvp.ui.user.dish.UserDishMvpView;
 import com.mindorks.framework.mvp.ui.user.dish.UserDishPagerAdapter;
@@ -479,6 +482,13 @@ public class ActivityModule {
     GeneralSettingsOptionsAdapter provideGeneralSettingsOptionsAdapter() {
         return new GeneralSettingsOptionsAdapter(new ArrayList<SettingsResponse.SettingsData.SettingsGeneralOption>());
     }
+
+    @Provides
+    UserDetailsMvpPresenter<UserDetailsMvpView> provideUserDetailsPresenter(
+            UserDetailsPresenter<UserDetailsMvpView> presenter) {
+        return presenter;
+    }
+
 
 //    @Provides
 //    LanguageSettingsOptionsAdapter provideLanguageSettingsOptionsAdapter(Context context) {

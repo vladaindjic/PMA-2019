@@ -32,6 +32,7 @@ import com.mindorks.framework.mvp.ui.login.LoginActivity;
 import com.mindorks.framework.mvp.ui.main.MainActivity;
 import com.mindorks.framework.mvp.ui.notification.NotificationFragment;
 import com.mindorks.framework.mvp.ui.settings.SettingsFragment;
+import com.mindorks.framework.mvp.ui.user.details.UserDetailsFragment;
 import com.mindorks.framework.mvp.ui.user.preferences.UserPreferencesFragment;
 import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantActivity;
 import com.mindorks.framework.mvp.ui.user.subscrptions.SubscriptionActivity;
@@ -321,7 +322,7 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
             fragmentManager
                     .beginTransaction()
                     .disallowAddToBackStack()
-                    .setCustomAnimations(R.anim.slide_right, R.anim.slide_left)
+                    .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
                     .remove(fragment)
                     .commitNow();
             unlockDrawer();
@@ -356,7 +357,13 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
 
     @Override
     public void openMyProfileActivity() {
-        Intent intent = MainActivity.getStartIntent(this);
+        lockDrawer();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .disallowAddToBackStack()
+                .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
+                .add(R.id.cl_root_view, UserDetailsFragment.newInstance(), UserDetailsFragment.TAG)
+                .commit();
     }
 
     @Override
