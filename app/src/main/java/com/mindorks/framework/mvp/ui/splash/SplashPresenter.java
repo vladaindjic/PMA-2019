@@ -86,6 +86,8 @@ public class SplashPresenter<V extends SplashMvpView> extends BasePresenter<V>
         } else {
 //            getMvpView().openMainActivity();
             getMvpView().openUserRestaurantsActivity();
+//            getMvpView().openManagerRestaurantActivity();
+
         }
 
         // TODO vi3: proveriti koji si user, pa onda dodaj

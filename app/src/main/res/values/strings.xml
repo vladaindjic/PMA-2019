@@ -201,4 +201,6 @@
     <string name="pref_language_default_value">english_us</string>
 
 
+    <!--Manager-->
+    <string name="cook">Cook</string>
 </resources>

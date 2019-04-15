@@ -25,6 +25,12 @@ import com.mindorks.framework.mvp.ui.filter.RestaurantFilterActivity;
 import com.mindorks.framework.mvp.ui.login.LoginActivity;
 import com.mindorks.framework.mvp.ui.main.MainActivity;
 import com.mindorks.framework.mvp.ui.main.rating.RateUsDialog;
+import com.mindorks.framework.mvp.ui.manager.restaurant.ManagerRestaurantActivity;
+import com.mindorks.framework.mvp.ui.manager.restaurant.cook.ManagerRestaurantCookFragment;
+import com.mindorks.framework.mvp.ui.manager.restaurant.dailyMenu.ManagerRestaurantDailyMenuFragment;
+import com.mindorks.framework.mvp.ui.manager.restaurant.details.ManagerRestaurantDetailsFragment;
+import com.mindorks.framework.mvp.ui.manager.restaurant.menu.ManagerRestaurantMenuFragment;
+import com.mindorks.framework.mvp.ui.manager.restaurant.promotions.ManagerRestaurantPromotionsFragment;
 import com.mindorks.framework.mvp.ui.notification.NotificationFragment;
 import com.mindorks.framework.mvp.ui.settings.SettingsFragment;
 import com.mindorks.framework.mvp.ui.user.details.UserDetailsFragment;
@@ -115,5 +121,12 @@ public interface ActivityComponent {
     void inject(SettingsFragment fragment);
 
     void inject(UserDetailsFragment fragment);
+    // manager's stuff
+    void inject(ManagerRestaurantActivity activity);
+    void inject(ManagerRestaurantDetailsFragment fragment);
+    void inject(ManagerRestaurantCookFragment fragment);
+    void inject(ManagerRestaurantMenuFragment fragment);
+    void inject(ManagerRestaurantDailyMenuFragment fragment);
+    void inject(ManagerRestaurantPromotionsFragment fragment);
 
 }

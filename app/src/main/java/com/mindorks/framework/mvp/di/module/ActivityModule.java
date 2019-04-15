@@ -62,6 +62,30 @@ import com.mindorks.framework.mvp.ui.main.MainPresenter;
 import com.mindorks.framework.mvp.ui.main.rating.RatingDialogMvpPresenter;
 import com.mindorks.framework.mvp.ui.main.rating.RatingDialogMvpView;
 import com.mindorks.framework.mvp.ui.main.rating.RatingDialogPresenter;
+import com.mindorks.framework.mvp.ui.manager.restaurant.ManagerRestaurantMvpPresenter;
+import com.mindorks.framework.mvp.ui.manager.restaurant.ManagerRestaurantMvpView;
+import com.mindorks.framework.mvp.ui.manager.restaurant.ManagerRestaurantPagerAdapter;
+import com.mindorks.framework.mvp.ui.manager.restaurant.ManagerRestaurantPresenter;
+import com.mindorks.framework.mvp.ui.manager.restaurant.cook.ManagerRestaurantCookMvpPresenter;
+import com.mindorks.framework.mvp.ui.manager.restaurant.cook.ManagerRestaurantCookMvpView;
+import com.mindorks.framework.mvp.ui.manager.restaurant.cook.ManagerRestaurantCookPresenter;
+import com.mindorks.framework.mvp.ui.manager.restaurant.dailyMenu.ManagerMealListAdapter;
+import com.mindorks.framework.mvp.ui.manager.restaurant.dailyMenu.ManagerRestaurantDailyMenuMvpPresenter;
+import com.mindorks.framework.mvp.ui.manager.restaurant.dailyMenu.ManagerRestaurantDailyMenuMvpView;
+import com.mindorks.framework.mvp.ui.manager.restaurant.dailyMenu.ManagerRestaurantDailyMenuPresenter;
+import com.mindorks.framework.mvp.ui.manager.restaurant.details.ManagerRestaurantDetailsKitchensAdapter;
+import com.mindorks.framework.mvp.ui.manager.restaurant.details.ManagerRestaurantDetailsMvpPresenter;
+import com.mindorks.framework.mvp.ui.manager.restaurant.details.ManagerRestaurantDetailsMvpView;
+import com.mindorks.framework.mvp.ui.manager.restaurant.details.ManagerRestaurantDetailsPresenter;
+import com.mindorks.framework.mvp.ui.manager.restaurant.menu.ManagerDishListAdapter;
+import com.mindorks.framework.mvp.ui.manager.restaurant.menu.ManagerDishTypeListAdapter;
+import com.mindorks.framework.mvp.ui.manager.restaurant.menu.ManagerRestaurantMenuMvpPresenter;
+import com.mindorks.framework.mvp.ui.manager.restaurant.menu.ManagerRestaurantMenuMvpView;
+import com.mindorks.framework.mvp.ui.manager.restaurant.menu.ManagerRestaurantMenuPresenter;
+import com.mindorks.framework.mvp.ui.manager.restaurant.promotions.ManagerRestaurantPromotionsAdapter;
+import com.mindorks.framework.mvp.ui.manager.restaurant.promotions.ManagerRestaurantPromotionsMvpPresenter;
+import com.mindorks.framework.mvp.ui.manager.restaurant.promotions.ManagerRestaurantPromotionsMvpView;
+import com.mindorks.framework.mvp.ui.manager.restaurant.promotions.ManagerRestaurantPromotionsPresenter;
 import com.mindorks.framework.mvp.ui.notification.NotificationListAdapter;
 import com.mindorks.framework.mvp.ui.notification.NotificationMvpPresenter;
 import com.mindorks.framework.mvp.ui.notification.NotificationMvpView;
@@ -145,6 +169,8 @@ import com.mindorks.framework.mvp.utils.rx.AppSchedulerProvider;
 import com.mindorks.framework.mvp.utils.rx.SchedulerProvider;
 
 import java.util.ArrayList;
+
+import javax.inject.Inject;
 
 import dagger.Module;
 import dagger.Provides;
@@ -385,7 +411,7 @@ public class ActivityModule {
     DishListAdapter provideDishListAdapter() {
         return new DishListAdapter(new ArrayList<MenuResponse.Dish>());
     }
-    
+
     // =================================== UserDishMvpPresenter
     @Provides
     @PerActivity
@@ -393,18 +419,20 @@ public class ActivityModule {
             UserDishPresenter<UserDishMvpView> presenter) {
         return presenter;
     }
+
     // =================================== UserDishPagerAdapter
     @Provides
     UserDishPagerAdapter provideUserDishPagerAdapter(AppCompatActivity activity) {
         return new UserDishPagerAdapter(activity.getSupportFragmentManager());
     }
+
     // =================================== UserDishRatingMvpPresenter
     @Provides
     UserDishRatingMvpPresenter<UserDishRatingMvpView> UserDishRatingPresenter(
             UserDishRatingPresenter<UserDishRatingMvpView> presenter) {
         return presenter;
     }
-    
+
     // =================================== UserDishDetailsMvpPresenter
     @Provides
     UserDishDetailsMvpPresenter<UserDishDetailsMvpView> UserDishDetailsPresenter(
@@ -417,12 +445,13 @@ public class ActivityModule {
     UserDishDetailsNutritiveValuesAdapter provideUserDishDetailsNutritiveValuesAdapter() {
         return new UserDishDetailsNutritiveValuesAdapter(new ArrayList<DishDetailsResponse.NutritiveValue>());
     }
-    
+
     // =================================== MealListAdapter
     @Provides
     MealListAdapter provideMealListAdapter() {
         return new MealListAdapter(new ArrayList<DailyMenuResponse.Meal>());
     }
+
     @Provides
     RestaurantFilterMvpPresenter<RestaurantFilterMvpView> RestaurantFilterPresenter(
             RestaurantFilterPresenter<RestaurantFilterMvpView> presenter) {
@@ -446,7 +475,7 @@ public class ActivityModule {
             UserMealPresenter<UserMealMvpView> presenter) {
         return presenter;
     }
-    
+
     // =================================== RestaurantsMapMvpPresenter<RestaurantsMapMvpView>
     @Provides
     RestaurantsMapMvpPresenter<RestaurantsMapMvpView> provideRestaurantsMapPresenter(
@@ -472,6 +501,7 @@ public class ActivityModule {
             SubscriptionPresenter<SubscriptionMvpView> presenter) {
         return presenter;
     }
+
     @Provides
     SettingsMvpPresenter<SettingsMvpView> SettingsPresenter(
             SettingsPresenter<SettingsMvpView> presenter) {
@@ -495,6 +525,86 @@ public class ActivityModule {
 //        return new LanguageSettingsOptionsAdapter(context, new ArrayList<SettingsResponse.SettingsData.LanguageOption>());
 //    }
 
+
+    // ==================================== Manager ===========================
+    @Provides
+    @PerActivity
+    ManagerRestaurantMvpPresenter<ManagerRestaurantMvpView> provideManagerRestaurantPresenter(
+            ManagerRestaurantPresenter<ManagerRestaurantMvpView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    ManagerRestaurantPagerAdapter provideManagerRestaurantPagerAdapter(AppCompatActivity activity) {
+        return new ManagerRestaurantPagerAdapter(activity.getSupportFragmentManager());
+    }
+
+    // =========== ManagerRestaurantDetailsFragment
+    @Provides
+    ManagerRestaurantDetailsMvpPresenter<ManagerRestaurantDetailsMvpView> ManagerRestaurantDetailsPresenter(
+            ManagerRestaurantDetailsPresenter<ManagerRestaurantDetailsMvpView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    ManagerRestaurantDetailsKitchensAdapter provideManagerRestaurantDetailsKitchensAdapter() {
+        return new ManagerRestaurantDetailsKitchensAdapter(new ArrayList<RestaurantDetailsResponse.Kitchen>());
+    }
+
+
+    // ============ ManagerRestaurantCookFragment
+    @Provides
+    ManagerRestaurantCookMvpPresenter<ManagerRestaurantCookMvpView> ManagerRestaurantCookPresenter(
+            ManagerRestaurantCookPresenter<ManagerRestaurantCookMvpView> presenter) {
+        return presenter;
+    }
+
+    // ============= ManagerRestaurantMenuFragment
+    @Provides
+    ManagerRestaurantMenuMvpPresenter<ManagerRestaurantMenuMvpView> ManagerRestaurantMenuPresenter(
+            ManagerRestaurantMenuPresenter<ManagerRestaurantMenuMvpView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    ManagerDishTypeListAdapter provideManagerDishTypeListAdapter(AppCompatActivity activity) {
+        return new ManagerDishTypeListAdapter(new ArrayList<MenuResponse.DishType>(), activity);
+    }
+
+    @Provides
+    ManagerDishListAdapter provideManagerDishListAdapter() {
+        return new ManagerDishListAdapter(new ArrayList<MenuResponse.Dish>());
+    }
+
+
+    // ============ ManagerRestaurantDailyMenuFragment
+    @Provides
+    ManagerRestaurantDailyMenuMvpPresenter<ManagerRestaurantDailyMenuMvpView> ManagerRestaurantDailyMenuPresenter(
+            ManagerRestaurantDailyMenuPresenter<ManagerRestaurantDailyMenuMvpView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    ManagerMealListAdapter provideManagerMealListAdapter() {
+        return new ManagerMealListAdapter(new ArrayList<DailyMenuResponse.Meal>());
+    }
+
+
+    // ============ ManagerRestaurantPromotionsFragment
+    @Provides
+    ManagerRestaurantPromotionsMvpPresenter<ManagerRestaurantPromotionsMvpView> ManagerRestaurantPromotionsPresenter(
+            ManagerRestaurantPromotionsPresenter<ManagerRestaurantPromotionsMvpView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    ManagerRestaurantPromotionsAdapter provideManagerRestaurantPromotionsAdapter() {
+        return new ManagerRestaurantPromotionsAdapter(new ArrayList<RestaurantPromotionsResponse.Promotion>());
+    }
+
+
+
+    // ==================================== Manager ===========================
 
 
 }
