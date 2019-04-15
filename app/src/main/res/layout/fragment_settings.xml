@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
     android:orientation="vertical">
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_marginTop="@dimen/app_bar_height"
+        android:background="@color/colorPrimary"
         android:gravity="center|start"
-        android:orientation="horizontal"
-        android:background="@color/black_effective">
+        android:orientation="horizontal">
 
         <ImageButton
             android:id="@+id/nav_back_btn"
@@ -35,6 +36,11 @@
             android:textColor="@color/white"
             android:textSize="20sp" />
     </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/user_preferences_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/general_settings_option_view"

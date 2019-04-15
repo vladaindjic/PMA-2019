@@ -15,6 +15,7 @@ import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.SettingsResponse;
 import com.mindorks.framework.mvp.di.component.ActivityComponent;
 import com.mindorks.framework.mvp.ui.base.BaseFragment;
+import com.mindorks.framework.mvp.ui.user.preferences.UserPreferencesFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +75,18 @@ public class SettingsFragment extends BaseFragment implements SettingsMvpView {
         }
 
         mLanguageSettingsOptionsAdapter = new LanguageSettingsOptionsAdapter(container.getContext(), new ArrayList<SettingsResponse.SettingsData.LanguageOption>());
+
+
+        // FIXME vi3: ili sve ukloniti ili ovo negde premestiti. Ovo je u 2:59am napravljeno
+        // FIXME vi3: dodati i back dugme
+        getFragmentManager()
+                .beginTransaction()
+                .disallowAddToBackStack()
+                .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
+                .add(R.id.user_preferences_container, UserPreferencesFragment.newInstance(),
+                        UserPreferencesFragment.TAG)
+                .commit();
+
 
         return view;
     }

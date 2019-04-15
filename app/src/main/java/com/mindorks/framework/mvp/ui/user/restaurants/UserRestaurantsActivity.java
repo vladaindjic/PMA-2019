@@ -32,6 +32,7 @@ import com.mindorks.framework.mvp.ui.login.LoginActivity;
 import com.mindorks.framework.mvp.ui.main.MainActivity;
 import com.mindorks.framework.mvp.ui.notification.NotificationFragment;
 import com.mindorks.framework.mvp.ui.settings.SettingsFragment;
+import com.mindorks.framework.mvp.ui.user.preferences.UserPreferencesFragment;
 import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantActivity;
 
 import javax.inject.Inject;
@@ -366,5 +367,14 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
                 .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
                 .add(R.id.cl_root_view, SettingsFragment.newInstance(), SettingsFragment.TAG)
                 .commit();
+//
+//        getSupportFragmentManager()
+//                .beginTransaction()
+//                .disallowAddToBackStack()
+//                .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
+//                .add(R.id.cl_root_view, UserPreferencesFragment.newInstance(),
+//                        SettingsFragment.TAG)
+//                .commit();
+        // TODO vi3: ovde otvoriti fragment
     }
 }
