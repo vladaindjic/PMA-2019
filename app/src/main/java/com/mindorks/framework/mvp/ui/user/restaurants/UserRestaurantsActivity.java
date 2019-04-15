@@ -267,7 +267,7 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
                 .beginTransaction()
                 .disallowAddToBackStack()
                 .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
-                .add(R.id.cl_root_view, AboutFragment.newInstance(), AboutFragment.TAG)
+                .add(R.id.user_cl_root_view, AboutFragment.newInstance(), AboutFragment.TAG)
                 .commit();
     }
 
@@ -337,7 +337,7 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
                 .beginTransaction()
                 .disallowAddToBackStack()
                 .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
-                .add(R.id.cl_root_view, NotificationFragment.newInstance(), NotificationFragment.TAG)
+                .add(R.id.user_cl_root_view, NotificationFragment.newInstance(), NotificationFragment.TAG)
                 .commit();
     }
 
@@ -362,7 +362,7 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
                 .beginTransaction()
                 .disallowAddToBackStack()
                 .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
-                .add(R.id.cl_root_view, UserDetailsFragment.newInstance(), UserDetailsFragment.TAG)
+                .add(R.id.user_cl_root_view, UserDetailsFragment.newInstance(), UserDetailsFragment.TAG)
                 .commit();
     }
 
@@ -373,14 +373,14 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
                 .beginTransaction()
                 .disallowAddToBackStack()
                 .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
-                .add(R.id.cl_root_view, SettingsFragment.newInstance(), SettingsFragment.TAG)
+                .add(R.id.user_cl_root_view, SettingsFragment.newInstance(), SettingsFragment.TAG)
                 .commit();
 //
 //        getSupportFragmentManager()
 //                .beginTransaction()
 //                .disallowAddToBackStack()
 //                .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
-//                .add(R.id.cl_root_view, UserPreferencesFragment.newInstance(),
+//                .add(R.id.user_cl_root_view, UserPreferencesFragment.newInstance(),
 //                        SettingsFragment.TAG)
 //                .commit();
         // TODO vi3: ovde otvoriti fragment

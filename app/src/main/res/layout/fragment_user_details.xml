@@ -4,7 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black_effective"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:clickable="true"
+    android:focusable="true">
+    <!--FIXME vi3: zasto se uopste pravi problem da kada klikne bilo gde on klik spusti do restorana-->
+    <!--DA li sam to sa clickable=true resio?-->
 
     <LinearLayout
         android:layout_width="match_parent"

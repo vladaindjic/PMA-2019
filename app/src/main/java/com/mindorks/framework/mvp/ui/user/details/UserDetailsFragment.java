@@ -85,7 +85,7 @@ public class UserDetailsFragment extends BaseFragment implements
         Bundle bundle = getArguments();
         Long Id = bundle.getLong("Id");
 
-        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        //mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
         mPresenter.onViewPrepared(Id);
     }
