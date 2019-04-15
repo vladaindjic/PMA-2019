@@ -150,7 +150,7 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
         mDrawer.addDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
         setupNavMenu();
-//        mPresenter.onNavMenuCreated();
+        mPresenter.onNavMenuCreated();
 //        setupCardContainerView();
 //        mPresenter.onViewInitialized();
 
