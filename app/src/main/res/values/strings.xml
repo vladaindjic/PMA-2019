@@ -165,4 +165,41 @@
     <string name="notifications">Notifications</string>
 
     <string name="subscriptions">Subscriptions</string>
+    <string name="pref_appearance_group_title">Appearance</string>
+    <string name="pref_dark_theme_title">Dark Theme</string>
+    <string name="pref_dark_theme_summary">This is good to use in environments with low light
+    conditions.</string>
+
+    <string name="pref_network_data_usage_group_title">Network Data Usage</string>
+    <string name="pref_save_network_data_usage_title">Save Network Data</string>
+    <string name="pref_save_network_data_usage_summary">When using mobile data, this
+        option should be turn on in order to save network data. Consumption of network data
+    is minimized by ignoring images that should be download for each entity.</string>
+
+    <string name="pref_notifications_title">Notifications</string>
+    <string name="pref_notifications_summary">You can turn off notifications if they are
+        too distracting. Also, some network data would be saved.</string>
+
+
+    <string name="pref_languages_group_title">Languages</string>
+    <string name="pref_languages_title">Choose Language</string>
+    <string name="pref_languages_summary">There are few predefined languages which you
+        can set as default for this application.</string>
+
+    <string-array name="pref_language_entries">
+        <item>Српски (ћирилица)</item>
+        <item>Srpski (latinica)</item>
+        <item>English</item>
+    </string-array>
+
+    <string-array name="pref_languages_values">
+        <item>srpski_cirilica</item>
+        <item>srpski_latinica</item>
+        <item>english_us</item>
+    </string-array>
+
+    <string name="pref_language_default_value">english_us</string>
+
+
+
 </resources>

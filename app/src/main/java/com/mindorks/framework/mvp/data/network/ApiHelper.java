@@ -26,6 +26,7 @@ import com.mindorks.framework.mvp.data.network.model.RestaurantFilterResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantPromotionsResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantDetailsResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
+import com.mindorks.framework.mvp.data.network.model.SettingsResponse;
 import com.mindorks.framework.mvp.data.network.model.UserRegistrationRequest;
 import com.mindorks.framework.mvp.data.network.model.UserRegistrationResponse;
 
@@ -70,4 +71,6 @@ public interface ApiHelper {
     Single<RestaurantFilterResponse> getRestaurantFilterApiCall();
 
     Single<NotificationResponse> getNotificationsApiCall();
+
+    Single<SettingsResponse> getSettingsApiCall();
 }

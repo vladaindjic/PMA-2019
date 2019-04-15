@@ -82,6 +82,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.user.restaurants.UserRestaurantsActivity" />
         </activity>
+        <activity android:name=".ui.user.preferences.UserPreferencesFragment" />
     </application>
 
 </manifest>

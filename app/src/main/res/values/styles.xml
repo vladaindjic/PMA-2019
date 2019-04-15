@@ -30,6 +30,10 @@
         <item name="drawerArrowStyle">@style/MaterialDrawer.DrawerArrowStyle</item>
         <item name="android:textAppearance">@style/TextAppearance.Text.Regular</item>
         <item name="android:homeAsUpIndicator">@drawable/ic_arrow_back_white_24px</item>
+
+        <!--Mora zbog preferences da se doda-->
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+
     </style>
 
     <style name="AppThemeFullScreen" parent="AppTheme">
