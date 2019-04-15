@@ -330,6 +330,11 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public Single<RestaurantsResponse> getSubscriptionsApiCall() {
+        return mApiHelper.getSubscriptionsApiCall();
+    }
+
+    @Override
     public Single<RestaurantPromotionsResponse> getRestaurantPromotions() {
         return  mApiHelper.getRestaurantPromotions();
     }

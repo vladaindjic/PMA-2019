@@ -34,6 +34,7 @@ import com.mindorks.framework.mvp.ui.notification.NotificationFragment;
 import com.mindorks.framework.mvp.ui.settings.SettingsFragment;
 import com.mindorks.framework.mvp.ui.user.preferences.UserPreferencesFragment;
 import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantActivity;
+import com.mindorks.framework.mvp.ui.user.subscrptions.SubscriptionActivity;
 
 import javax.inject.Inject;
 
@@ -348,7 +349,7 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
 
     @Override
     public void openMyRestaurantsActivity() {
-        Intent intent = MainActivity.getStartIntent(this);
+        Intent intent = SubscriptionActivity.getStartIntent(this);
         startActivity(intent);
 
     }

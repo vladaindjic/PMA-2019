@@ -130,6 +130,18 @@ public class AppApiHelper implements ApiHelper {
     }
 
     @Override
+    public Single<RestaurantsResponse> getSubscriptionsApiCall() {
+        // TODO vi3: dodati parametre za filterisanje, treba ubaciti i id korisnika koji salje
+        // zahtev; to mozda moze i na serveru preko tokena da se gleda
+        // i ustedu saobracaja
+        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_SUBSCRIPTIONS)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .build()
+                .getObjectSingle(RestaurantsResponse.class);
+    }
+
+
+    @Override
     public Single<RestaurantPromotionsResponse> getRestaurantPromotions() {
         //TODO milan: dodati id resorana cije promocije dobavljamo
         return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_RESTAURANT_PROMOTIONS)
