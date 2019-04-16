@@ -207,5 +207,13 @@ public class AppApiHelper implements ApiHelper {
                 .build()
                 .getObjectSingle(UserDetailsResponse.class);
     }
+
+    @Override
+    public Single<RestaurantRatingResponse> getDishRatingApiCall(Long restaurantId) {
+        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_DISH_RATING)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .build()
+                .getObjectSingle(RestaurantRatingResponse.class);
+    }
 }
 

@@ -80,7 +80,10 @@ public final class ApiEndPoint {
 
     public static final String ENDPOINT_USER_DETAILS = BuildConfig.BASE_URL
             + "/5cb4f48f3300002b005d7936";
-//    http://www.mocky.io/v2/5cb1d31c330000c9255720ef
+
+    public static final String ENDPOINT_DISH_RATING = BuildConfig.BASE_URL
+            +"/5cb60b4d330000e1345d7fcc";
+    //    http://www.mocky.io/v2/5cb1d31c330000c9255720ef
 
     private ApiEndPoint() {
         // This class is not publicly instantiable

@@ -17,7 +17,10 @@ import android.widget.Toast;
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.RestaurantRatingResponse;
 import com.mindorks.framework.mvp.di.component.ActivityComponent;
+import com.mindorks.framework.mvp.ui.base.BaseActivity;
 import com.mindorks.framework.mvp.ui.base.BaseFragment;
+import com.mindorks.framework.mvp.ui.user.dish.UserDishActivity;
+import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantActivity;
 
 import javax.inject.Inject;
 
@@ -86,6 +89,7 @@ public class UserRestaurantRatingFragment extends BaseFragment implements UserRe
 
     @Override
     protected void setUp(View view) {
+
         Bundle bundle = getArguments();
         Long restaurantId = bundle.getLong("restaurantId");
 
@@ -94,9 +98,19 @@ public class UserRestaurantRatingFragment extends BaseFragment implements UserRe
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mUserRestaurantCommentAdapter);
 
-        mPresenter.onViewPrepared(restaurantId);
+        this.findAndPrepareProperView();
 
+    }
 
+    private void findAndPrepareProperView() {
+
+        //FIXME Milan: Id restorana tj id objekta za koji se dobavljaju ocene
+        BaseActivity parent = getBaseActivity();
+        if (parent instanceof UserRestaurantActivity) {
+            mPresenter.onViewPrepared(UserRestaurantRatingMvpPresenter.PREPARE_RESTAURANT_RATING, 0L);
+        } else if (parent instanceof UserDishActivity) {
+            mPresenter.onViewPrepared(UserRestaurantRatingMvpPresenter.PREPARE_DISH_RATING, 0L);
+        }
     }
 
     @OnClick(R.id.restaurant_comment_button)
@@ -109,7 +123,7 @@ public class UserRestaurantRatingFragment extends BaseFragment implements UserRe
     public void updateRestaurantRating(RestaurantRatingResponse.RestaurantRating restaurantRating) {
 
         ratingTextView.setText(restaurantRating.getRating().toString());
-        if(restaurantRating.getRated()!=-1){
+        if (restaurantRating.getRated() != -1) {
             ratingBar.setRating(restaurantRating.getRated());
             ratingBar.setIsIndicator(true);
         }

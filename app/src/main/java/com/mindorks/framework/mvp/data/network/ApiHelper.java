@@ -79,4 +79,7 @@ public interface ApiHelper {
     Single<SettingsResponse> getSettingsApiCall();
 
     Single<UserDetailsResponse> getUserDetailsApiCall(Long userId);
+
+    Single<RestaurantRatingResponse> getDishRatingApiCall(Long restaurantId);
+
 }
