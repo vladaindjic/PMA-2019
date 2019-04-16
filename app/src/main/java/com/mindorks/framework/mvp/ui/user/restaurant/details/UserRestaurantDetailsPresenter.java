@@ -18,7 +18,7 @@ import io.reactivex.functions.Consumer;
 public class UserRestaurantDetailsPresenter<V extends UserRestaurantDetailsMvpView> extends BasePresenter<V>
         implements UserRestaurantDetailsMvpPresenter<V> {
 
-    private static final String TAG = "UserRestaurantDetailsPresenter";
+    private static final String TAG = "UserDishDetailsPresenter";
 
     @Inject
     public UserRestaurantDetailsPresenter(DataManager dataManager,

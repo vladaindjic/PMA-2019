@@ -21,9 +21,23 @@ import com.mindorks.framework.mvp.ui.about.AboutFragment;
 import com.mindorks.framework.mvp.ui.feed.FeedActivity;
 import com.mindorks.framework.mvp.ui.feed.blogs.BlogFragment;
 import com.mindorks.framework.mvp.ui.feed.opensource.OpenSourceFragment;
+import com.mindorks.framework.mvp.ui.filter.RestaurantFilterActivity;
 import com.mindorks.framework.mvp.ui.login.LoginActivity;
 import com.mindorks.framework.mvp.ui.main.MainActivity;
 import com.mindorks.framework.mvp.ui.main.rating.RateUsDialog;
+import com.mindorks.framework.mvp.ui.manager.restaurant.ManagerRestaurantActivity;
+import com.mindorks.framework.mvp.ui.manager.restaurant.cook.ManagerRestaurantCookFragment;
+import com.mindorks.framework.mvp.ui.manager.restaurant.dailyMenu.ManagerRestaurantDailyMenuFragment;
+import com.mindorks.framework.mvp.ui.manager.restaurant.details.ManagerRestaurantDetailsFragment;
+import com.mindorks.framework.mvp.ui.manager.restaurant.menu.ManagerRestaurantMenuFragment;
+import com.mindorks.framework.mvp.ui.manager.restaurant.promotions.ManagerRestaurantPromotionsFragment;
+import com.mindorks.framework.mvp.ui.notification.NotificationFragment;
+import com.mindorks.framework.mvp.ui.settings.SettingsFragment;
+import com.mindorks.framework.mvp.ui.user.details.UserDetailsFragment;
+import com.mindorks.framework.mvp.ui.user.dish.UserDishActivity;
+import com.mindorks.framework.mvp.ui.user.dish.details.UserDishDetailsFragment;
+import com.mindorks.framework.mvp.ui.user.dish.ratings.UserDishRatingFragment;
+import com.mindorks.framework.mvp.ui.user.meal.UserMealActivity;
 import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantActivity;
 import com.mindorks.framework.mvp.ui.user.restaurant.dailyMenu.UserRestaurantDailyMenuFragment;
 import com.mindorks.framework.mvp.ui.user.restaurant.details.UserRestaurantDetailsFragment;
@@ -35,6 +49,8 @@ import com.mindorks.framework.mvp.ui.user.restaurants.UserRestaurantsActivity;
 import com.mindorks.framework.mvp.ui.user.restaurants.grid.RestaurantsGridFragment;
 import com.mindorks.framework.mvp.ui.user.restaurants.list.RestaurantsListFragment;
 import com.mindorks.framework.mvp.ui.splash.SplashActivity;
+import com.mindorks.framework.mvp.ui.user.restaurants.map.RestaurantsMapFragment;
+import com.mindorks.framework.mvp.ui.user.subscrptions.SubscriptionActivity;
 import com.mindorks.framework.mvp.ui.userRegistration.UserRegistrationActivity;
 
 import dagger.Component;
@@ -73,12 +89,14 @@ public interface ActivityComponent {
 
     void inject(RestaurantsGridFragment fragment);
 
+    void inject(RestaurantsMapFragment fragment);
+
     void inject(UserRestaurantDetailsFragment fragment);
 
     void inject(UserRestaurantPromotionsFragment fragment);
 
 
-    //Milan dodao
+    //Milan dodao - to, majstore ;)
     void inject(PromotionDetailsActivity activity);
 
     void inject(UserRestaurantRatingFragment fragment);
@@ -86,4 +104,29 @@ public interface ActivityComponent {
     void inject(UserRestaurantMenuFragment fragment);
 
     void inject(UserRestaurantDailyMenuFragment fragment);
+
+    // vi3 Dish package
+    void inject(UserDishActivity activity);
+    void inject(UserDishDetailsFragment fragment);
+    void inject(UserDishRatingFragment fragment);
+
+    void inject(RestaurantFilterActivity activity);
+
+    void inject(UserMealActivity activity);
+
+    void inject(NotificationFragment fragment);
+
+    void inject(SubscriptionActivity activity);
+
+    void inject(SettingsFragment fragment);
+
+    void inject(UserDetailsFragment fragment);
+    // manager's stuff
+    void inject(ManagerRestaurantActivity activity);
+    void inject(ManagerRestaurantDetailsFragment fragment);
+    void inject(ManagerRestaurantCookFragment fragment);
+    void inject(ManagerRestaurantMenuFragment fragment);
+    void inject(ManagerRestaurantDailyMenuFragment fragment);
+    void inject(ManagerRestaurantPromotionsFragment fragment);
+
 }

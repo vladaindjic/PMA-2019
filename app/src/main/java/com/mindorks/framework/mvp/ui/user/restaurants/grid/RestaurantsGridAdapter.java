@@ -168,7 +168,7 @@ public class RestaurantsGridAdapter extends RecyclerView.Adapter<BaseViewHolder>
         @OnClick(R.id.btn_retry)
         void onRetryClick() {
             if (mCallback != null)
-                mCallback.onRestaurantsEmptyViewRetryClick();
+                mCallback.onsEmptyViewRetryButtonClick();
         }
     }
 }

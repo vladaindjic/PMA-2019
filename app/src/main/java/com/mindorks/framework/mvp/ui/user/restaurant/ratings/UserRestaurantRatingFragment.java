@@ -30,7 +30,7 @@ import butterknife.OnClick;
  */
 public class UserRestaurantRatingFragment extends BaseFragment implements UserRestaurantRatingMvpView {
 
-    private static final String TAG = "UserRestaurantRatingFragment";
+    private static final String TAG = "UserDishRatingFragment";
 
     @Inject
     UserRestaurantRatingMvpPresenter<UserRestaurantRatingMvpView> mPresenter;

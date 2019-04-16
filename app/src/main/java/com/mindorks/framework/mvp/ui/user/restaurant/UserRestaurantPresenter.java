@@ -10,7 +10,7 @@ import io.reactivex.disposables.CompositeDisposable;
 
 public class UserRestaurantPresenter<V extends UserRestaurantMvpView> extends BasePresenter<V>
         implements UserRestaurantMvpPresenter<V> {
-    private static final String TAG = "UserRestaurantPresenter";
+    private static final String TAG = "UserDishPresenter";
 
     @Inject
     public UserRestaurantPresenter(DataManager dataManager,

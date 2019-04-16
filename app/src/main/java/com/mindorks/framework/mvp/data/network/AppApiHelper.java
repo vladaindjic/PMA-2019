@@ -19,13 +19,16 @@ import com.mindorks.framework.mvp.data.network.model.BlogResponse;
 import com.mindorks.framework.mvp.data.network.model.LoginRequest;
 import com.mindorks.framework.mvp.data.network.model.LoginResponse;
 import com.mindorks.framework.mvp.data.network.model.LogoutResponse;
+import com.mindorks.framework.mvp.data.network.model.NotificationResponse;
 import com.mindorks.framework.mvp.data.network.model.OpenSourceResponse;
 import com.mindorks.framework.mvp.data.network.model.PromotionDetailsResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantDetailsResponse;
+import com.mindorks.framework.mvp.data.network.model.RestaurantFilterResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantPromotionsResponse;
-import com.mindorks.framework.mvp.data.network.model.RestaurantDetailsResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantRatingResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
+import com.mindorks.framework.mvp.data.network.model.SettingsResponse;
+import com.mindorks.framework.mvp.data.network.model.UserDetailsResponse;
 import com.mindorks.framework.mvp.data.network.model.UserRegistrationRequest;
 import com.mindorks.framework.mvp.data.network.model.UserRegistrationResponse;
 import com.rx2androidnetworking.Rx2AndroidNetworking;
@@ -129,6 +132,18 @@ public class AppApiHelper implements ApiHelper {
     }
 
     @Override
+    public Single<RestaurantsResponse> getSubscriptionsApiCall() {
+        // TODO vi3: dodati parametre za filterisanje, treba ubaciti i id korisnika koji salje
+        // zahtev; to mozda moze i na serveru preko tokena da se gleda
+        // i ustedu saobracaja
+        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_SUBSCRIPTIONS)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .build()
+                .getObjectSingle(RestaurantsResponse.class);
+    }
+
+
+    @Override
     public Single<RestaurantPromotionsResponse> getRestaurantPromotions() {
         //TODO milan: dodati id resorana cije promocije dobavljamo
         return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_RESTAURANT_PROMOTIONS)
@@ -160,6 +175,37 @@ public class AppApiHelper implements ApiHelper {
                 .addHeaders(mApiHeader.getProtectedApiHeader())
                 .build()
                 .getObjectSingle(RestaurantRatingResponse.class);
+    }
+
+    public Single<RestaurantFilterResponse> getRestaurantFilterApiCall() {
+        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_RESTAURANT_FILTER)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .build()
+                .getObjectSingle(RestaurantFilterResponse.class);
+    }
+
+    @Override
+    public Single<NotificationResponse> getNotificationsApiCall() {
+        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_NOTIFICATIONS)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .build()
+                .getObjectSingle(NotificationResponse.class);
+    }
+
+    @Override
+    public Single<SettingsResponse> getSettingsApiCall() {
+        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_SETTINGS)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .build()
+                .getObjectSingle(SettingsResponse.class);
+    }
+
+    @Override
+    public Single<UserDetailsResponse> getUserDetailsApiCall(Long userId) {
+        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_USER_DETAILS)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .build()
+                .getObjectSingle(UserDetailsResponse.class);
     }
 }
 

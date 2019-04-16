@@ -32,12 +32,16 @@ import com.mindorks.framework.mvp.data.network.model.BlogResponse;
 import com.mindorks.framework.mvp.data.network.model.LoginRequest;
 import com.mindorks.framework.mvp.data.network.model.LoginResponse;
 import com.mindorks.framework.mvp.data.network.model.LogoutResponse;
+import com.mindorks.framework.mvp.data.network.model.NotificationResponse;
 import com.mindorks.framework.mvp.data.network.model.OpenSourceResponse;
 import com.mindorks.framework.mvp.data.network.model.PromotionDetailsResponse;
+import com.mindorks.framework.mvp.data.network.model.RestaurantFilterResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantPromotionsResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantDetailsResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantRatingResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
+import com.mindorks.framework.mvp.data.network.model.SettingsResponse;
+import com.mindorks.framework.mvp.data.network.model.UserDetailsResponse;
 import com.mindorks.framework.mvp.data.network.model.UserRegistrationRequest;
 import com.mindorks.framework.mvp.data.network.model.UserRegistrationResponse;
 import com.mindorks.framework.mvp.data.prefs.PreferencesHelper;
@@ -328,6 +332,11 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public Single<RestaurantsResponse> getSubscriptionsApiCall() {
+        return mApiHelper.getSubscriptionsApiCall();
+    }
+
+    @Override
     public Single<RestaurantPromotionsResponse> getRestaurantPromotions() {
         return  mApiHelper.getRestaurantPromotions();
     }
@@ -348,4 +357,22 @@ public class AppDataManager implements DataManager {
     }
 
 
+    public Single<RestaurantFilterResponse> getRestaurantFilterApiCall() {
+        return  mApiHelper.getRestaurantFilterApiCall();
+    }
+
+    @Override
+    public Single<NotificationResponse> getNotificationsApiCall() {
+        return mApiHelper.getNotificationsApiCall();
+    }
+
+    @Override
+    public Single<SettingsResponse> getSettingsApiCall() {
+        return mApiHelper.getSettingsApiCall();
+    }
+
+    @Override
+    public Single<UserDetailsResponse> getUserDetailsApiCall(Long userId) {
+        return mApiHelper.getUserDetailsApiCall(userId);
+    }
 }

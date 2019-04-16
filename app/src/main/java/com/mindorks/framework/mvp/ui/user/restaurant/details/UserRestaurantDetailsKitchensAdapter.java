@@ -61,12 +61,12 @@ public class UserRestaurantDetailsKitchensAdapter extends RecyclerView.Adapter<B
 
 //        switch (viewType) {
 //            case VIEW_TYPE_NORMAL:
-//                return new UserRestaurantDetailsKitchensAdapter.ViewHolder(
+//                return new UserDishDetailsKitchensAdapter.ViewHolder(
 //                        LayoutInflater.from(parent.getContext()).inflate(R.layout.restaurants_list_item_layout, parent,
 //                                false));
 //            case VIEW_TYPE_EMPTY:
 //            default:
-//                return new UserRestaurantDetailsKitchensAdapter.EmptyViewHolder(
+//                return new UserDishDetailsKitchensAdapter.EmptyViewHolder(
 //                        LayoutInflater.from(parent.getContext()).inflate(R.layout.item_empty_view, parent, false));
 //        }
     }

@@ -14,9 +14,11 @@ import android.widget.Toast;
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.di.component.ActivityComponent;
+import com.mindorks.framework.mvp.ui.base.BaseActivity;
 import com.mindorks.framework.mvp.ui.base.BaseFragment;
 import com.mindorks.framework.mvp.ui.user.restaurants.UserRestaurantsActivity;
 import com.mindorks.framework.mvp.ui.user.restaurants.utils.UserRestaurantsCallback;
+import com.mindorks.framework.mvp.ui.user.subscrptions.SubscriptionActivity;
 
 import java.util.List;
 
@@ -82,8 +84,16 @@ public class RestaurantsListFragment extends BaseFragment implements
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mRestaurantsListAdapter);
 
-        mPresenter.onViewPrepared();
+        findAndPrepareProperView();
+    }
 
+    private void findAndPrepareProperView() {
+        BaseActivity parent = getBaseActivity();
+        if (parent instanceof UserRestaurantsActivity) {
+            mPresenter.onViewPrepared(RestaurantsListMvpPresenter.PREPARE_ALL_RESTAURANTS);
+        } else if (parent instanceof SubscriptionActivity) {
+            mPresenter.onViewPrepared(RestaurantsListMvpPresenter.PREPARE_MY_RESTAURANTS);
+        }
     }
 
 
@@ -93,15 +103,16 @@ public class RestaurantsListFragment extends BaseFragment implements
     }
 
     // FIXME vi3: sta koji kurac sa ovime da radim
+
+
     @Override
-    public void onRestaurantsEmptyViewRetryClick() {
+    public void onsEmptyViewRetryButtonClick() {
 
     }
 
-
     @Override
     public void openRestaurantDetailsActivity(RestaurantsResponse.Restaurant restaurant) {
-        UserRestaurantsActivity userRestaurantsActivity = (UserRestaurantsActivity)getActivity();
+        UserRestaurantsActivity userRestaurantsActivity = (UserRestaurantsActivity) getActivity();
         if (userRestaurantsActivity != null) {
             userRestaurantsActivity.openRestaurantDetailsActivity(restaurant);
         } else {

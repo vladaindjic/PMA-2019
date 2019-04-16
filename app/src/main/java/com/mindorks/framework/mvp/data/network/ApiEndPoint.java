@@ -53,9 +53,11 @@ public final class ApiEndPoint {
 
     public static final String ENDPOINT_RESTAURANTS = BuildConfig.BASE_URL
             + "/5ca5f7c93300008f532eaab3";
+    public static final String ENDPOINT_SUBSCRIPTIONS = BuildConfig.BASE_URL
+            + "/5cb3921f330000670011b6c1";
 
     public static final String ENDPOINT_PROMOTION_DETAILS = BuildConfig.BASE_URL
-            +"/5cacd9762f00005f003a93a9";
+            + "/5cacd9762f00005f003a93a9";
 
 
     public static final String ENDPOINT_RESTAURANT_PROMOTIONS = BuildConfig.BASE_URL +
@@ -65,8 +67,21 @@ public final class ApiEndPoint {
             + "/5cabcb913000004c00103250";
 
     public static final String ENDPOINT_RESTAURANT_RATING = BuildConfig.BASE_URL
-//            + "/5cb601be330000d5385d7f87";
-            +"/5cb60256330000e1345d7f8e";
+//            + "/5cb601be330000d5385d7f87"; Ovo kad nije ocenio
+            + "/5cb60256330000e1345d7f8e";
+    public static final String ENDPOINT_RESTAURANT_FILTER = BuildConfig.BASE_URL
+            + "/5cb1d31c330000c9255720ef";
+
+    public static final String ENDPOINT_NOTIFICATIONS = BuildConfig.BASE_URL
+            + "/5cb35e20300000d124a78e0c";
+
+    public static final String ENDPOINT_SETTINGS = BuildConfig.BASE_URL
+            + "/5cb3ac40330000840411b6f3";
+
+    public static final String ENDPOINT_USER_DETAILS = BuildConfig.BASE_URL
+            + "/5cb4f48f3300002b005d7936";
+//    http://www.mocky.io/v2/5cb1d31c330000c9255720ef
+
     private ApiEndPoint() {
         // This class is not publicly instantiable
     }
