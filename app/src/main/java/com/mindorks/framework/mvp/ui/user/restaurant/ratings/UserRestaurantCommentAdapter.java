@@ -2,6 +2,7 @@ package com.mindorks.framework.mvp.ui.user.restaurant.ratings;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -96,6 +97,7 @@ public class UserRestaurantCommentAdapter extends RecyclerView.Adapter<BaseViewH
         public void onBind(int position) {
             super.onBind(position);
 
+            commentTextView.setMovementMethod( new ScrollingMovementMethod());
             final String comment = mRestaurantCommentList.get(position);
 
 //            if (promotion.getImageUrl() != null) {

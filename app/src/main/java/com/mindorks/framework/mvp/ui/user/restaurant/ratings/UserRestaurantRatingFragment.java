@@ -90,7 +90,7 @@ public class UserRestaurantRatingFragment extends BaseFragment implements UserRe
         List<String> comments = new ArrayList<String>();
         comments.add("Koemntar 1");
         comments.add("KOmentar 2");
-        comments.add("Komentar 3, ovo je malo duaaaaaaaaaaaaaaaaaaaaaaaaaaaaazi komdasssssssssssssssssssssssssssssssssssssssdasdasdasdsadasdasdasdasdasdasdasdasd sdas das das das da das da sdasentar da vidimo sta ce biti sa linijama i kada ce si  kako prelomiti, da li radi sve  kako treba/????");
+        comments.add("Komentar 3, ovo je maddddddddddddddddddddddddddddddddddddd aaaaaaaaaaaaaaaaaaaaaaaaaaa sssssssssssssssssssssssssssss dddddddddddddddddgitlo duaaaaaaaaaaaaaaaaaaaaaaaaaaaaazi komdasssssssssssssssssssssssssssssssssssssssdasdasdasdsadasdasdasdasdasdasdasdasd sdas das das das da das da sdasentar da vidimo sta ce biti sa linijama i kada ce si  kako prelomiti, da li radi sve  kako treba/????");
         comments.add("Komentar 4, ovo je malo duaaaaaaaaaaaaaaaaaaaaaaaaaaaaazi komentar da vidimo sta ce biti sa linijama i kada ce si  kako prelomiti, da li radi sve  kako treba/????");
 
         this.updateRestaurantCommentList(comments);
