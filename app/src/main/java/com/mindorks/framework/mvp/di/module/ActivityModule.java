@@ -24,6 +24,7 @@ import com.mindorks.framework.mvp.data.network.model.BlogResponse;
 import com.mindorks.framework.mvp.data.network.model.OpenSourceResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantPromotionsResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantDetailsResponse;
+import com.mindorks.framework.mvp.data.network.model.RestaurantRatingResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.di.ActivityContext;
 import com.mindorks.framework.mvp.di.PerActivity;
@@ -328,7 +329,7 @@ public class ActivityModule {
 
     @Provides
     UserRestaurantCommentAdapter provideUserRestaurantCommentAdapter() {
-        return new UserRestaurantCommentAdapter(new ArrayList<String>());
+        return new UserRestaurantCommentAdapter(new ArrayList<RestaurantRatingResponse.RestaurantRating.Comment>());
     }
 
 }

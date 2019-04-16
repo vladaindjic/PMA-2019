@@ -10,15 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mindorks.framework.mvp.R;
+import com.mindorks.framework.mvp.data.network.model.RestaurantRatingResponse;
 import com.mindorks.framework.mvp.di.component.ActivityComponent;
 import com.mindorks.framework.mvp.ui.base.BaseFragment;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -44,6 +43,9 @@ public class UserRestaurantRatingFragment extends BaseFragment implements UserRe
     @BindView(R.id.restaurant_comment_text_edit)
     EditText restaurantCommentText;
 
+    @BindView(R.id.rating_bar)
+    RatingBar ratingBar;
+
 
     //Comments Section
     @BindView(R.id.comment_recycler_view)
@@ -55,7 +57,6 @@ public class UserRestaurantRatingFragment extends BaseFragment implements UserRe
 
     @Inject
     UserRestaurantCommentAdapter mUserRestaurantCommentAdapter;
-
 
 
     public UserRestaurantRatingFragment() {
@@ -79,26 +80,21 @@ public class UserRestaurantRatingFragment extends BaseFragment implements UserRe
             component.inject(this);
             setUnBinder(ButterKnife.bind(this, view));
             mPresenter.onAttach(this);
-            // mKitchensAdapter.setmCallback(this);
         }
         return view;
     }
 
     @Override
     protected void setUp(View view) {
-
-        List<String> comments = new ArrayList<String>();
-        comments.add("Koemntar 1");
-        comments.add("KOmentar 2");
-        comments.add("Komentar 3, ovo je maddddddddddddddddddddddddddddddddddddd aaaaaaaaaaaaaaaaaaaaaaaaaaa sssssssssssssssssssssssssssss dddddddddddddddddgitlo duaaaaaaaaaaaaaaaaaaaaaaaaaaaaazi komdasssssssssssssssssssssssssssssssssssssssdasdasdasdsadasdasdasdasdasdasdasdasd sdas das das das da das da sdasentar da vidimo sta ce biti sa linijama i kada ce si  kako prelomiti, da li radi sve  kako treba/????");
-        comments.add("Komentar 4, ovo je malo duaaaaaaaaaaaaaaaaaaaaaaaaaaaaazi komentar da vidimo sta ce biti sa linijama i kada ce si  kako prelomiti, da li radi sve  kako treba/????");
-
-        this.updateRestaurantCommentList(comments);
+        Bundle bundle = getArguments();
+        Long restaurantId = bundle.getLong("restaurantId");
 
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mUserRestaurantCommentAdapter);
+
+        mPresenter.onViewPrepared(restaurantId);
 
 
     }
@@ -108,8 +104,17 @@ public class UserRestaurantRatingFragment extends BaseFragment implements UserRe
         Toast.makeText(getActivity(), this.restaurantCommentText.getText(), Toast.LENGTH_SHORT).show();
     }
 
+
     @Override
-    public void updateRestaurantCommentList(List<String> comments) {
-        mUserRestaurantCommentAdapter.addItems(comments);
+    public void updateRestaurantRating(RestaurantRatingResponse.RestaurantRating restaurantRating) {
+
+        ratingTextView.setText(restaurantRating.getRating().toString());
+        if(restaurantRating.getRated()!=-1){
+            ratingBar.setRating(restaurantRating.getRated());
+            ratingBar.setIsIndicator(true);
+        }
+
+
+        mUserRestaurantCommentAdapter.addItems(restaurantRating.getComments());
     }
 }

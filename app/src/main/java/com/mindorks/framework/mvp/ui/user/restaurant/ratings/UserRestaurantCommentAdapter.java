@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.mindorks.framework.mvp.R;
+import com.mindorks.framework.mvp.data.network.model.RestaurantRatingResponse;
 import com.mindorks.framework.mvp.ui.base.BaseViewHolder;
 
 import java.util.List;
@@ -24,14 +25,14 @@ public class UserRestaurantCommentAdapter extends RecyclerView.Adapter<BaseViewH
     public static final int VIEW_TYPE_NORMAL = 1;
 
 
-    private List<String> mRestaurantCommentList;
+    private List<RestaurantRatingResponse.RestaurantRating.Comment> mRestaurantCommentList;
 
 
-    public UserRestaurantCommentAdapter(List<String> mRestaurantCommentList) {
+    public UserRestaurantCommentAdapter(List<RestaurantRatingResponse.RestaurantRating.Comment> mRestaurantCommentList) {
         this.mRestaurantCommentList = mRestaurantCommentList;
     }
 
-    public void addItems(List<String> commentList) {
+    public void addItems(List<RestaurantRatingResponse.RestaurantRating.Comment> commentList) {
         mRestaurantCommentList.addAll(commentList);
         notifyDataSetChanged();
     }
@@ -98,7 +99,7 @@ public class UserRestaurantCommentAdapter extends RecyclerView.Adapter<BaseViewH
             super.onBind(position);
 
             commentTextView.setMovementMethod( new ScrollingMovementMethod());
-            final String comment = mRestaurantCommentList.get(position);
+            final RestaurantRatingResponse.RestaurantRating.Comment comment = mRestaurantCommentList.get(position);
 
 //            if (promotion.getImageUrl() != null) {
 //                Glide.with(itemView.getContext())
@@ -109,7 +110,7 @@ public class UserRestaurantCommentAdapter extends RecyclerView.Adapter<BaseViewH
 //            }
 
             if (comment != null) {
-                commentTextView.setText(comment);
+                commentTextView.setText(comment.getText());
             }
 
         }
