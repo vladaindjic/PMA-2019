@@ -2,15 +2,16 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@drawable/customborder"
+    >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:text="@string/bullet"
-        android:textStyle="bold"
-        android:textSize="36sp"
-        />
+    <Button
+        android:id="@+id/manager_restaurant_details_remove_kitchen_btn"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_gravity="center"
+        android:background="@drawable/ic_remove_circle_red_24dp"/>
 
     <TextView
         android:id="@+id/manager_restaurant_details_kitchen_item_txt"

@@ -4,11 +4,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.RestaurantDetailsResponse;
 import com.mindorks.framework.mvp.ui.base.BaseViewHolder;
+import com.mindorks.framework.mvp.ui.manager.restaurant.utils.ManagerEmptyViewHolderTextViewOnly;
 
 import java.util.List;
 
@@ -29,15 +31,22 @@ public class ManagerRestaurantDetailsKitchensAdapter extends RecyclerView.Adapte
         this.mKitchenList = mKitchenList;
     }
 
-//    public UserRestaurantsCallback getmCallback() {
-//        return mCallback;
-//    }
-//
-//    public void setmCallback(UserRestaurantsCallback mCallback) {
-//        this.mCallback = mCallback;
-//    }
+    public interface ManagerRestaurantDetailsKitchensAdapterCallback {
+        public void removeKitchenFromRestaurantDetails(RestaurantDetailsResponse.Kitchen kitchen);
+    }
+
+    private ManagerRestaurantDetailsKitchensAdapterCallback mCallback;
+
+    public ManagerRestaurantDetailsKitchensAdapterCallback getmCallback() {
+        return mCallback;
+    }
+
+    public void setmCallback(ManagerRestaurantDetailsKitchensAdapterCallback mCallback) {
+        this.mCallback = mCallback;
+    }
 
     public void addItems(List<RestaurantDetailsResponse.Kitchen> kitchenList) {
+        mKitchenList.clear();
         mKitchenList.addAll(kitchenList);
         notifyDataSetChanged();
     }
@@ -49,20 +58,18 @@ public class ManagerRestaurantDetailsKitchensAdapter extends RecyclerView.Adapte
 
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ManagerRestaurantDetailsKitchensAdapter.ViewHolder(
-                LayoutInflater.from(parent.getContext()).inflate(R.layout.manager_restaurant_details_kitchen_item_layout, parent,
-                        false));
 
-//        switch (viewType) {
-//            case VIEW_TYPE_NORMAL:
-//                return new UserDishDetailsKitchensAdapter.ViewHolder(
-//                        LayoutInflater.from(parent.getContext()).inflate(R.layout.restaurants_list_item_layout, parent,
-//                                false));
-//            case VIEW_TYPE_EMPTY:
-//            default:
-//                return new UserDishDetailsKitchensAdapter.EmptyViewHolder(
-//                        LayoutInflater.from(parent.getContext()).inflate(R.layout.item_empty_view, parent, false));
-//        }
+        switch (viewType) {
+            case VIEW_TYPE_NORMAL:
+                return new ManagerRestaurantDetailsKitchensAdapter.ViewHolder(
+                        LayoutInflater.from(parent.getContext()).inflate(R.layout.manager_restaurant_details_kitchen_item_layout, parent,
+                                false));
+            case VIEW_TYPE_EMPTY:
+            default:
+                return new ManagerEmptyViewHolderTextViewOnly(
+                        LayoutInflater.from(parent.getContext()).inflate(R.layout.manager_empty_view_item_text_view_only
+                                , parent, false), "No Kitchens Selected");
+        }
     }
 
     @Override
@@ -88,6 +95,9 @@ public class ManagerRestaurantDetailsKitchensAdapter extends RecyclerView.Adapte
         @BindView(R.id.manager_restaurant_details_kitchen_item_txt)
         TextView titleTextView;
 
+        @BindView(R.id.manager_restaurant_details_remove_kitchen_btn)
+        Button btnRemoveKitchen;
+
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
@@ -97,7 +107,7 @@ public class ManagerRestaurantDetailsKitchensAdapter extends RecyclerView.Adapte
             titleTextView.setText("");
         }
 
-        public void onBind(int position) {
+        public void onBind(final int position) {
             super.onBind(position);
 
             if (mKitchenList == null || mKitchenList.size() <= 0) {
@@ -110,6 +120,16 @@ public class ManagerRestaurantDetailsKitchensAdapter extends RecyclerView.Adapte
             if (kitchen.getName() != null) {
                 titleTextView.setText(kitchen.getName());
             }
+
+            btnRemoveKitchen.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // uklanjamo kuhinju sa pozicije koja je prosledjena
+                    if (mCallback != null) {
+                        mCallback.removeKitchenFromRestaurantDetails(kitchen);
+                    }
+                }
+            });
 
             /// TODO: open restaurant when click
 //            itemView.setOnClickListener(new View.OnClickListener() {
@@ -154,8 +174,8 @@ public class ManagerRestaurantDetailsKitchensAdapter extends RecyclerView.Adapte
 //
 //        @OnClick(R.id.btn_retry)
 //        void onRetryClick() {
-//            if (mCallback != null)
-//                mCallback.onRestaurantsEmptyViewRetryClick();
+////            if (mCallback != null)
+////                mCallback.onRestaurantsEmptyViewRetryClick();
 //        }
 //    }
 

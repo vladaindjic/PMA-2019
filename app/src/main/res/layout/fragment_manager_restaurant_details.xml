@@ -39,64 +39,48 @@
                     android:src="@drawable/login_bg" />
 
 
-                <android.support.constraint.ConstraintLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#BCBCBC"
+                    android:gravity="center"
                     android:orientation="horizontal">
 
                     <LinearLayout
-                        android:layout_width="257dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
-                        android:orientation="vertical"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/manager_restaurant_details_star_button"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.0">
+                        android:orientation="vertical">
 
-                        <TextView
+                        <EditText
                             android:id="@+id/manager_restaurant_details_name"
                             style="@style/TextStyle.Title"
-                            android:layout_width="256dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center|top"
+                            android:inputType="textCapCharacters"
                             android:text="Restorance"
                             android:textAlignment="center"
-                            android:textAllCaps="true"
                             android:textSize="32sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
-                        <TextView
+                        <EditText
                             android:id="@+id/manager_restaurant_details_address"
                             style="@style/TextStyle.Title.Sub"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center|top"
+                            android:inputType="textPostalAddress"
                             android:text="Ovde ide adresa"
                             android:textAlignment="center"
                             android:textSize="24sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
 
-                    <CheckBox
-                        android:id="@+id/manager_restaurant_details_star_button"
-                        android:layout_width="41dp"
-                        android:layout_height="47dp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginEnd="8dp"
-                        android:background="@android:color/transparent"
-                        android:button="@android:drawable/btn_star"
-                        android:padding="@dimen/activity_horizontal_margin"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                </android.support.constraint.ConstraintLayout>
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -118,21 +102,19 @@
                 android:layout_marginTop="32dp"
                 android:text="@string/delivery"
                 android:textSize="20sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:textStyle="bold"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <CheckBox
                 android:id="@+id/manager_dish_details_txt_description_values"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:checked="false"
                 android:textSize="20sp"
                 app:layout_constraintBaseline_toBaselineOf="@+id/manager_dish_details_txt_description"
-                app:layout_constraintStart_toEndOf="@+id/manager_dish_details_txt_description"
-                android:checked="true"
-                android:clickable="false"
-                />
+                app:layout_constraintStart_toEndOf="@+id/manager_dish_details_txt_description" />
 
 
             <!--Phone-->
@@ -144,20 +126,21 @@
                 android:layout_marginTop="32dp"
                 android:text="@string/phone"
                 android:textSize="20sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/manager_dish_details_txt_description"
-                android:textStyle="bold"/>
+                app:layout_constraintTop_toTopOf="@id/manager_dish_details_txt_description" />
 
-            <TextView
-                android:id="@+id/manager_dish_details_txt_price_values"
+            <EditText
+                android:id="@+id/manager_dish_details_edit_txt_price_values"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:inputType="phone"
                 android:text="011/555-333"
                 android:textSize="20sp"
+                android:textStyle="bold"
                 app:layout_constraintBaseline_toBaselineOf="@+id/manager_meal_details_txt_price"
-                app:layout_constraintStart_toEndOf="@+id/manager_meal_details_txt_price"
-                android:textStyle="bold"/>
+                app:layout_constraintStart_toEndOf="@+id/manager_meal_details_txt_price" />
 
 
             <!--Work Time-->
@@ -169,20 +152,21 @@
                 android:layout_marginTop="32dp"
                 android:text="@string/work_time"
                 android:textSize="20sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/manager_meal_details_txt_price"
-                android:textStyle="bold"/>
+                app:layout_constraintTop_toTopOf="@id/manager_meal_details_txt_price" />
 
-            <TextView
-                android:id="@+id/manager_restaurant_details_txt_work_time_values"
+            <EditText
+                android:id="@+id/manager_restaurant_details_edit_txt_work_time_values"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:inputType="text"
                 android:text="00-24"
                 android:textSize="20sp"
+                android:textStyle="bold"
                 app:layout_constraintBaseline_toBaselineOf="@+id/manager_restaurant_details_txt_work_time"
-                app:layout_constraintStart_toEndOf="@+id/manager_restaurant_details_txt_work_time"
-                android:textStyle="bold"/>
+                app:layout_constraintStart_toEndOf="@+id/manager_restaurant_details_txt_work_time" />
 
 
             <!--EMail-->
@@ -194,31 +178,21 @@
                 android:layout_marginTop="32dp"
                 android:text="@string/email_restaurant"
                 android:textSize="20sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/manager_restaurant_details_txt_work_time"
-                android:textStyle="bold"/>
+                app:layout_constraintTop_toTopOf="@id/manager_restaurant_details_txt_work_time" />
 
-            <TextView
-                android:id="@+id/manager_restaurant_details_txt_email_values"
+            <EditText
+                android:id="@+id/manager_restaurant_details_edit_txt_email_values"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:inputType="textEmailAddress"
                 android:text="restoran@mailinator.com"
                 android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintBaseline_toBaselineOf="@+id/manager_restaurant_details_txt_email"
-                app:layout_constraintStart_toEndOf="@+id/manager_restaurant_details_txt_email"
-                android:textStyle="bold"/>
-
-            <Button
-                android:id="@+id/btn_how_to_find_us"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:text="@string/how_to_find_us"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
+                app:layout_constraintStart_toEndOf="@+id/manager_restaurant_details_txt_email" />
 
             <TextView
                 android:id="@+id/manager_restaurant_details_txt_kitchens"
@@ -228,22 +202,90 @@
                 android:layout_marginTop="64dp"
                 android:text="@string/kitchens"
                 android:textSize="20sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/manager_restaurant_details_txt_email"
-                android:textStyle="bold"/>
+                app:layout_constraintTop_toTopOf="@id/manager_restaurant_details_txt_email" />
 
             <android.support.v7.widget.RecyclerView
+                android:id="@+id/manager_dish_details_nutritive_values_recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="32dp"
                 android:layout_marginBottom="32dp"
-                app:layout_constraintTop_toTopOf="@id/manager_restaurant_details_txt_kitchens"
-                android:id="@+id/manager_dish_details_nutritive_values_recyclerview"
                 android:scrollbars="vertical"
-                />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/manager_restaurant_details_txt_kitchens" />
+
+            <LinearLayout
+                android:id="@+id/manager_linear_layout_autocomplete_kitchen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+
+                app:layout_constraintTop_toBottomOf="@+id/manager_dish_details_nutritive_values_recyclerview"
+
+                >
+
+                <!--FIXME vi3: zasto ne radi kada se uredjaj rotira-->
+                <!--FIXME vi3: namesti da ide ispod. Nekako da ga zavaram da predje preko
+                tastarute mozda. Kada postavim veliko bottom marginu na Submit dugme, prikaze
+                 se ispod-->
+                <AutoCompleteTextView
+                    android:id="@+id/manager_kitchens_autocomplete_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:dropDownHeight="wrap_content"
+                    android:hint="@string/kitchen"
+                    android:minWidth="256dp"
+                    android:textSize="20sp" />
+
+                <Button
+                    android:id="@+id/manager_add_kitchen_btn"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="16dp"
+                    android:background="@drawable/ic_add_circle_grey_24dp" />
+
+
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/manager_restaurant_details_submit_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
+                android:text="@string/submitBtn"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/manager_restaurant_details_cancel_btn"
+                app:layout_constraintTop_toBottomOf="@id/manager_linear_layout_autocomplete_kitchen" />
+
+
+            <Button
+                android:id="@+id/manager_restaurant_details_cancel_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+
+                android:text="@string/cancelBtn"
+                app:layout_constraintBaseline_toBaselineOf="@+id/manager_restaurant_details_submit_btn"
+
+                app:layout_constraintEnd_toEndOf="parent" />
 
 
         </android.support.constraint.ConstraintLayout>

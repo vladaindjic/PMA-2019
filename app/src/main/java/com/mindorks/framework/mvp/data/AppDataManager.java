@@ -380,4 +380,7 @@ public class AppDataManager implements DataManager {
     public Single<RestaurantRatingResponse> getDishRatingApiCall(Long restaurantId) {
         return mApiHelper.getDishRatingApiCall(restaurantId);
     }
+    public Single<RestaurantDetailsResponse> postRestaurantDetailsApiCall(RestaurantDetailsResponse.RestaurantDetails restaurantDetails) {
+        return mApiHelper.postRestaurantDetailsApiCall(restaurantDetails);
+    }
 }

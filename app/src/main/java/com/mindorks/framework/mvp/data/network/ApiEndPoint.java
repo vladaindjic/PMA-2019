@@ -85,6 +85,10 @@ public final class ApiEndPoint {
             +"/5cb60b4d330000e1345d7fcc";
     //    http://www.mocky.io/v2/5cb1d31c330000c9255720ef
 
+    // manager endpoints
+    public static final String ENDPOINT_MANAGER_UPDATE_RESTAURANT_DETAILS = BuildConfig.BASE_URL
+            + "/5cb5d25d3300001d3b5d7e4e";
+
     private ApiEndPoint() {
         // This class is not publicly instantiable
     }
