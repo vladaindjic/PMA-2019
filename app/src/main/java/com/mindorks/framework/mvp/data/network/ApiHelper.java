@@ -76,4 +76,8 @@ public interface ApiHelper {
     Single<SettingsResponse> getSettingsApiCall();
 
     Single<UserDetailsResponse> getUserDetailsApiCall(Long userId);
+
+    // mozda bude trebalo da se pravi poseban request objekat, mada mislim da za sada nema potrebe
+    Single<RestaurantDetailsResponse> postRestaurantDetailsApiCall(RestaurantDetailsResponse.RestaurantDetails restaurantDetails);
+
 }

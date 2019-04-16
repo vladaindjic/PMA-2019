@@ -38,6 +38,7 @@ public class ManagerRestaurantDetailsKitchensAdapter extends RecyclerView.Adapte
 //    }
 
     public void addItems(List<RestaurantDetailsResponse.Kitchen> kitchenList) {
+        mKitchenList.clear();
         mKitchenList.addAll(kitchenList);
         notifyDataSetChanged();
     }

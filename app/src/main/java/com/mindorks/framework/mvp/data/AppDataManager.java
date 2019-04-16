@@ -369,4 +369,9 @@ public class AppDataManager implements DataManager {
     public Single<UserDetailsResponse> getUserDetailsApiCall(Long userId) {
         return mApiHelper.getUserDetailsApiCall(userId);
     }
+
+    @Override
+    public Single<RestaurantDetailsResponse> postRestaurantDetailsApiCall(RestaurantDetailsResponse.RestaurantDetails restaurantDetails) {
+        return mApiHelper.postRestaurantDetailsApiCall(restaurantDetails);
+    }
 }

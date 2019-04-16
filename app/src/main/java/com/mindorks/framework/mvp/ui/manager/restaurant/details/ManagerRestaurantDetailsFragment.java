@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,10 +21,6 @@ import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.RestaurantDetailsResponse;
 import com.mindorks.framework.mvp.di.component.ActivityComponent;
 import com.mindorks.framework.mvp.ui.base.BaseFragment;
-import com.mindorks.framework.mvp.ui.user.restaurant.details.UserRestaurantDetailsFragment;
-import com.mindorks.framework.mvp.ui.user.restaurant.details.UserRestaurantDetailsKitchensAdapter;
-import com.mindorks.framework.mvp.ui.user.restaurant.details.UserRestaurantDetailsMvpPresenter;
-import com.mindorks.framework.mvp.ui.user.restaurant.details.UserRestaurantDetailsMvpView;
 
 import javax.inject.Inject;
 
@@ -48,28 +44,27 @@ public class ManagerRestaurantDetailsFragment extends BaseFragment implements
     ImageView imageView;
 
     @BindView(R.id.manager_restaurant_details_name)
-    TextView txtViewName;
+    EditText editName;
 
     @BindView(R.id.manager_restaurant_details_address)
-    TextView txtViewAddress;
-
-    @BindView(R.id.manager_restaurant_details_star_button)
-    CheckBox checkBoxStar;
+    EditText editAddress;
 
     @BindView(R.id.manager_dish_details_txt_description_values)
     CheckBox checkBoxDelivery;
 
-    @BindView(R.id.manager_dish_details_txt_price_values)
-    TextView txtViewPhone;
+    @BindView(R.id.manager_dish_details_edit_txt_price_values)
+    EditText editPhone;
 
-    @BindView(R.id.manager_restaurant_details_txt_work_time_values)
-    TextView txtViewWorkTime;
+    @BindView(R.id.manager_restaurant_details_edit_txt_work_time_values)
+    EditText editWorkTime;
 
-    @BindView(R.id.manager_restaurant_details_txt_email_values)
-    TextView txtViewEmail;
+    @BindView(R.id.manager_restaurant_details_edit_txt_email_values)
+    EditText editEmail;
 
-    @BindView(R.id.btn_how_to_find_us)
-    Button btnHowToFindUs;
+    @BindView(R.id.manager_restaurant_details_submit_btn)
+    Button btnSubmit;
+    @BindView(R.id.manager_restaurant_details_cancel_btn)
+    Button btnCancel;
 
     // Kitchen
     @Inject
@@ -120,6 +115,21 @@ public class ManagerRestaurantDetailsFragment extends BaseFragment implements
 
         // TODO vi3: ovde treba ispraviti API poziv da vrati restoran managera koji je ulogovan
         mPresenter.onViewPrepared(1L);
+
+        // mislim da ima vise logike ovo ostavit ovde, nego svaki put setovati
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cancelUpdatingRestaurantDetails();
+            }
+        });
+
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submitUpdatingRestaurantDetails();
+            }
+        });
     }
 
     @Override
@@ -127,48 +137,14 @@ public class ManagerRestaurantDetailsFragment extends BaseFragment implements
         this.restaurantDetails = restaurantDetails;
 
         // azuriranje polja koja se prikazuje
-        txtViewName.setText(restaurantDetails.getName());
-        txtViewAddress.setText(restaurantDetails.getAddress());
+        editName.setText(restaurantDetails.getName());
+        editAddress.setText(restaurantDetails.getAddress());
 
         checkBoxDelivery.setChecked(restaurantDetails.isDelivery());
-        txtViewPhone.setText(restaurantDetails.getPhone());
-        txtViewPhone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO vi3: intent koji ce otvoriti pozivanje broja
-                Toast.makeText(getContext(),
-                        "Treba pozvati broj: " + restaurantDetails.getPhone(),
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
+        editPhone.setText(restaurantDetails.getPhone());
 
-        txtViewWorkTime.setText(restaurantDetails.getWorkTime());
-        txtViewEmail.setText(restaurantDetails.getEmail());
-
-        btnHowToFindUs.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO vi3: integracija sa Google mapama
-                Toast.makeText(getContext(),
-                        "Samo jako do lokacije: " + restaurantDetails.getAddress(),
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        // TODO vi3: postaviti stanje zvezde na osnovu dobijenih podataka
-        // verovatno ce nam trebati poseban poziv koji ce porveriti da li je restoran
-        // u favourites-ima
-        checkBoxStar.setChecked(true);
-        checkBoxStar.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                // TODO vi3: poslati zahtev o promeni stanja
-                String ispis = isChecked ? " prijavio na restoran " : " odjavio sa restorana ";
-                Toast.makeText(getContext(),
-                        "Korisnik se " + ispis + restaurantDetails.getId(),
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
+        editWorkTime.setText(restaurantDetails.getWorkTime());
+        editEmail.setText(restaurantDetails.getEmail());
 
         // TODO vi3: prikazati kuhinju
         if (restaurantDetails.getKitchens() != null) {
@@ -185,5 +161,31 @@ public class ManagerRestaurantDetailsFragment extends BaseFragment implements
                     .load(restaurantDetails.getImageUrl())
                     .into(imageView);
         }
+    }
+
+
+    private void cancelUpdatingRestaurantDetails() {
+        // posto smo memoizovali restoran koji smo svukli sa neta
+        // samo ih ponovo postavimo i to je to
+        // sve izmene ce biti ponostene
+        this.updateRestaurantDetails(this.restaurantDetails);
+    }
+
+    private void submitUpdatingRestaurantDetails() {
+        // TODO vi3: ovde treba ici API poziv da se uradi update
+
+        RestaurantDetailsResponse.RestaurantDetails restaurantDetails = new RestaurantDetailsResponse.RestaurantDetails();
+        restaurantDetails.setId(this.restaurantDetails.getId());
+        restaurantDetails.setName(this.editName.getText().toString());
+        restaurantDetails.setAddress(this.editAddress.getText().toString());
+        restaurantDetails.setEmail(this.editEmail.getText().toString());
+        restaurantDetails.setDelivery(this.checkBoxDelivery.isChecked());
+        restaurantDetails.setPhone(this.editPhone.getText().toString());
+        restaurantDetails.setWorkTime(this.editWorkTime.getText().toString());
+
+        mPresenter.submitRestaurantDetails(restaurantDetails);
+
+        // TODO vi3: takodje treba videti koji je najbolji nacin da se uradi
+        // update fotografije
     }
 }
