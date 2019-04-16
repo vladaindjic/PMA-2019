@@ -31,13 +31,19 @@ public class ManagerRestaurantDetailsKitchensAdapter extends RecyclerView.Adapte
         this.mKitchenList = mKitchenList;
     }
 
-//    public UserRestaurantsCallback getmCallback() {
-//        return mCallback;
-//    }
-//
-//    public void setmCallback(UserRestaurantsCallback mCallback) {
-//        this.mCallback = mCallback;
-//    }
+    public interface ManagerRestaurantDetailsKitchensAdapterCallback {
+        public void removeKitchenFromRestaurantDetails(RestaurantDetailsResponse.Kitchen kitchen);
+    }
+
+    private ManagerRestaurantDetailsKitchensAdapterCallback mCallback;
+
+    public ManagerRestaurantDetailsKitchensAdapterCallback getmCallback() {
+        return mCallback;
+    }
+
+    public void setmCallback(ManagerRestaurantDetailsKitchensAdapterCallback mCallback) {
+        this.mCallback = mCallback;
+    }
 
     public void addItems(List<RestaurantDetailsResponse.Kitchen> kitchenList) {
         mKitchenList.clear();
@@ -119,8 +125,9 @@ public class ManagerRestaurantDetailsKitchensAdapter extends RecyclerView.Adapte
                 @Override
                 public void onClick(View v) {
                     // uklanjamo kuhinju sa pozicije koja je prosledjena
-                    mKitchenList.remove(position);
-                    notifyDataSetChanged();
+                    if (mCallback != null) {
+                        mCallback.removeKitchenFromRestaurantDetails(kitchen);
+                    }
                 }
             });
 

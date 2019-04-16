@@ -8,4 +8,6 @@ public interface ManagerRestaurantDetailsMvpPresenter<V extends ManagerRestauran
 
     void onViewPrepared(Long restaurantId);
     void submitRestaurantDetails(RestaurantDetailsResponse.RestaurantDetails restaurantDetails);
+    void getAndPrepareKitchensForAutocomplete();
+
 }

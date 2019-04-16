@@ -113,4 +113,21 @@ public class ManagerRestaurantDetailsPresenter<V extends ManagerRestaurantDetail
                     }
                 }));
     }
+
+    @Override
+    public void getAndPrepareKitchensForAutocomplete() {
+        getMvpView().showLoading();
+        List<RestaurantDetailsResponse.Kitchen> kitchenList = new ArrayList<>();
+        kitchenList.add(new RestaurantDetailsResponse.Kitchen(1L, "Kineska"));
+        kitchenList.add(new RestaurantDetailsResponse.Kitchen(2L,
+                "Italijanska"));
+        kitchenList.add(new RestaurantDetailsResponse.Kitchen(3L, "Srpska"));
+        kitchenList.add(new RestaurantDetailsResponse.Kitchen(4L, "Svapska"));
+        kitchenList.add(new RestaurantDetailsResponse.Kitchen(5L, "Grcka"));
+        // TODO vi3: ovde ide API da se dobave kuhinje
+
+        getMvpView().prepareKitchensForAutocomplete(kitchenList);
+
+        getMvpView().hideLoading();
+    }
 }
