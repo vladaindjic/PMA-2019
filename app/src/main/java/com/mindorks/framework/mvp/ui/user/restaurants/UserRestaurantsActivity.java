@@ -35,6 +35,7 @@ import com.mindorks.framework.mvp.ui.settings.SettingsFragment;
 import com.mindorks.framework.mvp.ui.user.details.UserDetailsFragment;
 import com.mindorks.framework.mvp.ui.user.preferences.UserPreferencesFragment;
 import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantActivity;
+import com.mindorks.framework.mvp.ui.user.restaurants.utils.UserRestaurantsCallback;
 import com.mindorks.framework.mvp.ui.user.subscrptions.SubscriptionActivity;
 
 import javax.inject.Inject;
@@ -42,7 +43,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class UserRestaurantsActivity extends BaseActivity implements UserRestaurantsMvpView {
+public class UserRestaurantsActivity extends BaseActivity implements UserRestaurantsMvpView, UserRestaurantsCallback {
 
     @Inject
     UserRestaurantsMvpPresenter<UserRestaurantsMvpView> mPresenter;
@@ -250,6 +251,11 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
         intent.putExtra("restaurantId", restaurant.getId());
         startActivity(intent);
         //finish();
+
+    }
+
+    @Override
+    public void onsEmptyViewRetryButtonClick() {
 
     }
 

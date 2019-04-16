@@ -112,7 +112,7 @@ public class RestaurantsListFragment extends BaseFragment implements
 
     @Override
     public void openRestaurantDetailsActivity(RestaurantsResponse.Restaurant restaurant) {
-        UserRestaurantsActivity userRestaurantsActivity = (UserRestaurantsActivity) getActivity();
+        UserRestaurantsCallback userRestaurantsActivity = (UserRestaurantsCallback) getActivity();
         if (userRestaurantsActivity != null) {
             userRestaurantsActivity.openRestaurantDetailsActivity(restaurant);
         } else {

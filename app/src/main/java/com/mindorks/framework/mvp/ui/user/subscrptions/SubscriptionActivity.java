@@ -3,15 +3,12 @@ package com.mindorks.framework.mvp.ui.user.subscrptions;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.FrameLayout;
+import android.support.v7.widget.Toolbar;
 
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.ui.base.BaseActivity;
 import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantActivity;
-import com.mindorks.framework.mvp.ui.user.restaurants.UserRestaurantsActivity;
-import com.mindorks.framework.mvp.ui.user.restaurants.UserRestaurantsMvpPresenter;
-import com.mindorks.framework.mvp.ui.user.restaurants.UserRestaurantsMvpView;
 import com.mindorks.framework.mvp.ui.user.restaurants.list.RestaurantsListFragment;
 import com.mindorks.framework.mvp.ui.user.restaurants.utils.UserRestaurantsCallback;
 
@@ -27,6 +24,9 @@ public class SubscriptionActivity extends BaseActivity implements SubscriptionMv
 
 
     RestaurantsListFragment restaurantsListFragment;
+
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
 
     public static Intent getStartIntent(Context context) {
         Intent intent = new Intent(context, SubscriptionActivity.class);
@@ -59,6 +59,7 @@ public class SubscriptionActivity extends BaseActivity implements SubscriptionMv
 
     @Override
     protected void setUp() {
+        setSupportActionBar(mToolbar);
     }
 
     @Override
