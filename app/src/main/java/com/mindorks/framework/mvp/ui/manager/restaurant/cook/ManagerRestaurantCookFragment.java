@@ -9,9 +9,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.mindorks.framework.mvp.R;
+import com.mindorks.framework.mvp.data.network.model.MenuResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantCookResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.di.component.ActivityComponent;
@@ -46,6 +48,9 @@ public class ManagerRestaurantCookFragment extends BaseFragment implements
 
     @Inject
     LinearLayoutManager mLayoutManager;
+
+    @BindView(R.id.cook_item_add_btn)
+    Button addDishBtn;
 
     public ManagerRestaurantCookFragment() {
         // Required empty public constructor
@@ -84,6 +89,13 @@ public class ManagerRestaurantCookFragment extends BaseFragment implements
 
         System.out.println("POZIVAM ON onVPrepared");
 
+        addDishBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openEmptyDishDetailsActivity();
+            }
+        });
+
     }
 
     @Override
@@ -96,5 +108,16 @@ public class ManagerRestaurantCookFragment extends BaseFragment implements
     @Override
     public void updateRestaurantCook(List<RestaurantCookResponse.RestaurantCook.RestaurantCookItem> restaurantCookItemList) {
         mManagerRestaurantCookItemListAdapter.addItems(restaurantCookItemList);
+    }
+
+    public void openEmptyDishDetailsActivity() {
+        ManagerRestaurantActivity managerRestaurantActivity = (ManagerRestaurantActivity)getActivity();
+        if (managerRestaurantActivity != null) {
+            MenuResponse.Dish dish = new MenuResponse.Dish();
+            dish.setId(-1L);
+            managerRestaurantActivity.openDishDetailsActivity(dish);
+        } else {
+            Toast.makeText(getContext(), "NASISES MI SE KARINE AKO SE DESIS", Toast.LENGTH_SHORT).show();
+        }
     }
 }

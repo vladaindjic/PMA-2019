@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.DishDetailsResponse;
+import com.mindorks.framework.mvp.data.network.model.PromotionDetailsResponse;
 import com.mindorks.framework.mvp.ui.base.BaseActivity;
 
 import java.util.Locale;
@@ -95,7 +96,13 @@ public class ManagerDishDetailsActivity extends BaseActivity implements
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mNutritiveValuesAdapter);
 
-        mPresenter.onViewPrepared(dishId);
+        //Ako je id razlicit od -1 ucitaj podatke pa prikazi.
+        if(dishId != -1) {
+            mPresenter.onViewPrepared(dishId);
+        }else {
+            this.updateDishDetails(new DishDetailsResponse.DishDetails());
+        }
+
     }
 
     @Override
