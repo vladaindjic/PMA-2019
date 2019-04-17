@@ -39,10 +39,10 @@ public class ManagerDishArrayAdapter extends ArrayAdapter<MenuResponse.Dish> {
             FilterResults results = new FilterResults();
             if (constraint != null) {
                 List<MenuResponse.Dish> suggestions = new ArrayList<>();
-                for (MenuResponse.Dish kitchen : mDishes) {
+                for (MenuResponse.Dish dish : mDishes) {
                     // Note: change the "contains" to "startsWith" if you only want starting matches
-                    if (kitchen.getName().toUpperCase().contains(constraint.toString().toUpperCase())) {
-                        suggestions.add(kitchen);
+                    if (dish.getName().toUpperCase().contains(constraint.toString().toUpperCase())) {
+                        suggestions.add(dish);
                     }
                 }
 
@@ -67,14 +67,14 @@ public class ManagerDishArrayAdapter extends ArrayAdapter<MenuResponse.Dish> {
         }
     };
 
-    public ManagerDishArrayAdapter(Context context, int textViewResourceId, List<MenuResponse.Dish> kitchens) {
-        super(context, textViewResourceId, kitchens);
+    public ManagerDishArrayAdapter(Context context, int textViewResourceId, List<MenuResponse.Dish> dishes) {
+        super(context, textViewResourceId, dishes);
         // copy all the customers into a master list
-        mDishes = new ArrayList<MenuResponse.Dish>(kitchens.size());
-        mDishes.addAll(kitchens);
+        mDishes = new ArrayList<MenuResponse.Dish>(dishes.size());
+        mDishes.addAll(dishes);
         // dodamo i u originalnu listu koju ne diramo
         originalDishList = new ArrayList<>();
-        originalDishList.addAll(kitchens);
+        originalDishList.addAll(dishes);
 
         layoutInflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -87,10 +87,10 @@ public class ManagerDishArrayAdapter extends ArrayAdapter<MenuResponse.Dish> {
             view = layoutInflater.inflate(R.layout.manager_autocomplete_dish_list_item, null);
         }
 
-        MenuResponse.Dish kitchen = getItem(position);
+        MenuResponse.Dish dish = getItem(position);
 
         TextView name = (TextView) view.findViewById(R.id.manager_autocomplete_dish_list_item_name);
-        name.setText(kitchen.getName());
+        name.setText(dish.getName());
 
         return view;
     }

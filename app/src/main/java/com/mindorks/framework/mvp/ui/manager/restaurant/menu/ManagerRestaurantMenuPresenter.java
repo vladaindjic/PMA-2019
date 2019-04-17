@@ -3,6 +3,7 @@ package com.mindorks.framework.mvp.ui.manager.restaurant.menu;
 import com.androidnetworking.error.ANError;
 import com.mindorks.framework.mvp.data.DataManager;
 import com.mindorks.framework.mvp.data.network.model.MenuResponse;
+import com.mindorks.framework.mvp.data.network.model.manager.RestaurantDishesResponse;
 import com.mindorks.framework.mvp.ui.base.BasePresenter;
 import com.mindorks.framework.mvp.utils.rx.SchedulerProvider;
 
@@ -44,6 +45,42 @@ public class ManagerRestaurantMenuPresenter<V extends ManagerRestaurantMenuMvpVi
                             throws Exception {
                         if (response != null && response.getData() != null) {
                             getMvpView().updateMenu(response.getData());
+                        }
+                        getMvpView().hideLoading();
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(@NonNull Throwable throwable)
+                            throws Exception {
+                        if (!isViewAttached()) {
+                            return;
+                        }
+
+                        getMvpView().hideLoading();
+
+                        // handle the error here
+                        if (throwable instanceof ANError) {
+                            ANError anError = (ANError) throwable;
+                            handleApiError(anError);
+                        }
+                    }
+                }));
+    }
+
+    @Override
+    public void getAllRestaurantDishes(Long restaurantId) {
+        getMvpView().showLoading();
+
+        getCompositeDisposable().add(getDataManager()
+                .getRestaurantDishesApiCall(restaurantId)
+                .subscribeOn(getSchedulerProvider().io())
+                .observeOn(getSchedulerProvider().ui())
+                .subscribe(new Consumer<RestaurantDishesResponse>() {
+                    @Override
+                    public void accept(@NonNull RestaurantDishesResponse response)
+                            throws Exception {
+                        if (response != null && response.getData() != null) {
+                            getMvpView().updateAllRestaurantDishes(response.getData());
                         }
                         getMvpView().hideLoading();
                     }

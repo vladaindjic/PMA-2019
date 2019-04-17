@@ -19,6 +19,7 @@ import com.mindorks.framework.mvp.di.component.ActivityComponent;
 import com.mindorks.framework.mvp.ui.base.BaseFragment;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -51,6 +52,7 @@ public class ManagerRestaurantMenuFragment extends BaseFragment implements Manag
 
     private MenuResponse.Menu menu;
     private MenuResponse.Menu originalMenu;
+    private List<MenuResponse.Dish> allDishes;
 
     public static ManagerRestaurantMenuFragment newInstance() {
         Bundle args = new Bundle();
@@ -91,15 +93,38 @@ public class ManagerRestaurantMenuFragment extends BaseFragment implements Manag
 
         // TODO vi3: ovde svakako ide restoran ciji je korisnik manager
         mPresenter.onViewPrepared(1L);
+        mPresenter.getAllRestaurantDishes(1L);
     }
 
+    // updateMenu ili updateAllRestaurantDishes mora da se zavrsi ranije
     @Override
-    public void updateMenu(MenuResponse.Menu menu) {
+    synchronized public void updateMenu(MenuResponse.Menu menu) {
         this.menu = menu;
+        this.saveOriginalMenuState();
 
+        // moramo postaviti sva jela za autocomplete, pa onda dishtypes
+        // jer ce svaki dishtype iskoristiti listu sa jelima
+        if (this.allDishes != null) {
+            mDishTypeListAdapter.setDishList(this.allDishes);
+        }
 
         editMenuName.setText(menu.getName());
         mDishTypeListAdapter.addItems(menu.getDishTypeList());
+    }
+
+    // jedna od ove dve metoda mora da se zavrsi ranije
+    @Override
+    synchronized public void updateAllRestaurantDishes(List<MenuResponse.Dish> dishList) {
+        if (dishList == null) {
+            this.allDishes = new ArrayList<>();
+        } else {
+            this.allDishes = dishList;
+        }
+        mDishTypeListAdapter.setDishList(this.allDishes);
+        // da probamo da update-ujemo sve ViewHoldere Za DishType i tako proguramo ovu lisu
+        if (this.menu != null) {
+            mDishTypeListAdapter.addItems(this.menu.getDishTypeList());
+        }
     }
 
     void saveOriginalMenuState() {
@@ -131,8 +156,6 @@ public class ManagerRestaurantMenuFragment extends BaseFragment implements Manag
 
     @Override
     public void removeDishFromMenu(MenuResponse.Dish dish, MenuResponse.DishType dishType) {
-        Toast.makeText(getContext(), "AAAAAAAAAAAAAAAAAAAA" + dish.getId() + " " + dishType.getId(),
-                Toast.LENGTH_SHORT).show();
         // nadjemo dishtype
         for (MenuResponse.DishType dt: this.menu.getDishTypeList()) {
             if (dt.getId().equals(dishType.getId())) {
@@ -142,6 +165,21 @@ public class ManagerRestaurantMenuFragment extends BaseFragment implements Manag
         }
 
         // trebalo bi da update dishtype liste odradi i update dish lista
+        // ali i autocomplete-ova
+        mDishTypeListAdapter.addItems(this.menu.getDishTypeList());
+    }
+
+    @Override
+    public void addDishToDishType(MenuResponse.Dish dish, MenuResponse.DishType dishType) {
+        // nadjemo dishtype
+        for (MenuResponse.DishType dt: this.menu.getDishTypeList()) {
+            if (dt.getId().equals(dishType.getId())) {
+                dt.getDishList().add(dish);
+                break;
+            }
+        }
+        // trebalo bi da update dishtype liste odradi i update dish lista
+        // ali i autocomplete-ova
         mDishTypeListAdapter.addItems(this.menu.getDishTypeList());
     }
 }

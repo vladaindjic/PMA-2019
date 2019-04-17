@@ -17,7 +17,7 @@ public class RestaurantDishesResponse {
 
     @Expose
     @SerializedName("data")
-    private List<MenuResponse.Dish> dishList;
+    private List<MenuResponse.Dish> data;
 
     public RestaurantDishesResponse() {
     }
@@ -25,7 +25,7 @@ public class RestaurantDishesResponse {
     public RestaurantDishesResponse(int httpStatusCode, String message, List<MenuResponse.Dish> dishList) {
         this.httpStatusCode = httpStatusCode;
         this.message = message;
-        this.dishList = dishList;
+        this.data = dishList;
     }
 
     public int getHttpStatusCode() {
@@ -44,11 +44,11 @@ public class RestaurantDishesResponse {
         this.message = message;
     }
 
-    public List<MenuResponse.Dish> getDishList() {
-        return dishList;
+    public List<MenuResponse.Dish> getData() {
+        return data;
     }
 
-    public void setDishList(List<MenuResponse.Dish> dishList) {
-        this.dishList = dishList;
+    public void setData(List<MenuResponse.Dish> data) {
+        this.data = data;
     }
 }
