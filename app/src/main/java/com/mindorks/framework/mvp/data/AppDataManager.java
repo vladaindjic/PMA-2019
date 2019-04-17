@@ -35,6 +35,7 @@ import com.mindorks.framework.mvp.data.network.model.LogoutResponse;
 import com.mindorks.framework.mvp.data.network.model.NotificationResponse;
 import com.mindorks.framework.mvp.data.network.model.OpenSourceResponse;
 import com.mindorks.framework.mvp.data.network.model.PromotionDetailsResponse;
+import com.mindorks.framework.mvp.data.network.model.RestaurantCookResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantFilterResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantPromotionsResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantDetailsResponse;
@@ -382,5 +383,10 @@ public class AppDataManager implements DataManager {
     }
     public Single<RestaurantDetailsResponse> postRestaurantDetailsApiCall(RestaurantDetailsResponse.RestaurantDetails restaurantDetails) {
         return mApiHelper.postRestaurantDetailsApiCall(restaurantDetails);
+    }
+
+    @Override
+    public Single<RestaurantCookResponse> getRestaurantCookApiCall(Long restaurantId) {
+        return mApiHelper.getRestaurantCookApiCall(restaurantId);
     }
 }
