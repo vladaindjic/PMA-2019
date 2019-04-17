@@ -1,59 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/manager_meal_list_item_linear_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="16dp"
-    android:background="@drawable/customborder"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:background="@drawable/customborder">
 
-    <!--FIXME vi3: vidi kako da svi budu jednaki-->
-    <TextView
-        android:id="@+id/manager_txt_meal_name"
 
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="32dp"
-        android:text="Ovo je dnevni meni"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <!--FIXME vi3: vidi kako da svi budu jednaki-->
+        <TextView
+            android:id="@+id/manager_txt_meal_name"
 
-    <TextView
-        android:id="@+id/manager_txt_meal_description"
-        android:layout_width="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="Ovo je dnevni meni"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="32dp"
-        android:lineSpacingMultiplier="1"
-        android:text="Mesiste aaaaaaaaaaaaa aaaaaaaaaaa aaaaaaaaaa aaaaaaaa aaaaaaaaaa aaaaaaaaaaaaaaaaasd asd asd asd asd "
-        android:textAlignment="textStart"
-        android:textSize="18sp"
-        android:textStyle="bold"
+        <TextView
+            android:id="@+id/manager_txt_meal_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:lineSpacingMultiplier="1"
+            android:text="Mesiste aaaaaaaaaaaaa aaaaaaaaaaa aaaaaaaaaa aaaaaaaa aaaaaaaaaa aaaaaaaaaaaaaaaaasd asd asd asd asd "
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-        />
+        <TextView
+            android:id="@+id/manager_txt_meal_price"
 
-    <TextView
-        android:id="@+id/manager_txt_meal_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="10000"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="center"
-        android:layout_marginTop="32dp"
-        android:text="10000"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+    <ImageButton
+        android:id="@+id/delete_daily_menu_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/roundedbutton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_delete_black" />
 
     <!--FIXME vi3: Vidi da promenis Max Width ako bude trebalo zbog landscape-a-->
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

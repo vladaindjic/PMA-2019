@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.DailyMenuResponse;
@@ -26,6 +27,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -113,6 +115,12 @@ public class ManagerRestaurantDailyMenuFragment extends BaseFragment implements 
 
     @Override
     public void openMealActivity(DailyMenuResponse.Meal meal) {
-        // TODO vi3: ovde treba brisati jela ili sta vec
+        Toast.makeText(getActivity(),"Otvaram aktivnost izmena",Toast.LENGTH_SHORT).show();
+    }
+
+    @OnClick(R.id.add_daily_menu_button)
+    public void makeNewDailyMenu(){
+        Toast.makeText(getActivity(),"Otvaram aktivnost novi dnevni meni",Toast.LENGTH_SHORT).show();
+
     }
 }

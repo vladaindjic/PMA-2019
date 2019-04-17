@@ -1,9 +1,11 @@
 package com.mindorks.framework.mvp.ui.manager.restaurant.dailyMenu;
 
+import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.mindorks.framework.mvp.R;
@@ -32,6 +34,7 @@ public class ManagerMealListAdapter extends RecyclerView.Adapter<BaseViewHolder>
 
     public interface ManagerMealListItemCallback {
         void openMealActivity(DailyMenuResponse.Meal meal);
+
     }
 
     public ManagerMealListItemCallback getmCallback() {
@@ -101,6 +104,9 @@ public class ManagerMealListAdapter extends RecyclerView.Adapter<BaseViewHolder>
         @BindView(R.id.manager_txt_meal_price)
         TextView txtMealPrice;
 
+        @BindView(R.id.delete_daily_menu_button)
+        ImageButton deleteButton;
+
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -114,7 +120,7 @@ public class ManagerMealListAdapter extends RecyclerView.Adapter<BaseViewHolder>
 
         }
 
-        public void onBind(int position) {
+        public void onBind(final int position) {
             super.onBind(position);
 
             final DailyMenuResponse.Meal meal = mMealList.get(position);
@@ -139,6 +145,15 @@ public class ManagerMealListAdapter extends RecyclerView.Adapter<BaseViewHolder>
                     if (mCallback != null) {
                         mCallback.openMealActivity(meal);
                     }
+                }
+            });
+
+            deleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //TODO Milan: obraiti se reko callback-a
+                    mMealList.remove(position);
+                    notifyDataSetChanged();
                 }
             });
         }
