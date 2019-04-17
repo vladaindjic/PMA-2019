@@ -16,6 +16,7 @@ import com.mindorks.framework.mvp.data.network.model.RestaurantCookResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.di.component.ActivityComponent;
 import com.mindorks.framework.mvp.ui.base.BaseFragment;
+import com.mindorks.framework.mvp.ui.manager.restaurant.ManagerRestaurantActivity;
 import com.mindorks.framework.mvp.ui.user.restaurants.utils.UserRestaurantsCallback;
 
 import java.util.List;
@@ -68,7 +69,7 @@ public class ManagerRestaurantCookFragment extends BaseFragment implements
             component.inject(this);
             setUnBinder(ButterKnife.bind(this, view));
             mPresenter.onAttach(this);
-            // mKitchensAdapter.setmCallback(this);
+            mManagerRestaurantCookItemListAdapter.setmCallback((ManagerRestaurantActivity)getBaseActivity());
         }
         return view;
     }

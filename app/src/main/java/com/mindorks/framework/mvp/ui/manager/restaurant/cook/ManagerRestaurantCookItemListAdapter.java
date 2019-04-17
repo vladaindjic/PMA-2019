@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.mindorks.framework.mvp.R;
+import com.mindorks.framework.mvp.data.network.model.MenuResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantCookResponse;
 import com.mindorks.framework.mvp.ui.base.BaseViewHolder;
 
@@ -24,6 +25,20 @@ public class ManagerRestaurantCookItemListAdapter extends RecyclerView.Adapter<B
 
     private List<RestaurantCookResponse.RestaurantCook.RestaurantCookItem> mRestaurantCookItemList;
 
+    public interface ManagerCookItemListCallback {
+        void openDishDetailsActivity(MenuResponse.Dish dish);
+    }
+
+
+    private ManagerCookItemListCallback mCallback;
+
+    public ManagerCookItemListCallback getmCallback() {
+        return mCallback;
+    }
+
+    public void setmCallback(ManagerCookItemListCallback mCallback) {
+        this.mCallback = mCallback;
+    }
 
     public ManagerRestaurantCookItemListAdapter(ArrayList<RestaurantCookResponse.RestaurantCook.RestaurantCookItem> mRestaurantCookItemList) {
         this.mRestaurantCookItemList = mRestaurantCookItemList;
@@ -104,6 +119,17 @@ public class ManagerRestaurantCookItemListAdapter extends RecyclerView.Adapter<B
             });
 
             // TODO PREBACI SE NA KLIK TAMO DE TREBA
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mCallback != null) {
+                        MenuResponse.Dish dish = new MenuResponse.Dish();
+                        dish.setId(restaurantCookItem.getId());
+                        mCallback.openDishDetailsActivity(dish);
+                    }
+                }
+            });
+
 //            textView.setOnClickListener(new View.OnClickListener() {
 //                @Override
 //                public void onClick(View v) {

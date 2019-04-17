@@ -13,8 +13,11 @@ import com.mindorks.framework.mvp.data.network.model.MenuResponse;
 import com.mindorks.framework.mvp.data.network.model.PromotionDetailsResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantPromotionsResponse;
 import com.mindorks.framework.mvp.ui.base.BaseActivity;
+import com.mindorks.framework.mvp.ui.manager.restaurant.cook.ManagerRestaurantCookItemListAdapter;
+import com.mindorks.framework.mvp.ui.manager.restaurant.dish.ManagerDishDetailsActivity;
 import com.mindorks.framework.mvp.ui.manager.restaurant.menu.ManagerDishListAdapter;
 import com.mindorks.framework.mvp.ui.manager.restaurant.promotions.details.ManagerRestaurantPromotionDetailsActivity;
+import com.mindorks.framework.mvp.ui.user.dish.UserDishActivity;
 import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantActivity;
 import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantMvpPresenter;
 import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantMvpView;
@@ -25,7 +28,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ManagerRestaurantActivity extends BaseActivity implements ManagerRestaurantMvpView {
+public class ManagerRestaurantActivity extends BaseActivity implements ManagerRestaurantMvpView, ManagerRestaurantCookItemListAdapter.ManagerCookItemListCallback {
 
     @Inject
     ManagerRestaurantMvpPresenter<ManagerRestaurantMvpView> mPresenter;
@@ -116,5 +119,13 @@ public class ManagerRestaurantActivity extends BaseActivity implements ManagerRe
         intent.putExtra("promotionId",promotionId);
         startActivity(intent);
 //        finish();
+    }
+
+    @Override
+    public void openDishDetailsActivity(MenuResponse.Dish dish) {
+        Intent intent = ManagerDishDetailsActivity.getStartIntent(this);
+        intent.putExtra("dishId", dish.getId());
+        startActivity(intent);
+        finish();
     }
 }
