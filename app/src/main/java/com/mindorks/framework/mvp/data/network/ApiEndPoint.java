@@ -93,7 +93,7 @@ public final class ApiEndPoint {
             + "/5cb5d25d3300001d3b5d7e4e";
 
     public static final String ENDPOINT_MANAGER_RESTAURANT_COOK = BuildConfig.BASE_URL
-            + "/5cb66752320000b806cd448e";
+            + "/5cb7876e3200007647cd4b43";
 
     // Sva jela jednog restorana
     public static final String ENDPOINT_MANAGER_RESTAURANT_DISHES = BuildConfig.BASE_URL

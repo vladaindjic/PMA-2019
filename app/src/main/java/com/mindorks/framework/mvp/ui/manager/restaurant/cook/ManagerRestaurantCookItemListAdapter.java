@@ -59,6 +59,10 @@ public class ManagerRestaurantCookItemListAdapter extends RecyclerView.Adapter<B
         @BindView(R.id.cook_item_view)
         TextView textView;
 
+
+        @BindView(R.id.cook_dish_price)
+        TextView textPrice;
+
         @BindView(R.id.cook_item_delete_btn)
         Button removeButton;
 
@@ -73,6 +77,7 @@ public class ManagerRestaurantCookItemListAdapter extends RecyclerView.Adapter<B
 
         protected void clear() {
             textView.setText("");
+            textPrice.setText("");
         }
 
         public void onBind(final int position) {
@@ -87,6 +92,7 @@ public class ManagerRestaurantCookItemListAdapter extends RecyclerView.Adapter<B
 
             if (restaurantCookItem.getRestaurantCookItemData() != null) {
                 textView.setText(restaurantCookItem.getRestaurantCookItemData());
+                textPrice.setText(String.format("%s", restaurantCookItem.getPrice()));
             }
 
             removeButton.setOnClickListener(new View.OnClickListener() {
