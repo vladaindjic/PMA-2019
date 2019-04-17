@@ -3,6 +3,7 @@ package com.mindorks.framework.mvp.data.network.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -74,6 +75,7 @@ public class MealResponse {
         private List<DishDetailsResponse.NutritiveValue> nutritiveValues;
 
         public MealDetails() {
+            dishList = new ArrayList<>();
         }
 
         public MealDetails(Long id, String name, Date startTime, Date endTime, String description, Double price, List<MenuResponse.Dish> dishList, List<DishDetailsResponse.NutritiveValue> nutritiveValues) {

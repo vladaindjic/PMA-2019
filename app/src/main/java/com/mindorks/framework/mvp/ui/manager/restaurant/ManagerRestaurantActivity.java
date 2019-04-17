@@ -13,6 +13,7 @@ import com.mindorks.framework.mvp.data.network.model.MenuResponse;
 import com.mindorks.framework.mvp.data.network.model.PromotionDetailsResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantPromotionsResponse;
 import com.mindorks.framework.mvp.ui.base.BaseActivity;
+import com.mindorks.framework.mvp.ui.manager.restaurant.dailyMenu.details.ManagerDailyMenuDetailsActivity;
 import com.mindorks.framework.mvp.ui.manager.restaurant.menu.ManagerDishListAdapter;
 import com.mindorks.framework.mvp.ui.manager.restaurant.promotions.details.ManagerRestaurantPromotionDetailsActivity;
 import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantActivity;
@@ -116,5 +117,12 @@ public class ManagerRestaurantActivity extends BaseActivity implements ManagerRe
         intent.putExtra("promotionId",promotionId);
         startActivity(intent);
 //        finish();
+    }
+
+    @Override
+    public void openDailyMenuDetailsActivity(int dailyMenuId) {
+        Intent intent = ManagerDailyMenuDetailsActivity.getStartIntent(this);
+        intent.putExtra("menuId",dailyMenuId);
+        startActivity(intent);
     }
 }

@@ -19,7 +19,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.manager.restaurant.promotions.details.ManagerRestaurantPromotionDetailsActivity"></activity>
+        <activity android:name=".ui.manager.restaurant.dailyMenu.details.ManagerDailyMenuDetailsActivity"></activity>
+        <activity android:name=".ui.manager.restaurant.promotions.details.ManagerRestaurantPromotionDetailsActivity" />
         <activity android:name=".ui.manager.restaurant.ManagerRestaurantActivity" />
         <activity android:name=".ui.user.subscrptions.SubscriptionActivity" />
         <!--

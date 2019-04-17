@@ -76,6 +76,9 @@ import com.mindorks.framework.mvp.ui.manager.restaurant.dailyMenu.ManagerMealLis
 import com.mindorks.framework.mvp.ui.manager.restaurant.dailyMenu.ManagerRestaurantDailyMenuMvpPresenter;
 import com.mindorks.framework.mvp.ui.manager.restaurant.dailyMenu.ManagerRestaurantDailyMenuMvpView;
 import com.mindorks.framework.mvp.ui.manager.restaurant.dailyMenu.ManagerRestaurantDailyMenuPresenter;
+import com.mindorks.framework.mvp.ui.manager.restaurant.dailyMenu.details.ManagerDailyMenuDetailsMvpPresenter;
+import com.mindorks.framework.mvp.ui.manager.restaurant.dailyMenu.details.ManagerDailyMenuDetailsMvpView;
+import com.mindorks.framework.mvp.ui.manager.restaurant.dailyMenu.details.ManagerDailyMenuDetailsPresenter;
 import com.mindorks.framework.mvp.ui.manager.restaurant.details.ManagerRestaurantDetailsKitchensAdapter;
 import com.mindorks.framework.mvp.ui.manager.restaurant.details.ManagerRestaurantDetailsMvpPresenter;
 import com.mindorks.framework.mvp.ui.manager.restaurant.details.ManagerRestaurantDetailsMvpView;
@@ -619,6 +622,12 @@ public class ActivityModule {
     @Provides
     ManagerRestaurantPromotionDetailsMvpPresenter<ManagerRestaurantPromotionDetailsMvpView> ManagerRestaurantPromotionDetailsPresenter(
             ManagerRestaurantPromotionDetailsPresenter<ManagerRestaurantPromotionDetailsMvpView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    ManagerDailyMenuDetailsMvpPresenter<ManagerDailyMenuDetailsMvpView> ManagerDailyMenuDetailsPresenter(
+            ManagerDailyMenuDetailsPresenter<ManagerDailyMenuDetailsMvpView> presenter) {
         return presenter;
     }
 }

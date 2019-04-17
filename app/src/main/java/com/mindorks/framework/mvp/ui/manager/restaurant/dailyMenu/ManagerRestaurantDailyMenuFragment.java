@@ -16,6 +16,7 @@ import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.DailyMenuResponse;
 import com.mindorks.framework.mvp.di.component.ActivityComponent;
 import com.mindorks.framework.mvp.ui.base.BaseFragment;
+import com.mindorks.framework.mvp.ui.manager.restaurant.ManagerRestaurantActivity;
 import com.mindorks.framework.mvp.ui.user.restaurant.dailyMenu.MealListAdapter;
 import com.mindorks.framework.mvp.ui.user.restaurant.dailyMenu.UserRestaurantDailyMenuFragment;
 import com.mindorks.framework.mvp.ui.user.restaurant.dailyMenu.UserRestaurantDailyMenuMvpPresenter;
@@ -120,6 +121,13 @@ public class ManagerRestaurantDailyMenuFragment extends BaseFragment implements 
 
     @OnClick(R.id.add_daily_menu_button)
     public void makeNewDailyMenu(){
+
+        ManagerRestaurantActivity managerRestaurantActivity = (ManagerRestaurantActivity)getActivity();
+        if (managerRestaurantActivity != null) {
+            managerRestaurantActivity.openDailyMenuDetailsActivity(-1);
+        } else {
+            Toast.makeText(getContext(), "NASISES MI SE KARINE AKO SE DESIS", Toast.LENGTH_SHORT).show();
+        }
         Toast.makeText(getActivity(),"Otvaram aktivnost novi dnevni meni",Toast.LENGTH_SHORT).show();
 
     }

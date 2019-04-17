@@ -28,6 +28,8 @@ public class ManagerDishListAdapter extends RecyclerView.Adapter<BaseViewHolder>
 
     private ManagerDishListItemCallback mCallback;
 
+    private ManagerDishListMealItemCallBack mDishMealCallbakc;
+
     private List<MenuResponse.Dish> mDishList;
 
     // dishType kome jela pripadaju
@@ -39,6 +41,10 @@ public class ManagerDishListAdapter extends RecyclerView.Adapter<BaseViewHolder>
 
     public interface ManagerDishListItemCallback {
         void removeDishFromMenu(MenuResponse.Dish dish, MenuResponse.DishType dishType);
+    }
+
+    public interface ManagerDishListMealItemCallBack {
+        void removeDishFromMeal(MenuResponse.Dish dish);
     }
 
     public MenuResponse.DishType getmDishType() {
@@ -57,7 +63,12 @@ public class ManagerDishListAdapter extends RecyclerView.Adapter<BaseViewHolder>
         this.mCallback = mCallback;
     }
 
+    public void setmDishMealCallbakc(ManagerDishListMealItemCallBack mDishMealCallbakc) {
+        this.mDishMealCallbakc = mDishMealCallbakc;
+    }
+
     public void addItems(List<MenuResponse.Dish> dishList) {
+        mDishList.clear();
         mDishList.addAll(dishList);
         notifyDataSetChanged();
     }
@@ -152,8 +163,11 @@ public class ManagerDishListAdapter extends RecyclerView.Adapter<BaseViewHolder>
             btnRemoveDish.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (mCallback != null && mDishType != null) {
+                    if (mCallback != null && mDishList != null) {
                         mCallback.removeDishFromMenu(dish, mDishType);
+                    }
+                    if(mDishMealCallbakc!=null){
+                        mDishMealCallbakc.removeDishFromMeal(dish);
                     }
                 }
             });

@@ -9,6 +9,7 @@ import android.widget.Filter;
 import android.widget.TextView;
 
 import com.mindorks.framework.mvp.R;
+import com.mindorks.framework.mvp.data.network.model.MealResponse;
 import com.mindorks.framework.mvp.data.network.model.MenuResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantDetailsResponse;
 
@@ -111,6 +112,25 @@ public class ManagerDishArrayAdapter extends ArrayAdapter<MenuResponse.Dish> {
         this.mDishes.addAll(originalDishList);
         // sve one kuhinje kojih nema u restoranu, dodajemo ovde
         for (MenuResponse.Dish kRes : dishType.getDishList()) {
+            for (MenuResponse.Dish kOrig: originalDishList) {
+                if (kRes.getId().equals(kOrig.getId())) {
+                    this.mDishes.remove(kOrig);
+                }
+            }
+        }
+
+
+    }
+
+    public void checkDishesThatAreMealAndUpdateList(MealResponse.MealDetails mealDetails) {
+        if (this.mDishes == null) {
+            return;
+        }
+
+        this.mDishes.clear();
+        this.mDishes.addAll(originalDishList);
+        // sve one kuhinje kojih nema u restoranu, dodajemo ovde
+        for (MenuResponse.Dish kRes : mealDetails.getDishList()) {
             for (MenuResponse.Dish kOrig: originalDishList) {
                 if (kRes.getId().equals(kOrig.getId())) {
                     this.mDishes.remove(kOrig);
