@@ -7,14 +7,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.MenuResponse;
+import com.mindorks.framework.mvp.data.network.model.RestaurantDetailsResponse;
 import com.mindorks.framework.mvp.ui.base.BaseViewHolder;
 import com.mindorks.framework.mvp.ui.manager.restaurant.ManagerRestaurantActivity;
+import com.mindorks.framework.mvp.ui.manager.restaurant.details.ManagerKitchenArrayAdapter;
 import com.mindorks.framework.mvp.ui.manager.restaurant.utils.ManagerEmptyViewHolderTextViewOnly;
 import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantActivity;
 import com.mindorks.framework.mvp.ui.utils.OnRetryButtonClickCallback;
@@ -38,6 +41,8 @@ public class ManagerDishTypeListAdapter extends RecyclerView.Adapter<BaseViewHol
 
     private List<MenuResponse.DishType> mDishTypeList;
     private Context context;
+
+    private List<MenuResponse.Dish> dishList;
 
     ManagerDishListAdapter.ManagerDishListItemCallback managerDishListItemCallback;
 
@@ -122,6 +127,12 @@ public class ManagerDishTypeListAdapter extends RecyclerView.Adapter<BaseViewHol
         @BindView(R.id.manager_dish_list_recyclerview)
         RecyclerView mRecyclerView;
 
+        @BindView(R.id.manager_dish_type_dish_list_autocomplete_txt)
+        AutoCompleteTextView autoDishes;
+
+        @BindView(R.id.manager_dish_type_add_kitchen_btn)
+        Button btnAddDish;
+
         // Injektovanje ne prolazi
         @Inject
         LinearLayoutManager mLayoutManager;
@@ -129,6 +140,9 @@ public class ManagerDishTypeListAdapter extends RecyclerView.Adapter<BaseViewHol
         @Inject
         ManagerDishListAdapter mManagerDishListAdapter;
 
+        ManagerDishArrayAdapter mDishArrayAdapter;
+
+        MenuResponse.DishType dishType;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -146,6 +160,7 @@ public class ManagerDishTypeListAdapter extends RecyclerView.Adapter<BaseViewHol
             super.onBind(position);
 
             final MenuResponse.DishType dishType = mDishTypeList.get(position);
+            this.dishType = dishType;
 
             if (dishType.getName() != null) {
                 editDishTypeName.setText(dishType.getName());
@@ -168,6 +183,7 @@ public class ManagerDishTypeListAdapter extends RecyclerView.Adapter<BaseViewHol
             mRecyclerView.setAdapter(mManagerDishListAdapter);
 
 
+
             if (managerDishListItemCallback != null) {
                 mManagerDishListAdapter.setmCallback(managerDishListItemCallback);
             }
@@ -181,6 +197,17 @@ public class ManagerDishTypeListAdapter extends RecyclerView.Adapter<BaseViewHol
                 }
             });
 
+        }
+
+        public void prepareDishesForAutocomplete(List<MenuResponse.Dish> dishList) {
+            mDishArrayAdapter = new ManagerDishArrayAdapter(context,
+                    R.id.manager_autocomplete_dish_list_item_name, dishList);
+            // cim prvo slovo unese, nesto ce se prikazati
+            autoDishes.setThreshold(1);
+            autoDishes.setAdapter(mDishArrayAdapter);
+            if (this.dishType != null) {
+                mDishArrayAdapter.checkDishesThatAreInRestaurantAndUpdateList(dishType);
+            }
         }
     }
 

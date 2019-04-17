@@ -43,4 +43,40 @@
         android:scrollbars="vertical"
         />
 
+    <LinearLayout
+        android:id="@+id/manager_dish_type_linear_layout_autocomplete_kitchen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        >
+
+        <!--FIXME vi3: zasto ne radi kada se uredjaj rotira-->
+        <!--FIXME vi3: namesti da ide ispod. Nekako da ga zavaram da predje preko
+        tastarute mozda. Kada postavim veliko bottom marginu na Submit dugme, prikaze
+         se ispod-->
+        <AutoCompleteTextView
+            android:id="@+id/manager_dish_type_dish_list_autocomplete_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:dropDownHeight="wrap_content"
+            android:hint="@string/dish"
+            android:minWidth="200dp"
+            android:textSize="20sp"/>
+
+        <Button
+            android:id="@+id/manager_dish_type_add_kitchen_btn"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/ic_add_circle_grey_24dp"
+            />
+
+    </LinearLayout>
+
 </LinearLayout>

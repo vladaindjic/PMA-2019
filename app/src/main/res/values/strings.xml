@@ -211,4 +211,6 @@
 
     <!--Manager-->
     <string name="cook">Cook</string>
+
+    <string name="dish">Dish</string>
 </resources>
