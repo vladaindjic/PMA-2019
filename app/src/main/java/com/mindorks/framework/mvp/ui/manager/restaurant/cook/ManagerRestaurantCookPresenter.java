@@ -2,6 +2,7 @@ package com.mindorks.framework.mvp.ui.manager.restaurant.cook;
 
 import com.androidnetworking.error.ANError;
 import com.mindorks.framework.mvp.data.DataManager;
+import com.mindorks.framework.mvp.data.network.model.RestaurantCookResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantDetailsResponse;
 import com.mindorks.framework.mvp.ui.base.BasePresenter;
 import com.mindorks.framework.mvp.utils.rx.SchedulerProvider;
@@ -18,7 +19,7 @@ import io.reactivex.functions.Consumer;
 public class ManagerRestaurantCookPresenter<V extends ManagerRestaurantCookMvpView> extends BasePresenter<V>
         implements ManagerRestaurantCookMvpPresenter<V> {
 
-    private static final String TAG = "UserDishDetailsPresenter";
+    private static final String TAG = "ManagerRestaurantCookPresenter";
 
     @Inject
     public ManagerRestaurantCookPresenter(DataManager dataManager,
@@ -33,43 +34,38 @@ public class ManagerRestaurantCookPresenter<V extends ManagerRestaurantCookMvpVi
         getMvpView().hideLoading();
 
         // TODO vi3: kreirati API poziv koji vrati sva jela, bez kategorija
+        System.out.println("ovde sam*******************************************");
+        getCompositeDisposable().add(getDataManager()
+                .getRestaurantCookApiCall(restaurantId)
+                .subscribeOn(getSchedulerProvider().io())
+                .observeOn(getSchedulerProvider().ui())
+                .subscribe(new Consumer<RestaurantCookResponse>() {
+                    @Override
+                    public void accept(@NonNull RestaurantCookResponse response)
+                            throws Exception {
+                        System.out.println(response);
+                        System.out.println(response.getData().getRestaurantCookItemList().size());
+                        if (response != null && response.getData() != null) {
+                            getMvpView().updateRestaurantCook(response.getData().getRestaurantCookItemList());
+                        }
+                        getMvpView().hideLoading();
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(@NonNull Throwable throwable)
+                            throws Exception {
+                        if (!isViewAttached()) {
+                            return;
+                        }
 
-//        getCompositeDisposable().add(getDataManager()
-//                .getRestaurantDetailsApiCall(restaurantId)
-//                .subscribeOn(getSchedulerProvider().io())
-//                .observeOn(getSchedulerProvider().ui())
-//                .subscribe(new Consumer<RestaurantDetailsResponse>() {
-//                    @Override
-//                    public void accept(@NonNull RestaurantDetailsResponse response)
-//                            throws Exception {
-//                        if (response != null && response.getData() != null) {
-//                            // TODO vi3: ovo je samo za tesiranje
-//                            List<RestaurantDetailsResponse.Kitchen> kitchenList = new ArrayList<>();
-//                            kitchenList.add(new RestaurantDetailsResponse.Kitchen(1L, "Kineska"));
-//                            kitchenList.add(new RestaurantDetailsResponse.Kitchen(2L,
-//                                    "Italijanska"));
-//                            kitchenList.add(new RestaurantDetailsResponse.Kitchen(3L, "Srpska"));
-//                            response.getData().setKitchens(kitchenList);
-//                            getMvpView().updateRestaurantDetails(response.getData());
-//                        }
-//                        getMvpView().hideLoading();
-//                    }
-//                }, new Consumer<Throwable>() {
-//                    @Override
-//                    public void accept(@NonNull Throwable throwable)
-//                            throws Exception {
-//                        if (!isViewAttached()) {
-//                            return;
-//                        }
-//
-//                        getMvpView().hideLoading();
-//
-//                        // handle the error here
-//                        if (throwable instanceof ANError) {
-//                            ANError anError = (ANError) throwable;
-//                            handleApiError(anError);
-//                        }
-//                    }
-//                }));
+                        getMvpView().hideLoading();
+
+                        // handle the error here
+                        if (throwable instanceof ANError) {
+                            ANError anError = (ANError) throwable;
+                            handleApiError(anError);
+                        }
+                    }
+                }));
     }
 }
