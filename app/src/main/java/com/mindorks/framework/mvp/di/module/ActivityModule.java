@@ -82,6 +82,7 @@ import com.mindorks.framework.mvp.ui.manager.restaurant.details.ManagerRestauran
 import com.mindorks.framework.mvp.ui.manager.restaurant.details.ManagerRestaurantDetailsPresenter;
 import com.mindorks.framework.mvp.ui.manager.restaurant.dish.ManagerDishDetailsMvpPresenter;
 import com.mindorks.framework.mvp.ui.manager.restaurant.dish.ManagerDishDetailsMvpView;
+import com.mindorks.framework.mvp.ui.manager.restaurant.dish.ManagerDishDetailsNutritiveValuesAdapter;
 import com.mindorks.framework.mvp.ui.manager.restaurant.dish.ManagerDishDetailsPresenter;
 import com.mindorks.framework.mvp.ui.manager.restaurant.menu.ManagerDishListAdapter;
 import com.mindorks.framework.mvp.ui.manager.restaurant.menu.ManagerDishTypeListAdapter;
@@ -629,5 +630,10 @@ public class ActivityModule {
     ManagerDishDetailsMvpPresenter<ManagerDishDetailsMvpView> ManagerDishDetailsPresenter(
             ManagerDishDetailsPresenter<ManagerDishDetailsMvpView> presenter) {
         return presenter;
+    }
+
+    @Provides
+    ManagerDishDetailsNutritiveValuesAdapter provideManagerDishDetailsNutritiveValuesAdapter() {
+        return new ManagerDishDetailsNutritiveValuesAdapter(new ArrayList<DishDetailsResponse.NutritiveValue>());
     }
 }
