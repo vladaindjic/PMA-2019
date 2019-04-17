@@ -32,6 +32,7 @@ import com.mindorks.framework.mvp.data.network.model.BlogResponse;
 import com.mindorks.framework.mvp.data.network.model.LoginRequest;
 import com.mindorks.framework.mvp.data.network.model.LoginResponse;
 import com.mindorks.framework.mvp.data.network.model.LogoutResponse;
+import com.mindorks.framework.mvp.data.network.model.MenuResponse;
 import com.mindorks.framework.mvp.data.network.model.NotificationResponse;
 import com.mindorks.framework.mvp.data.network.model.OpenSourceResponse;
 import com.mindorks.framework.mvp.data.network.model.PromotionDetailsResponse;
@@ -45,6 +46,7 @@ import com.mindorks.framework.mvp.data.network.model.SettingsResponse;
 import com.mindorks.framework.mvp.data.network.model.UserDetailsResponse;
 import com.mindorks.framework.mvp.data.network.model.UserRegistrationRequest;
 import com.mindorks.framework.mvp.data.network.model.UserRegistrationResponse;
+import com.mindorks.framework.mvp.data.network.model.manager.RestaurantDishesResponse;
 import com.mindorks.framework.mvp.data.prefs.PreferencesHelper;
 import com.mindorks.framework.mvp.di.ApplicationContext;
 import com.mindorks.framework.mvp.utils.AppConstants;
@@ -353,6 +355,11 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public Single<MenuResponse> getRestaurantMenuApiCall(Long restaurantId) {
+        return mApiHelper.getRestaurantMenuApiCall(restaurantId);
+    }
+
+    @Override
     public Single<RestaurantRatingResponse> getRestaurantRatingApiCall(Long restaurantId) {
         return mApiHelper.getRestaurantRatingApiCall(restaurantId);
     }
@@ -388,5 +395,10 @@ public class AppDataManager implements DataManager {
     @Override
     public Single<RestaurantCookResponse> getRestaurantCookApiCall(Long restaurantId) {
         return mApiHelper.getRestaurantCookApiCall(restaurantId);
+    }
+
+    @Override
+    public Single<RestaurantDishesResponse> getRestaurantDishesApiCall(Long restaurantId) {
+        return mApiHelper.getRestaurantDishesApiCall(restaurantId);
     }
 }

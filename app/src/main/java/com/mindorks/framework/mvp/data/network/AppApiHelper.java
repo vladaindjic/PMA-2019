@@ -19,6 +19,7 @@ import com.mindorks.framework.mvp.data.network.model.BlogResponse;
 import com.mindorks.framework.mvp.data.network.model.LoginRequest;
 import com.mindorks.framework.mvp.data.network.model.LoginResponse;
 import com.mindorks.framework.mvp.data.network.model.LogoutResponse;
+import com.mindorks.framework.mvp.data.network.model.MenuResponse;
 import com.mindorks.framework.mvp.data.network.model.NotificationResponse;
 import com.mindorks.framework.mvp.data.network.model.OpenSourceResponse;
 import com.mindorks.framework.mvp.data.network.model.PromotionDetailsResponse;
@@ -32,6 +33,7 @@ import com.mindorks.framework.mvp.data.network.model.SettingsResponse;
 import com.mindorks.framework.mvp.data.network.model.UserDetailsResponse;
 import com.mindorks.framework.mvp.data.network.model.UserRegistrationRequest;
 import com.mindorks.framework.mvp.data.network.model.UserRegistrationResponse;
+import com.mindorks.framework.mvp.data.network.model.manager.RestaurantDishesResponse;
 import com.rx2androidnetworking.Rx2AndroidNetworking;
 
 import javax.inject.Inject;
@@ -171,6 +173,14 @@ public class AppApiHelper implements ApiHelper {
     }
 
     @Override
+    public Single<MenuResponse> getRestaurantMenuApiCall(Long restaurantId) {
+        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_RESTAURANT_MENU)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .build()
+                .getObjectSingle(MenuResponse.class);
+    }
+
+    @Override
     public Single<RestaurantRatingResponse> getRestaurantRatingApiCall(Long restaurantId) {
         return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_RESTAURANT_RATING)
                 .addHeaders(mApiHeader.getProtectedApiHeader())
@@ -232,6 +242,12 @@ public class AppApiHelper implements ApiHelper {
                 .getObjectSingle(RestaurantCookResponse.class);
     }
 
-
+    @Override
+    public Single<RestaurantDishesResponse> getRestaurantDishesApiCall(Long restaurantId) {
+        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_MANAGER_RESTAURANT_DISHES)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .build()
+                .getObjectSingle(RestaurantDishesResponse.class);
+    }
 }
 

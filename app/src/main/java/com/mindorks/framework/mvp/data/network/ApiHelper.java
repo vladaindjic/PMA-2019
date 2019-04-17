@@ -19,6 +19,7 @@ import com.mindorks.framework.mvp.data.network.model.BlogResponse;
 import com.mindorks.framework.mvp.data.network.model.LoginRequest;
 import com.mindorks.framework.mvp.data.network.model.LoginResponse;
 import com.mindorks.framework.mvp.data.network.model.LogoutResponse;
+import com.mindorks.framework.mvp.data.network.model.MenuResponse;
 import com.mindorks.framework.mvp.data.network.model.NotificationResponse;
 import com.mindorks.framework.mvp.data.network.model.OpenSourceResponse;
 import com.mindorks.framework.mvp.data.network.model.PromotionDetailsResponse;
@@ -32,6 +33,7 @@ import com.mindorks.framework.mvp.data.network.model.SettingsResponse;
 import com.mindorks.framework.mvp.data.network.model.UserDetailsResponse;
 import com.mindorks.framework.mvp.data.network.model.UserRegistrationRequest;
 import com.mindorks.framework.mvp.data.network.model.UserRegistrationResponse;
+import com.mindorks.framework.mvp.data.network.model.manager.RestaurantDishesResponse;
 
 import io.reactivex.Single;
 
@@ -71,6 +73,8 @@ public interface ApiHelper {
 
     Single<RestaurantDetailsResponse> getRestaurantDetailsApiCall(Long restaurantId);
 
+    Single<MenuResponse> getRestaurantMenuApiCall(Long restaurantId);
+
     Single<RestaurantRatingResponse> getRestaurantRatingApiCall(Long restaurantId);
 
     Single<RestaurantFilterResponse> getRestaurantFilterApiCall();
@@ -86,4 +90,7 @@ public interface ApiHelper {
     Single<RestaurantDetailsResponse> postRestaurantDetailsApiCall(RestaurantDetailsResponse.RestaurantDetails restaurantDetails);
 
     Single<RestaurantCookResponse> getRestaurantCookApiCall(Long restaurantId);
+
+    Single<RestaurantDishesResponse> getRestaurantDishesApiCall(Long restaurantId);
+
 }

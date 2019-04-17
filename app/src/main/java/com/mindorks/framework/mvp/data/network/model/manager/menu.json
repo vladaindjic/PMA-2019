@@ -1,0 +1,87 @@
+{
+  "http_status_code": 200,
+  "data": {
+    "id": 1,
+    "name": "Moj meni",
+    "dish_types": [
+      {
+        "id": 1,
+        "name": "Glavno jelo",
+        "dishes": [
+          {
+            "id": 1,
+            "name": "Piletina",
+            "img_url": "https://www.themediterraneandish.com/wp-content/uploads/2017/01/Shakshuka-Recipe-The-Mediterranean-Dish-102.jpg",
+            "price": 333.33
+          },
+          {
+            "id": 2,
+            "name": "Prasetina",
+            "img_url": "https://www.themediterraneandish.com/wp-content/uploads/2017/01/Shakshuka-Recipe-The-Mediterranean-Dish-102.jpg",
+            "price": 444.44
+          },
+          {
+            "id": 3,
+            "name": "Jagnjetina",
+            "img_url": "https://www.themediterraneandish.com/wp-content/uploads/2017/01/Shakshuka-Recipe-The-Mediterranean-Dish-102.jpg",
+            "price": 555.55
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "Supe",
+        "dishes": [
+          {
+            "id": 4,
+            "name": "Pileca corba",
+            "img_url": "https://www.themediterraneandish.com/wp-content/uploads/2017/01/Shakshuka-Recipe-The-Mediterranean-Dish-102.jpg",
+            "price": 111.11
+          },
+          {
+            "id": 5,
+            "name": "Teleca corba",
+            "img_url": "https://www.themediterraneandish.com/wp-content/uploads/2017/01/Shakshuka-Recipe-The-Mediterranean-Dish-102.jpg",
+            "price": 111.11
+          },
+          {
+            "id": 6,
+            "name": "Paradajz corba",
+            "img_url": "https://www.themediterraneandish.com/wp-content/uploads/2017/01/Shakshuka-Recipe-The-Mediterranean-Dish-102.jpg",
+            "price": 111.11
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "name": "Dezerti",
+        "dishes": [
+          {
+            "id": 7,
+            "name": "Sladoled",
+            "img_url": "https://www.themediterraneandish.com/wp-content/uploads/2017/01/Shakshuka-Recipe-The-Mediterranean-Dish-102.jpg",
+            "price": 111.11
+          },
+          {
+            "id": 8,
+            "name": "Sufle",
+            "img_url": "https://www.themediterraneandish.com/wp-content/uploads/2017/01/Shakshuka-Recipe-The-Mediterranean-Dish-102.jpg",
+            "price": 111.11
+          },
+          {
+            "id": 9,
+            "name": "Torta",
+            "img_url": "https://www.themediterraneandish.com/wp-content/uploads/2017/01/Shakshuka-Recipe-The-Mediterranean-Dish-102.jpg",
+            "price": 111.11
+          },
+          {
+            "id": 10,
+            "name": "Sladoled kod rajka",
+            "img_url": "https://www.themediterraneandish.com/wp-content/uploads/2017/01/Shakshuka-Recipe-The-Mediterranean-Dish-102.jpg",
+            "price": 111.11
+          }
+        ]
+      }
+    ]
+  }
+}
