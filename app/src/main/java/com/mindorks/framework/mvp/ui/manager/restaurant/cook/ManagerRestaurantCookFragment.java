@@ -9,11 +9,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.RestaurantCookResponse;
+import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.di.component.ActivityComponent;
 import com.mindorks.framework.mvp.ui.base.BaseFragment;
+import com.mindorks.framework.mvp.ui.user.restaurants.utils.UserRestaurantsCallback;
 
 import java.util.List;
 
