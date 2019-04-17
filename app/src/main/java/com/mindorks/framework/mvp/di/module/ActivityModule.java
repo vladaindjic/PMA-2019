@@ -26,6 +26,7 @@ import com.mindorks.framework.mvp.data.network.model.DishDetailsResponse;
 import com.mindorks.framework.mvp.data.network.model.MenuResponse;
 import com.mindorks.framework.mvp.data.network.model.NotificationResponse;
 import com.mindorks.framework.mvp.data.network.model.OpenSourceResponse;
+import com.mindorks.framework.mvp.data.network.model.RestaurantCookResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantDetailsResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantFilterResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantPromotionsResponse;
@@ -67,6 +68,7 @@ import com.mindorks.framework.mvp.ui.manager.restaurant.ManagerRestaurantMvpPres
 import com.mindorks.framework.mvp.ui.manager.restaurant.ManagerRestaurantMvpView;
 import com.mindorks.framework.mvp.ui.manager.restaurant.ManagerRestaurantPagerAdapter;
 import com.mindorks.framework.mvp.ui.manager.restaurant.ManagerRestaurantPresenter;
+import com.mindorks.framework.mvp.ui.manager.restaurant.cook.ManagerRestaurantCookItemListAdapter;
 import com.mindorks.framework.mvp.ui.manager.restaurant.cook.ManagerRestaurantCookMvpPresenter;
 import com.mindorks.framework.mvp.ui.manager.restaurant.cook.ManagerRestaurantCookMvpView;
 import com.mindorks.framework.mvp.ui.manager.restaurant.cook.ManagerRestaurantCookPresenter;
@@ -607,6 +609,10 @@ public class ActivityModule {
         return new ManagerRestaurantPromotionsAdapter(new ArrayList<RestaurantPromotionsResponse.Promotion>());
     }
 
+    @Provides
+    ManagerRestaurantCookItemListAdapter provideManagerRestaurantCookItemListAdapter() {
+        return new ManagerRestaurantCookItemListAdapter(new ArrayList<RestaurantCookResponse.RestaurantCook.RestaurantCookItem>());
+    }
 
     // ==================================== Manager ===========================
 

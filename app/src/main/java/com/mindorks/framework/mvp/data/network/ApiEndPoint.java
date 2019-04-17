@@ -66,6 +66,9 @@ public final class ApiEndPoint {
     public static final String ENDPOINT_RESTAURANT_DETAILS = BuildConfig.BASE_URL
             + "/5cabcb913000004c00103250";
 
+    public static final String ENDPOINT_RESTAURANT_MENU = BuildConfig.BASE_URL
+            + "/5cb72e6e3200007747cd4990";
+
     public static final String ENDPOINT_RESTAURANT_RATING = BuildConfig.BASE_URL
 //            + "/5cb601be330000d5385d7f87"; Ovo kad nije ocenio
             + "/5cb60256330000e1345d7f8e";
@@ -88,6 +91,13 @@ public final class ApiEndPoint {
     // manager endpoints
     public static final String ENDPOINT_MANAGER_UPDATE_RESTAURANT_DETAILS = BuildConfig.BASE_URL
             + "/5cb5d25d3300001d3b5d7e4e";
+
+    public static final String ENDPOINT_MANAGER_RESTAURANT_COOK = BuildConfig.BASE_URL
+            + "/5cb66752320000b806cd448e";
+
+    // Sva jela jednog restorana
+    public static final String ENDPOINT_MANAGER_RESTAURANT_DISHES = BuildConfig.BASE_URL
+            + "/5cb72a0e320000510ecd4964";
 
     private ApiEndPoint() {
         // This class is not publicly instantiable

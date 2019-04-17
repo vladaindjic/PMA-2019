@@ -189,9 +189,9 @@ public class ManagerRestaurantDetailsFragment extends BaseFragment implements
         // podrazumevano uklanjamo kuhinju
         removeTypedKitchen();
     }
-
+    // TODO vi3: vidi da li je i ovo ovde ok???
     @Override
-    public void prepareKitchensForAutocomplete(List<RestaurantDetailsResponse.Kitchen> kitchenList) {
+    synchronized public void prepareKitchensForAutocomplete(List<RestaurantDetailsResponse.Kitchen> kitchenList) {
         mKitchenArrayAdapter = new ManagerKitchenArrayAdapter(getContext(),
                 R.id.manager_autocomplete_kitchen_list_item_name, kitchenList);
         // cim prvo slovo unese, nesto ce se prikazati
@@ -203,7 +203,7 @@ public class ManagerRestaurantDetailsFragment extends BaseFragment implements
     }
 
     @Override
-    public void updateRestaurantDetails(final RestaurantDetailsResponse.RestaurantDetails restaurantDetails) {
+    synchronized public void updateRestaurantDetails(final RestaurantDetailsResponse.RestaurantDetails restaurantDetails) {
         this.restaurantDetails = restaurantDetails;
         this.saveOriginalRestaurantDetailsState();
 

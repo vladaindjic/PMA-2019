@@ -4,17 +4,21 @@ import android.content.Context;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.EditText;
 
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.MenuResponse;
+import com.mindorks.framework.mvp.data.network.model.RestaurantDetailsResponse;
 import com.mindorks.framework.mvp.ui.base.BaseViewHolder;
-import com.mindorks.framework.mvp.ui.manager.restaurant.ManagerRestaurantActivity;
-import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantActivity;
+import com.mindorks.framework.mvp.ui.manager.restaurant.utils.ManagerEmptyViewHolderTextViewOnly;
 import com.mindorks.framework.mvp.ui.utils.OnRetryButtonClickCallback;
 
 import java.util.ArrayList;
@@ -24,7 +28,6 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class ManagerDishTypeListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
@@ -37,13 +40,35 @@ public class ManagerDishTypeListAdapter extends RecyclerView.Adapter<BaseViewHol
     private List<MenuResponse.DishType> mDishTypeList;
     private Context context;
 
+    private List<MenuResponse.Dish> dishList;
+
+    public List<MenuResponse.Dish> getDishList() {
+        return dishList;
+    }
+
+    public void setDishList(List<MenuResponse.Dish> dishList) {
+        this.dishList = dishList;
+    }
+
+    ManagerDishListAdapter.ManagerDishListItemCallback managerDishListItemCallback;
+
     public ManagerDishTypeListAdapter(List<MenuResponse.DishType> mDishTypeList, Context context) {
         this.mDishTypeList = mDishTypeList;
         this.context = context;
     }
 
-    public interface ManagerDishTypeItemListCallback extends OnRetryButtonClickCallback {
+    public ManagerDishListAdapter.ManagerDishListItemCallback getManagerDishListItemCallback() {
+        return managerDishListItemCallback;
+    }
 
+    public void setManagerDishListItemCallback(ManagerDishListAdapter.ManagerDishListItemCallback managerDishListItemCallback) {
+        this.managerDishListItemCallback = managerDishListItemCallback;
+    }
+
+    public interface ManagerDishTypeItemListCallback extends OnRetryButtonClickCallback {
+        void removeDishType(MenuResponse.DishType dishType);
+
+        void addDishToDishType(MenuResponse.Dish dish, MenuResponse.DishType dishType);
     }
 
     public ManagerDishTypeItemListCallback getmCallback() {
@@ -55,6 +80,7 @@ public class ManagerDishTypeListAdapter extends RecyclerView.Adapter<BaseViewHol
     }
 
     public void addItems(List<MenuResponse.DishType> dishTypeList) {
+        mDishTypeList.clear();
         mDishTypeList.addAll(dishTypeList);
         notifyDataSetChanged();
     }
@@ -74,8 +100,9 @@ public class ManagerDishTypeListAdapter extends RecyclerView.Adapter<BaseViewHol
                                 false));
             case VIEW_TYPE_EMPTY:
             default:
-                return new ManagerDishTypeListAdapter.EmptyViewHolder(
-                        LayoutInflater.from(parent.getContext()).inflate(R.layout.item_empty_view, parent, false));
+                return new ManagerEmptyViewHolderTextViewOnly(
+                        LayoutInflater.from(parent.getContext()).inflate(R.layout.manager_empty_view_item_text_view_only
+                                , parent, false), "No dish type");
         }
     }
 
@@ -99,11 +126,20 @@ public class ManagerDishTypeListAdapter extends RecyclerView.Adapter<BaseViewHol
 
     public class ViewHolder extends BaseViewHolder {
 
-        @BindView(R.id.manager_txt_dish_type_name)
-        TextView txtDishTypeName;
+        @BindView(R.id.manager_remove_dish_type_btn)
+        Button btnRemoveDishType;
+
+        @BindView(R.id.manager_edit_text_dish_type_name)
+        EditText editDishTypeName;
 
         @BindView(R.id.manager_dish_list_recyclerview)
         RecyclerView mRecyclerView;
+
+        @BindView(R.id.manager_dish_type_dish_list_autocomplete_txt)
+        AutoCompleteTextView autoDishes;
+
+        @BindView(R.id.manager_dish_type_add_kitchen_btn)
+        Button btnAddDish;
 
         // Injektovanje ne prolazi
         @Inject
@@ -112,6 +148,11 @@ public class ManagerDishTypeListAdapter extends RecyclerView.Adapter<BaseViewHol
         @Inject
         ManagerDishListAdapter mManagerDishListAdapter;
 
+        ManagerDishArrayAdapter innerDishArrayAdapter;
+
+        MenuResponse.DishType innerDishType;
+
+        private MenuResponse.Dish innerTypedDish;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -119,7 +160,7 @@ public class ManagerDishTypeListAdapter extends RecyclerView.Adapter<BaseViewHol
         }
 
         protected void clear() {
-            txtDishTypeName.setText("");
+            editDishTypeName.setText("");
             if (mManagerDishListAdapter != null) {
                 mManagerDishListAdapter.addItems(new ArrayList<MenuResponse.Dish>());
             }
@@ -129,15 +170,24 @@ public class ManagerDishTypeListAdapter extends RecyclerView.Adapter<BaseViewHol
             super.onBind(position);
 
             final MenuResponse.DishType dishType = mDishTypeList.get(position);
+            this.innerDishType = dishType;
 
             if (dishType.getName() != null) {
-                txtDishTypeName.setText(dishType.getName());
+                editDishTypeName.setText(dishType.getName());
             }
 
+            // pripremimo sva jela koja treba da se nadju u autocomplete-u
+            if (dishList != null) {
+                prepareDishesForAutocomplete();
+            }
             // FIXME vi3: videti da li postoji sansa da se ovo samo injektuje
             // Za sada je moralo ovako da se implementira, jer injekcija ne prolazi
-            mManagerDishListAdapter = new ManagerDishListAdapter(new ArrayList<MenuResponse.Dish>());
+            mManagerDishListAdapter =
+                    new ManagerDishListAdapter(new ArrayList<MenuResponse.Dish>());
+            // dodajemo sva jela
             mManagerDishListAdapter.addItems(dishType.getDishList());
+            // dodajemo i dishType
+            mManagerDishListAdapter.setmDishType(dishType);
 
             mLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
 
@@ -147,37 +197,123 @@ public class ManagerDishTypeListAdapter extends RecyclerView.Adapter<BaseViewHol
             mRecyclerView.setAdapter(mManagerDishListAdapter);
 
 
-            if (context instanceof UserRestaurantActivity) {
-                mManagerDishListAdapter.setmCallback((ManagerRestaurantActivity) context);
+            // postavljamo callback u unutrasnjem adapteru jela
+            if (managerDishListItemCallback != null) {
+                mManagerDishListAdapter.setmCallback(managerDishListItemCallback);
             }
 
+            // kada pritisnemo dugme za brisanje dishType-a, isti se obrise u fragmentu
+            btnRemoveDishType.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mCallback != null) {
+                        mCallback.removeDishType(dishType);
+                    }
+                }
+            });
 
+            // kada pritisnemo dugme za dodavanje jela, to jelo se dodaje na kategoriju
+            // (dishType) u fragmentu
+            btnAddDish.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mCallback != null) {
+                        mCallback.addDishToDishType(innerTypedDish, innerDishType);
+                        // obrisemo unos, ako smo pritisnuli dugme za dodavanje
+                        autoDishes.setText("");
+                    }
+                }
+            });
+
+            // ako se nesto ukuca, ponistimo prethodni izbor korisnika
+            autoDishes.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    removeTypedDish();
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    removeTypedDish();
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    removeTypedDish();
+                }
+            });
+
+            // kada korisnik izabere jelo, memoizujemo ga
+            autoDishes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Object o = parent.getItemAtPosition(position);
+                    if (o instanceof MenuResponse.Dish) {
+                        memoizeTypedDish((MenuResponse.Dish) o);
+                    }
+                }
+            });
+
+            // podrazumevano nema izabranog jela
+            this.removeTypedDish();
+
+        }
+
+        private void prepareDishesForAutocomplete() {
+            if (dishList == null) {
+                return;
+            }
+
+            List<MenuResponse.Dish> tmpDishes = new ArrayList<>();
+            tmpDishes.addAll(dishList);
+            innerDishArrayAdapter = new ManagerDishArrayAdapter(context,
+                    R.id.manager_autocomplete_dish_list_item_name, tmpDishes);
+            // cim prvo slovo unese, nesto ce se prikazati
+            autoDishes.setThreshold(1);
+            autoDishes.setAdapter(innerDishArrayAdapter);
+            if (this.innerDishType != null) {
+                innerDishArrayAdapter.checkDishesThatAreInRestaurantAndUpdateList(innerDishType);
+            }
+        }
+
+        // uklanjamo memoizovanu kuhinju
+        private void removeTypedDish() {
+            this.innerTypedDish = null;
+            // ponistimo kuhinju, a samim tim i mogucnost pritiska dugmeta za dodavanje
+            this.btnAddDish.setClickable(false);
+        }
+
+        // memoizujemo kuhinju
+        private void memoizeTypedDish(MenuResponse.Dish dish) {
+            this.innerTypedDish = dish;
+            // kada zapamtimo kuhinju, dozvolimo da dugme za dodavanje moze da se klikne
+            this.btnAddDish.setClickable(true);
         }
     }
 
-    public class EmptyViewHolder extends BaseViewHolder {
-
-        @BindView(R.id.btn_retry)
-        Button retryButton;
-
-        @BindView(R.id.tv_message)
-        TextView messageTextView;
-
-        public EmptyViewHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
-        }
-
-        @Override
-        protected void clear() {
-
-        }
-
-        @OnClick(R.id.btn_retry)
-        void onRetryClick() {
-            if (mCallback != null)
-                mCallback.onsEmptyViewRetryButtonClick();
-        }
-    }
+//    public class EmptyViewHolder extends BaseViewHolder {
+//
+//        @BindView(R.id.btn_retry)
+//        Button retryButton;
+//
+//        @BindView(R.id.tv_message)
+//        TextView messageTextView;
+//
+//        public EmptyViewHolder(View itemView) {
+//            super(itemView);
+//            ButterKnife.bind(this, itemView);
+//        }
+//
+//        @Override
+//        protected void clear() {
+//
+//        }
+//
+//        @OnClick(R.id.btn_retry)
+//        void onRetryClick() {
+//            if (mCallback != null)
+//                mCallback.onsEmptyViewRetryButtonClick();
+//        }
+//    }
 
 }

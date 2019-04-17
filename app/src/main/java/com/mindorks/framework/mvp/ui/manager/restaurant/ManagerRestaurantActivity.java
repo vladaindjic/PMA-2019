@@ -25,7 +25,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ManagerRestaurantActivity extends BaseActivity implements ManagerRestaurantMvpView, ManagerDishListAdapter.ManagerDishListItemCallback {
+public class ManagerRestaurantActivity extends BaseActivity implements ManagerRestaurantMvpView {
 
     @Inject
     ManagerRestaurantMvpPresenter<ManagerRestaurantMvpView> mPresenter;
@@ -106,7 +106,6 @@ public class ManagerRestaurantActivity extends BaseActivity implements ManagerRe
 
     }
 
-    @Override
     public void openDishActivity(MenuResponse.Dish dish) {
         // TODO vi3: ovo cemo recimo iskoristiti za uklanjanje jela
     }

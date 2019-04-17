@@ -3,6 +3,7 @@ package com.mindorks.framework.mvp.data.network.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MenuResponse {
@@ -131,6 +132,16 @@ public class MenuResponse {
 
         public void setDishList(List<Dish> dishList) {
             this.dishList = dishList;
+        }
+
+        // kopiramo sve, ali ostavljamo iste objekte klase Dish
+        public DishType copyAllButDishes() {
+            DishType copy = new DishType();
+            copy.setId(this.id);
+            copy.setName(this.name);
+            copy.setDishList(new ArrayList<Dish>());
+            copy.getDishList().addAll(this.dishList);
+            return copy;
         }
     }
 
