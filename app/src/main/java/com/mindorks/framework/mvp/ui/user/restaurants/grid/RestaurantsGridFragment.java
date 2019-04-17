@@ -101,7 +101,7 @@ public class RestaurantsGridFragment extends BaseFragment implements
         if (userRestaurantsActivity != null) {
             userRestaurantsActivity.openRestaurantDetailsActivity(restaurant);
         } else {
-            Toast.makeText(getContext(), "NASISES MI SE KARINE AKO SE DESIS", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Ne valja ti ovo, druze (:", Toast.LENGTH_SHORT).show();
         }
     }
 }

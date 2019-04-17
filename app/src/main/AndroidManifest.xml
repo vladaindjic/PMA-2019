@@ -86,6 +86,7 @@
                 android:value=".ui.user.restaurants.UserRestaurantsActivity" />
         </activity>
         <activity android:name=".ui.user.preferences.UserPreferencesFragment" />
+        <activity android:name=".ui.manager.restaurant.dish.ManagerDishDetailsActivity" />
     </application>
 
 </manifest>

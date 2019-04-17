@@ -98,7 +98,7 @@ public class ManagerRestaurantPromotionsFragment extends BaseFragment implements
         if (managerRestaurantActivity != null) {
             managerRestaurantActivity.openPromotionDetailsActivity(-1);
         } else {
-            Toast.makeText(getContext(), "NASISES MI SE KARINE AKO SE DESIS", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Ne valja ti ovo, druze (:", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -115,7 +115,7 @@ public class ManagerRestaurantPromotionsFragment extends BaseFragment implements
         if (managerRestaurantActivity != null) {
             managerRestaurantActivity.openPromotionDetailsActivity(promotion.getId());
         } else {
-            Toast.makeText(getContext(), "NASISES MI SE KARINE AKO SE DESIS", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Ne valja ti ovo, druze (:", Toast.LENGTH_SHORT).show();
         }
     }
 

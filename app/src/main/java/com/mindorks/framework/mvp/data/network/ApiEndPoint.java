@@ -36,9 +36,6 @@ public final class ApiEndPoint {
             + "/5ca521393300004f002ea669";
 
     // sucessfully log in
-//    public static final String ENDPOINT_SERVER_USER_REGISTRATION = BuildConfig.BASE_URL
-//            + "/5ca4fec73300004f002ea5dd";
-    // failed log in
     public static final String ENDPOINT_SERVER_USER_REGISTRATION = BuildConfig.BASE_URL
             + "/5cb7b4614c0000a106d3d240";
 
@@ -98,7 +95,7 @@ public final class ApiEndPoint {
 
 
     public static final String ENDPOINT_MANAGER_RESTAURANT_COOK = BuildConfig.BASE_URL
-            + "/5cb66752320000b806cd448e";
+            + "/5cb7876e3200007647cd4b43";
 
     // Sva jela jednog restorana
     public static final String ENDPOINT_MANAGER_RESTAURANT_DISHES = BuildConfig.BASE_URL

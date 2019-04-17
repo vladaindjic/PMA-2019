@@ -30,6 +30,7 @@ import com.mindorks.framework.mvp.ui.manager.restaurant.cook.ManagerRestaurantCo
 import com.mindorks.framework.mvp.ui.manager.restaurant.dailyMenu.ManagerRestaurantDailyMenuFragment;
 import com.mindorks.framework.mvp.ui.manager.restaurant.dailyMenu.details.ManagerDailyMenuDetailsActivity;
 import com.mindorks.framework.mvp.ui.manager.restaurant.details.ManagerRestaurantDetailsFragment;
+import com.mindorks.framework.mvp.ui.manager.restaurant.dish.ManagerDishDetailsActivity;
 import com.mindorks.framework.mvp.ui.manager.restaurant.menu.ManagerRestaurantMenuFragment;
 import com.mindorks.framework.mvp.ui.manager.restaurant.promotions.ManagerRestaurantPromotionsFragment;
 import com.mindorks.framework.mvp.ui.manager.restaurant.promotions.details.ManagerRestaurantPromotionDetailsActivity;
@@ -132,5 +133,7 @@ public interface ActivityComponent {
     void inject(ManagerRestaurantPromotionsFragment fragment);
     void inject(ManagerRestaurantPromotionDetailsActivity activity);
     void inject(ManagerDailyMenuDetailsActivity activity);
+    void inject(ManagerDishDetailsActivity activity);
+
 
 }

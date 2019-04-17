@@ -78,7 +78,7 @@ public class UserRegistrationActivity extends BaseActivity implements UserRegist
     public void openLoginActivity() {
         Intent intent = LoginActivity.getStartIntent(UserRegistrationActivity.this);
         startActivity(intent);
-        finish();
+        //finish();
     }
 
     @OnClick(R.id.btn_user_registration)

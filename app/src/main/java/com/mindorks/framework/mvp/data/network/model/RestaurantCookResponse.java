@@ -85,6 +85,20 @@ public class RestaurantCookResponse {
             @Expose
             @SerializedName("restaurantCookItemData")
             private String restaurantCookItemData;
+            @Expose
+            @SerializedName("img_url")
+            private String imgUrl;
+            @Expose
+            @SerializedName("price")
+            private Double price;
+
+            public RestaurantCookItem(Long restaurantId, Long id, String restaurantCookItemData, String imgUrl, Double price) {
+                this.restaurantId = restaurantId;
+                this.id = id;
+                this.restaurantCookItemData = restaurantCookItemData;
+                this.imgUrl = imgUrl;
+                this.price = price;
+            }
 
             public RestaurantCookItem(Long id) {
                 this.id = id;
@@ -95,11 +109,26 @@ public class RestaurantCookResponse {
                 this.restaurantCookItemData = restaurantCookItemData;
             }
 
-
             public RestaurantCookItem(Long id, String restaurantCookItemData, Long restaurantId) {
                 this.id = id;
                 this.restaurantCookItemData = restaurantCookItemData;
                 this.restaurantId = restaurantId;
+            }
+
+            public String getImgUrl() {
+                return imgUrl;
+            }
+
+            public void setImgUrl(String imgUrl) {
+                this.imgUrl = imgUrl;
+            }
+
+            public Double getPrice() {
+                return price;
+            }
+
+            public void setPrice(Double price) {
+                this.price = price;
             }
 
             public Long getId() {

@@ -116,7 +116,7 @@ public class RestaurantFilterActivity extends BaseActivity implements Restaurant
             public void onClick(View v) {
                 Intent intent = UserRestaurantsActivity.getStartIntent(RestaurantFilterActivity.this);
                 startActivity(intent);
-                finish();
+                //finish();
             }
         });
 
@@ -125,7 +125,7 @@ public class RestaurantFilterActivity extends BaseActivity implements Restaurant
             public void onClick(View v) {
                 Intent intent = UserRestaurantsActivity.getStartIntent(RestaurantFilterActivity.this);
                 startActivity(intent);
-                finish();
+                //finish();
             }
         });
 

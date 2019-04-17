@@ -108,7 +108,7 @@ public class UserRestaurantActivity extends BaseActivity implements UserRestaura
     public void openRestaurantDetailsActivity(RestaurantPromotionsResponse.Promotion promotion) {
         Intent intent = PromotionDetailsActivity.getStartIntent(UserRestaurantActivity.this);
         startActivity(intent);
-        finish();
+        //finish();
     }
 
     // TODO vi3: Kako reagovati, ako je nesto empty
@@ -122,7 +122,7 @@ public class UserRestaurantActivity extends BaseActivity implements UserRestaura
         Intent intent = UserDishActivity.getStartIntent(this);
         intent.putExtra("dishId", dish.getId());
         startActivity(intent);
-        finish();
+        //finish();
     }
 
     @Override
@@ -130,6 +130,6 @@ public class UserRestaurantActivity extends BaseActivity implements UserRestaura
         Intent intent = UserMealActivity.getStartIntent(this);
         intent.putExtra("mealId", meal.getId());
         startActivity(intent);
-        finish();
+        //finish();
     }
 }

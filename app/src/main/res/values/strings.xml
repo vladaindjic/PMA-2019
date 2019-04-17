@@ -72,7 +72,7 @@
 
 
     <!--about fragment-->
-    <string name="project_info">This sample app implements MVP architecture using Dagger2, GreenDao, RxJava, FastAndroidNetworking and PlaceholderView</string>
+    <string name="project_info">This is our app. Copyright Fleka od Dzeka ;)</string>
     <string name="link_mvp_blog">1. https://blog.mindorks.com</string>
     <string name="link_mvp_repo">2. https://github.com/MindorksOpenSource/android-mvp-architecture</string>
     <string name="link_mindorks_blog">3. https://blog.mindorks.com</string>
@@ -218,4 +218,5 @@
     <string name="insert_promotion_duration">Insert promotion duration</string>
 
     <string name="dish">Dish</string>
+    <string name="nutritive_value">Nutritive Value</string>
 </resources>

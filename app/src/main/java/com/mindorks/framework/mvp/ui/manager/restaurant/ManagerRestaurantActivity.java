@@ -2,31 +2,25 @@ package com.mindorks.framework.mvp.ui.manager.restaurant;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.MenuResponse;
-import com.mindorks.framework.mvp.data.network.model.PromotionDetailsResponse;
-import com.mindorks.framework.mvp.data.network.model.RestaurantPromotionsResponse;
 import com.mindorks.framework.mvp.ui.base.BaseActivity;
+import com.mindorks.framework.mvp.ui.manager.restaurant.cook.ManagerRestaurantCookItemListAdapter;
 import com.mindorks.framework.mvp.ui.manager.restaurant.dailyMenu.details.ManagerDailyMenuDetailsActivity;
-import com.mindorks.framework.mvp.ui.manager.restaurant.menu.ManagerDishListAdapter;
+import com.mindorks.framework.mvp.ui.manager.restaurant.dish.ManagerDishDetailsActivity;
 import com.mindorks.framework.mvp.ui.manager.restaurant.promotions.details.ManagerRestaurantPromotionDetailsActivity;
-import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantActivity;
-import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantMvpPresenter;
-import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantMvpView;
-import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantPagerAdapter;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ManagerRestaurantActivity extends BaseActivity implements ManagerRestaurantMvpView {
+public class ManagerRestaurantActivity extends BaseActivity implements ManagerRestaurantMvpView, ManagerRestaurantCookItemListAdapter.ManagerCookItemListCallback {
 
     @Inject
     ManagerRestaurantMvpPresenter<ManagerRestaurantMvpView> mPresenter;
@@ -114,7 +108,7 @@ public class ManagerRestaurantActivity extends BaseActivity implements ManagerRe
     @Override
     public void openPromotionDetailsActivity(int promotionId) {
         Intent intent = ManagerRestaurantPromotionDetailsActivity.getStartIntent(this);
-        intent.putExtra("promotionId",promotionId);
+        intent.putExtra("promotionId", promotionId);
         startActivity(intent);
 //        finish();
     }
@@ -122,7 +116,14 @@ public class ManagerRestaurantActivity extends BaseActivity implements ManagerRe
     @Override
     public void openDailyMenuDetailsActivity(int dailyMenuId) {
         Intent intent = ManagerDailyMenuDetailsActivity.getStartIntent(this);
-        intent.putExtra("menuId",dailyMenuId);
+        intent.putExtra("menuId", dailyMenuId);
         startActivity(intent);
+    }
+
+    public void openDishDetailsActivity(MenuResponse.Dish dish) {
+        Intent intent = ManagerDishDetailsActivity.getStartIntent(this);
+        intent.putExtra("dishId", dish.getId());
+        startActivity(intent);
+        //finish();
     }
 }

@@ -15,11 +15,11 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group>
-        <item
-            android:id="@+id/nav_item_restaurants"
-            android:checked="true"
-            android:icon="@drawable/restaurant"
-            android:title="@string/restaurants" />
+        <!--<item-->
+            <!--android:id="@+id/nav_item_restaurants"-->
+            <!--android:checked="true"-->
+            <!--android:icon="@drawable/restaurant"-->
+            <!--android:title="@string/restaurants" />-->
         <item
             android:id="@+id/nav_item_my_restaurants"
             android:checked="true"

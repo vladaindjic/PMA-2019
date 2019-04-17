@@ -179,9 +179,9 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
                             case R.id.nav_item_feed:
                                 mPresenter.onDrawerMyNotificationsClick();
                                 return true;
-                            case R.id.nav_item_restaurants:
-                                mPresenter.onDrawerRestaurantsClick();
-                                return true;
+//                            case R.id.nav_item_restaurants:
+//                                mPresenter.onDrawerRestaurantsClick();
+//                                return true;
                             case R.id.nav_item_my_restaurants:
                                 mPresenter.onDrawerMyRestaurantsClick();
                                 return true;
@@ -212,7 +212,7 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Toast.makeText(UserRestaurantsActivity.this, "this is queryyyyyyyyy: " + query,
+                Toast.makeText(UserRestaurantsActivity.this, "Upit je: " + query,
                         Toast.LENGTH_SHORT).show();
                 searchItem.collapseActionView();
                 // TODO vi3: posalji upit i reloaduj restorane

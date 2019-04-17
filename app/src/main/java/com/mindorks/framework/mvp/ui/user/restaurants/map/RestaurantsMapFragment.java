@@ -296,7 +296,7 @@ public class RestaurantsMapFragment extends BaseFragment implements
         if (userRestaurantsActivity != null) {
             userRestaurantsActivity.openRestaurantDetailsActivity(restaurant);
         } else {
-            Toast.makeText(getContext(), "NASISES MI SE KARINE AKO SE DESIS", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Ne valja ti ovo, druze (:", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -399,7 +399,7 @@ public class RestaurantsMapFragment extends BaseFragment implements
 ////                mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
 ////                    @Override
 ////                    public void onInfoWindowClick(Marker marker) {
-////                        System.out.println("Na sta si kliknu retarde???? " + marker.getTitle());
+////                        System.out.println("kliknuo???? " + marker.getTitle());
 ////                    }
 ////                });
 ////            }
