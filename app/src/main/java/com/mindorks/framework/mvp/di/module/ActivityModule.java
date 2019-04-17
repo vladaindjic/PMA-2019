@@ -87,6 +87,9 @@ import com.mindorks.framework.mvp.ui.manager.restaurant.promotions.ManagerRestau
 import com.mindorks.framework.mvp.ui.manager.restaurant.promotions.ManagerRestaurantPromotionsMvpPresenter;
 import com.mindorks.framework.mvp.ui.manager.restaurant.promotions.ManagerRestaurantPromotionsMvpView;
 import com.mindorks.framework.mvp.ui.manager.restaurant.promotions.ManagerRestaurantPromotionsPresenter;
+import com.mindorks.framework.mvp.ui.manager.restaurant.promotions.details.ManagerRestaurantPromotionDetailsMvpPresenter;
+import com.mindorks.framework.mvp.ui.manager.restaurant.promotions.details.ManagerRestaurantPromotionDetailsMvpView;
+import com.mindorks.framework.mvp.ui.manager.restaurant.promotions.details.ManagerRestaurantPromotionDetailsPresenter;
 import com.mindorks.framework.mvp.ui.notification.NotificationListAdapter;
 import com.mindorks.framework.mvp.ui.notification.NotificationMvpPresenter;
 import com.mindorks.framework.mvp.ui.notification.NotificationMvpView;
@@ -607,5 +610,9 @@ public class ActivityModule {
 
     // ==================================== Manager ===========================
 
-
+    @Provides
+    ManagerRestaurantPromotionDetailsMvpPresenter<ManagerRestaurantPromotionDetailsMvpView> ManagerRestaurantPromotionDetailsPresenter(
+            ManagerRestaurantPromotionDetailsPresenter<ManagerRestaurantPromotionDetailsMvpView> presenter) {
+        return presenter;
+    }
 }

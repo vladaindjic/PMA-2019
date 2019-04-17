@@ -9,11 +9,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.RestaurantPromotionsResponse;
 import com.mindorks.framework.mvp.di.component.ActivityComponent;
 import com.mindorks.framework.mvp.ui.base.BaseFragment;
+import com.mindorks.framework.mvp.ui.manager.restaurant.ManagerRestaurantActivity;
+import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantActivity;
 
 import java.util.List;
 
@@ -21,6 +24,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -86,6 +90,18 @@ public class ManagerRestaurantPromotionsFragment extends BaseFragment implements
         mPresenter.onViewPrepared();
     }
 
+    @OnClick(R.id.add_promotion_button)
+    public void onAddPromotionButton(){
+        Toast.makeText(getActivity(),"Dodaj novu promociju",Toast.LENGTH_SHORT).show();
+
+        ManagerRestaurantActivity managerRestaurantActivity = (ManagerRestaurantActivity)getActivity();
+        if (managerRestaurantActivity != null) {
+            managerRestaurantActivity.openPromotionDetailsActivity(-1);
+        } else {
+            Toast.makeText(getContext(), "NASISES MI SE KARINE AKO SE DESIS", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     @Override
     public void onRestaurantsEmptyViewRetryClick() {
 
@@ -94,11 +110,25 @@ public class ManagerRestaurantPromotionsFragment extends BaseFragment implements
     @Override
     public void openPromotionDetailsActivity(RestaurantPromotionsResponse.Promotion promotion) {
         // TODO vi3: ovde ima smisla implementirati logiku za editovanje ili brisanje
+        Toast.makeText(getActivity(),"Detalji promocije",Toast.LENGTH_SHORT).show();
+        ManagerRestaurantActivity managerRestaurantActivity = (ManagerRestaurantActivity)getActivity();
+        if (managerRestaurantActivity != null) {
+            managerRestaurantActivity.openPromotionDetailsActivity(promotion.getId());
+        } else {
+            Toast.makeText(getContext(), "NASISES MI SE KARINE AKO SE DESIS", Toast.LENGTH_SHORT).show();
+        }
     }
+
+    @Override
+    public void deletePromotion(RestaurantPromotionsResponse.Promotion promotion, int promotionIndex) {
+        Toast.makeText(getActivity(),"Deleted Promotion...",Toast.LENGTH_SHORT).show();
+    }
+
 
     @Override
     public void updateRestaurantPromotionsList(List<RestaurantPromotionsResponse.Promotion> promotions) {
         mManagerRestaurantPromotionsAdapter.addItems(promotions);
-
     }
+
+
 }

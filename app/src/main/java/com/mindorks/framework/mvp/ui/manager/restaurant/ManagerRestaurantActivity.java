@@ -10,9 +10,11 @@ import android.support.v7.widget.Toolbar;
 
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.MenuResponse;
+import com.mindorks.framework.mvp.data.network.model.PromotionDetailsResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantPromotionsResponse;
 import com.mindorks.framework.mvp.ui.base.BaseActivity;
 import com.mindorks.framework.mvp.ui.manager.restaurant.menu.ManagerDishListAdapter;
+import com.mindorks.framework.mvp.ui.manager.restaurant.promotions.details.ManagerRestaurantPromotionDetailsActivity;
 import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantActivity;
 import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantMvpPresenter;
 import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantMvpView;
@@ -107,5 +109,13 @@ public class ManagerRestaurantActivity extends BaseActivity implements ManagerRe
     @Override
     public void openDishActivity(MenuResponse.Dish dish) {
         // TODO vi3: ovo cemo recimo iskoristiti za uklanjanje jela
+    }
+
+    @Override
+    public void openPromotionDetailsActivity(int promotionId) {
+        Intent intent = ManagerRestaurantPromotionDetailsActivity.getStartIntent(this);
+        intent.putExtra("promotionId",promotionId);
+        startActivity(intent);
+        finish();
     }
 }

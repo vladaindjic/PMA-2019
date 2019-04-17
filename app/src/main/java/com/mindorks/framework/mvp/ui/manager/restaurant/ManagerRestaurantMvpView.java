@@ -5,4 +5,6 @@ import com.mindorks.framework.mvp.ui.base.MvpView;
 
 public interface ManagerRestaurantMvpView extends MvpView {
 
+    public void openPromotionDetailsActivity(int promotionId);
+
 }

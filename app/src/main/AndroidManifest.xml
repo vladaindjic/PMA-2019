@@ -19,7 +19,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.manager.restaurant.ManagerRestaurantActivity"></activity>
+        <activity android:name=".ui.manager.restaurant.promotions.details.ManagerRestaurantPromotionDetailsActivity"></activity>
+        <activity android:name=".ui.manager.restaurant.ManagerRestaurantActivity" />
         <activity android:name=".ui.user.subscrptions.SubscriptionActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.

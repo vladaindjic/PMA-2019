@@ -6,8 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.mindorks.framework.mvp.R;
@@ -94,6 +96,10 @@ public class ManagerRestaurantPromotionsAdapter extends RecyclerView.Adapter<Bas
         @BindView(R.id.manager_promotions_list_item_text_view)
         TextView titleTextView;
 
+        @BindView(R.id.delete_promotion_button)
+        ImageButton deleteButton;
+
+
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
@@ -106,7 +112,7 @@ public class ManagerRestaurantPromotionsAdapter extends RecyclerView.Adapter<Bas
         }
 
         @Override
-        public void onBind(int position) {
+        public void onBind(final int position) {
             super.onBind(position);
 
             final RestaurantPromotionsResponse.Promotion promotion = mRestaurantPromotionsList.get(position);
@@ -128,6 +134,18 @@ public class ManagerRestaurantPromotionsAdapter extends RecyclerView.Adapter<Bas
                 public void onClick(View v) {
                     if (mCallback != null) {
                         mCallback.openPromotionDetailsActivity(promotion);
+                    }
+                }
+            });
+
+            deleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(mCallback!=null){
+                        mCallback.deletePromotion(promotion,position);
+                        //FIXME Milan: Dogovoriti gdje se radi birsanje
+                        mRestaurantPromotionsList.remove(position);
+                        notifyDataSetChanged();
                     }
                 }
             });
