@@ -75,7 +75,7 @@ public class ManagerRestaurantDetailsPresenter<V extends ManagerRestaurantDetail
         getMvpView().showLoading();
 
         getCompositeDisposable().add(getDataManager()
-                .postRestaurantDetailsApiCall(restaurantDetails)
+                .putRestaurantDetailsApiCall(restaurantDetails)
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(new Consumer<RestaurantDetailsResponse>() {

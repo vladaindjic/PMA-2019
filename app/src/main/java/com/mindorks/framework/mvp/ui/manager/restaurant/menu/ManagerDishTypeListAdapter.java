@@ -154,6 +154,8 @@ public class ManagerDishTypeListAdapter extends RecyclerView.Adapter<BaseViewHol
 
         private MenuResponse.Dish innerTypedDish;
 
+        private boolean currentlyAddingDish = false;
+
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
@@ -218,9 +220,20 @@ public class ManagerDishTypeListAdapter extends RecyclerView.Adapter<BaseViewHol
                 @Override
                 public void onClick(View v) {
                     if (mCallback != null) {
-                        mCallback.addDishToDishType(innerTypedDish, innerDishType);
-                        // obrisemo unos, ako smo pritisnuli dugme za dodavanje
+                        // NOTE vi3: ovo je zaista opasan hack, jer sam ja debil
+                        // TODO vi3: proveri da li to ovo radi kako treba ili treba lepse odraditi
+                        // Oznacavamo da dodajemo jelo, kako nam se ne bi obrisalo memoizovano
+                        // jelo (u metodi removeTypedDish()).
+                        currentlyAddingDish = true;
+                        // praznimo prikaz
                         autoDishes.setText("");
+                        // pozivamo dodavanje jela
+                        mCallback.addDishToDishType(innerTypedDish, innerDishType);
+                        // moramo sami ukloniti jelo koje smo dodali
+                        currentlyAddingDish = false;
+                        // brisemo ono sto je bilo memoizovano
+                        removeTypedDish();
+
                     }
                 }
             });
@@ -256,6 +269,7 @@ public class ManagerDishTypeListAdapter extends RecyclerView.Adapter<BaseViewHol
 
             // podrazumevano nema izabranog jela
             this.removeTypedDish();
+            this.currentlyAddingDish = false;
 
         }
 
@@ -278,9 +292,16 @@ public class ManagerDishTypeListAdapter extends RecyclerView.Adapter<BaseViewHol
 
         // uklanjamo memoizovanu kuhinju
         private void removeTypedDish() {
+            if (this.currentlyAddingDish) {
+                // Text je promenjen sa setText iz listenera koji je dodat na dugme btnAddDish.
+                // To znaci da nema potrebe da uklanjamo jelo.
+                return;
+            }
             this.innerTypedDish = null;
             // ponistimo kuhinju, a samim tim i mogucnost pritiska dugmeta za dodavanje
             this.btnAddDish.setClickable(false);
+            // s obzirom na to da ne dodajemo, mozemo ponistiti
+            this.currentlyAddingDish = false;
         }
 
         // memoizujemo kuhinju

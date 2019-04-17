@@ -92,6 +92,11 @@ public final class ApiEndPoint {
     public static final String ENDPOINT_MANAGER_UPDATE_RESTAURANT_DETAILS = BuildConfig.BASE_URL
             + "/5cb5d25d3300001d3b5d7e4e";
 
+    // manager endpoints
+    public static final String ENDPOINT_MANAGER_UPDATE_MENU = BuildConfig.BASE_URL
+            + "/5cb784633200001f46cd4b40";
+
+
     public static final String ENDPOINT_MANAGER_RESTAURANT_COOK = BuildConfig.BASE_URL
             + "/5cb66752320000b806cd448e";
 
