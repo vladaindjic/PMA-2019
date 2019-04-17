@@ -8,12 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.MenuResponse;
 import com.mindorks.framework.mvp.ui.base.BaseViewHolder;
 import com.mindorks.framework.mvp.ui.manager.restaurant.ManagerRestaurantActivity;
+import com.mindorks.framework.mvp.ui.manager.restaurant.utils.ManagerEmptyViewHolderTextViewOnly;
 import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantActivity;
 import com.mindorks.framework.mvp.ui.utils.OnRetryButtonClickCallback;
 
@@ -37,13 +39,23 @@ public class ManagerDishTypeListAdapter extends RecyclerView.Adapter<BaseViewHol
     private List<MenuResponse.DishType> mDishTypeList;
     private Context context;
 
+    ManagerDishListAdapter.ManagerDishListItemCallback managerDishListItemCallback;
+
     public ManagerDishTypeListAdapter(List<MenuResponse.DishType> mDishTypeList, Context context) {
         this.mDishTypeList = mDishTypeList;
         this.context = context;
     }
 
-    public interface ManagerDishTypeItemListCallback extends OnRetryButtonClickCallback {
+    public ManagerDishListAdapter.ManagerDishListItemCallback getManagerDishListItemCallback() {
+        return managerDishListItemCallback;
+    }
 
+    public void setManagerDishListItemCallback(ManagerDishListAdapter.ManagerDishListItemCallback managerDishListItemCallback) {
+        this.managerDishListItemCallback = managerDishListItemCallback;
+    }
+
+    public interface ManagerDishTypeItemListCallback extends OnRetryButtonClickCallback {
+        void removeDishType(MenuResponse.DishType dishType);
     }
 
     public ManagerDishTypeItemListCallback getmCallback() {
@@ -55,6 +67,7 @@ public class ManagerDishTypeListAdapter extends RecyclerView.Adapter<BaseViewHol
     }
 
     public void addItems(List<MenuResponse.DishType> dishTypeList) {
+        mDishTypeList.clear();
         mDishTypeList.addAll(dishTypeList);
         notifyDataSetChanged();
     }
@@ -74,8 +87,9 @@ public class ManagerDishTypeListAdapter extends RecyclerView.Adapter<BaseViewHol
                                 false));
             case VIEW_TYPE_EMPTY:
             default:
-                return new ManagerDishTypeListAdapter.EmptyViewHolder(
-                        LayoutInflater.from(parent.getContext()).inflate(R.layout.item_empty_view, parent, false));
+                return new ManagerEmptyViewHolderTextViewOnly(
+                        LayoutInflater.from(parent.getContext()).inflate(R.layout.manager_empty_view_item_text_view_only
+                                , parent, false), "No dish type");
         }
     }
 
@@ -99,8 +113,11 @@ public class ManagerDishTypeListAdapter extends RecyclerView.Adapter<BaseViewHol
 
     public class ViewHolder extends BaseViewHolder {
 
-        @BindView(R.id.manager_txt_dish_type_name)
-        TextView txtDishTypeName;
+        @BindView(R.id.manager_remove_dish_type_btn)
+        Button btnRemoveDishType;
+
+        @BindView(R.id.manager_edit_text_dish_type_name)
+        EditText editDishTypeName;
 
         @BindView(R.id.manager_dish_list_recyclerview)
         RecyclerView mRecyclerView;
@@ -119,7 +136,7 @@ public class ManagerDishTypeListAdapter extends RecyclerView.Adapter<BaseViewHol
         }
 
         protected void clear() {
-            txtDishTypeName.setText("");
+            editDishTypeName.setText("");
             if (mManagerDishListAdapter != null) {
                 mManagerDishListAdapter.addItems(new ArrayList<MenuResponse.Dish>());
             }
@@ -131,13 +148,17 @@ public class ManagerDishTypeListAdapter extends RecyclerView.Adapter<BaseViewHol
             final MenuResponse.DishType dishType = mDishTypeList.get(position);
 
             if (dishType.getName() != null) {
-                txtDishTypeName.setText(dishType.getName());
+                editDishTypeName.setText(dishType.getName());
             }
 
             // FIXME vi3: videti da li postoji sansa da se ovo samo injektuje
             // Za sada je moralo ovako da se implementira, jer injekcija ne prolazi
-            mManagerDishListAdapter = new ManagerDishListAdapter(new ArrayList<MenuResponse.Dish>());
+            mManagerDishListAdapter =
+                    new ManagerDishListAdapter(new ArrayList<MenuResponse.Dish>());
+            // dodajemo sva jela
             mManagerDishListAdapter.addItems(dishType.getDishList());
+            // dodajemo i dishType
+            mManagerDishListAdapter.setmDishType(dishType);
 
             mLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
 
@@ -147,37 +168,45 @@ public class ManagerDishTypeListAdapter extends RecyclerView.Adapter<BaseViewHol
             mRecyclerView.setAdapter(mManagerDishListAdapter);
 
 
-            if (context instanceof UserRestaurantActivity) {
-                mManagerDishListAdapter.setmCallback((ManagerRestaurantActivity) context);
+            if (managerDishListItemCallback != null) {
+                mManagerDishListAdapter.setmCallback(managerDishListItemCallback);
             }
 
+            btnRemoveDishType.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mCallback != null) {
+                        mCallback.removeDishType(dishType);
+                    }
+                }
+            });
 
         }
     }
 
-    public class EmptyViewHolder extends BaseViewHolder {
-
-        @BindView(R.id.btn_retry)
-        Button retryButton;
-
-        @BindView(R.id.tv_message)
-        TextView messageTextView;
-
-        public EmptyViewHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
-        }
-
-        @Override
-        protected void clear() {
-
-        }
-
-        @OnClick(R.id.btn_retry)
-        void onRetryClick() {
-            if (mCallback != null)
-                mCallback.onsEmptyViewRetryButtonClick();
-        }
-    }
+//    public class EmptyViewHolder extends BaseViewHolder {
+//
+//        @BindView(R.id.btn_retry)
+//        Button retryButton;
+//
+//        @BindView(R.id.tv_message)
+//        TextView messageTextView;
+//
+//        public EmptyViewHolder(View itemView) {
+//            super(itemView);
+//            ButterKnife.bind(this, itemView);
+//        }
+//
+//        @Override
+//        protected void clear() {
+//
+//        }
+//
+//        @OnClick(R.id.btn_retry)
+//        void onRetryClick() {
+//            if (mCallback != null)
+//                mCallback.onsEmptyViewRetryButtonClick();
+//        }
+//    }
 
 }

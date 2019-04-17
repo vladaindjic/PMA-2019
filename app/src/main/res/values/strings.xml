@@ -207,6 +207,7 @@
 
     <string name="pref_language_default_value">english_us</string>
 
+    <string name="dish_type">Dish Type</string>
 
     <!--Manager-->
     <string name="cook">Cook</string>

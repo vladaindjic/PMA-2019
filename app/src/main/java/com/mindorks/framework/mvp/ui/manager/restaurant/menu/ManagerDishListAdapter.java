@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -11,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.MenuResponse;
 import com.mindorks.framework.mvp.ui.base.BaseViewHolder;
+import com.mindorks.framework.mvp.ui.manager.restaurant.utils.ManagerEmptyViewHolderTextViewOnly;
 
 import java.util.List;
 import java.util.Locale;
@@ -28,12 +30,23 @@ public class ManagerDishListAdapter extends RecyclerView.Adapter<BaseViewHolder>
 
     private List<MenuResponse.Dish> mDishList;
 
+    // dishType kome jela pripadaju
+    private MenuResponse.DishType mDishType;
+
     public ManagerDishListAdapter(List<MenuResponse.Dish> mDishList) {
         this.mDishList = mDishList;
     }
 
     public interface ManagerDishListItemCallback {
-        void openDishActivity(MenuResponse.Dish dish);
+        void removeDishFromMenu(MenuResponse.Dish dish, MenuResponse.DishType dishType);
+    }
+
+    public MenuResponse.DishType getmDishType() {
+        return mDishType;
+    }
+
+    public void setmDishType(MenuResponse.DishType mDishType) {
+        this.mDishType = mDishType;
     }
 
     public ManagerDishListItemCallback getmCallback() {
@@ -57,20 +70,18 @@ public class ManagerDishListAdapter extends RecyclerView.Adapter<BaseViewHolder>
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        return new ManagerDishListAdapter.ViewHolder(
-                LayoutInflater.from(parent.getContext()).inflate(R.layout.manager_dish_list_item_layout, parent,
-                        false));
 
-//        switch (viewType) {
-//            case VIEW_TYPE_NORMAL:
-//                return new ManagerDishListAdapter.ViewHolder(
-//                        LayoutInflater.from(parent.getContext()).inflate(R.layout.dish_type_list_item_layout, parent,
-//                                false));
-//            case VIEW_TYPE_EMPTY:
-//            default:
-//                return new ManagerDishListAdapter.EmptyViewHolder(
-//                        LayoutInflater.from(parent.getContext()).inflate(R.layout.item_empty_view, parent, false));
-//        }
+        switch (viewType) {
+            case VIEW_TYPE_NORMAL:
+                return new ManagerDishListAdapter.ViewHolder(
+                        LayoutInflater.from(parent.getContext()).inflate(R.layout.manager_dish_list_item_layout, parent,
+                                false));
+            case VIEW_TYPE_EMPTY:
+            default:
+                return new ManagerEmptyViewHolderTextViewOnly(
+                        LayoutInflater.from(parent.getContext()).inflate(R.layout.manager_empty_view_item_text_view_only
+                                , parent, false), "No dish of this type");
+        }
     }
 
     @Override
@@ -92,6 +103,9 @@ public class ManagerDishListAdapter extends RecyclerView.Adapter<BaseViewHolder>
     }
 
     public class ViewHolder extends BaseViewHolder {
+
+        @BindView(R.id.manager_remove_dish_btn)
+        Button btnRemoveDish;
 
         @BindView(R.id.manager_txt_dish_name)
         TextView txtDishName;
@@ -130,28 +144,17 @@ public class ManagerDishListAdapter extends RecyclerView.Adapter<BaseViewHolder>
             }
 
             if (dish.getPrice() != null) {
-                // FIXME vi3: ovde dodate izabrani locale
-                txtDishPrice.setText(String.format(Locale.US,"%.2f", dish.getPrice()));
+                // FIXME vi3: ovde dodati izabrani locale
+                txtDishPrice.setText(String.format(Locale.US, "%.2f", dish.getPrice()));
             }
 
             /// TODO: open restaurant when click
-            itemView.setOnClickListener(new View.OnClickListener() {
+            btnRemoveDish.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (mCallback != null) {
-                        mCallback.openDishActivity(dish);
+                    if (mCallback != null && mDishType != null) {
+                        mCallback.removeDishFromMenu(dish, mDishType);
                     }
-//                    if (restaurant.getBlogUrl() != null) {
-//                        try {
-//                            Intent intent = new Intent();
-//                            intent.setAction(Intent.ACTION_VIEW);
-//                            intent.addCategory(Intent.CATEGORY_BROWSABLE);
-//                            intent.setData(Uri.parse(restaurant.getBlogUrl()));
-//                            itemView.getContext().startActivity(intent);
-//                        } catch (Exception e) {
-//                            AppLogger.d("url error");
-//                        }
-//                    }
                 }
             });
         }

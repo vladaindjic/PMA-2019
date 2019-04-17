@@ -46,14 +46,14 @@ public class ManagerRestaurantMenuPresenter<V extends ManagerRestaurantMenuMvpVi
         supe.add(new MenuResponse.Dish(1L, "pileca", imgUrl, price));
         supe.add(new MenuResponse.Dish(2L, "teleca", imgUrl, price));
         supe.add(new MenuResponse.Dish(3L, "paradajz", imgUrl, price));
-        MenuResponse.DishType supa = new MenuResponse.DishType(1L, "Supa", supe);
+        MenuResponse.DishType supa = new MenuResponse.DishType(2L, "Supa", supe);
 
 
         List<MenuResponse.Dish> dezerti = new ArrayList<>();
         dezerti.add(new MenuResponse.Dish(1L, "sladoled", imgUrl, price));
         dezerti.add(new MenuResponse.Dish(2L, "sufle", imgUrl, price));
         dezerti.add(new MenuResponse.Dish(3L, "sladoled kod rajka", imgUrl, price));
-        MenuResponse.DishType dezert = new MenuResponse.DishType(1L, "Dezert", dezerti);
+        MenuResponse.DishType dezert = new MenuResponse.DishType(3L, "Dezert", dezerti);
 
 
         menu.getDishTypeList().add(glavnoJelo);

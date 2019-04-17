@@ -9,16 +9,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.MenuResponse;
 import com.mindorks.framework.mvp.di.component.ActivityComponent;
 import com.mindorks.framework.mvp.ui.base.BaseFragment;
-import com.mindorks.framework.mvp.ui.user.restaurant.menu.DishTypeListAdapter;
-import com.mindorks.framework.mvp.ui.user.restaurant.menu.UserRestaurantMenuFragment;
-import com.mindorks.framework.mvp.ui.user.restaurant.menu.UserRestaurantMenuMvpPresenter;
-import com.mindorks.framework.mvp.ui.user.restaurant.menu.UserRestaurantMenuMvpView;
+
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 
@@ -28,7 +28,9 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ManagerRestaurantMenuFragment extends BaseFragment implements ManagerRestaurantMenuMvpView {
+public class ManagerRestaurantMenuFragment extends BaseFragment implements ManagerRestaurantMenuMvpView,
+        ManagerDishTypeListAdapter.ManagerDishTypeItemListCallback,
+        ManagerDishListAdapter.ManagerDishListItemCallback {
 
     private static final String TAG = "ManagerRestaurantMenuFragment";
 
@@ -44,8 +46,11 @@ public class ManagerRestaurantMenuFragment extends BaseFragment implements Manag
     @BindView(R.id.manager_dish_type_list_recyclerview)
     RecyclerView mRecyclerView;
 
-    @BindView(R.id.manager_txt_menu_name)
-    TextView txtMenuName;
+    @BindView(R.id.manager_edit_text_menu_name)
+    EditText editMenuName;
+
+    private MenuResponse.Menu menu;
+    private MenuResponse.Menu originalMenu;
 
     public static ManagerRestaurantMenuFragment newInstance() {
         Bundle args = new Bundle();
@@ -70,7 +75,8 @@ public class ManagerRestaurantMenuFragment extends BaseFragment implements Manag
             setUnBinder(ButterKnife.bind(this, view));
             mPresenter.onAttach(this);
             // TODO: eventualno callback za RETRY dugme
-            // mKitchensAdapter.setmCallback(this);
+            mDishTypeListAdapter.setmCallback(this);
+            mDishTypeListAdapter.setManagerDishListItemCallback(this);
         }
         return view;
     }
@@ -89,7 +95,53 @@ public class ManagerRestaurantMenuFragment extends BaseFragment implements Manag
 
     @Override
     public void updateMenu(MenuResponse.Menu menu) {
-        txtMenuName.setText(menu.getName());
+        this.menu = menu;
+
+
+        editMenuName.setText(menu.getName());
         mDishTypeListAdapter.addItems(menu.getDishTypeList());
+    }
+
+    void saveOriginalMenuState() {
+        this.originalMenu = new MenuResponse.Menu();
+
+        this.originalMenu.setId(this.menu.getId());
+        this.originalMenu.setName(this.menu.getName());
+
+        this.originalMenu.setDishTypeList(new ArrayList<MenuResponse.DishType>());
+        // trebalo bi da iskopiramo svaki dishType, a sacuvacemo dish u njima
+        for (MenuResponse.DishType dt: this.menu.getDishTypeList()) {
+            this.originalMenu.getDishTypeList().add(dt.copyAllButDishes());
+        }
+    }
+
+    // uklanjamo dishType
+    @Override
+    public void removeDishType(MenuResponse.DishType dishType) {
+        // uklanjamo tip jela
+        this.menu.getDishTypeList().remove(dishType);
+        // radimo update dishType liste
+        mDishTypeListAdapter.addItems(this.menu.getDishTypeList());
+    }
+
+    @Override
+    public void onsEmptyViewRetryButtonClick() {
+
+    }
+
+    @Override
+    public void removeDishFromMenu(MenuResponse.Dish dish, MenuResponse.DishType dishType) {
+        Toast.makeText(getContext(), "AAAAAAAAAAAAAAAAAAAA" + dish.getId() + " " + dishType.getId(),
+                Toast.LENGTH_SHORT).show();
+        // nadjemo dishtype
+        for (MenuResponse.DishType dt: this.menu.getDishTypeList()) {
+            if (dt.getId().equals(dishType.getId())) {
+                dt.getDishList().remove(dish);
+                break;
+            }
+        }
+
+        // trebalo bi da update dishtype liste odradi i update dish lista
+        mDishTypeListAdapter.addItems(this.menu.getDishTypeList());
     }
 }
