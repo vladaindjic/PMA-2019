@@ -210,4 +210,9 @@
 
     <!--Manager-->
     <string name="cook">Cook</string>
+    <string name="insert_promotion_title">Insert promotion title</string>
+    <string name="insert_promotion_subtitle">Insert promotion subtitle</string>
+    <string name="insert_promotion_details">Insert promotion details</string>
+    <string name="insert_promotion_price">Insert promotion price</string>
+    <string name="insert_promotion_duration">Insert promotion duration</string>
 </resources>

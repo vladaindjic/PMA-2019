@@ -116,6 +116,6 @@ public class ManagerRestaurantActivity extends BaseActivity implements ManagerRe
         Intent intent = ManagerRestaurantPromotionDetailsActivity.getStartIntent(this);
         intent.putExtra("promotionId",promotionId);
         startActivity(intent);
-        finish();
+//        finish();
     }
 }
