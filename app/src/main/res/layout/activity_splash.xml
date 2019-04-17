@@ -26,5 +26,9 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_centerInParent="true"
-        android:src="@mipmap/ic_launcher" />
+        android:scaleType="fitXY"
+        android:src="@drawable/fleka_od_dzeka"
+        />
+    <!--android:src="@mipmap/ic_launcher"-->
+
 </RelativeLayout>

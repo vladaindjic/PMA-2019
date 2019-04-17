@@ -14,7 +14,7 @@
   -->
 
 <resources>
-    <string name="app_name">MvpApp</string>
+    <string name="app_name">Fleka od Dzeka</string>
 
     <!--Toolbar menus-->
     <string name="clear">Clear</string>
