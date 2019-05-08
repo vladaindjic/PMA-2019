@@ -44,15 +44,16 @@
     <string name="connection_error">Internet connection lost!</string>
 
     <!--Login-->
-    <string name="login_dummy">Login</string>
-    <string name="login">Login</string>
+    <string name="appName">Just eat!</string>
+    <string name="login_dummy">Log in</string>
+    <string name="login">Log in</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
 
 
     <!--Registration-->
-    <string name="register">Regiser</string>
-    <string name="registration">Registration</string>
+    <string name="register">Register</string>
+    <string name="registration">Sign up</string>
     <string name="name">Name</string>
     <string name="lastname">Last Name</string>
     <string name="username">Username</string>

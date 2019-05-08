@@ -134,6 +134,11 @@
         <item name="android:textColor">@color/gray</item>
     </style>
 
+    <style name="TextAppearence.App.TextInputLayoutShadow" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/shadow</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
     <style name="TextStyle.EditText" parent="TextStyle">
         <item name="android:textAppearance">@style/TextAppearance.Text.Regular</item>
     </style>

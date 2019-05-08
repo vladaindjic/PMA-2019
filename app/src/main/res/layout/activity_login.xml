@@ -4,15 +4,15 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_design">
+    android:background="@mipmap/foodback">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
+        android:layout_marginTop="80dp"
         android:layout_marginRight="16dp"
-        android:layout_gravity="center"
-        app:cardCornerRadius="7dp"
+        app:cardCornerRadius="40dp"
         app:cardElevation="22dp">
 
 
@@ -23,21 +23,30 @@
             android:layout_margin="20dp"
             android:orientation="vertical">
 
-            <TextView
+            <!--<TextView
                 style="@style/TextStyle.Heading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|top"
-                android:text="@string/login_dummy"
+                android:text="@string/appName"
                 android:textAllCaps="true"
-                android:textSize="20sp" />
+                android:textColorHint="@color/gray"
+                android:textSize="18sp"
+                android:textStyle="bold" />-->
 
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="98dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="2dp"
+                android:src="@mipmap/logo44" />
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:textColorHint="@color/gray"
-                app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
+                android:hint="@string/email"
+                app:hintTextAppearance="@style/TextAppearence.App.TextInputLayoutShadow">
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/et_email"
@@ -46,24 +55,25 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:background="@drawable/input_border_bottom"
+                    android:background="@drawable/input_border_rectangle"
                     android:cursorVisible="true"
-                    android:gravity="center|left|bottom"
-                    android:hint="@string/email"
+                    android:gravity="center|start|center_vertical"
                     android:inputType="textEmailAddress"
                     android:maxLength="50"
-                    android:paddingBottom="10dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="10dp"
                     android:textColor="@color/black_effective"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
 
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:hint="@string/password"
                 android:textColorHint="@color/gray"
-                app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout"
+                app:hintTextAppearance="@style/TextAppearence.App.TextInputLayoutShadow"
                 app:passwordToggleEnabled="true">
 
                 <android.support.design.widget.TextInputEditText
@@ -72,16 +82,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
                     android:layout_marginTop="30dp"
-                    android:background="@drawable/input_border_bottom"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/input_border_rectangle"
                     android:cursorVisible="true"
-                    android:gravity="center|left|bottom"
+                    android:gravity="center|start|center_vertical"
                     android:inputType="textPassword"
                     android:maxLength="50"
-                    android:paddingBottom="10dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="10dp"
                     android:textColor="@color/black_effective"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -94,18 +106,22 @@
                 android:layout_margin="15dp"
                 android:padding="10dp"
                 android:text="@string/login"
+                android:textAllCaps="true"
+
                 android:textSize="18dp" />
+
 
             <TextView
                 android:id="@+id/txt_user_registration"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="@string/registration"
-                android:textColor="#0000FF"
-                android:textStyle="bold"
                 android:layout_gravity="center"
+                android:background="@color/transparent"
                 android:gravity="center"
-                />
+                android:text="@string/registration"
+                android:textAllCaps="true"
+                android:textColor="#ff9633"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
