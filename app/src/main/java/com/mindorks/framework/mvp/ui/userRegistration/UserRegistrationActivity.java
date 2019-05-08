@@ -89,5 +89,10 @@ public class UserRegistrationActivity extends BaseActivity implements UserRegist
                 mRepeatPasswordEditText.getText().toString());
     }
 
+    @OnClick(R.id.txt_login)
+    void onUserLoginTextViewClick(View v) {
+        mPresenter.onUserLoginTextViewClick();
+    }
+
 
 }

@@ -114,4 +114,9 @@ public class UserRegistrationPresenter<V extends UserRegistrationMvpView> extend
                 }));
 
     }
+
+    @Override
+    public void onUserLoginTextViewClick() {
+        getMvpView().openLoginActivity();
+    }
 }
