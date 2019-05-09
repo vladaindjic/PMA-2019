@@ -136,7 +136,10 @@
 
     <style name="TextAppearence.App.TextInputLayoutShadow" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/shadow</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textColorHint">@color/transparent</item>
+        <item name="android:textColorHighlight">@color/transparent</item>
+        <item name="android:textColorLink">@color/transparent</item>
+        <item name="android:textSize">12sp</item>
     </style>
 
     <style name="TextStyle.EditText" parent="TextStyle">

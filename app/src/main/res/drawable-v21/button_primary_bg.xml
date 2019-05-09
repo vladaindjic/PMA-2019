@@ -15,5 +15,5 @@
 
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
     android:color="@color/shadow">
-    <item android:drawable="@color/black_effective" />
+    <item android:drawable="@color/logo_color" />
 </ripple>

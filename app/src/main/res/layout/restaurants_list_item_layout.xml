@@ -10,10 +10,11 @@
 
     <ImageView
         android:id="@+id/restaurants_list_item_image_view"
-        android:padding="8dp"
+        android:padding="9dp"
         android:layout_width="128dp"
         android:layout_height="128dp"
         android:scaleType="fitXY"
+        android:background="@drawable/rectangle_border_white"
         android:src="@drawable/login_bg"/>
 
     <TextView
@@ -24,6 +25,7 @@
         android:layout_gravity="center"
         android:textStyle="bold"
         android:textSize="20sp"
+        android:textColor="@color/white"
         android:gravity="center"
         />
 

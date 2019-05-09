@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ff9633"
     tools:context=".ui.user.restaurant.details.UserRestaurantDetailsFragment">
 
     <LinearLayout
@@ -216,6 +217,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:text="@string/how_to_find_us"
+                style="@style/Button.Primary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -240,6 +242,7 @@
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="32dp"
                 android:layout_marginBottom="32dp"
+                android:background="@drawable/rectangle_border_white"
                 app:layout_constraintTop_toTopOf="@id/user_restaurant_details_txt_kitchens"
                 android:id="@+id/user_dish_details_nutritive_values_recyclerview"
                 android:scrollbars="vertical"

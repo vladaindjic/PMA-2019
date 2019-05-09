@@ -3,10 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="?attr/colorPrimary"
+    android:background="#ff9633"
     android:id="@+id/toolbar"
     android:elevation="4dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-    app:title="HungryMe">
+    app:title="JUST EAT">
 
 </android.support.v7.widget.Toolbar>

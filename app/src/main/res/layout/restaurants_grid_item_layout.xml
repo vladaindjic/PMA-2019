@@ -20,6 +20,7 @@
         android:scaleType="fitXY"
         android:src="@drawable/login_bg"
         android:layout_gravity="center"
+        android:background="@drawable/rectangle_border_white"
         />
 
     <TextView
@@ -31,6 +32,8 @@
         android:textStyle="bold"
         android:textSize="20sp"
         android:gravity="center"
+        android:textColor="@color/white"
+
         />
 
 </LinearLayout>

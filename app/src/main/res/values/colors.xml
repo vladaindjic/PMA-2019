@@ -30,6 +30,7 @@
     <color name="translucent_white">#88ffffff</color>
     <color name="fb">#3b5998</color>
     <color name="google">#d34836</color>
+    <color name="logo_color">#6d6e71</color>
 
     <!--Design colors-->
     <color name="red_dark">#F06423</color>

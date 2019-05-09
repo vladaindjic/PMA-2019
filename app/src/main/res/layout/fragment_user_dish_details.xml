@@ -5,6 +5,7 @@
     android:id="@+id/user_dish_details_scroll_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ff9933"
     tools:context=".ui.user.dish.details.UserDishDetailsFragment">
 
     <LinearLayout
@@ -161,6 +162,7 @@
                 android:layout_marginTop="0dp"
                 android:layout_marginEnd="32dp"
                 android:scrollbars="vertical"
+                android:background="@drawable/rectangle_border_white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -174,6 +176,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
                 android:text="@string/eat_me"
+                android:background="@color/logo_color"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/user_dish_details_nutritive_values_recyclerview" />
