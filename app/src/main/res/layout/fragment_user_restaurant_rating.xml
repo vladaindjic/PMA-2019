@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/app_color_back"
     tools:context=".ui.user.restaurant.ratings.UserRestaurantRatingFragment">
 
     <android.support.constraint.ConstraintLayout
@@ -39,6 +40,7 @@
             android:layout_marginTop="16dp"
             android:gravity="center"
             android:orientation="horizontal"
+            android:background="@drawable/rectangle_border_white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2">
 
@@ -46,7 +48,7 @@
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:text="@string/rate_us"
                 app:layout_constraintStart_toStartOf="parent"
@@ -78,6 +80,7 @@
             android:lines="5"
             android:minLines="3"
             android:scrollbars="vertical"
+            android:background="@drawable/rectangle_border_white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linear_layout_rating" />

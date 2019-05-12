@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/app_color_back"
     tools:context=".ui.user.restaurant.dailyMenu.UserRestaurantDailyMenuFragment">
     <LinearLayout
         android:orientation="vertical"
@@ -23,6 +24,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginBottom="16dp"
+            android:background="@color/logo_color"
             />
 
 
@@ -75,6 +77,9 @@
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginStart="24dp"
+            android:background="@drawable/rectangle_border_white"
             android:id="@+id/user_daily_menu_meal_list_recyclerview"
             android:layout_marginTop="16dp"
             />

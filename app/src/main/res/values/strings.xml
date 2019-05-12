@@ -14,7 +14,7 @@
   -->
 
 <resources>
-    <string name="app_name">Fleka od Dzeka</string>
+    <string name="app_name">Just eat</string>
 
     <!--Toolbar menus-->
     <string name="clear">Clear</string>

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/app_color_back"
     tools:context=".ui.manager.restaurant.promotions.details.ManagerRestaurantPromotionDetailsActivity">
 
     <include layout="@layout/toolbar_layout" />
@@ -184,20 +185,26 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="bottom|end"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="bottom|center">
+
 
                 <Button
                     android:id="@+id/submit_promotion_edit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/submitBtn" />
+                    android:text="@string/submitBtn"
+                    android:background="@color/logo_color"
+                    />
 
                 <Button
                     android:id="@+id/cancel_promotion_edit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/cancelBtn" />
+                    android:text="@string/cancelBtn"
+                    android:background="@color/logo_color"
+
+                    />
 
             </LinearLayout>
         </LinearLayout>

@@ -20,7 +20,8 @@
         android:minHeight="?attr/actionBarSize"
         app:tabMode="fixed"
         app:tabGravity="fill"
-        app:tabTextColor="#FFF"
+        app:tabTextColor="@color/white"
+        android:backgroundTint="@color/logo_color"
         app:tabSelectedTextColor="@color/black_effective"
         />
 

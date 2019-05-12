@@ -8,6 +8,7 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:orientation="vertical"
+    android:background="@color/app_color_back"
     >
     <!--FIXME vi3: check if you need this-->
     <include layout="@layout/toolbar_layout"/>

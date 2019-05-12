@@ -31,7 +31,9 @@
             app:subtitleTextColor="@color/white"
             app:title="@string/title"
             app:titleTextAppearance="@style/Toolbar.TitleText"
-            app:titleTextColor="@color/white" />
+            app:titleTextColor="@color/white"
+            android:background="@color/app_color"
+            />
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tab_layout"
@@ -40,7 +42,9 @@
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
             app:tabGravity="fill"
-            app:tabIndicatorColor="@color/white" />
+            app:tabIndicatorColor="@color/white"
+            android:backgroundTint="@color/logo_color"
+            />
 
     </android.support.design.widget.AppBarLayout>
 
@@ -49,6 +53,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        android:clipToPadding="false" />
+        android:clipToPadding="false"
+        android:backgroundTint="@color/app_color"
+
+        />
 
 </LinearLayout>

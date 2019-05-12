@@ -17,12 +17,14 @@
         android:text="@string/subscriptions"
         android:textSize="32sp"
         android:textStyle="bold"
+        android:background="@color/logo_color"
         android:gravity="center"/>
 
     <FrameLayout
         android:id="@+id/my_restaurants_fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/rectangle_border_white"
         />
 
 

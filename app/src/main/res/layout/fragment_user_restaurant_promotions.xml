@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/app_color_back"
     tools:context=".ui.user.restaurant.promotions.UserRestaurantPromotionsFragment">
 
     <TextView
@@ -13,12 +14,19 @@
         android:text="@string/promotions"
         android:textStyle="bold"
         android:textAlignment="center"
-        android:textSize="32dp"/>
+        android:textSize="32dp"
+        android:background="@color/logo_color"
+        />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/restaurant_promotions_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scrollbars="vertical" />
+        android:scrollbars="vertical"
+        android:background="@drawable/rectangle_border_white"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        />
 
 </LinearLayout>

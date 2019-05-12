@@ -43,7 +43,9 @@
                     app:subtitleTextColor="@color/white"
                     app:title="@string/app_name"
                     app:titleTextAppearance="@style/Toolbar.TitleText"
-                    app:titleTextColor="@color/white" />
+                    app:titleTextColor="@color/white"
+                    android:backgroundTint="@color/app_color"
+                    />
 
                 <View
                     android:layout_width="match_parent"

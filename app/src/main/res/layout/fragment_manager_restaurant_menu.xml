@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.manager.restaurant.menu.ManagerRestaurantMenuFragment"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/app_color_back"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -50,7 +52,9 @@
                 android:dropDownHeight="wrap_content"
                 android:hint="@string/dish"
                 android:minWidth="200dp"
-                android:textSize="20sp"/>
+                android:textSize="20sp"
+                android:background="@drawable/rectangle_border_white"
+                />
 
             <Button
                 android:id="@+id/manager_menu_add_dish_type_btn"
@@ -66,6 +70,10 @@
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/rectangle_border_white"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginStart="24dp"
             android:id="@+id/manager_dish_type_list_recyclerview"
             android:scrollbars="vertical"
             />
@@ -74,19 +82,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="right">
+            android:gravity="center">
 
             <Button
                 android:id="@+id/manager_menu_submit_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/submitBtn"/>
+                android:text="@string/submitBtn"
+                android:background="@color/logo_color"
+                />
 
             <Button
                 android:id="@+id/manager_menu_cancel_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/cancelBtn"
+                android:background="@color/logo_color"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"/>
 

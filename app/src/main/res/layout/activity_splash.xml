@@ -23,11 +23,11 @@
     android:paddingTop="@dimen/activity_vertical_margin">
 
     <ImageView
-        android:layout_width="70dp"
+        android:layout_width="270dp"
         android:layout_height="70dp"
         android:layout_centerInParent="true"
         android:scaleType="fitXY"
-        android:src="@drawable/fleka_od_dzeka"
+        android:src="@mipmap/final_logo"
         />
     <!--android:src="@mipmap/ic_launcher"-->
 
