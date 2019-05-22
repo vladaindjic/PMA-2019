@@ -77,7 +77,7 @@ public class ApiHeader {
         private Long mUserId;
 
         @Expose
-        @SerializedName("access_token")
+        @SerializedName("JWToken")
         private String mAccessToken;
 
         public ProtectedApiHeader(String mApiKey, Long mUserId, String mAccessToken) {

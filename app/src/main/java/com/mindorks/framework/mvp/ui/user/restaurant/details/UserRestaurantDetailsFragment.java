@@ -154,10 +154,7 @@ public class UserRestaurantDetailsFragment extends BaseFragment implements
             }
         });
 
-        // TODO vi3: postaviti stanje zvezde na osnovu dobijenih podataka
-        // verovatno ce nam trebati poseban poziv koji ce porveriti da li je restoran
-        // u favourites-ima
-        checkBoxStar.setChecked(true);
+        checkBoxStar.setChecked(restaurantDetails.getSubscribed());
         checkBoxStar.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

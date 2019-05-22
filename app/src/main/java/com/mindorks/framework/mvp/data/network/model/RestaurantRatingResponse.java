@@ -90,6 +90,8 @@ public class RestaurantRatingResponse {
 
         public static class Comment {
             private String text;
+            // TODO mica: dodati da li je korisnik da like ili dislike
+            // dodati i broj lajkova i dislajkova
 
             public Comment(String text) {
                 this.text = text;

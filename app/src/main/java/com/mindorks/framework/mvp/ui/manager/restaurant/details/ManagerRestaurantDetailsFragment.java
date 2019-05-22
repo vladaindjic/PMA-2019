@@ -131,7 +131,7 @@ public class ManagerRestaurantDetailsFragment extends BaseFragment implements
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mKitchensAdapter);
 
-        // TODO vi3: ovde treba ispraviti API poziv da vrati restoran managera koji je ulogovan
+        // TODO vi3: izvuci iz LoginResponsa. a pre toga sacuvati u preferences
         mPresenter.onViewPrepared(1L);
         mPresenter.getAndPrepareKitchensForAutocomplete();
 

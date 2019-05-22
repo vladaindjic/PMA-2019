@@ -33,7 +33,7 @@ public final class ApiEndPoint {
 //            + "/588d15f5100000a8072d2945";
 
     public static final String ENDPOINT_SERVER_LOGIN = BuildConfig.BASE_URL
-            + "/5ca521393300004f002ea669";
+            + "/5ce59e522e00005673f83eed";
 
     // sucessfully log in
     public static final String ENDPOINT_SERVER_USER_REGISTRATION = BuildConfig.BASE_URL

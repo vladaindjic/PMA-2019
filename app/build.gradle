@@ -74,6 +74,10 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:28.0.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
 
+    // google fit api
+    implementation 'com.google.android.gms:play-services-fitness:16.0.1'
+    implementation 'com.google.android.gms:play-services-auth:16.0.1'
+
     // parser
     implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
 

@@ -79,11 +79,17 @@ public class RestaurantDetailsResponse {
         @SerializedName("kitchens")
         private List<Kitchen> kitchens;
 
+        @Expose
+        @SerializedName("subscribed")
+        private boolean subscribed;
+
 
         public RestaurantDetails() {
         }
 
-        public RestaurantDetails(Long id, String name, String imageUrl, String address, boolean delivery, String workTime, String phone, String email, List<Kitchen> kitchens) {
+        public RestaurantDetails(Long id, String name, String imageUrl, String address,
+                                 boolean delivery, String workTime, String phone, String email,
+                                 List<Kitchen> kitchens, boolean subscribed) {
             this.id = id;
             this.name = name;
             this.imageUrl = imageUrl;
@@ -93,6 +99,7 @@ public class RestaurantDetailsResponse {
             this.phone = phone;
             this.email = email;
             this.kitchens = kitchens;
+            this.subscribed = subscribed;
         }
 
         public Long getId() {
@@ -165,6 +172,14 @@ public class RestaurantDetailsResponse {
 
         public void setKitchens(List<Kitchen> kitchens) {
             this.kitchens = kitchens;
+        }
+
+        public boolean getSubscribed() {
+            return subscribed;
+        }
+
+        public void setSubscribed(boolean subscribed) {
+            this.subscribed = subscribed;
         }
     }
 

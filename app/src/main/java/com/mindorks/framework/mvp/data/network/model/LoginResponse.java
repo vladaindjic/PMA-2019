@@ -37,7 +37,7 @@ public class LoginResponse {
     private Long userId;
 
     @Expose
-    @SerializedName("access_token")
+    @SerializedName("JWToken")
     private String accessToken;
 
     @Expose
@@ -48,6 +48,15 @@ public class LoginResponse {
     @SerializedName("email")
     private String userEmail;
 
+    @Expose
+    @SerializedName("restaurant_id")
+    private Long restaurant_id;
+
+    @Expose
+    @SerializedName("message")
+    private String message;
+
+    // ovo ispod ne treba
     @Expose
     @SerializedName("server_profile_pic_url")
     private String serverProfilePicUrl;
@@ -60,9 +69,6 @@ public class LoginResponse {
     @SerializedName("google_profile_pic_url")
     private String googleProfilePicUrl;
 
-    @Expose
-    @SerializedName("message")
-    private String message;
 
     public String getStatusCode() {
         return statusCode;
@@ -134,6 +140,14 @@ public class LoginResponse {
 
     public void setServerProfilePicUrl(String serverProfilePicUrl) {
         this.serverProfilePicUrl = serverProfilePicUrl;
+    }
+
+    public Long getRestaurant_id() {
+        return restaurant_id;
+    }
+
+    public void setRestaurant_id(Long restaurant_id) {
+        this.restaurant_id = restaurant_id;
     }
 
     public String getUserRole() {
