@@ -40,7 +40,7 @@ public class UserRestaurantDetailsPresenter<V extends UserRestaurantDetailsMvpVi
                     public void accept(@NonNull RestaurantDetailsResponse response)
                             throws Exception {
                         if (response != null && response.getData() != null) {
-                            // TODO vi3: ovo je samo za tesiranje
+                            // FIXME SREDITI vi3: ovo je samo za tesiranje
                             List<RestaurantDetailsResponse.Kitchen> kitchenList = new ArrayList<>();
                             kitchenList.add(new RestaurantDetailsResponse.Kitchen(1L, "Kineska"));
                             kitchenList.add(new RestaurantDetailsResponse.Kitchen(2L,

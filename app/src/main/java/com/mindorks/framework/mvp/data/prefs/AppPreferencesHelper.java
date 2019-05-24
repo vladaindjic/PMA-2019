@@ -41,6 +41,8 @@ public class AppPreferencesHelper implements PreferencesHelper {
             = "PREF_KEY_CURRENT_USER_PROFILE_PIC_URL";
     private static final String PREF_KEY_ACCESS_TOKEN = "PREF_KEY_ACCESS_TOKEN";
 
+    private static final String PREF_KEY_CURRENT_USER_ROLE = "PREF_KEY_CURRENT_USER_ROLE";
+
     private final SharedPreferences mPrefs;
 
     @Inject
@@ -110,5 +112,15 @@ public class AppPreferencesHelper implements PreferencesHelper {
     @Override
     public void setAccessToken(String accessToken) {
         mPrefs.edit().putString(PREF_KEY_ACCESS_TOKEN, accessToken).apply();
+    }
+
+    @Override
+    public String getCurrentUserRole() {
+        return mPrefs.getString(PREF_KEY_CURRENT_USER_ROLE, null);
+    }
+
+    @Override
+    public void setCurrentUserRole(String userRole) {
+        mPrefs.edit().putString(PREF_KEY_CURRENT_USER_ROLE, userRole).apply();
     }
 }

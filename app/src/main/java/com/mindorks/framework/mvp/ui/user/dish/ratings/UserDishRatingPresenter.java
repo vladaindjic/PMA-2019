@@ -19,4 +19,6 @@ public class UserDishRatingPresenter<V extends UserDishRatingMvpView> extends Ba
                                    CompositeDisposable compositeDisposable) {
         super(dataManager, schedulerProvider, compositeDisposable);
     }
+
+    // TODO SREDITI vi3: pozovi API
 }

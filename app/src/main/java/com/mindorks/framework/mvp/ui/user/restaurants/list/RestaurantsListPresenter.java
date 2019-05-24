@@ -32,17 +32,6 @@ public class RestaurantsListPresenter<V extends RestaurantsListMvpView> extends 
     public void onViewPrepared(int whatToPrepare) {
         getMvpView().showLoading();
 
-
-//        List<RestaurantsResponse.Restaurant> restaurants = new ArrayList<>();
-//        restaurants.add(new RestaurantsResponse.Restaurant(1L, "Restoran " +
-//                "1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbasdakjs;dkas;ldka;sldka;lsdklkjlkjlkqqqqqqqqqqqqqqqqqqqqqqqqqqqvvvv",
-//                "https://s3.ap-south-1.amazonaws.com/mindorks/blogs/mindorks-blog-learn-kotlin%E2%80%8A%E2%80%94%E2%80%8Alateinit-vs-lazy.png"));
-//        restaurants.add(new RestaurantsResponse.Restaurant(1L, "Restoran 2", "https://s3.ap-south-1.amazonaws.com/mindorks/blogs/mindorks-blog-learn-kotlin%E2%80%8A%E2%80%94%E2%80%8Alateinit-vs-lazy.png"));
-//        restaurants.add(new RestaurantsResponse.Restaurant(1L, "Restoran 3", "https://s3.ap-south-1.amazonaws.com/mindorks/blogs/mindorks-blog-learn-kotlin%E2%80%8A%E2%80%94%E2%80%8Alateinit-vs-lazy.png"));
-//
-//        getMvpView().updateRestaurantsList(restaurants);
-//        getMvpView().hideLoading();
-
         DataManager dataManager = getDataManager();
 
         Single<RestaurantsResponse> restaurantsResponseSingle;

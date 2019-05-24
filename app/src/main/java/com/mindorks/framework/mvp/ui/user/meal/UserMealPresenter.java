@@ -30,6 +30,8 @@ public class UserMealPresenter<V extends UserMealMvpView> extends BasePresenter<
     public void onViewPrepared(Long mealId) {
         getMvpView().showLoading();
 
+        // FIXME SREDITI vi3: odraditi API poziv
+
         MealResponse.MealDetails mealDetails = new MealResponse.MealDetails();
         mealDetails.setId(1L);
         mealDetails.setName("Obilan obrok");

@@ -85,7 +85,7 @@ public class UserRestaurantDailyMenuPresenter<V extends UserRestaurantDailyMenuM
 
         getMvpView().hideLoading();
 
-        // TODO vi3: REST API call
+        // TODO SREDITI vi3: REST API call
 //        getCompositeDisposable().add(getDataManager()
 //                .getRestaurantDetailsApiCall(restaurantId)
 //                .subscribeOn(getSchedulerProvider().io())

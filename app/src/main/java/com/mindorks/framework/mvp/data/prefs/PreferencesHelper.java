@@ -47,4 +47,8 @@ public interface PreferencesHelper {
 
     void setAccessToken(String accessToken);
 
+    String getCurrentUserRole();
+
+    void setCurrentUserRole(String userRole);
+
 }

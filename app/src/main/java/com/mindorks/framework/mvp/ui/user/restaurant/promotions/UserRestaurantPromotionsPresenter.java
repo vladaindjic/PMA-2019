@@ -33,16 +33,6 @@ public class UserRestaurantPromotionsPresenter<V extends UserRestaurantPromotion
 
         getMvpView().showLoading();
 
-//        List<RestaurantPromotionsResponse.Promotion> promotionList = new ArrayList<>();
-//
-//        RestaurantPromotionsResponse.Promotion p1 = new RestaurantPromotionsResponse.Promotion(1,"Promocija 1"
-//                , "https://runningonrealfood.com/wp-content/uploads/2013/05/chickpea-veggie-burgers-20-running-on-real-food.jpg");
-//        promotionList.add(p1);
-//
-//        getMvpView().updateRestaurantPromotionsList(promotionList);
-
-
-
         getCompositeDisposable().add(getDataManager()
                 .getRestaurantPromotions()
                 .subscribeOn(getSchedulerProvider().io())

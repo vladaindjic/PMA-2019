@@ -42,7 +42,8 @@ public interface DataManager extends DbHelper, PreferencesHelper, ApiHelper {
             LoggedInMode loggedInMode,
             String userName,
             String email,
-            String profilePicPath);
+            String profilePicPath,
+            String userRole);
 
     enum LoggedInMode {
 

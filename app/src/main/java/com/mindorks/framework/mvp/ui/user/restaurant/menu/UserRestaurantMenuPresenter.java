@@ -33,7 +33,6 @@ public class UserRestaurantMenuPresenter<V extends UserRestaurantMenuMvpView> ex
     public void onViewPrepared(Long restaurantId) {
         getMvpView().showLoading();
 
-        // TODO vi3: REST API call
         getCompositeDisposable().add(getDataManager()
                 .getRestaurantMenuApiCall(restaurantId)
                 .subscribeOn(getSchedulerProvider().io())

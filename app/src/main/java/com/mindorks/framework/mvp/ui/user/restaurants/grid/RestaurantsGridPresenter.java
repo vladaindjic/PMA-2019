@@ -26,17 +26,6 @@ public class RestaurantsGridPresenter<V extends RestaurantsGridMvpView> extends 
     public void onViewPrepared() {
 
         getMvpView().showLoading();
-
-
-//        List<RestaurantsResponse.Restaurant> restaurants = new ArrayList<>();
-//        restaurants.add(new RestaurantsResponse.Restaurant(1L, "Restoran 1", "https://s3.ap-south-1.amazonaws.com/mindorks/blogs/mindorks-blog-learn-kotlin%E2%80%8A%E2%80%94%E2%80%8Alateinit-vs-lazy.png"));
-//        restaurants.add(new RestaurantsResponse.Restaurant(1L, "Restoran 2", "https://s3.ap-south-1.amazonaws.com/mindorks/blogs/mindorks-blog-learn-kotlin%E2%80%8A%E2%80%94%E2%80%8Alateinit-vs-lazy.png"));
-//        restaurants.add(new RestaurantsResponse.Restaurant(1L, "Restoran 3", "https://s3.ap-south-1.amazonaws.com/mindorks/blogs/mindorks-blog-learn-kotlin%E2%80%8A%E2%80%94%E2%80%8Alateinit-vs-lazy.png"));
-//
-//        getMvpView().updateRestaurantsList(restaurants);
-//        getMvpView().hideLoading();
-
-
         getCompositeDisposable().add(getDataManager()
                 .getRestaurantsApiCall()
                 .subscribeOn(getSchedulerProvider().io())

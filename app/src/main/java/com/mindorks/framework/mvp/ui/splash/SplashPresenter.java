@@ -80,14 +80,15 @@ public class SplashPresenter<V extends SplashMvpView> extends BasePresenter<V>
     }
 
     private void decideNextActivity() {
-        if (getDataManager().getCurrentUserLoggedInMode()
-                == DataManager.LoggedInMode.LOGGED_IN_MODE_LOGGED_OUT.getType()) {
+
+        if (getDataManager().getCurrentUserRole() == null) {
             getMvpView().openLoginActivity();
         } else {
-//            getMvpView().openMainActivity();
-            getMvpView().openUserRestaurantsActivity();
-//            getMvpView().openManagerRestaurantActivity();
-
+            if (getDataManager().getCurrentUserRole().equals("USER")) {
+                getMvpView().openUserRestaurantsActivity();
+            } else {
+                getMvpView().openManagerRestaurantActivity();
+            }
         }
 
         // TODO vi3: proveriti koji si user, pa onda dodaj

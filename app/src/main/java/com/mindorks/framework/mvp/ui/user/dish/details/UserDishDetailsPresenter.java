@@ -31,6 +31,9 @@ public class UserDishDetailsPresenter<V extends UserDishDetailsMvpView> extends 
     @Override
     public void onViewPrepared(Long restaurantId) {
         getMvpView().showLoading();
+
+        // FIXME SREDITI vi3: dobaviti stvarne podatke
+
         DishDetailsResponse.DishDetails dishDetails = new DishDetailsResponse.DishDetails();
         dishDetails.setId(1L);
         dishDetails.setName("Lazanje");

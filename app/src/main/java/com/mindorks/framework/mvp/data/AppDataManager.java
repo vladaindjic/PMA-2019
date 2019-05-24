@@ -183,6 +183,16 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public String getCurrentUserRole() {
+        return mPreferencesHelper.getCurrentUserRole();
+    }
+
+    @Override
+    public void setCurrentUserRole(String userRole) {
+        mPreferencesHelper.setCurrentUserRole(userRole);
+    }
+
+    @Override
     public String getCurrentUserProfilePicUrl() {
         return mPreferencesHelper.getCurrentUserProfilePicUrl();
     }
@@ -205,7 +215,8 @@ public class AppDataManager implements DataManager {
             LoggedInMode loggedInMode,
             String userName,
             String email,
-            String profilePicPath) {
+            String profilePicPath,
+            String userRole) {
 
         // TODO vi3: sacuvati sve sta treba u skladu sa nasim korisnicima
 
@@ -215,6 +226,7 @@ public class AppDataManager implements DataManager {
         setCurrentUserName(userName);
         setCurrentUserEmail(email);
         setCurrentUserProfilePicUrl(profilePicPath);
+        setCurrentUserRole(userRole);
 
         updateApiHeader(userId, accessToken);
     }
@@ -225,6 +237,7 @@ public class AppDataManager implements DataManager {
                 null,
                 null,
                 DataManager.LoggedInMode.LOGGED_IN_MODE_LOGGED_OUT,
+                null,
                 null,
                 null,
                 null);

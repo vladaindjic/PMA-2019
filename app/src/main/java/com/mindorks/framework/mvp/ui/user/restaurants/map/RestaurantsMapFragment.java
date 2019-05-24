@@ -322,7 +322,7 @@ public class RestaurantsMapFragment extends BaseFragment implements
             myLocationMarker.remove();
         }
 
-        // TODO vi3: povuci sliku korisnika
+        // FIXME SREDITI vi3: povuci sliku korisnika
         Glide.with(getActivity()).load("https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Petar_II_Petrovic-Njegos.jpg/220px-Petar_II_Petrovic-Njegos.jpg")
                 .into(new SimpleTarget<Drawable>() {
                     @Override
@@ -340,7 +340,7 @@ public class RestaurantsMapFragment extends BaseFragment implements
                         // cuvamo drawable
                         restaurantsDrawablesMap.put(myLocationMarker.getId(), resource);
                         // vezemo restoran za marker
-//                        stringRestaurantMap.put(marker.getId(), restaurant);
+                        // stringRestaurantMap.put(marker.getId(), restaurant);
                     }
                 });
 
@@ -365,7 +365,7 @@ public class RestaurantsMapFragment extends BaseFragment implements
                 if (restaurant.getLatitude() == null || restaurant.getLongitude() == null) {
                     continue;
                 }
-//            restaurantLocation = new LatLng(28.583911, 77.319116);
+
                 final LatLng restaurantLocation = new LatLng(restaurant.getLatitude(),
                         restaurant.getLongitude());
                 // pamtimo lokaciju

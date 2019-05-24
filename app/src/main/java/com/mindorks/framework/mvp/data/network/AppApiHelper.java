@@ -85,7 +85,7 @@ public class AppApiHelper implements ApiHelper {
                                                               request) {
         return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_SERVER_LOGIN)
                 .addHeaders(mApiHeader.getPublicApiHeader())
-                .addBodyParameter(request)
+                .addApplicationJsonBody(request)
                 .build()
                 .getObjectSingle(LoginResponse.class);
     }

@@ -37,7 +37,7 @@ public class LoginResponse {
     private Long userId;
 
     @Expose
-    @SerializedName("JWToken")
+    @SerializedName("access_token")
     private String accessToken;
 
     @Expose
