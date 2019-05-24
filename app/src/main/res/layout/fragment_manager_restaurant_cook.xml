@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     >
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -61,12 +60,14 @@
             android:background="@color/white"
             tools:listitem="@layout/cook_item_view" />
 
-        <Button
-            android:id="@+id/cook_item_add_btn"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_marginTop="10dp"
-            android:text="+"
-            android:background="@drawable/custom_button2" />
+
     </LinearLayout>
-</ScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/cook_item_add_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="16dp"
+        app:srcCompat="@drawable/ic_add_black" />
+</android.support.design.widget.CoordinatorLayout>

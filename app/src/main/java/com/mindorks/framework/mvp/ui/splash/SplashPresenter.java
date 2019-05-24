@@ -85,8 +85,9 @@ public class SplashPresenter<V extends SplashMvpView> extends BasePresenter<V>
             getMvpView().openLoginActivity();
         } else {
 //            getMvpView().openMainActivity();
-            getMvpView().openUserRestaurantsActivity();
-//            getMvpView().openManagerRestaurantActivity();
+//            getMvpView().openUserRestaurantsActivity();
+            getMvpView().openManagerRestaurantActivity();
+
 
         }
 
