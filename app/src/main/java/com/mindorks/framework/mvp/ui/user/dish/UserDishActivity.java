@@ -120,6 +120,8 @@ public class UserDishActivity extends BaseActivity implements UserDishMvpView {
         });
 
         FitnessOptions fitnessOptions = FitnessOptions.builder()
+                .addDataType(DataType.TYPE_STEP_COUNT_DELTA, FitnessOptions.ACCESS_READ)
+                .addDataType(DataType.AGGREGATE_STEP_COUNT_DELTA, FitnessOptions.ACCESS_READ)
                 .addDataType(DataType.TYPE_STEP_COUNT_DELTA, FitnessOptions.ACCESS_WRITE)
                 .addDataType(DataType.AGGREGATE_STEP_COUNT_DELTA, FitnessOptions.ACCESS_WRITE)
                 .addDataType(DataType.TYPE_NUTRITION, FitnessOptions.ACCESS_WRITE)
@@ -153,7 +155,7 @@ public class UserDishActivity extends BaseActivity implements UserDishMvpView {
         long endTime = cal.getTimeInMillis();
         cal.add(Calendar.MINUTE, -1);
         long startTime = cal.getTimeInMillis();
-
+//
         DataSource nutritionSource = new DataSource.Builder()
                 .setAppPackageName(this)
                 .setType(DataSource.TYPE_RAW)
@@ -164,7 +166,9 @@ public class UserDishActivity extends BaseActivity implements UserDishMvpView {
         // For each data point, specify a start time, end time, and the data value -- in this case,
         // the number of new steps.
         DataPoint banana =
-                dataSet.createDataPoint().setTimeInterval(startTime, endTime, TimeUnit.MILLISECONDS);
+                dataSet.createDataPoint().setTimestamp(endTime, TimeUnit.MILLISECONDS);
+                //.setTimeInterval(startTime, endTime,
+                //TimeUnit.MILLISECONDS);
 
         banana.getValue(Field.FIELD_FOOD_ITEM).setString("banana");
         banana.getValue(Field.FIELD_MEAL_TYPE).setInt(Field.MEAL_TYPE_SNACK);
@@ -205,45 +209,87 @@ public class UserDishActivity extends BaseActivity implements UserDishMvpView {
                     }
                 });
 
+//
+//        cal = Calendar.getInstance();
+//        cal.setTime(new Date());
+//        endTime = cal.getTimeInMillis();
+//        cal.add(Calendar.YEAR, -1);
+//        startTime = cal.getTimeInMillis();
+//
+//
+//        DataReadRequest readRequest = new DataReadRequest.Builder()
+//                .aggregate(DataType.TYPE_STEP_COUNT_DELTA, DataType.AGGREGATE_STEP_COUNT_DELTA)
+//                .setTimeRange(startTime, endTime, TimeUnit.MILLISECONDS)
+//                .bucketByTime(1, TimeUnit.DAYS)
+//                .build();
+//
+//        Fitness.getHistoryClient(this, GoogleSignIn.getLastSignedInAccount(this))
+//                .readData(readRequest)
+//                .addOnSuccessListener(new OnSuccessListener<DataReadResponse>() {
+//                    @Override
+//                    public void onSuccess(DataReadResponse dataReadResponse) {
+//                        System.out.println("Ne znam koji kurac: " + dataReadResponse.getDataSets().size());
+//                        for (DataPoint dp :
+//                                dataReadResponse.getDataSet(DataType.TYPE_STEP_COUNT_DELTA).getDataPoints()) {
+//                            System.out.println("Ima necega " + dp.getDataType());
+//                        }
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        e.printStackTrace();
+//                        System.out.println("Citaj iznad picko, pickice");
+//                    }
+//                })
+//                .addOnCompleteListener(new OnCompleteListener<DataReadResponse>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<DataReadResponse> task) {
+//                        System.out.println("Kao je complete");
+//                    }
+//                });
 
-        cal = Calendar.getInstance();
-        cal.setTime(new Date());
-        endTime = cal.getTimeInMillis();
-        cal.add(Calendar.YEAR, -1);
-        startTime = cal.getTimeInMillis();
 
 
-        DataReadRequest readRequest = new DataReadRequest.Builder()
-                .aggregate(DataType.TYPE_NUTRITION, DataType.AGGREGATE_NUTRITION_SUMMARY)
-                .bucketByTime(1, TimeUnit.DAYS)
-                .setTimeRange(startTime, endTime, TimeUnit.MILLISECONDS)
-                .build();
+//        Calendar cal = Calendar.getInstance();
+//        cal.setTime(new Date());
+//        long endTime = cal.getTimeInMillis();
+//        cal.add(Calendar.YEAR, -1);
+//        long startTime = cal.getTimeInMillis();
+//
+//
+//        DataReadRequest readRequest = new DataReadRequest.Builder()
+//                .aggregate(DataType.TYPE_STEP_COUNT_DELTA, DataType.AGGREGATE_STEP_COUNT_DELTA)
+//                .setTimeRange(startTime, endTime, TimeUnit.MILLISECONDS)
+//                .bucketByTime(1, TimeUnit.DAYS)
+//                .build();
+//
+//
+//
+//        Fitness.getHistoryClient(this, GoogleSignIn.getLastSignedInAccount(this))
+//                .readData(readRequest)
+//                .addOnSuccessListener(new OnSuccessListener<DataReadResponse>() {
+//                    @Override
+//                    public void onSuccess(DataReadResponse dataReadResponse) {
+//                        Log.d(LOG_TAG, "onSuccess()");
+//                        System.out.println("KURVINU TI MAMU JEBEM GOSTOJA I SIMKELA SMRADINO " +
+//                                "VEGANSKA: " + dataReadResponse.getDataSets().size());
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Log.e(LOG_TAG, "onFailure()", e);
+//                    }
+//                })
+//                .addOnCompleteListener(new OnCompleteListener<DataReadResponse>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<DataReadResponse> task) {
+//                        Log.d(LOG_TAG, "onComplete()");
+//                    }
+//                });
 
-        Fitness.getHistoryClient(this, GoogleSignIn.getLastSignedInAccount(this))
-                .readData(readRequest)
-                .addOnSuccessListener(new OnSuccessListener<DataReadResponse>() {
-                    @Override
-                    public void onSuccess(DataReadResponse dataReadResponse) {
-                        System.out.println("USAO SAM OVDE: " + dataReadResponse.getDataSet(DataType.TYPE_NUTRITION).getDataPoints().size());
-                        for (DataPoint dp :
-                                dataReadResponse.getDataSet(DataType.TYPE_NUTRITION).getDataPoints()) {
-                            System.out.println(dp.getValue(Field.FIELD_NUTRIENTS).getKeyValue(Field.NUTRIENT_CALORIES));
-                        }
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        e.printStackTrace();
-                        System.out.println("Citaj iznad picko, pickice");
-                    }
-                })
-                .addOnCompleteListener(new OnCompleteListener<DataReadResponse>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DataReadResponse> task) {
-                        System.out.println("Kao je complete");
-                    }
-                });
+
 
 
 //        // Set a start and end time for our data, using a start time of 1 hour before this moment.

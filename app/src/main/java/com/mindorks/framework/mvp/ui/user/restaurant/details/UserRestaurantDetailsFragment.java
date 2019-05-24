@@ -1,11 +1,14 @@
 package com.mindorks.framework.mvp.ui.user.restaurant.details;
 
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -147,10 +150,27 @@ public class UserRestaurantDetailsFragment extends BaseFragment implements
         btnHowToFindUs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO vi3: integracija sa Google mapama
                 Toast.makeText(getContext(),
                         "Samo jako do lokacije: " + restaurantDetails.getAddress(),
                         Toast.LENGTH_SHORT).show();
+
+                // TODO vi3: izvuci iz restaurant details
+                String latitude = String.valueOf(37.4319983);
+                String longitude = String.valueOf(-122.074);
+                Uri gmmIntentUri = Uri.parse("google.navigation:q=" + latitude + "," + longitude);
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                mapIntent.setPackage("com.google.android.apps.maps");
+
+
+                try{
+                    if (mapIntent.resolveActivity(getBaseActivity().getPackageManager()) != null) {
+                        startActivity(mapIntent);
+                    }
+                }catch (NullPointerException e){
+                    Log.e(TAG, "onClick: NullPointerException: Couldn't open map." + e.getMessage() );
+                    Toast.makeText(getActivity(), "Couldn't open map", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 

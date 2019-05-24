@@ -1,14 +1,18 @@
 package com.mindorks.framework.mvp.ui.user.restaurants.map;
 
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -21,6 +25,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -33,6 +39,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.di.component.ActivityComponent;
@@ -67,6 +75,11 @@ public class RestaurantsMapFragment extends BaseFragment implements
     MapView mMapView;
 
     private GoogleMap mMap;
+    private Location currentLocation;
+    private FusedLocationProviderClient fusedLocationProviderClient;
+    private static final int LOCATION_REQUEST_CODE = 101;
+    private boolean myLocationPermission = false;
+    private Marker myLocationMarker;
 
     private List<RestaurantsResponse.Restaurant> restaurantList;
     private Map<String, RestaurantsResponse.Restaurant> stringRestaurantMap;
@@ -112,8 +125,78 @@ public class RestaurantsMapFragment extends BaseFragment implements
     }
 
     @Override
+    protected void setUp(View view) {
+//        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+//        mRecyclerView.setLayoutManager(mLayoutManager);
+//        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+//        mRecyclerView.setAdapter(mRestaurantsListAdapter);
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getBaseActivity());
+        // dobavljamo lokaciju
+        fetchLastLocation();
+
+        // moramo u isto vreme da dobavimo lokaciju, kao i restorano
+        // prvo probamo dobavljanje lokacije
+        // nakon toga dobavljamo restorane i iscrtavamo
+        //mPresenter.onViewPrepared();
+    }
+
+    private void fetchLastLocation() {
+        if (ActivityCompat.checkSelfPermission(getBaseActivity(),
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getBaseActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getBaseActivity(),
+                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQUEST_CODE);
+            return;
+        }
+
+        myLocationPermission = true;
+        Task<Location> task = fusedLocationProviderClient.getLastLocation();
+        task.addOnSuccessListener(new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if (location != null) {
+                    currentLocation = location;
+                    Toast.makeText(getBaseActivity(),
+                            currentLocation.getLatitude() + " " + currentLocation.getLongitude(), Toast.LENGTH_SHORT).show();
+                    System.out.println(currentLocation.getLatitude() + " " + currentLocation.getLongitude());
+                    mPresenter.onViewPrepared();
+                } else {
+                    Toast.makeText(getBaseActivity(), "No Location recorded", Toast.LENGTH_SHORT).show();
+                    mPresenter.onViewPrepared();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResult) {
+        switch (requestCode) {
+            case LOCATION_REQUEST_CODE:
+                if (grantResult.length > 0 && grantResult[0] == PackageManager.PERMISSION_GRANTED) {
+                    fetchLastLocation();
+                    myLocationPermission = true;
+                } else {
+                    Toast.makeText(getBaseActivity(), "Location permission missing", Toast.LENGTH_SHORT).show();
+                    // korisnik ne dozvoljava da pristupimo lokaciji
+                    mPresenter.onViewPrepared();
+                }
+                break;
+        }
+    }
+    //  37.4219983 -122.084
+
+
+    @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        if (ActivityCompat.checkSelfPermission(getBaseActivity(),
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getBaseActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getBaseActivity(),
+                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQUEST_CODE);
+            return;
+        }
+        mMap.setMyLocationEnabled(true);
+
 
         mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter());
 
@@ -202,16 +285,6 @@ public class RestaurantsMapFragment extends BaseFragment implements
         return bitmap;
     }
 
-    @Override
-    protected void setUp(View view) {
-//        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-//        mRecyclerView.setLayoutManager(mLayoutManager);
-//        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-//        mRecyclerView.setAdapter(mRestaurantsListAdapter);
-
-        mPresenter.onViewPrepared();
-
-    }
 
     @Override
     public void updateRestaurantsList(final List<RestaurantsResponse.Restaurant> restaurants) {
@@ -238,61 +311,117 @@ public class RestaurantsMapFragment extends BaseFragment implements
 
         this.restaurantList.addAll(restaurants);
 
-        List<LatLng> restaurantsLocations = new ArrayList<>();
-        for (final RestaurantsResponse.Restaurant restaurant : this.restaurantList) {
-            if (restaurant.getLatitude() == null || restaurant.getLongitude() == null) {
-                continue;
+        this.showRestaurantsOnMap();
+    }
+
+
+    private LatLng showCurrentLocationMarker() {
+        final LatLng latLng = new LatLng(currentLocation.getLatitude(),
+                currentLocation.getLongitude());
+        if (myLocationMarker != null) {
+            myLocationMarker.remove();
+        }
+
+        // TODO vi3: povuci sliku korisnika
+        Glide.with(getActivity()).load("https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Petar_II_Petrovic-Njegos.jpg/220px-Petar_II_Petrovic-Njegos.jpg")
+                .into(new SimpleTarget<Drawable>() {
+                    @Override
+                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                        myLocationMarker = mMap.addMarker(new MarkerOptions()
+                                .position(latLng));
+
+                        // postavljamo ikonicu, nazv restorana i adresu
+                        BitmapDescriptor bitmapDescriptor =
+                                BitmapDescriptorFactory.fromBitmap(createCustomMarker(getContext(), resource));
+                        // zakomentarisati, ako ne treba slika da se prikaze
+                        myLocationMarker.setIcon(bitmapDescriptor);
+                        myLocationMarker.setTitle("Pero Njegos");
+                        myLocationMarker.setSnippet("Ovde ste vi");
+                        // cuvamo drawable
+                        restaurantsDrawablesMap.put(myLocationMarker.getId(), resource);
+                        // vezemo restoran za marker
+//                        stringRestaurantMap.put(marker.getId(), restaurant);
+                    }
+                });
+
+        return latLng;
+    }
+
+    private void showRestaurantsOnMap() {
+        if (this.restaurantList == null) {
+            if (currentLocation != null) {
+                LatLngBounds.Builder builder = new LatLngBounds.Builder();
+                builder.include(showCurrentLocationMarker());
+                LatLngBounds bounds = builder.build();
+                CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 200);
+                mMap.moveCamera(cu);
+                mMap.animateCamera(CameraUpdateFactory.zoomTo(14), 2000, null);
             }
+
+            return;
+        } else {
+            List<LatLng> restaurantsLocations = new ArrayList<>();
+            for (final RestaurantsResponse.Restaurant restaurant : this.restaurantList) {
+                if (restaurant.getLatitude() == null || restaurant.getLongitude() == null) {
+                    continue;
+                }
 //            restaurantLocation = new LatLng(28.583911, 77.319116);
-            final LatLng restaurantLocation = new LatLng(restaurant.getLatitude(),
-                    restaurant.getLongitude());
-            // pamtimo lokaciju
-            restaurantsLocations.add(restaurantLocation);
+                final LatLng restaurantLocation = new LatLng(restaurant.getLatitude(),
+                        restaurant.getLongitude());
+                // pamtimo lokaciju
+                restaurantsLocations.add(restaurantLocation);
 
-            Glide.with(getActivity()).load(restaurant.getImageUrl())
-                    .into(new SimpleTarget<Drawable>() {
-                        @Override
-                        public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                            Marker marker = mMap.addMarker(new MarkerOptions()
-                                    .position(restaurantLocation));
+                Glide.with(getActivity()).load(restaurant.getImageUrl())
+                        .into(new SimpleTarget<Drawable>() {
+                            @Override
+                            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                                Marker marker = mMap.addMarker(new MarkerOptions()
+                                        .position(restaurantLocation));
 
-                            // postavljamo ikonicu, nazv restorana i adresu
-                            BitmapDescriptor bitmapDescriptor =
-                                    BitmapDescriptorFactory.fromBitmap(createCustomMarker(getContext(), resource));
-                            // zakomentarisati, ako ne treba slika da se prikaze
-                            marker.setIcon(bitmapDescriptor);
-                            marker.setTitle(restaurant.getName());
-                            if (restaurant.getAddress() != null) {
-                                marker.setSnippet(restaurant.getAddress());
+                                // postavljamo ikonicu, nazv restorana i adresu
+                                BitmapDescriptor bitmapDescriptor =
+                                        BitmapDescriptorFactory.fromBitmap(createCustomMarker(getContext(), resource));
+                                // zakomentarisati, ako ne treba slika da se prikaze
+                                marker.setIcon(bitmapDescriptor);
+                                marker.setTitle(restaurant.getName());
+                                if (restaurant.getAddress() != null) {
+                                    marker.setSnippet(restaurant.getAddress());
+                                }
+                                // cuvamo drawable
+                                restaurantsDrawablesMap.put(marker.getId(), resource);
+                                // vezemo restoran za marker
+                                stringRestaurantMap.put(marker.getId(), restaurant);
                             }
-                            // cuvamo drawable
-                            restaurantsDrawablesMap.put(marker.getId(), resource);
-                            // vezemo restoran za marker
-                            stringRestaurantMap.put(marker.getId(), restaurant);
-                        }
-                    });
+                        });
 
-        }
-
-        if (restaurantsLocations.size() > 0) {
-            //LatLngBound will cover all your marker on Google Maps
-            LatLngBounds.Builder builder = new LatLngBounds.Builder();
-            for (LatLng location : restaurantsLocations) {
-                builder.include(location); //Taking Point A (First LatLng)
             }
-            LatLngBounds bounds = builder.build();
-            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 200);
-            mMap.moveCamera(cu);
-            mMap.animateCamera(CameraUpdateFactory.zoomTo(14), 2000, null);
+
+            if (restaurantsLocations.size() > 0) {
+                //LatLngBound will cover all your marker on Google Maps
+                LatLngBounds.Builder builder = new LatLngBounds.Builder();
+                for (LatLng location : restaurantsLocations) {
+                    builder.include(location); //Taking Point A (First LatLng)
+                }
+
+                if (currentLocation != null) {
+                    builder.include(showCurrentLocationMarker());
+                }
+
+                LatLngBounds bounds = builder.build();
+                CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 200);
+                mMap.moveCamera(cu);
+                mMap.animateCamera(CameraUpdateFactory.zoomTo(14), 2000, null);
+            }
+
         }
+
 
         // FIXME vi3: sta raditi ako ne dobavljamo slicice
-
     }
 
     @Override
     public void openRestaurantDetailsActivity(RestaurantsResponse.Restaurant restaurant) {
-        UserRestaurantsActivity userRestaurantsActivity = (UserRestaurantsActivity)getActivity();
+        UserRestaurantsActivity userRestaurantsActivity = (UserRestaurantsActivity) getActivity();
         if (userRestaurantsActivity != null) {
             userRestaurantsActivity.openRestaurantDetailsActivity(restaurant);
         } else {

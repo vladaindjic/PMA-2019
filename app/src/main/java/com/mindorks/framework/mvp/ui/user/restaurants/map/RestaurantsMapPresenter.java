@@ -56,20 +56,20 @@ public class RestaurantsMapPresenter<V extends RestaurantsMapMvpView> extends Ba
                                     response.getData();
 
                             // imamo 10 restorana u response-u
-                            restaurantList.get(0).setLatitude(28.583911);
-                            restaurantList.get(0).setLongitude(77.319116);
+                            restaurantList.get(0).setLatitude(37.4319983);
+                            restaurantList.get(0).setLongitude(-122.074);
                             restaurantList.get(0).setAddress("Adresa 1");
 
-                            restaurantList.get(1).setLatitude(28.583078);
-                            restaurantList.get(1).setLongitude(77.313744);
+                            restaurantList.get(1).setLatitude(37.4119983);
+                            restaurantList.get(1).setLongitude(-122.064);
                             restaurantList.get(1).setAddress("Adresa 2");
 
-                            restaurantList.get(2).setLatitude(28.580903);
-                            restaurantList.get(2).setLongitude(77.317408);
+                            restaurantList.get(2).setLatitude(37.4119983);
+                            restaurantList.get(2).setLongitude(-122.074);
                             restaurantList.get(2).setAddress("Adresa 3");
 
-                            restaurantList.get(3).setLatitude(28.580108);
-                            restaurantList.get(3).setLongitude(77.315271);
+                            restaurantList.get(3).setLatitude(37.4319983);
+                            restaurantList.get(3).setLongitude(-122.094);
                             restaurantList.get(3).setAddress("Adresa 4");
 
 
