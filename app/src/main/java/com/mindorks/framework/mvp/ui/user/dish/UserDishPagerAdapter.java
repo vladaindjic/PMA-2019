@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.mindorks.framework.mvp.ui.user.dish.details.UserDishDetailsFragment;
+import com.mindorks.framework.mvp.ui.user.dish.ratings.UserDishRatingFragment;
 import com.mindorks.framework.mvp.ui.user.restaurant.dailyMenu.UserRestaurantDailyMenuFragment;
 import com.mindorks.framework.mvp.ui.user.restaurant.details.UserRestaurantDetailsFragment;
 import com.mindorks.framework.mvp.ui.user.restaurant.menu.UserRestaurantMenuFragment;
@@ -27,7 +28,7 @@ public class UserDishPagerAdapter extends FragmentStatePagerAdapter {
             case 0:
                 return UserDishDetailsFragment.newInstance();
             case 1:
-                return UserRestaurantRatingFragment.newInstance();
+                return UserDishRatingFragment.newInstance();
             default:
                 return null;
         }

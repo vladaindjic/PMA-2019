@@ -71,8 +71,8 @@ public final class ApiEndPoint {
 
 
     public static final String ENDPOINT_RESTAURANT_RATING = BuildConfig.BASE_URL
-//            + "/5cb601be330000d5385d7f87"; Ovo kad nije ocenio
-            + "/5cb60256330000e1345d7f8e";
+            + "/restaurantscore/";
+
     public static final String ENDPOINT_RESTAURANT_FILTER = BuildConfig.BASE_URL
             + "/5cb1d31c330000c9255720ef";
 
@@ -86,14 +86,14 @@ public final class ApiEndPoint {
             + "/user/";
 
     public static final String ENDPOINT_DISH_RATING = BuildConfig.BASE_URL
-            +"/5cb60b4d330000e1345d7fcc";
+            + "/dish/";
 
 
     public static final String ENDPOINT_DISH_DETAILS = BuildConfig.BASE_URL
-            +"/dish/";
+            + "/dish/";
 
     public static final String ENDPOINT_MEAL = BuildConfig.BASE_URL
-            +"/meal/";
+            + "/meal/";
 
     //    http://www.mocky.io/v2/5cb1d31c330000c9255720ef
 
@@ -112,6 +112,28 @@ public final class ApiEndPoint {
     // Sva jela jednog restorana
     public static final String ENDPOINT_MANAGER_RESTAURANT_DISHES = BuildConfig.BASE_URL
             + "/5cb72a0e320000510ecd4964";
+
+
+    public static final String ENDPOINT_RESTAURANT_RATE = BuildConfig.BASE_URL
+            + "/restaurantscore/";
+
+
+    public static final String ENDPOINT_RATE_DISH = BuildConfig.BASE_URL
+            + "/dishscore/";
+
+
+    public static final String ENDPOINT_COMMENT_RESTAURANT = BuildConfig.BASE_URL
+            + "/restaurantcomment/";
+
+    public static final String ENDPOINT_COMMENT_DISH = BuildConfig.BASE_URL
+            + "/dishcomment/";
+
+
+    public static final String ENDPOINT_COMMENT_RESTAURANT_VOTE = BuildConfig.BASE_URL
+            + "/restaurantcommentscore/";
+
+    public static final String ENDPOINT_COMMENT_DISH_VOTE = BuildConfig.BASE_URL
+            + "/dishcommentscore/";
 
     private ApiEndPoint() {
         // This class is not publicly instantiable

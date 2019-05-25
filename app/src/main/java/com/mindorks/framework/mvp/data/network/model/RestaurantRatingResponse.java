@@ -89,15 +89,64 @@ public class RestaurantRatingResponse {
         }
 
         public static class Comment {
-            private String text;
-            // TODO mica: dodati da li je korisnik da like ili dislike
-            // dodati i broj lajkova i dislajkova
 
-            public Comment(String text) {
+            @Expose
+            @SerializedName("id")
+            private Long id;
+
+            @Expose
+            @SerializedName("rating")
+            private Double rating;
+
+            @Expose
+            @SerializedName("text")
+            private String text;
+
+            @Expose
+            @SerializedName("my_comment")
+            private boolean myComment;
+
+            @Expose
+            @SerializedName("negative_votes")
+            private int negativeVotes;
+
+            @Expose
+            @SerializedName("positive_votes")
+            private int positive_votes;
+
+            @Expose
+            @SerializedName("my_vote")
+            private String myVote;
+
+
+            public Comment(Long id, Double rating, String text, boolean myComment, int negativeVotes, int positive_votes, String myVote) {
+                this.id = id;
+                this.rating = rating;
                 this.text = text;
+                this.myComment = myComment;
+                this.negativeVotes = negativeVotes;
+                this.positive_votes = positive_votes;
+                this.myVote = myVote;
             }
 
             public Comment() {
+            }
+
+
+            public Long getId() {
+                return id;
+            }
+
+            public void setId(Long id) {
+                this.id = id;
+            }
+
+            public Double getRating() {
+                return rating;
+            }
+
+            public void setRating(Double rating) {
+                this.rating = rating;
             }
 
             public String getText() {
@@ -106,6 +155,38 @@ public class RestaurantRatingResponse {
 
             public void setText(String text) {
                 this.text = text;
+            }
+
+            public boolean isMyComment() {
+                return myComment;
+            }
+
+            public void setMyComment(boolean myComment) {
+                this.myComment = myComment;
+            }
+
+            public int getNegativeVotes() {
+                return negativeVotes;
+            }
+
+            public void setNegativeVotes(int negativeVotes) {
+                this.negativeVotes = negativeVotes;
+            }
+
+            public int getPositive_votes() {
+                return positive_votes;
+            }
+
+            public void setPositive_votes(int positive_votes) {
+                this.positive_votes = positive_votes;
+            }
+
+            public String getMyVote() {
+                return myVote;
+            }
+
+            public void setMyVote(String myVote) {
+                this.myVote = myVote;
             }
         }
     }

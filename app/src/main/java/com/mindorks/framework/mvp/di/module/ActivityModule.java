@@ -121,6 +121,7 @@ import com.mindorks.framework.mvp.ui.user.dish.details.UserDishDetailsMvpPresent
 import com.mindorks.framework.mvp.ui.user.dish.details.UserDishDetailsMvpView;
 import com.mindorks.framework.mvp.ui.user.dish.details.UserDishDetailsNutritiveValuesAdapter;
 import com.mindorks.framework.mvp.ui.user.dish.details.UserDishDetailsPresenter;
+import com.mindorks.framework.mvp.ui.user.dish.ratings.UserDishCommentAdapter;
 import com.mindorks.framework.mvp.ui.user.dish.ratings.UserDishRatingMvpPresenter;
 import com.mindorks.framework.mvp.ui.user.dish.ratings.UserDishRatingMvpView;
 import com.mindorks.framework.mvp.ui.user.dish.ratings.UserDishRatingPresenter;
@@ -411,6 +412,12 @@ public class ActivityModule {
     @Provides
     UserRestaurantCommentAdapter provideUserRestaurantCommentAdapter() {
         return new UserRestaurantCommentAdapter(new ArrayList<RestaurantRatingResponse.RestaurantRating.Comment>());
+    }
+
+
+    @Provides
+    UserDishCommentAdapter provideUserDishCommentAdapter() {
+        return new UserDishCommentAdapter(new ArrayList<RestaurantRatingResponse.RestaurantRating.Comment>());
     }
 
 

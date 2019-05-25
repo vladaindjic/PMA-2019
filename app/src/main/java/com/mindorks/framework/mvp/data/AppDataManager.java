@@ -29,6 +29,8 @@ import com.mindorks.framework.mvp.data.db.model.User;
 import com.mindorks.framework.mvp.data.network.ApiHeader;
 import com.mindorks.framework.mvp.data.network.ApiHelper;
 import com.mindorks.framework.mvp.data.network.model.BlogResponse;
+import com.mindorks.framework.mvp.data.network.model.ComentVoteRequest;
+import com.mindorks.framework.mvp.data.network.model.CommentRequest;
 import com.mindorks.framework.mvp.data.network.model.DailyMenuResponse;
 import com.mindorks.framework.mvp.data.network.model.DishDetailsResponse;
 import com.mindorks.framework.mvp.data.network.model.LoginRequest;
@@ -44,6 +46,7 @@ import com.mindorks.framework.mvp.data.network.model.RestaurantFilterResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantPromotionsResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantDetailsResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantRatingResponse;
+import com.mindorks.framework.mvp.data.network.model.RestaurantScoreRequest;
 import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.data.network.model.SettingsResponse;
 import com.mindorks.framework.mvp.data.network.model.UserDetailsResponse;
@@ -411,8 +414,8 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Single<RestaurantRatingResponse> getDishRatingApiCall(Long restaurantId) {
-        return mApiHelper.getDishRatingApiCall(restaurantId);
+    public Single<RestaurantRatingResponse> getDishRatingApiCall(Long id) {
+        return mApiHelper.getDishRatingApiCall(id);
     }
     public Single<RestaurantDetailsResponse> putRestaurantDetailsApiCall(RestaurantDetailsResponse.RestaurantDetails restaurantDetails) {
         return mApiHelper.putRestaurantDetailsApiCall(restaurantDetails);
@@ -442,4 +445,36 @@ public class AppDataManager implements DataManager {
     public Single<DishDetailsResponse> getDishDetailsApiCall(Long dishId) {
         return mApiHelper.getDishDetailsApiCall(dishId);
     }
+
+    @Override
+    public Single<Double> rateRestaurant(Long restaurantid, RestaurantScoreRequest restaurantScoreRequest) {
+        return mApiHelper.rateRestaurant(restaurantid,restaurantScoreRequest);
+    }
+
+    @Override
+    public Single<Double> rateDish(Long dishId, RestaurantScoreRequest scoreRequest) {
+        return mApiHelper.rateDish(dishId,scoreRequest);
+    }
+
+    @Override
+    public Single<RestaurantRatingResponse> postComment(Long restaurantId, CommentRequest request) {
+        return mApiHelper.postComment(restaurantId,request);
+    }
+
+    @Override
+    public Single<RestaurantRatingResponse> leaevComment(Long dishId, CommentRequest request) {
+        return mApiHelper.leaevComment(dishId,request);
+    }
+
+    @Override
+    public Single<RestaurantRatingResponse> voteComment(Long id, ComentVoteRequest request) {
+        return mApiHelper.voteComment(id,request);
+    }
+
+    @Override
+    public Single<RestaurantRatingResponse> voteCommentDish(Long id, ComentVoteRequest request) {
+        return  mApiHelper.voteCommentDish(id,request);
+    }
+
+
 }
