@@ -2,6 +2,7 @@ package com.mindorks.framework.mvp.ui.manager.restaurant.cook;
 
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -50,7 +51,7 @@ public class ManagerRestaurantCookFragment extends BaseFragment implements
     LinearLayoutManager mLayoutManager;
 
     @BindView(R.id.cook_item_add_btn)
-    Button addDishBtn;
+    FloatingActionButton addDishBtn;
 
     public ManagerRestaurantCookFragment() {
         // Required empty public constructor
