@@ -56,6 +56,11 @@ public class LoginResponse {
     @SerializedName("message")
     private String message;
 
+    @Expose
+    @SerializedName("image_url")
+    private String imgUrl;
+
+
     // ovo ispod ne treba
     @Expose
     @SerializedName("server_profile_pic_url")
@@ -156,6 +161,14 @@ public class LoginResponse {
 
     public void setUserRole(String userRole) {
         this.userRole = userRole;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 
     @Override

@@ -75,7 +75,7 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
                                 DataManager.LoggedInMode.LOGGED_IN_MODE_SERVER,
                                 response.getUserName(),
                                 response.getUserEmail(),
-                                response.getGoogleProfilePicUrl(),
+                                response.getImgUrl(),
                                 response.getUserRole());
 
                         if (!isViewAttached()) {

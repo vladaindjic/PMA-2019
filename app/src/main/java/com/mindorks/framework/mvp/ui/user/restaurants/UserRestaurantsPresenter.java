@@ -77,20 +77,18 @@ public class UserRestaurantsPresenter<V extends UserRestaurantsMvpView> extends 
         if (!isViewAttached()) {
             return;
         }
-        //final String currentUserName = getDataManager().getCurrentUserName();
-        final String currentUserName = "Cvarkov Djordje";
+
+        final String currentUserName = getDataManager().getCurrentUserName();
         if (currentUserName != null && !currentUserName.isEmpty()) {
             getMvpView().updateUserName(currentUserName);
         }
 
-//        final String currentUserEmail = getDataManager().getCurrentUserEmail();
-        final String currentUserEmail = "glavni_arhivator@hotmail.com";
+        final String currentUserEmail = getDataManager().getCurrentUserEmail();
         if (currentUserEmail != null && !currentUserEmail.isEmpty()) {
             getMvpView().updateUserEmail(currentUserEmail);
         }
 
-//        final String profilePicUrl = getDataManager().getCurrentUserProfilePicUrl();
-        final String profilePicUrl = "https://i.ytimg.com/vi/1wQb6vUxHnQ/hqdefault.jpg";
+        final String profilePicUrl = getDataManager().getCurrentUserProfilePicUrl();
         if (profilePicUrl != null && !profilePicUrl.isEmpty()) {
             getMvpView().updateUserProfilePic(profilePicUrl);
         }
