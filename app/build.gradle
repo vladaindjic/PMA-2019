@@ -17,6 +17,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao'
 apply from: '../config/quality/quality.gradle'
 
+
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
@@ -79,6 +80,9 @@ dependencies {
     implementation 'com.google.android.gms:play-services-fitness:16.0.1'
     implementation 'com.google.android.gms:play-services-auth:16.0.1'
 
+    // firebase i notifikacije
+    implementation 'com.google.firebase:firebase-core:16.0.9'
+
     // parser
     implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
 
@@ -129,3 +133,7 @@ dependencies {
 configurations.all {
     resolutionStrategy.force "com.android.support:support-annotations:$supportLibraryVersion"
 }
+
+// za firebase i notifikacije
+apply plugin: 'com.google.gms.google-services'
+

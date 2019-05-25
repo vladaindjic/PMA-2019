@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "569153700344",
+    "firebase_url": "https://pmaproject-a96cf.firebaseio.com",
+    "project_id": "pmaproject-a96cf",
+    "storage_bucket": "pmaproject-a96cf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:569153700344:android:bc19711bbddb4ac4",
+        "android_client_info": {
+          "package_name": "com.mindorks.framework.mvp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "569153700344-54o2cej8fu7kmrjqushupd7rae14q46a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCnpWttrj5zhgIRLVoIEY-7TCORRGMIYM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "569153700344-54o2cej8fu7kmrjqushupd7rae14q46a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

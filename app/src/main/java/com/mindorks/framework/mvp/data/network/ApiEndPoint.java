@@ -84,6 +84,9 @@ public final class ApiEndPoint {
 
     public static final String ENDPOINT_USER_DETAILS = BuildConfig.BASE_URL
             + "/user/";
+    public static final String ENDPOINT_USER_UPLOAD_IMAGE = BuildConfig.BASE_URL
+            + "/user/image";
+
 
     public static final String ENDPOINT_DISH_RATING = BuildConfig.BASE_URL
             +"/5cb60b4d330000e1345d7fcc";

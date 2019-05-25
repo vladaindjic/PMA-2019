@@ -57,7 +57,8 @@ public class MvpApp extends Application {
 
         AndroidNetworking.initialize(getApplicationContext());
         if (BuildConfig.DEBUG) {
-            AndroidNetworking.enableLogging(Level.BODY);
+            // mora none zbog uploada slike
+            AndroidNetworking.enableLogging(Level.NONE);
         }
 
         CalligraphyConfig.initDefault(mCalligraphyConfig);

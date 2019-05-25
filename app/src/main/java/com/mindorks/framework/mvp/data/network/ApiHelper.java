@@ -38,6 +38,8 @@ import com.mindorks.framework.mvp.data.network.model.UserRegistrationRequest;
 import com.mindorks.framework.mvp.data.network.model.UserRegistrationResponse;
 import com.mindorks.framework.mvp.data.network.model.manager.RestaurantDishesResponse;
 
+import java.io.File;
+
 import io.reactivex.Single;
 
 /**
@@ -102,6 +104,10 @@ public interface ApiHelper {
 
 
     Single<MealResponse> getMealApiCall(Long mealId);
+
     Single<DishDetailsResponse> getDishDetailsApiCall(Long dishId);
+
+//    Single<UserDetailsResponse> putUserImageUpdate(byte[] imageBytes);
+    Single<UserDetailsResponse> putUserImageUpdate(File imageBytes);
 
 }

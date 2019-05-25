@@ -55,6 +55,7 @@ import com.mindorks.framework.mvp.di.ApplicationContext;
 import com.mindorks.framework.mvp.utils.AppConstants;
 import com.mindorks.framework.mvp.utils.CommonUtils;
 
+import java.io.File;
 import java.lang.reflect.Type;
 import java.util.List;
 
@@ -441,5 +442,16 @@ public class AppDataManager implements DataManager {
     @Override
     public Single<DishDetailsResponse> getDishDetailsApiCall(Long dishId) {
         return mApiHelper.getDishDetailsApiCall(dishId);
+    }
+
+//    @Override
+//    public Single<UserDetailsResponse> putUserImageUpdate(byte[] imageBytes) {
+//        return mApiHelper.putUserImageUpdate(imageBytes);
+//    }
+
+
+    @Override
+    public Single<UserDetailsResponse> putUserImageUpdate(File imageBytes) {
+        return mApiHelper.putUserImageUpdate(imageBytes);
     }
 }

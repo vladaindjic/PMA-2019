@@ -15,6 +15,10 @@
 
 package com.mindorks.framework.mvp.data.network;
 
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.androidnetworking.interfaces.UploadProgressListener;
 import com.mindorks.framework.mvp.data.network.model.BlogResponse;
 import com.mindorks.framework.mvp.data.network.model.DailyMenuResponse;
 import com.mindorks.framework.mvp.data.network.model.DishDetailsResponse;
@@ -38,6 +42,10 @@ import com.mindorks.framework.mvp.data.network.model.UserRegistrationRequest;
 import com.mindorks.framework.mvp.data.network.model.UserRegistrationResponse;
 import com.mindorks.framework.mvp.data.network.model.manager.RestaurantDishesResponse;
 import com.rx2androidnetworking.Rx2AndroidNetworking;
+
+import org.json.JSONObject;
+
+import java.io.File;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -151,7 +159,7 @@ public class AppApiHelper implements ApiHelper {
 
     @Override
     public Single<RestaurantPromotionsResponse> getRestaurantPromotions(Long restaurantId) {
-        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_RESTAURANT_PROMOTIONS+restaurantId)
+        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_RESTAURANT_PROMOTIONS + restaurantId)
                 .addHeaders(mApiHeader.getProtectedApiHeader())
                 .build()
                 .getObjectSingle(RestaurantPromotionsResponse.class);
@@ -244,6 +252,7 @@ public class AppApiHelper implements ApiHelper {
                 .build()
                 .getObjectSingle(RestaurantRatingResponse.class);
     }
+
     public Single<RestaurantDetailsResponse> putRestaurantDetailsApiCall(RestaurantDetailsResponse.RestaurantDetails restaurantDetails) {
         return Rx2AndroidNetworking.put(ApiEndPoint.ENDPOINT_MANAGER_UPDATE_RESTAURANT_DETAILS)
                 .addHeaders(mApiHeader.getPublicApiHeader())
@@ -291,6 +300,45 @@ public class AppApiHelper implements ApiHelper {
                 .addHeaders(mApiHeader.getProtectedApiHeader())
                 .build()
                 .getObjectSingle(DishDetailsResponse.class);
+    }
+
+    @Override
+    public Single<UserDetailsResponse> putUserImageUpdate(File imageBytes) {
+
+        return Rx2AndroidNetworking.upload(ApiEndPoint.ENDPOINT_USER_UPLOAD_IMAGE)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .addMultipartFile("file", imageBytes)
+//                .addMultipartParameter("key", "value")
+                .setPriority(Priority.HIGH)
+                .build()
+                .setUploadProgressListener(new UploadProgressListener() {
+                    @Override
+                    public void onProgress(long bytesUploaded, long totalBytes) {
+                        // do anything with progress
+                        System.out.println("**********Uploaduje se: " + bytesUploaded + " " + totalBytes);
+                    }
+                }).getObjectSingle(UserDetailsResponse.class);
+//                .getAsJSONObject(new JSONObjectRequestListener() {
+//                    @Override
+//                    public void onResponse(JSONObject response) {
+//                        // do anything with response
+//                        System.out.println("**********Kao sve je u redu: " + response.toString());
+//                    }
+//
+//                    @Override
+//                    public void onError(ANError error) {
+//                        // handle error
+//                        System.out.println("**********Nasise se kurcine, mamu ti jebem " + error);
+//                    }
+//                });
+
+
+//        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_USER_DETAILS)
+//                .addHeaders(mApiHeader.getProtectedApiHeader())
+//                .build()
+//                .getObjectSingle(UserDetailsResponse.class);
+
+
     }
 }
 

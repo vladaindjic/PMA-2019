@@ -6,5 +6,6 @@ import com.mindorks.framework.mvp.ui.base.MvpView;
 public interface UserDetailsMvpView extends MvpView {
 
     void updateDetails(UserDetailsResponse.UserDetails details);
-
+    void successImageUpload();
+    void failImageUpload();
 }
