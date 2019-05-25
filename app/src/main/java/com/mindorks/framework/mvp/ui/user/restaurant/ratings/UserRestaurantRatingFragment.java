@@ -17,10 +17,7 @@ import android.widget.Toast;
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.RestaurantRatingResponse;
 import com.mindorks.framework.mvp.di.component.ActivityComponent;
-import com.mindorks.framework.mvp.ui.base.BaseActivity;
 import com.mindorks.framework.mvp.ui.base.BaseFragment;
-import com.mindorks.framework.mvp.ui.user.dish.UserDishActivity;
-import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantActivity;
 
 import javax.inject.Inject;
 
@@ -31,7 +28,7 @@ import butterknife.OnClick;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class UserRestaurantRatingFragment extends BaseFragment implements UserRestaurantRatingMvpView {
+public class UserRestaurantRatingFragment extends BaseFragment implements UserRestaurantRatingMvpView, CommentCallback {
 
     private static final String TAG = "UserDishRatingFragment";
 
@@ -42,10 +39,11 @@ public class UserRestaurantRatingFragment extends BaseFragment implements UserRe
     @BindView(R.id.restaurant_rating_text_value)
     TextView ratingTextView;
 
-    //TODO Milan: Obraditi rating dogadjaj
     @BindView(R.id.restaurant_comment_text_edit)
     EditText restaurantCommentText;
 
+
+    //TODO Milan: Obraditi rating dogadjaj
     @BindView(R.id.rating_bar)
     RatingBar ratingBar;
 
@@ -61,9 +59,12 @@ public class UserRestaurantRatingFragment extends BaseFragment implements UserRe
     @Inject
     UserRestaurantCommentAdapter mUserRestaurantCommentAdapter;
 
+    boolean callRatingChnaged;
+    Long restaurantId;
 
     public UserRestaurantRatingFragment() {
         // Required empty public constructor
+        this.callRatingChnaged = true;
     }
 
     public static UserRestaurantRatingFragment newInstance() {
@@ -89,33 +90,37 @@ public class UserRestaurantRatingFragment extends BaseFragment implements UserRe
 
     @Override
     protected void setUp(View view) {
-
-        Bundle bundle = getArguments();
-        Long restaurantId = bundle.getLong("restaurantId");
-
+        final Long restaurantId = getBaseActivity().getIntent().getLongExtra("restaurantId", 0L);
+        this.restaurantId =restaurantId;
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mUserRestaurantCommentAdapter.setMyContext(getActivity());
+        mUserRestaurantCommentAdapter.setmCallback(this);
         mRecyclerView.setAdapter(mUserRestaurantCommentAdapter);
 
-        this.findAndPrepareProperView();
 
-    }
+        //Set handler for rating
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                if (callRatingChnaged) {
+                    mPresenter.rateRestaurant(restaurantId, ratingBar);
+                    Toast.makeText(getActivity(), ratingBar.getRating() + " " + restaurantId, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
-    private void findAndPrepareProperView() {
+        mPresenter.onViewPrepared(restaurantId);
 
-        //FIXME Milan: Id restorana tj id objekta za koji se dobavljaju ocene
-        BaseActivity parent = getBaseActivity();
-        if (parent instanceof UserRestaurantActivity) {
-            mPresenter.onViewPrepared(UserRestaurantRatingMvpPresenter.PREPARE_RESTAURANT_RATING, 0L);
-        } else if (parent instanceof UserDishActivity) {
-            mPresenter.onViewPrepared(UserRestaurantRatingMvpPresenter.PREPARE_DISH_RATING, 0L);
-        }
     }
 
     @OnClick(R.id.restaurant_comment_button)
     public void leaveComment() {
-        Toast.makeText(getActivity(), this.restaurantCommentText.getText(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getActivity(), this.restaurantCommentText.getText(), Toast.LENGTH_SHORT).show();
+        mPresenter.leaveComment(restaurantId,restaurantCommentText.getText().toString().trim());
+        hideKeyboard();
+        restaurantCommentText.setText("");
     }
 
 
@@ -124,11 +129,28 @@ public class UserRestaurantRatingFragment extends BaseFragment implements UserRe
 
         ratingTextView.setText(restaurantRating.getRating().toString());
         if (restaurantRating.getRated() != -1) {
+            callRatingChnaged = false;
             ratingBar.setRating(restaurantRating.getRated());
             ratingBar.setIsIndicator(true);
         }
-
-
         mUserRestaurantCommentAdapter.addItems(restaurantRating.getComments());
+    }
+
+    @Override
+    public void updateRestaurantRatingValue(Double value) {
+        ratingTextView.setText(value.toString());
+    }
+
+    @Override
+    public void voteUp(Long id) {
+
+        mPresenter.likeComment(id);
+
+    }
+
+    @Override
+    public void voteDown(Long id) {
+
+        mPresenter.dislikeComment(id);
     }
 }

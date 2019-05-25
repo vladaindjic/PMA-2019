@@ -8,4 +8,5 @@ import java.util.List;
 public interface UserRestaurantRatingMvpView extends MvpView {
 
     void updateRestaurantRating(RestaurantRatingResponse.RestaurantRating restaurantRating);
+    void updateRestaurantRatingValue(Double value);
 }

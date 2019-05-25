@@ -1,4 +1,4 @@
-package com.mindorks.framework.mvp.ui.user.restaurant.ratings;
+package com.mindorks.framework.mvp.ui.user.dish.ratings;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.RestaurantRatingResponse;
 import com.mindorks.framework.mvp.ui.base.BaseViewHolder;
+import com.mindorks.framework.mvp.ui.user.restaurant.ratings.UserRestaurantCommentAdapter;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class UserRestaurantCommentAdapter extends RecyclerView.Adapter<BaseViewHolder> {
+public class UserDishCommentAdapter extends RecyclerView.Adapter<BaseViewHolder>{
 
     public static final int VIEW_TYPE_EMPTY = 0;
     public static final int VIEW_TYPE_NORMAL = 1;
@@ -31,13 +32,12 @@ public class UserRestaurantCommentAdapter extends RecyclerView.Adapter<BaseViewH
     private Context myContext;
     private CommentCallback mCallback;
 
-    public UserRestaurantCommentAdapter(List<RestaurantRatingResponse.RestaurantRating.Comment> mRestaurantCommentList) {
+    public UserDishCommentAdapter(List<RestaurantRatingResponse.RestaurantRating.Comment> mRestaurantCommentList) {
         this.mRestaurantCommentList = mRestaurantCommentList;
     }
 
     public void addItems(List<RestaurantRatingResponse.RestaurantRating.Comment> commentList) {
         mRestaurantCommentList.clear();
-        System.out.println("size: " + commentList.size());
         mRestaurantCommentList.addAll(commentList);
         notifyDataSetChanged();
     }
@@ -59,12 +59,12 @@ public class UserRestaurantCommentAdapter extends RecyclerView.Adapter<BaseViewH
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         switch (viewType) {
             case VIEW_TYPE_NORMAL:
-                return new UserRestaurantCommentAdapter.ViewHolder(
-                        LayoutInflater.from(parent.getContext()).inflate(R.layout.comment_item_layout, parent,
+                return new UserDishCommentAdapter.ViewHolder(
+                        LayoutInflater.from(parent.getContext()).inflate(R.layout.dish_comment_item_layout, parent,
                                 false));
             case VIEW_TYPE_EMPTY:
             default:
-                return new UserRestaurantCommentAdapter.EmptyViewHolder(
+                return new UserDishCommentAdapter.EmptyViewHolder(
                         LayoutInflater.from(parent.getContext()).inflate(R.layout.item_empty_view, parent, false));
         }
     }
@@ -98,19 +98,19 @@ public class UserRestaurantCommentAdapter extends RecyclerView.Adapter<BaseViewH
      */
     public class ViewHolder extends BaseViewHolder {
 
-        @BindView(R.id.restaurant_comment_text_view)
+        @BindView(R.id.dish_comment_text_view)
         TextView commentTextView;
 
-        @BindView(R.id.comment_positive_vote_text)
+        @BindView(R.id.dish_comment_positive_vote_text)
         TextView commentPositiveCount;
 
-        @BindView(R.id.comment_negative_vote_text)
+        @BindView(R.id.dish_comment_negative_vote_text)
         TextView commentNegativeCount;
 
-        @BindView(R.id.comment_vote_positive)
+        @BindView(R.id.dish_comment_vote_positive)
         Button votePositive;
 
-        @BindView(R.id.comment_vote_negative)
+        @BindView(R.id.dish_comment_vote_negative)
         Button voteNegative;
 
 
@@ -128,27 +128,27 @@ public class UserRestaurantCommentAdapter extends RecyclerView.Adapter<BaseViewH
         public void onBind(int position) {
             super.onBind(position);
 
-            commentTextView.setMovementMethod(new ScrollingMovementMethod());
+            commentTextView.setMovementMethod( new ScrollingMovementMethod());
             final RestaurantRatingResponse.RestaurantRating.Comment comment = mRestaurantCommentList.get(position);
 
             if (comment != null) {
                 commentTextView.setText(comment.getText());
             }
 
-            if (comment != null) {
+            if(comment!=null){
                 commentPositiveCount.setText(String.valueOf(comment.getPositive_votes()));
             }
 
-            if (comment != null) {
+            if(comment!=null){
                 commentNegativeCount.setText(String.valueOf(comment.getNegativeVotes()));
             }
-
 
             if (comment.getMyVote().equals("POSITIVE")) {
                 votePositive.setBackgroundResource(R.drawable.ic_like_blue);
                 votePositive.setEnabled(false);
                 voteNegative.setEnabled(false);
             }
+
             if (comment.getMyVote().equals("NEGATIVE")) {
                 voteNegative.setBackgroundResource(R.drawable.ic_dislike_red);
                 votePositive.setEnabled(false);
@@ -175,7 +175,6 @@ public class UserRestaurantCommentAdapter extends RecyclerView.Adapter<BaseViewH
                     }
                 }
             });
-
         }
     }
 
@@ -207,5 +206,4 @@ public class UserRestaurantCommentAdapter extends RecyclerView.Adapter<BaseViewH
 //                mCallback.onRestaurantsEmptyViewRetryClick();
         }
     }
-
 }

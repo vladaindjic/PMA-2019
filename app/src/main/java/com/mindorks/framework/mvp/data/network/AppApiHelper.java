@@ -20,6 +20,8 @@ import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.androidnetworking.interfaces.UploadProgressListener;
 import com.mindorks.framework.mvp.data.network.model.BlogResponse;
+import com.mindorks.framework.mvp.data.network.model.ComentVoteRequest;
+import com.mindorks.framework.mvp.data.network.model.CommentRequest;
 import com.mindorks.framework.mvp.data.network.model.DailyMenuResponse;
 import com.mindorks.framework.mvp.data.network.model.DishDetailsResponse;
 import com.mindorks.framework.mvp.data.network.model.LoginRequest;
@@ -35,6 +37,7 @@ import com.mindorks.framework.mvp.data.network.model.RestaurantDetailsResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantFilterResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantPromotionsResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantRatingResponse;
+import com.mindorks.framework.mvp.data.network.model.RestaurantScoreRequest;
 import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.data.network.model.SettingsResponse;
 import com.mindorks.framework.mvp.data.network.model.UserDetailsResponse;
@@ -208,7 +211,7 @@ public class AppApiHelper implements ApiHelper {
 
     @Override
     public Single<RestaurantRatingResponse> getRestaurantRatingApiCall(Long restaurantId) {
-        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_RESTAURANT_RATING)
+        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_RESTAURANT_RATING + restaurantId)
                 .addHeaders(mApiHeader.getProtectedApiHeader())
                 .build()
                 .getObjectSingle(RestaurantRatingResponse.class);
@@ -246,8 +249,8 @@ public class AppApiHelper implements ApiHelper {
     }
 
     @Override
-    public Single<RestaurantRatingResponse> getDishRatingApiCall(Long restaurantId) {
-        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_DISH_RATING)
+    public Single<RestaurantRatingResponse> getDishRatingApiCall(Long id) {
+        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_DISH_RATING + id + "/raiting")
                 .addHeaders(mApiHeader.getProtectedApiHeader())
                 .build()
                 .getObjectSingle(RestaurantRatingResponse.class);
@@ -340,5 +343,60 @@ public class AppApiHelper implements ApiHelper {
 
 
     }
+
+    public Single<Double> rateRestaurant(Long restaurantid, RestaurantScoreRequest restaurantScoreRequest) {
+        return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_RESTAURANT_RATE + restaurantid)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .addApplicationJsonBody(restaurantScoreRequest)
+                .build()
+                .getObjectSingle(Double.class);
+    }
+
+    @Override
+    public Single<Double> rateDish(Long dishId, RestaurantScoreRequest scoreRequest) {
+        return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_RATE_DISH + dishId)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .addApplicationJsonBody(scoreRequest)
+                .build()
+                .getObjectSingle(Double.class);
+    }
+
+    @Override
+    public Single<RestaurantRatingResponse> postComment(Long restaurantId, CommentRequest request) {
+        return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_COMMENT_RESTAURANT + restaurantId)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .addApplicationJsonBody(request)
+                .build()
+                .getObjectSingle(RestaurantRatingResponse.class);
+    }
+
+    @Override
+    public Single<RestaurantRatingResponse> leaevComment(Long dishId, CommentRequest request) {
+        return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_COMMENT_DISH + dishId)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .addApplicationJsonBody(request)
+                .build()
+                .getObjectSingle(RestaurantRatingResponse.class);
+    }
+
+    @Override
+    public Single<RestaurantRatingResponse> voteComment(Long id, ComentVoteRequest request) {
+        return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_COMMENT_RESTAURANT_VOTE + id)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .addApplicationJsonBody(request)
+                .build()
+                .getObjectSingle(RestaurantRatingResponse.class);
+    }
+
+    @Override
+    public Single<RestaurantRatingResponse> voteCommentDish(Long id, ComentVoteRequest request) {
+        return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_COMMENT_DISH_VOTE + id)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .addApplicationJsonBody(request)
+                .build()
+                .getObjectSingle(RestaurantRatingResponse.class);
+    }
+
+
 }
 

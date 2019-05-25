@@ -16,6 +16,8 @@
 package com.mindorks.framework.mvp.data.network;
 
 import com.mindorks.framework.mvp.data.network.model.BlogResponse;
+import com.mindorks.framework.mvp.data.network.model.ComentVoteRequest;
+import com.mindorks.framework.mvp.data.network.model.CommentRequest;
 import com.mindorks.framework.mvp.data.network.model.DailyMenuResponse;
 import com.mindorks.framework.mvp.data.network.model.DishDetailsResponse;
 import com.mindorks.framework.mvp.data.network.model.LoginRequest;
@@ -31,6 +33,7 @@ import com.mindorks.framework.mvp.data.network.model.RestaurantDetailsResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantFilterResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantPromotionsResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantRatingResponse;
+import com.mindorks.framework.mvp.data.network.model.RestaurantScoreRequest;
 import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.data.network.model.SettingsResponse;
 import com.mindorks.framework.mvp.data.network.model.UserDetailsResponse;
@@ -109,5 +112,17 @@ public interface ApiHelper {
 
 //    Single<UserDetailsResponse> putUserImageUpdate(byte[] imageBytes);
     Single<UserDetailsResponse> putUserImageUpdate(File imageBytes);
+
+    Single<Double> rateRestaurant(Long restaurantid, RestaurantScoreRequest restaurantScoreRequest);
+
+    Single<Double> rateDish(Long dishId, RestaurantScoreRequest scoreRequest);
+
+    Single<RestaurantRatingResponse> postComment(Long restaurantId, CommentRequest request);
+
+
+    Single<RestaurantRatingResponse> leaevComment(Long dishId,CommentRequest request);
+    Single<RestaurantRatingResponse> voteComment(Long id, ComentVoteRequest request);
+
+    Single<RestaurantRatingResponse>voteCommentDish(Long id, ComentVoteRequest request);
 
 }
