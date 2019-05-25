@@ -18,7 +18,7 @@ public class DailyMenuResponse {
 
     @Expose
     @SerializedName("daily_menu")
-    private DailyMenu dailyMenu;
+    private DailyMenu data; // FIXME vi3: mozda ovo treba da vratim na dailyMenu
 
     public DailyMenuResponse() {
     }
@@ -39,12 +39,12 @@ public class DailyMenuResponse {
         this.message = message;
     }
 
-    public DailyMenu getDailyMenu() {
-        return dailyMenu;
+    public DailyMenu getData() {
+        return data;
     }
 
-    public void setDailyMenu(DailyMenu dailyMenu) {
-        this.dailyMenu = dailyMenu;
+    public void setData(DailyMenu data) {
+        this.data = data;
     }
 
     public static class DailyMenu {

@@ -42,6 +42,7 @@ public class DishListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public interface DishListItemCallback {
         void openDishActivity(MenuResponse.Dish dish);
+        void onDishesEmptyViewRetryClick();
     }
 
     public DishListItemCallback getmCallback() {
@@ -65,20 +66,18 @@ public class DishListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        return new DishListAdapter.ViewHolder(
-                LayoutInflater.from(parent.getContext()).inflate(R.layout.dish_list_item_layout, parent,
-                        false));
 
-//        switch (viewType) {
-//            case VIEW_TYPE_NORMAL:
-//                return new DishListAdapter.ViewHolder(
-//                        LayoutInflater.from(parent.getContext()).inflate(R.layout.dish_type_list_item_layout, parent,
-//                                false));
-//            case VIEW_TYPE_EMPTY:
-//            default:
-//                return new DishListAdapter.EmptyViewHolder(
-//                        LayoutInflater.from(parent.getContext()).inflate(R.layout.item_empty_view, parent, false));
-//        }
+
+        switch (viewType) {
+            case VIEW_TYPE_NORMAL:
+                return new DishListAdapter.ViewHolder(
+                        LayoutInflater.from(parent.getContext()).inflate(R.layout.dish_list_item_layout, parent,
+                                false));
+            case VIEW_TYPE_EMPTY:
+            default:
+                return new EmptyViewHolder(
+                        LayoutInflater.from(parent.getContext()).inflate(R.layout.item_empty_view, parent, false));
+        }
     }
 
     @Override
@@ -165,29 +164,29 @@ public class DishListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
     }
 
-//    public class EmptyViewHolder extends BaseViewHolder {
-//
-//        @BindView(R.id.btn_retry)
-//        Button retryButton;
-//
-//        @BindView(R.id.tv_message)
-//        TextView messageTextView;
-//
-//        public EmptyViewHolder(View itemView) {
-//            super(itemView);
-//            ButterKnife.bind(this, itemView);
-//        }
-//
-//        @Override
-//        protected void clear() {
-//
-//        }
-//
-//        @OnClick(R.id.btn_retry)
-//        void onRetryClick() {
-//            if (mCallback != null)
-//                mCallback.onRestaurantsEmptyViewRetryClick();
-//        }
-//    }
+    public class EmptyViewHolder extends BaseViewHolder {
+
+        @BindView(R.id.btn_retry)
+        Button retryButton;
+
+        @BindView(R.id.tv_message)
+        TextView messageTextView;
+
+        public EmptyViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+
+        @Override
+        protected void clear() {
+
+        }
+
+        @OnClick(R.id.btn_retry)
+        void onRetryClick() {
+            if (mCallback != null)
+                mCallback.onDishesEmptyViewRetryClick();
+        }
+    }
 
 }

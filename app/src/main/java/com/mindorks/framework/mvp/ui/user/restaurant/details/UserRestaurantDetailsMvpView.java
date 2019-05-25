@@ -6,5 +6,6 @@ import com.mindorks.framework.mvp.ui.base.MvpView;
 public interface UserRestaurantDetailsMvpView extends MvpView {
 
     void updateRestaurantDetails(RestaurantDetailsResponse.RestaurantDetails restaurantDetails);
-
+    void successSubscription();
+    void failSubscription();
 }

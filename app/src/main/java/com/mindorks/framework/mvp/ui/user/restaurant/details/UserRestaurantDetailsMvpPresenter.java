@@ -7,4 +7,6 @@ public interface UserRestaurantDetailsMvpPresenter<V extends UserRestaurantDetai
 
     public void onViewPrepared(Long restaurantId);
 
+    void subscribeToRestaurant(Long restaurantId);
+
 }

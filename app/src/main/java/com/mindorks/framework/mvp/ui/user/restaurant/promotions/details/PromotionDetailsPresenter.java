@@ -28,13 +28,13 @@ public class PromotionDetailsPresenter<V extends PromotionDetailsMvpView> extend
     }
 
     @Override
-    public void onViewPrepared() {
+    public void onViewPrepared(Long promotionId) {
 
         getMvpView().showLoading();
 
 
         getCompositeDisposable().add(getDataManager()
-                .getPromotionDetails()
+                .getPromotionDetails(promotionId)
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(new Consumer<PromotionDetailsResponse>() {

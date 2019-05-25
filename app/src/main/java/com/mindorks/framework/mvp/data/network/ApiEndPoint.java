@@ -49,22 +49,26 @@ public final class ApiEndPoint {
             + "/5926c34212000035026871cd";
 
     public static final String ENDPOINT_RESTAURANTS = BuildConfig.BASE_URL
-            + "/5ca5f7c93300008f532eaab3";
+            + "/restaurants/";
     public static final String ENDPOINT_SUBSCRIPTIONS = BuildConfig.BASE_URL
-            + "/5cb3921f330000670011b6c1";
+            + "/restaurants/my-restaurants";
 
     public static final String ENDPOINT_PROMOTION_DETAILS = BuildConfig.BASE_URL
-            + "/5cb7b48c4c00006c00d3d242";
+            + "/promotion/";
 
 
     public static final String ENDPOINT_RESTAURANT_PROMOTIONS = BuildConfig.BASE_URL +
-            "/5cabe6073000002d17103280";
+            "/promotion/restaurant/";
 
     public static final String ENDPOINT_RESTAURANT_DETAILS = BuildConfig.BASE_URL
-            + "/5cabcb913000004c00103250";
+            + "/restaurants/";
 
     public static final String ENDPOINT_RESTAURANT_MENU = BuildConfig.BASE_URL
-            + "/5cb72e6e3200007747cd4990";
+            + "/menu/";
+
+    public static final String ENDPOINT_RESTAURANT_DAILY_MENU = BuildConfig.BASE_URL
+            + "/dailymenu/";
+
 
     public static final String ENDPOINT_RESTAURANT_RATING = BuildConfig.BASE_URL
 //            + "/5cb601be330000d5385d7f87"; Ovo kad nije ocenio
@@ -79,10 +83,18 @@ public final class ApiEndPoint {
             + "/5cb3ac40330000840411b6f3";
 
     public static final String ENDPOINT_USER_DETAILS = BuildConfig.BASE_URL
-            + "/5cb4f48f3300002b005d7936";
+            + "/user/";
 
     public static final String ENDPOINT_DISH_RATING = BuildConfig.BASE_URL
             +"/5cb60b4d330000e1345d7fcc";
+
+
+    public static final String ENDPOINT_DISH_DETAILS = BuildConfig.BASE_URL
+            +"/dish/";
+
+    public static final String ENDPOINT_MEAL = BuildConfig.BASE_URL
+            +"/meal/";
+
     //    http://www.mocky.io/v2/5cb1d31c330000c9255720ef
 
     // manager endpoints

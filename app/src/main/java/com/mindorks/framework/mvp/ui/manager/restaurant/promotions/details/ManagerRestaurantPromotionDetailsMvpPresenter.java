@@ -6,6 +6,6 @@ import com.mindorks.framework.mvp.ui.base.MvpPresenter;
 
 public interface ManagerRestaurantPromotionDetailsMvpPresenter<V extends ManagerRestaurantPromotionDetailsMvpView> extends MvpPresenter<V>  {
 
-    public void loadData(int promotionId);
+    public void loadData(Long promotionId);
     public void savePromotion(PromotionDetailsResponse.Promotion promotion);
 }

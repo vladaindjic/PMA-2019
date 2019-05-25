@@ -16,9 +16,12 @@
 package com.mindorks.framework.mvp.data.network;
 
 import com.mindorks.framework.mvp.data.network.model.BlogResponse;
+import com.mindorks.framework.mvp.data.network.model.DailyMenuResponse;
+import com.mindorks.framework.mvp.data.network.model.DishDetailsResponse;
 import com.mindorks.framework.mvp.data.network.model.LoginRequest;
 import com.mindorks.framework.mvp.data.network.model.LoginResponse;
 import com.mindorks.framework.mvp.data.network.model.LogoutResponse;
+import com.mindorks.framework.mvp.data.network.model.MealResponse;
 import com.mindorks.framework.mvp.data.network.model.MenuResponse;
 import com.mindorks.framework.mvp.data.network.model.NotificationResponse;
 import com.mindorks.framework.mvp.data.network.model.OpenSourceResponse;
@@ -65,15 +68,17 @@ public interface ApiHelper {
     // TODO vi3: treba dodati i proveru koji user salji ili to sa servera gledati po jwt-u
     public Single<RestaurantsResponse> getSubscriptionsApiCall();
 
-    //TODO Milan: Dodati id restorana
-    Single<RestaurantPromotionsResponse> getRestaurantPromotions();
+    Single<RestaurantPromotionsResponse> getRestaurantPromotions(Long restaurantId);
 
-    //TODO Milan: Dodati id promocije
-    Single<PromotionDetailsResponse> getPromotionDetails();
+    Single<PromotionDetailsResponse> getPromotionDetails(Long promotionId);
 
     Single<RestaurantDetailsResponse> getRestaurantDetailsApiCall(Long restaurantId);
 
+    Single<RestaurantDetailsResponse> putRestaurantSubscribeApiCall(Long restaurantId);
+
     Single<MenuResponse> getRestaurantMenuApiCall(Long restaurantId);
+
+    Single<DailyMenuResponse> getRestaurantDailyMenuApiCall(Long restaurantId);
 
     Single<RestaurantRatingResponse> getRestaurantRatingApiCall(Long restaurantId);
 
@@ -94,5 +99,9 @@ public interface ApiHelper {
     Single<RestaurantCookResponse> getRestaurantCookApiCall(Long restaurantId);
 
     Single<RestaurantDishesResponse> getRestaurantDishesApiCall(Long restaurantId);
+
+
+    Single<MealResponse> getMealApiCall(Long mealId);
+    Single<DishDetailsResponse> getDishDetailsApiCall(Long dishId);
 
 }

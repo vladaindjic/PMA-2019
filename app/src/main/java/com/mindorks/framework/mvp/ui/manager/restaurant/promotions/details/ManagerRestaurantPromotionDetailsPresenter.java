@@ -26,14 +26,14 @@ public class ManagerRestaurantPromotionDetailsPresenter<V extends ManagerRestaur
     }
 
     @Override
-    public void loadData(int promotionId) {
+    public void loadData(Long promotionId) {
 
         //TODO Milan: Iskoristiti id promocije
         getMvpView().showLoading();
 
 
         getCompositeDisposable().add(getDataManager()
-                .getPromotionDetails()
+                .getPromotionDetails(promotionId)
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(new Consumer<PromotionDetailsResponse>() {

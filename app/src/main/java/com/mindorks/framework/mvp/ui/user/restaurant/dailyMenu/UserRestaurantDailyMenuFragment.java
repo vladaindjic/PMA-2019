@@ -86,7 +86,7 @@ public class UserRestaurantDailyMenuFragment extends BaseFragment implements Use
     @Override
     protected void setUp(View view) {
         Bundle bundle = getArguments();
-        Long restaurantId = bundle.getLong("restaurantId");
+        Long restaurantId = getBaseActivity().getIntent().getLongExtra("restaurantId", 0L);
 
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -125,5 +125,10 @@ public class UserRestaurantDailyMenuFragment extends BaseFragment implements Use
         if (dailyMenu.getMeals() != null) {
             mMealListAdapter.addItems(dailyMenu.getMeals());
         }
+    }
+
+    @Override
+    public void onDailyMenuEmptyViewRetryClick() {
+
     }
 }

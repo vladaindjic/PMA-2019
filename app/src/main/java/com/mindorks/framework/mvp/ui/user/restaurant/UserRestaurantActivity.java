@@ -103,10 +103,10 @@ public class UserRestaurantActivity extends BaseActivity implements UserRestaura
         });
     }
 
-    // FIXME vi3 mica: treba li ovako da se zove???
     @Override
-    public void openRestaurantDetailsActivity(RestaurantPromotionsResponse.Promotion promotion) {
+    public void openPromotionDetailsActivity(RestaurantPromotionsResponse.Promotion promotion) {
         Intent intent = PromotionDetailsActivity.getStartIntent(UserRestaurantActivity.this);
+        intent.putExtra("promotionId", promotion.getId());
         startActivity(intent);
         //finish();
     }
@@ -131,5 +131,15 @@ public class UserRestaurantActivity extends BaseActivity implements UserRestaura
         intent.putExtra("mealId", meal.getId());
         startActivity(intent);
         //finish();
+    }
+
+    @Override
+    public void onDailyMenuEmptyViewRetryClick() {
+
+    }
+
+    @Override
+    public void onDishesEmptyViewRetryClick() {
+
     }
 }

@@ -76,7 +76,7 @@ public class ManagerRestaurantPromotionDetailsActivity extends BaseActivity impl
     @Override
     protected void setUp() {
         setSupportActionBar(mToolbar);
-        int promotionId = getIntent().getIntExtra("promotionId",-1);
+        Long promotionId = getIntent().getLongExtra("promotionId",0L);
         //Ako je id razlicit od -1 ucitaj podatke pa prikazi.
         if(promotionId != -1) {
             mPresenter.loadData(promotionId);

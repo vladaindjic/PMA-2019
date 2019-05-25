@@ -29,9 +29,12 @@ import com.mindorks.framework.mvp.data.db.model.User;
 import com.mindorks.framework.mvp.data.network.ApiHeader;
 import com.mindorks.framework.mvp.data.network.ApiHelper;
 import com.mindorks.framework.mvp.data.network.model.BlogResponse;
+import com.mindorks.framework.mvp.data.network.model.DailyMenuResponse;
+import com.mindorks.framework.mvp.data.network.model.DishDetailsResponse;
 import com.mindorks.framework.mvp.data.network.model.LoginRequest;
 import com.mindorks.framework.mvp.data.network.model.LoginResponse;
 import com.mindorks.framework.mvp.data.network.model.LogoutResponse;
+import com.mindorks.framework.mvp.data.network.model.MealResponse;
 import com.mindorks.framework.mvp.data.network.model.MenuResponse;
 import com.mindorks.framework.mvp.data.network.model.NotificationResponse;
 import com.mindorks.framework.mvp.data.network.model.OpenSourceResponse;
@@ -353,13 +356,13 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Single<RestaurantPromotionsResponse> getRestaurantPromotions() {
-        return  mApiHelper.getRestaurantPromotions();
+    public Single<RestaurantPromotionsResponse> getRestaurantPromotions(Long restaurantId) {
+        return  mApiHelper.getRestaurantPromotions(restaurantId);
     }
 
     @Override
-    public Single<PromotionDetailsResponse> getPromotionDetails() {
-        return  mApiHelper.getPromotionDetails();
+    public Single<PromotionDetailsResponse> getPromotionDetails(Long promotionId) {
+        return  mApiHelper.getPromotionDetails(promotionId);
     }
 
 
@@ -368,8 +371,18 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public Single<RestaurantDetailsResponse> putRestaurantSubscribeApiCall(Long restaurantId) {
+        return mApiHelper.putRestaurantSubscribeApiCall(restaurantId);
+    }
+
+    @Override
     public Single<MenuResponse> getRestaurantMenuApiCall(Long restaurantId) {
         return mApiHelper.getRestaurantMenuApiCall(restaurantId);
+    }
+
+    @Override
+    public Single<DailyMenuResponse> getRestaurantDailyMenuApiCall(Long restaurantId) {
+        return mApiHelper.getRestaurantDailyMenuApiCall(restaurantId);
     }
 
     @Override
@@ -418,5 +431,15 @@ public class AppDataManager implements DataManager {
     @Override
     public Single<RestaurantDishesResponse> getRestaurantDishesApiCall(Long restaurantId) {
         return mApiHelper.getRestaurantDishesApiCall(restaurantId);
+    }
+
+    @Override
+    public Single<MealResponse> getMealApiCall(Long mealId) {
+        return mApiHelper.getMealApiCall(mealId);
+    }
+
+    @Override
+    public Single<DishDetailsResponse> getDishDetailsApiCall(Long dishId) {
+        return mApiHelper.getDishDetailsApiCall(dishId);
     }
 }

@@ -106,7 +106,7 @@ public class ManagerRestaurantActivity extends BaseActivity implements ManagerRe
     }
 
     @Override
-    public void openPromotionDetailsActivity(int promotionId) {
+    public void openPromotionDetailsActivity(Long promotionId) {
         Intent intent = ManagerRestaurantPromotionDetailsActivity.getStartIntent(this);
         intent.putExtra("promotionId", promotionId);
         startActivity(intent);

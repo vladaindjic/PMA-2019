@@ -40,7 +40,7 @@ public class ManagerRestaurantPromotionsPresenter<V extends ManagerRestaurantPro
 
 
         getCompositeDisposable().add(getDataManager()
-                .getRestaurantPromotions()
+                .getRestaurantPromotions(0L)
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(new Consumer<RestaurantPromotionsResponse>() {

@@ -16,9 +16,12 @@
 package com.mindorks.framework.mvp.data.network;
 
 import com.mindorks.framework.mvp.data.network.model.BlogResponse;
+import com.mindorks.framework.mvp.data.network.model.DailyMenuResponse;
+import com.mindorks.framework.mvp.data.network.model.DishDetailsResponse;
 import com.mindorks.framework.mvp.data.network.model.LoginRequest;
 import com.mindorks.framework.mvp.data.network.model.LoginResponse;
 import com.mindorks.framework.mvp.data.network.model.LogoutResponse;
+import com.mindorks.framework.mvp.data.network.model.MealResponse;
 import com.mindorks.framework.mvp.data.network.model.MenuResponse;
 import com.mindorks.framework.mvp.data.network.model.NotificationResponse;
 import com.mindorks.framework.mvp.data.network.model.OpenSourceResponse;
@@ -147,18 +150,16 @@ public class AppApiHelper implements ApiHelper {
 
 
     @Override
-    public Single<RestaurantPromotionsResponse> getRestaurantPromotions() {
-        //TODO milan: dodati id resorana cije promocije dobavljamo
-        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_RESTAURANT_PROMOTIONS)
+    public Single<RestaurantPromotionsResponse> getRestaurantPromotions(Long restaurantId) {
+        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_RESTAURANT_PROMOTIONS+restaurantId)
                 .addHeaders(mApiHeader.getProtectedApiHeader())
                 .build()
                 .getObjectSingle(RestaurantPromotionsResponse.class);
     }
 
     @Override
-    public Single<PromotionDetailsResponse> getPromotionDetails() {
-        //TODO milan: dodati id resorana cije promocije dobavljamo
-        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_PROMOTION_DETAILS)
+    public Single<PromotionDetailsResponse> getPromotionDetails(Long promotionId) {
+        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_PROMOTION_DETAILS + promotionId)
                 .addHeaders(mApiHeader.getProtectedApiHeader())
                 .build()
                 .getObjectSingle(PromotionDetailsResponse.class);
@@ -166,7 +167,16 @@ public class AppApiHelper implements ApiHelper {
 
 
     public Single<RestaurantDetailsResponse> getRestaurantDetailsApiCall(Long restaurantId) {
-        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_RESTAURANT_DETAILS)
+        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_RESTAURANT_DETAILS + restaurantId)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .build()
+                .getObjectSingle(RestaurantDetailsResponse.class);
+    }
+
+    @Override
+    public Single<RestaurantDetailsResponse> putRestaurantSubscribeApiCall(Long restaurantId) {
+        return Rx2AndroidNetworking.put(ApiEndPoint.ENDPOINT_RESTAURANT_DETAILS + restaurantId +
+                "/subscribe")
                 .addHeaders(mApiHeader.getProtectedApiHeader())
                 .build()
                 .getObjectSingle(RestaurantDetailsResponse.class);
@@ -174,10 +184,18 @@ public class AppApiHelper implements ApiHelper {
 
     @Override
     public Single<MenuResponse> getRestaurantMenuApiCall(Long restaurantId) {
-        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_RESTAURANT_MENU)
+        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_RESTAURANT_MENU + restaurantId)
                 .addHeaders(mApiHeader.getProtectedApiHeader())
                 .build()
                 .getObjectSingle(MenuResponse.class);
+    }
+
+    @Override
+    public Single<DailyMenuResponse> getRestaurantDailyMenuApiCall(Long restaurantId) {
+        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_RESTAURANT_DAILY_MENU + restaurantId)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .build()
+                .getObjectSingle(DailyMenuResponse.class);
     }
 
     @Override
@@ -257,6 +275,22 @@ public class AppApiHelper implements ApiHelper {
                 .addHeaders(mApiHeader.getProtectedApiHeader())
                 .build()
                 .getObjectSingle(RestaurantDishesResponse.class);
+    }
+
+    @Override
+    public Single<MealResponse> getMealApiCall(Long mealId) {
+        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_MEAL + mealId)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .build()
+                .getObjectSingle(MealResponse.class);
+    }
+
+    @Override
+    public Single<DishDetailsResponse> getDishDetailsApiCall(Long dishId) {
+        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_DISH_DETAILS + dishId)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .build()
+                .getObjectSingle(DishDetailsResponse.class);
     }
 }
 

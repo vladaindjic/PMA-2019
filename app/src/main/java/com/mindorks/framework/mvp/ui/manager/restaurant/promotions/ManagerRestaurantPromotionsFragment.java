@@ -96,7 +96,7 @@ public class ManagerRestaurantPromotionsFragment extends BaseFragment implements
 
         ManagerRestaurantActivity managerRestaurantActivity = (ManagerRestaurantActivity)getActivity();
         if (managerRestaurantActivity != null) {
-            managerRestaurantActivity.openPromotionDetailsActivity(-1);
+            managerRestaurantActivity.openPromotionDetailsActivity(-1L);
         } else {
             Toast.makeText(getContext(), "Ne valja ti ovo, druze (:", Toast.LENGTH_SHORT).show();
         }

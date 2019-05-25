@@ -29,12 +29,12 @@ public class UserRestaurantPromotionsPresenter<V extends UserRestaurantPromotion
     }
 
     @Override
-    public void onViewPrepared() {
+    public void onViewPrepared(Long restaurantId) {
 
         getMvpView().showLoading();
 
         getCompositeDisposable().add(getDataManager()
-                .getRestaurantPromotions()
+                .getRestaurantPromotions(restaurantId)
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(new Consumer<RestaurantPromotionsResponse>() {

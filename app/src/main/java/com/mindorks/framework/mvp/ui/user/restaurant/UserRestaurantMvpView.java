@@ -5,5 +5,5 @@ import com.mindorks.framework.mvp.ui.base.MvpView;
 
 public interface UserRestaurantMvpView extends MvpView {
 
-    void openRestaurantDetailsActivity(RestaurantPromotionsResponse.Promotion promotion);
+    void openPromotionDetailsActivity(RestaurantPromotionsResponse.Promotion promotion);
 }

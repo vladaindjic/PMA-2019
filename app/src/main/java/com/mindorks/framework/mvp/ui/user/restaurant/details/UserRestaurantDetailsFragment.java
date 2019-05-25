@@ -114,8 +114,7 @@ public class UserRestaurantDetailsFragment extends BaseFragment implements
     @Override
     protected void setUp(View view) {
         Bundle bundle = getArguments();
-        Long restaurantId = bundle.getLong("restaurantId");
-
+        Long restaurantId = getBaseActivity().getIntent().getLongExtra("restaurantId", 0L);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -133,16 +132,18 @@ public class UserRestaurantDetailsFragment extends BaseFragment implements
         txtViewAddress.setText(restaurantDetails.getAddress());
 
         checkBoxDelivery.setChecked(restaurantDetails.isDelivery());
-        txtViewPhone.setText(restaurantDetails.getPhone());
-        txtViewPhone.setOnClickListener(new View.OnClickListener() {
+        checkBoxDelivery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // TODO vi3: intent koji ce otvoriti pozivanje broja
                 Toast.makeText(getContext(),
-                        "Treba pozvati broj: " + restaurantDetails.getPhone(),
+                        "kliknuo sam te",
                         Toast.LENGTH_SHORT).show();
             }
         });
+
+
+        txtViewPhone.setText(restaurantDetails.getPhone());
 
         txtViewWorkTime.setText(restaurantDetails.getWorkTime());
         txtViewEmail.setText(restaurantDetails.getEmail());
@@ -150,24 +151,26 @@ public class UserRestaurantDetailsFragment extends BaseFragment implements
         btnHowToFindUs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(),
-                        "Samo jako do lokacije: " + restaurantDetails.getAddress(),
-                        Toast.LENGTH_SHORT).show();
 
-                // TODO vi3: izvuci iz restaurant details
-                String latitude = String.valueOf(37.4319983);
-                String longitude = String.valueOf(-122.074);
+                if (restaurantDetails.getLatitude() == null || restaurantDetails.getLongitude() == null) {
+                    Toast.makeText(getContext(),
+                            "No location: " + restaurantDetails.getAddress(),
+                            Toast.LENGTH_SHORT).show();
+                }
+
+                String latitude = String.valueOf(restaurantDetails.getLatitude());
+                String longitude = String.valueOf(restaurantDetails.getLongitude());
                 Uri gmmIntentUri = Uri.parse("google.navigation:q=" + latitude + "," + longitude);
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                 mapIntent.setPackage("com.google.android.apps.maps");
 
 
-                try{
+                try {
                     if (mapIntent.resolveActivity(getBaseActivity().getPackageManager()) != null) {
                         startActivity(mapIntent);
                     }
-                }catch (NullPointerException e){
-                    Log.e(TAG, "onClick: NullPointerException: Couldn't open map." + e.getMessage() );
+                } catch (NullPointerException e) {
+                    Log.e(TAG, "onClick: NullPointerException: Couldn't open map." + e.getMessage());
                     Toast.makeText(getActivity(), "Couldn't open map", Toast.LENGTH_SHORT).show();
                 }
 
@@ -179,10 +182,7 @@ public class UserRestaurantDetailsFragment extends BaseFragment implements
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // TODO vi3: poslati zahtev o promeni stanja
-                String ispis = isChecked ? " prijavio na restoran " : " odjavio sa restorana ";
-                Toast.makeText(getContext(),
-                        "Korisnik se " + ispis + restaurantDetails.getId(),
-                        Toast.LENGTH_SHORT).show();
+                mPresenter.subscribeToRestaurant(restaurantDetails.getId());
             }
         });
 
@@ -201,5 +201,17 @@ public class UserRestaurantDetailsFragment extends BaseFragment implements
                     .load(restaurantDetails.getImageUrl())
                     .into(imageView);
         }
+    }
+
+    @Override
+    public void successSubscription() {
+        // Kada se korisnik uspesno pretplatio ili otplation, onda ne menjamo status zvezdice.
+        // Ona se menja cim cekiramo.
+    }
+
+    @Override
+    public void failSubscription() {
+        // Zvezdica je cekirana, ali moramo je ponistiti.
+        checkBoxStar.setChecked(!checkBoxStar.isChecked());
     }
 }

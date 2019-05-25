@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -342,6 +343,8 @@ public class RestaurantsMapFragment extends BaseFragment implements
                         // vezemo restoran za marker
                         // stringRestaurantMap.put(marker.getId(), restaurant);
                     }
+
+                    // TODO vi3: ovde handlati ako ne moze da se ucita slika korisnika
                 });
 
         return latLng;
@@ -373,6 +376,7 @@ public class RestaurantsMapFragment extends BaseFragment implements
 
                 Glide.with(getActivity()).load(restaurant.getImageUrl())
                         .into(new SimpleTarget<Drawable>() {
+
                             @Override
                             public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
                                 Marker marker = mMap.addMarker(new MarkerOptions()
@@ -391,6 +395,34 @@ public class RestaurantsMapFragment extends BaseFragment implements
                                 restaurantsDrawablesMap.put(marker.getId(), resource);
                                 // vezemo restoran za marker
                                 stringRestaurantMap.put(marker.getId(), restaurant);
+                            }
+
+                            @Override
+                            public void onLoadFailed(@Nullable Drawable errorDrawable) {
+                                super.onLoadFailed(errorDrawable);
+
+                                Glide.with(getActivity()).load(R.drawable.login_bg).into(new SimpleTarget<Drawable>() {
+                                    @Override
+                                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                                        Marker marker = mMap.addMarker(new MarkerOptions()
+                                                .position(restaurantLocation));
+
+                                        // postavljamo ikonicu, nazv restorana i adresu
+                                        BitmapDescriptor bitmapDescriptor =
+                                                BitmapDescriptorFactory.fromBitmap(createCustomMarker(getContext(), resource));
+                                        // zakomentarisati, ako ne treba slika da se prikaze
+                                        marker.setIcon(bitmapDescriptor);
+                                        marker.setTitle(restaurant.getName());
+                                        if (restaurant.getAddress() != null) {
+                                            marker.setSnippet(restaurant.getAddress());
+                                        }
+                                        // cuvamo drawable
+                                        restaurantsDrawablesMap.put(marker.getId(), resource);
+                                        // vezemo restoran za marker
+                                        stringRestaurantMap.put(marker.getId(), restaurant);
+                                    }
+                                });
+
                             }
                         });
 

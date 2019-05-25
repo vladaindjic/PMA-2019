@@ -4,7 +4,7 @@ import com.mindorks.framework.mvp.ui.base.MvpPresenter;
 
 public interface PromotionDetailsMvpPresenter<V extends PromotionDetailsMvpView> extends MvpPresenter<V> {
 
-    public void onViewPrepared();
+    public void onViewPrepared(Long promotionId);
 
 
 }

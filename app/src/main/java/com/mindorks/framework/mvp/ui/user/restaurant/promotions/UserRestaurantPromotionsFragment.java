@@ -16,7 +16,6 @@ import com.mindorks.framework.mvp.data.network.model.RestaurantPromotionsRespons
 import com.mindorks.framework.mvp.di.component.ActivityComponent;
 import com.mindorks.framework.mvp.ui.base.BaseFragment;
 import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantActivity;
-import com.mindorks.framework.mvp.ui.user.restaurants.UserRestaurantsActivity;
 
 import java.util.List;
 
@@ -78,12 +77,13 @@ public class UserRestaurantPromotionsFragment extends BaseFragment implements
     }
     @Override
     protected void setUp(View view) {
+        Long restaurantId = getBaseActivity().getIntent().getLongExtra("restaurantId", 0L);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mUserRestaurantPromotionsAdapter);
 
-        mPresenter.onViewPrepared();
+        mPresenter.onViewPrepared(restaurantId);
 
     }
     @Override
@@ -101,7 +101,7 @@ public class UserRestaurantPromotionsFragment extends BaseFragment implements
     public void openPromotionDetailsActivity(RestaurantPromotionsResponse.Promotion promotion) {
         UserRestaurantActivity userRestaurantActivity = (UserRestaurantActivity)getActivity();
         if (userRestaurantActivity != null) {
-            userRestaurantActivity.openRestaurantDetailsActivity(promotion);
+            userRestaurantActivity.openPromotionDetailsActivity(promotion);
         } else {
             Toast.makeText(getContext(), "Ne valja ti ovo, druze (:", Toast.LENGTH_SHORT).show();
         }

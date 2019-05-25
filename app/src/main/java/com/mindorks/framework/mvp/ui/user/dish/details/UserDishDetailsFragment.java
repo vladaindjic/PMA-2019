@@ -112,8 +112,8 @@ public class UserDishDetailsFragment extends BaseFragment implements
 
     @Override
     protected void setUp(View view) {
-        Bundle bundle = getArguments();
-        Long dishId = bundle.getLong("dishId");
+        Long dishId = getBaseActivity().getIntent().getLongExtra("dishId", 0L);
+        System.out.println("***************************** JEBES LI ME " + dishId);
 
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);

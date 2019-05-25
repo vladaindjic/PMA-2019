@@ -103,8 +103,8 @@ public class UserMealActivity extends BaseActivity implements UserMealMvpView, D
 
 
         Intent intent = getIntent();
-        Long mealId = intent.getLongExtra("mealId", -1L);
-        if (mealId == -1) {
+        Long mealId = intent.getLongExtra("mealId", 0L);
+        if (mealId == 0L) {
             Toast.makeText(this, "Ne valja ti ovo, druze (:", Toast.LENGTH_SHORT).show();
         }
 
@@ -178,5 +178,10 @@ public class UserMealActivity extends BaseActivity implements UserMealMvpView, D
         intent.putExtra("dishId", dish.getId());
         startActivity(intent);
         //finish();
+    }
+
+    @Override
+    public void onDishesEmptyViewRetryClick() {
+
     }
 }

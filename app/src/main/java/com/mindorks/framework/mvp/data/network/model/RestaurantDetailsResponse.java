@@ -83,13 +83,21 @@ public class RestaurantDetailsResponse {
         @SerializedName("subscribed")
         private boolean subscribed;
 
+        @Expose
+        @SerializedName("latitude")
+        private Double latitude;
+        @Expose
+        @SerializedName("longitude")
+        private Double longitude;
+
 
         public RestaurantDetails() {
         }
 
         public RestaurantDetails(Long id, String name, String imageUrl, String address,
                                  boolean delivery, String workTime, String phone, String email,
-                                 List<Kitchen> kitchens, boolean subscribed) {
+                                 List<Kitchen> kitchens, boolean subscribed, Double latitude,
+                                 Double longitude) {
             this.id = id;
             this.name = name;
             this.imageUrl = imageUrl;
@@ -100,6 +108,8 @@ public class RestaurantDetailsResponse {
             this.email = email;
             this.kitchens = kitchens;
             this.subscribed = subscribed;
+            this.latitude = latitude;
+            this.longitude = longitude;
         }
 
         public Long getId() {
@@ -180,6 +190,26 @@ public class RestaurantDetailsResponse {
 
         public void setSubscribed(boolean subscribed) {
             this.subscribed = subscribed;
+        }
+
+        public boolean isSubscribed() {
+            return subscribed;
+        }
+
+        public Double getLatitude() {
+            return latitude;
+        }
+
+        public void setLatitude(Double latitude) {
+            this.latitude = latitude;
+        }
+
+        public Double getLongitude() {
+            return longitude;
+        }
+
+        public void setLongitude(Double longitude) {
+            this.longitude = longitude;
         }
     }
 

@@ -40,13 +40,6 @@ public class UserRestaurantDetailsPresenter<V extends UserRestaurantDetailsMvpVi
                     public void accept(@NonNull RestaurantDetailsResponse response)
                             throws Exception {
                         if (response != null && response.getData() != null) {
-                            // FIXME SREDITI vi3: ovo je samo za tesiranje
-                            List<RestaurantDetailsResponse.Kitchen> kitchenList = new ArrayList<>();
-                            kitchenList.add(new RestaurantDetailsResponse.Kitchen(1L, "Kineska"));
-                            kitchenList.add(new RestaurantDetailsResponse.Kitchen(2L,
-                                    "Italijanska"));
-                            kitchenList.add(new RestaurantDetailsResponse.Kitchen(3L, "Srpska"));
-                            response.getData().setKitchens(kitchenList);
                             getMvpView().updateRestaurantDetails(response.getData());
                         }
                         getMvpView().hideLoading();
@@ -59,6 +52,44 @@ public class UserRestaurantDetailsPresenter<V extends UserRestaurantDetailsMvpVi
                             return;
                         }
 
+                        getMvpView().hideLoading();
+
+                        // handle the error here
+                        if (throwable instanceof ANError) {
+                            ANError anError = (ANError) throwable;
+                            handleApiError(anError);
+                        }
+                    }
+                }));
+    }
+
+    @Override
+    public void subscribeToRestaurant(Long restaurantId) {
+        getMvpView().showLoading();
+
+        getCompositeDisposable().add(getDataManager()
+                .putRestaurantSubscribeApiCall(restaurantId)
+                .subscribeOn(getSchedulerProvider().io())
+                .observeOn(getSchedulerProvider().ui())
+                .subscribe(new Consumer<RestaurantDetailsResponse>() {
+                    @Override
+                    public void accept(@NonNull RestaurantDetailsResponse response)
+                            throws Exception {
+                        if (response != null && response.getData() != null) {
+                            // oznacavamo da se korisnik uspesno prijavio
+                            getMvpView().successSubscription();
+                        }
+                        getMvpView().hideLoading();
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(@NonNull Throwable throwable)
+                            throws Exception {
+                        if (!isViewAttached()) {
+                            return;
+                        }
+                        // ponistavamo vrednost zvezdice
+                        getMvpView().failSubscription();
                         getMvpView().hideLoading();
 
                         // handle the error here
