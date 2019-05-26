@@ -108,7 +108,7 @@ public class AppApiHelper implements ApiHelper {
     public Single<UserRegistrationResponse> doUserRegistrationApiCall(UserRegistrationRequest request) {
         return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_SERVER_USER_REGISTRATION)
                 .addHeaders(mApiHeader.getPublicApiHeader())
-                .addBodyParameter(request)
+                .addApplicationJsonBody(request)
                 .build()
                 .getObjectSingle(UserRegistrationResponse.class);
     }

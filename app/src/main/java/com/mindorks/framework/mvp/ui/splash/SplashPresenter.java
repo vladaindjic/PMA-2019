@@ -15,6 +15,7 @@
 
 package com.mindorks.framework.mvp.ui.splash;
 
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.DataManager;
 import com.mindorks.framework.mvp.ui.base.BasePresenter;
@@ -85,6 +86,7 @@ public class SplashPresenter<V extends SplashMvpView> extends BasePresenter<V>
             getMvpView().openLoginActivity();
         } else {
             if (getDataManager().getCurrentUserRole().equals("USER")) {
+                FirebaseMessaging.getInstance().subscribeToTopic("JavaSampleApproach");
                 getMvpView().openUserRestaurantsActivity();
             } else {
                 getMvpView().openManagerRestaurantActivity();

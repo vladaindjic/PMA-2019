@@ -37,7 +37,7 @@ public final class ApiEndPoint {
 
     // sucessfully log in
     public static final String ENDPOINT_SERVER_USER_REGISTRATION = BuildConfig.BASE_URL
-            + "/5cb7b4614c0000a106d3d240";
+            + "/user/registration";
 
     public static final String ENDPOINT_LOGOUT = BuildConfig.BASE_URL
             + "/588d161c100000a9072d2946";

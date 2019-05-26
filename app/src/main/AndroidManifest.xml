@@ -12,7 +12,7 @@
 
     <!--<uses-permission android:name="android.permission.CAMERA"></uses-permission>-->
     <!--<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>-->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+    <!--<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />-->
     <!--<uses-permission android:name="android.permission.MEDIA_CONTENT_CONTROL"></uses-permission>-->
 
     <application
@@ -44,7 +44,12 @@
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity android:name=".ui.user.meal.UserMealActivity" />
-        <activity android:name=".ui.user.restaurant.promotions.details.PromotionDetailsActivity" />
+        <activity android:name=".ui.user.restaurant.promotions.details.PromotionDetailsActivity" >
+            <intent-filter>
+                <action android:name="OPEN_ACTIVITY_1" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity android:name=".ui.user.restaurant.UserRestaurantActivity" />
         <activity android:name=".ui.user.dish.UserDishActivity" />
         <activity
@@ -92,6 +97,13 @@
         </activity>
         <activity android:name=".ui.user.preferences.UserPreferencesFragment" />
         <activity android:name=".ui.manager.restaurant.dish.ManagerDishDetailsActivity" />
+
+        <service android:name=".service.notification.NotificationFirebaseService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>

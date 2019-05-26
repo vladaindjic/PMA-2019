@@ -80,6 +80,7 @@ public class UserRegistrationPresenter<V extends UserRegistrationMvpView> extend
                         if (response.isSuccesful()) {
                             getMvpView().hideLoading();
                             getMvpView().openLoginActivity();
+                            getMvpView().finishRegistration();
                             getMvpView().showMessage("You have been successfully registered. " +
                                     "Please login now.");
                             return;

@@ -81,6 +81,11 @@ public class UserRegistrationActivity extends BaseActivity implements UserRegist
         //finish();
     }
 
+    @Override
+    public void finishRegistration() {
+        finish();
+    }
+
     @OnClick(R.id.btn_user_registration)
     void onRegistrationUserClick(View v) {
         mPresenter.onRegisterUserClick(mEmailEditText.getText().toString(),
