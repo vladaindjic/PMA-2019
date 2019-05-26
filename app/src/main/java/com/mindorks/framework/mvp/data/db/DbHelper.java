@@ -15,6 +15,7 @@
 
 package com.mindorks.framework.mvp.data.db;
 
+import com.mindorks.framework.mvp.data.db.model.Notification;
 import com.mindorks.framework.mvp.data.db.model.Option;
 import com.mindorks.framework.mvp.data.db.model.Question;
 import com.mindorks.framework.mvp.data.db.model.User;
@@ -47,4 +48,9 @@ public interface DbHelper {
     Observable<Boolean> saveQuestionList(List<Question> questionList);
 
     Observable<Boolean> saveOptionList(List<Option> optionList);
+
+    Observable<List<Notification>> getAllNotification();
+
+    Observable<Boolean> saveNotification(Notification notification);
+
 }

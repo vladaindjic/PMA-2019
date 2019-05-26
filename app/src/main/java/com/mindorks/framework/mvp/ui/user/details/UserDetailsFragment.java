@@ -20,6 +20,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,7 +33,6 @@ import com.mindorks.framework.mvp.ui.base.BaseFragment;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.net.URI;
 
 import javax.inject.Inject;
 
@@ -57,6 +57,8 @@ public class UserDetailsFragment extends BaseFragment implements
     private Bitmap userImageBitmap = null;
     private Uri userImageUri = null;
 
+    UserDetailsResponse.UserDetails oldUser;
+
 
     @Inject
     UserDetailsMvpPresenter<UserDetailsMvpView> mPresenter;
@@ -65,16 +67,16 @@ public class UserDetailsFragment extends BaseFragment implements
     ImageView imageView;
 
     @BindView(R.id.user_details_name)
-    TextView txtViewName;
+    EditText txtViewName;
 
     @BindView(R.id.user_details_lastname)
-    TextView txtViewLastname;
+    EditText txtViewLastname;
 
     @BindView(R.id.user_details_username)
     TextView txtViewUsername;
 
     @BindView(R.id.user_details_email)
-    TextView txtViewEmail;
+    EditText txtViewEmail;
 
     @Inject
     LinearLayoutManager mLayoutManager;
@@ -83,6 +85,7 @@ public class UserDetailsFragment extends BaseFragment implements
 
     public UserDetailsFragment() {
         // Required empty public constructor
+        this.oldUser = new UserDetailsResponse.UserDetails();
     }
 
     public static UserDetailsFragment newInstance() {
@@ -121,6 +124,12 @@ public class UserDetailsFragment extends BaseFragment implements
     @Override
     public void updateDetails(final UserDetailsResponse.UserDetails details) {
         this.details = details;
+        //copy new data
+        oldUser.setEmail(details.getEmail());
+        oldUser.setName(details.getName());
+        oldUser.setLastname(details.getLastname());
+        oldUser.setUsername(details.getUsername());
+        oldUser.setImageUrl(details.getImageUrl());
 
         // azuriranje polja koja se prikazuje
         txtViewName.setText(details.getName());
@@ -379,5 +388,11 @@ public class UserDetailsFragment extends BaseFragment implements
                     .load(details.getImageUrl())
                     .into(imageView);
         }
+    }
+
+
+    @OnClick(R.id.edit_user_cancel_button)
+    public void cancelUpdate(){
+        this.updateDetails(oldUser);
     }
 }
