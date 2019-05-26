@@ -50,6 +50,7 @@ public class UserDetailsFragment extends BaseFragment implements
 
     private static final int CAMERA_REQUEST_CODE = 1001;
     private static final int READ_EXTERNAL_STORAGE_REQUEST_CODE = 1002;
+    private static final int WRITE_EXTERNAL_STORAGE_REQUEST_CODE = 1003;
 
     private static final int REQUEST_CAMERA = 1, SELECT_FILE = 0;
 
@@ -153,6 +154,28 @@ public class UserDetailsFragment extends BaseFragment implements
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 if (items[i].equals("Camera")) {
+
+                    // prvo moramo traziti permission za pisanje
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        if (getBaseActivity().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                                != PackageManager.PERMISSION_GRANTED) {
+
+                            // Should we show an explanation?
+                            if (shouldShowRequestPermissionRationale(
+                                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                                // Explain to the user why we need to read the contacts
+                            }
+
+                            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                    WRITE_EXTERNAL_STORAGE_REQUEST_CODE);
+
+                            // MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE is an
+                            // app-defined int constant that should be quite unique
+
+                            return;
+                        }
+                    }
+
                     if (ActivityCompat.checkSelfPermission(getBaseActivity(),
                             Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getBaseActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                         ActivityCompat.requestPermissions(getBaseActivity(),
@@ -218,6 +241,7 @@ public class UserDetailsFragment extends BaseFragment implements
                             Toast.LENGTH_SHORT).show();
                 }
                 break;
+
             case READ_EXTERNAL_STORAGE_REQUEST_CODE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Intent intent = new Intent(Intent.ACTION_PICK);
@@ -226,6 +250,19 @@ public class UserDetailsFragment extends BaseFragment implements
                     startActivityForResult(intent, SELECT_FILE);
                 } else {
                     Toast.makeText(getBaseActivity(), "No access to external storage permission " +
+                                    "missing",
+                            Toast.LENGTH_SHORT).show();
+                }
+                break;
+
+            case WRITE_EXTERNAL_STORAGE_REQUEST_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // ako dobijemo pravo pisanja, onda mozemo i da slikamo
+                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(intent, REQUEST_CAMERA);
+                } else {
+                    Toast.makeText(getBaseActivity(), "No access to write to external storage " +
+                                    "permission " +
                                     "missing",
                             Toast.LENGTH_SHORT).show();
                 }
@@ -241,7 +278,7 @@ public class UserDetailsFragment extends BaseFragment implements
 
             if (requestCode == REQUEST_CAMERA) {
                 Bundle bundle = data.getExtras();
-                Bitmap bmp = (Bitmap)bundle.get("data");
+                Bitmap bmp = (Bitmap) bundle.get("data");
                 userImageUri = getImageUri(bmp);
                 imageView.setImageURI(userImageUri);
 //                imageView.setImageBitmap(bmp);
