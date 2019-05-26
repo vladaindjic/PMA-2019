@@ -14,7 +14,7 @@ public class UserRegistrationRequest {
     @SerializedName("password")
     private String password;
     @Expose
-    @SerializedName("repeated_password")
+    @SerializedName("repeatedPassword")
     private String repeatedPassword;
     @Expose
     @SerializedName("name")

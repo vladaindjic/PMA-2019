@@ -82,6 +82,7 @@ dependencies {
 
     // firebase i notifikacije
     implementation 'com.google.firebase:firebase-core:16.0.9'
+    implementation 'com.google.firebase:firebase-messaging:18.0.0'
 
     // parser
     implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
@@ -128,6 +129,8 @@ dependencies {
 
 
     implementation 'de.hdodenhof:circleimageview:3.0.0'
+
+
 }
 
 configurations.all {
