@@ -6,7 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".ui.user.restaurants.UserRestaurantsActivity">
+    tools:context=".ui.user.restaurants.UserRestaurantsActivity"
+    android:background="@mipmap/foodback"
+    >
 
     <FrameLayout
         android:id="@+id/user_cl_root_view"
@@ -31,7 +33,7 @@
                 android:minHeight="?attr/actionBarSize"
                 app:tabGravity="fill"
                 app:tabMode="fixed"
-                app:tabSelectedTextColor="@color/black_effective"
+                app:tabSelectedTextColor="@color/blue_grey_light"
                 app:tabTextColor="#FFF" />
 
 

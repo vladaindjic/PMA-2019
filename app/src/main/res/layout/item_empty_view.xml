@@ -56,5 +56,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
         android:text="@string/retry"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:background="@drawable/my_button"
+        />
 </LinearLayout>

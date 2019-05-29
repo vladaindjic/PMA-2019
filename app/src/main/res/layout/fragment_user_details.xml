@@ -36,6 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:text="MyProfile"
+            android:backgroundTint="@color/transparent"
             android:textColor="@color/white"
             android:textSize="20sp" />
     </LinearLayout>
@@ -105,6 +106,7 @@
                 android:layout_marginTop="48dp"
                 android:textColor="@color/white"
                 android:text="Firstname"
+                android:backgroundTint="@color/transparent"
                 android:textAlignment="center"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -119,6 +121,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|top"
                 android:text="Lastname"
+                android:backgroundTint="@color/transparent"
                 android:textColor="@color/white"
                 android:textAlignment="center"
                 android:textSize="18sp"
@@ -137,6 +140,7 @@
                 android:layout_marginTop="68dp"
                 android:textColor="@color/white"
                 android:text="Email"
+                android:backgroundTint="@color/transparent"
                 android:textAlignment="center"
                 android:textSize="18sp"
                 android:textStyle="bold"

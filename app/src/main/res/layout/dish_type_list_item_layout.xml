@@ -16,13 +16,18 @@
         android:textSize="20sp"
         android:textAlignment="center"
         android:layout_gravity="center"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:background="@color/transparent"
+
+        />
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/dish_list_recyclerview"
         android:scrollbars="vertical"
+        android:background="@color/transparent"
+
         />
 
 </LinearLayout>

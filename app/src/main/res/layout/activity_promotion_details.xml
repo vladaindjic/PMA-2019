@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#ff9933"
     tools:context=".ui.user.restaurant.promotions.details.PromotionDetailsActivity">
 
     <include layout="@layout/toolbar_layout" />
@@ -50,7 +49,7 @@
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="#BCBCBC"
+                        android:background="@color/blue_grey_light"
                         android:orientation="horizontal">
 
                         <LinearLayout
@@ -59,6 +58,7 @@
                             android:layout_marginStart="8dp"
                             android:layout_marginEnd="8dp"
                             android:orientation="vertical"
+                            android:background="@color/transparent"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -75,7 +75,9 @@
                                 android:textAlignment="center"
                                 android:textAllCaps="true"
                                 android:textSize="24sp"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                android:backgroundTint="@color/transparent"
+                                />
 
                             <TextView
                                 android:id="@+id/promotion_details_subtitle_text_view"
@@ -86,7 +88,10 @@
                                 android:text="Podnaslov"
                                 android:textAlignment="center"
                                 android:textSize="18sp"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                android:backgroundTint="@color/transparent"
+
+                                />
 
                         </LinearLayout>
 

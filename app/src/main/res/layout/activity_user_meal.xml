@@ -34,7 +34,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
                 android:text="Obrok"
-                android:background="@color/logo_color"
+                android:background="@color/transparent"
                 android:textAlignment="center"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -201,7 +201,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
                 android:text="@string/eat_me"
-                android:background="@color/logo_color"
+                android:background="@drawable/my_button"
                 />
 
 

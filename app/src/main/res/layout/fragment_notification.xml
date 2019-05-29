@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/logo_color"
     android:orientation="vertical">
 
     <LinearLayout
@@ -27,6 +26,7 @@
             app:srcCompat="@drawable/ic_keyboard_backspace_24px" />
 
         <TextView
+            android:backgroundTint="@color/transparent"
             style="@style/TextStyle.Heading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -41,5 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         tools:listitem="@layout/notification_item_view"
-        android:background="@color/app_color_back"/>
+        android:background="@color/app_color_back"
+        android:backgroundTint="@color/transparent"
+        />
 </LinearLayout>

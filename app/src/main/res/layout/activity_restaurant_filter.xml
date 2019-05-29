@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/app_color_back"
     tools:context=".ui.user.restaurants.UserRestaurantsActivity"
     android:orientation="vertical">
 
@@ -20,7 +19,7 @@
         android:max="200"
         android:outlineSpotShadowColor="@color/logo_color"
         android:outlineAmbientShadowColor="@color/logo_color"
-        android:background="@drawable/rectangle_border_white"
+        android:background="@drawable/my_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.382"
         app:layout_constraintStart_toEndOf="@+id/filterDistanceText"
@@ -34,11 +33,13 @@
         android:layout_marginTop="24dp"
         android:ems="10"
         android:text="@string/filterDistanceString"
-        android:textAlignment="center"
+        android:textAlignment="textStart"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+
+        />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/filter_restaurant_options_view"
@@ -47,10 +48,12 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginStart="24dp"
-        android:background="@drawable/rectangle_border_white"
+        android:background="@drawable/my_button"
         app:layout_constraintStart_toStartOf="@id/filterDistanceText"
         app:layout_constraintTop_toBottomOf="@+id/distanceBar"
-        tools:listitem="@layout/item_restaurant_option_view" />
+        tools:listitem="@layout/item_restaurant_option_view"
+
+        />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/filter_kitchen_options_view"
@@ -59,7 +62,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
         android:layout_marginStart="24dp"
-        android:background="@drawable/rectangle_border_white"
+        android:background="@drawable/my_button"
         app:layout_constraintStart_toStartOf="@id/filter_restaurant_options_view"
         app:layout_constraintTop_toBottomOf="@+id/kitchenString"
         tools:listitem="@layout/item_kitchen_option_view" />
@@ -73,7 +76,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text="@string/submitBtn"
-        android:background="@color/logo_color"
+        android:background="@drawable/my_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/filterCancelBtn"
         app:layout_constraintStart_toStartOf="parent"
@@ -89,7 +92,7 @@
         android:layout_marginEnd="50dp"
         android:layout_marginBottom="8dp"
         android:text="@string/cancelBtn"
-        android:background="@color/logo_color"
+        android:background="@drawable/my_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.507"
@@ -106,6 +109,8 @@
         android:text="@string/kitchen"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:textAlignment="textStart"
+        android:backgroundTint="@color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.124"
         app:layout_constraintStart_toStartOf="parent"

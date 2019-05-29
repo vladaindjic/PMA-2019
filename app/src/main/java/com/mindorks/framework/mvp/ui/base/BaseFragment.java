@@ -17,12 +17,15 @@ package com.mindorks.framework.mvp.ui.base;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
+import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.di.component.ActivityComponent;
 import com.mindorks.framework.mvp.utils.CommonUtils;
 
@@ -40,6 +43,13 @@ public abstract class BaseFragment extends Fragment implements MvpView {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getContext());
+        boolean useThemeDark = sp.getBoolean("pref_dark_theme", false);
+        if (useThemeDark) {
+            getContext().setTheme(R.style.AppThemeDark);
+        } else {
+            getContext().setTheme(R.style.AppTheme);
+        }
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(false);
     }

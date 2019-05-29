@@ -15,6 +15,7 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group>
+
         <!--<item-->
             <!--android:id="@+id/nav_item_restaurants"-->
             <!--android:checked="true"-->
@@ -24,7 +25,8 @@
             android:id="@+id/nav_item_my_restaurants"
             android:checked="true"
             android:icon="@drawable/my_restaurant"
-            android:title="@string/my_restaurants" />
+            android:title="@string/my_restaurants"
+            />
 
         <item
             android:id="@+id/nav_item_feed"

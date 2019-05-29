@@ -30,6 +30,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.preference.PreferenceManager;
+import android.content.SharedPreferences;
 
 import com.mindorks.framework.mvp.MvpApp;
 import com.mindorks.framework.mvp.R;
@@ -58,6 +60,13 @@ public abstract class BaseActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        boolean useThemeDark = sp.getBoolean("pref_dark_theme", false);
+        if (useThemeDark) {
+            this.setTheme(R.style.AppThemeDark);
+        } else {
+            this.setTheme(R.style.AppTheme);
+        }
         super.onCreate(savedInstanceState);
         mActivityComponent = DaggerActivityComponent.builder()
                 .activityModule(new ActivityModule(this))

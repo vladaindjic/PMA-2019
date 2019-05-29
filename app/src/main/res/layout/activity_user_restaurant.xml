@@ -23,7 +23,7 @@
         app:tabMode="fixed"
         app:tabGravity="fill"
         app:tabTextColor="#FFF"
-        app:tabSelectedTextColor="@color/black_effective"
+        app:tabSelectedTextColor="@color/blue_grey_light"
         />
 
 

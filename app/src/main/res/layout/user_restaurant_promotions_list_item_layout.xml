@@ -14,7 +14,10 @@
         android:layout_height="128dp"
         android:padding="8dp"
         android:scaleType="fitXY"
-        android:src="@drawable/login_bg" />
+        android:src="@drawable/login_bg"
+        android:background="@color/transparent"
+
+        />
 
     <TextView
         android:id="@+id/promotions_list_item_text_view"
@@ -24,6 +27,8 @@
         android:gravity="center"
         android:text="Promocija"
         android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:background="@color/transparent"
+        />
 
 </LinearLayout>

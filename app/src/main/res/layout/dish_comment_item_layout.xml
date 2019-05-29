@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="3dp"
-
+    android:background="@drawable/customborder"
     android:orientation="vertical"
     android:padding="2dp">
 
@@ -15,19 +15,26 @@
         android:layout_margin="8dp"
         android:maxLines="5"
         android:scrollbars="vertical"
-        android:text="Komentar" />
+        android:text="Komentar"
+        android:background="@color/transparent"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@color/transparent"
+
+        >
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:background="@color/transparent"
+
+            >
 
             <Button
                 android:layout_width="24dp"
@@ -42,6 +49,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
                 android:text="1"
+                android:background="@color/transparent"
                 android:id="@+id/dish_comment_positive_vote_text"/>
         </LinearLayout>
 
@@ -49,7 +57,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:background="@color/transparent"
+
+            >
 
             <Button
                 android:layout_width="24dp"
@@ -65,7 +76,10 @@
                 android:layout_height="wrap_content"
                 android:text="1"
                 android:textSize="12sp"
-                android:id="@+id/dish_comment_negative_vote_text"/>
+                android:id="@+id/dish_comment_negative_vote_text"
+                android:background="@color/transparent"
+
+                />
 
         </LinearLayout>
     </LinearLayout>

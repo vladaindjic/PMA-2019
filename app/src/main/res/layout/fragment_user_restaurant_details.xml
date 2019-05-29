@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ff9633"
     tools:context=".ui.user.restaurant.details.UserRestaurantDetailsFragment">
 
     <LinearLayout
@@ -43,8 +42,10 @@
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#BCBCBC"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:background="@color/blue_grey_light"
+
+                    >
 
                     <LinearLayout
                         android:layout_width="257dp"
@@ -52,6 +53,7 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
                         android:orientation="vertical"
+                        android:background="@color/transparent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/user_restaurant_details_star_button"
                         app:layout_constraintStart_toStartOf="parent"
@@ -65,6 +67,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center|top"
                             android:text="Restorance"
+                            android:backgroundTint="@color/transparent"
                             android:textAlignment="center"
                             android:textAllCaps="true"
                             android:textSize="32sp"
@@ -76,6 +79,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center|top"
+                            android:backgroundTint="@color/transparent"
                             android:text="Ovde ide adresa"
                             android:textAlignment="center"
                             android:textSize="24sp"
@@ -129,6 +133,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:textSize="20sp"
+                android:background="@drawable/my_button"
                 app:layout_constraintBaseline_toBaselineOf="@+id/user_dish_details_txt_description"
                 app:layout_constraintStart_toEndOf="@+id/user_dish_details_txt_description"
                 android:checked="true"
@@ -217,7 +222,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:text="@string/how_to_find_us"
-                style="@style/Button.Primary"
+                android:background="@drawable/my_button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

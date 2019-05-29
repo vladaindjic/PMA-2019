@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ff9933"
     android:orientation="vertical">
 
 
@@ -12,7 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_marginTop="@dimen/app_bar_height"
-        android:background="@color/colorPrimary"
         android:gravity="center|start"
         android:orientation="horizontal">
 
@@ -34,20 +32,22 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:text="Settings"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:backgroundTint="@color/transparent"
+            />
     </LinearLayout>
 
     <FrameLayout
         android:id="@+id/user_preferences_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="@color/transparent"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/general_settings_option_view"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginTop="24dp"
-        android:background="@color/cyan_light"
         tools:listitem="@layout/item_general_settings_option_view" />
 
     <android.support.v7.widget.RecyclerView
@@ -55,7 +55,6 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginTop="8dp"
-        android:background="@color/light_gray"
         tools:listitem="@layout/item_language_settings_option_view" />
 
 

@@ -3,13 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.user.restaurants.list.RestaurantsListFragment">
+    tools:context=".ui.user.restaurants.list.RestaurantsListFragment"
+    >
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:id="@+id/restaurants_list_recyclerview"
         android:scrollbars="vertical"
+        android:background="@mipmap/foodback"
         />
 
 </LinearLayout>

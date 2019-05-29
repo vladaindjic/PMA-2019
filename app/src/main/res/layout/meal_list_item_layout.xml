@@ -20,6 +20,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="32dp"
         android:text="Ovo je dnevni meni"
+        android:backgroundTint="@color/transparent"
         android:textAlignment="center"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -33,6 +34,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginBottom="32dp"
         android:lineSpacingMultiplier="1"
+        android:backgroundTint="@color/transparent"
         android:text="Mesiste aaaaaaaaaaaaa aaaaaaaaaaa aaaaaaaaaa aaaaaaaa aaaaaaaaaa aaaaaaaaaaaaaaaaasd asd asd asd asd "
         android:textAlignment="textStart"
         android:textSize="18sp"
@@ -52,7 +54,10 @@
         android:text="10000"
         android:textAlignment="center"
         android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:backgroundTint="@color/transparent"
+
+        />
 
     <!--FIXME vi3: Vidi da promenis Max Width ako bude trebalo zbog landscape-a-->
 

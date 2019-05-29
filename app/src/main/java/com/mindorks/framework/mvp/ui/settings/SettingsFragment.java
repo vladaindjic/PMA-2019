@@ -92,7 +92,7 @@ public class SettingsFragment extends BaseFragment implements SettingsMvpView {
     }
 
     @Override
-    protected void setUp(View view) {
+    protected void setUp(final View view) {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -29,7 +29,6 @@
         android:id="@+id/manager_restaurant_view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/app_color"
         android:clipToPadding="false" />
 
 
