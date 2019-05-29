@@ -29,6 +29,7 @@ android {
         versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
     }
     buildTypes {
         debug {
@@ -129,6 +130,8 @@ dependencies {
 
 
     implementation 'de.hdodenhof:circleimageview:3.0.0'
+
+    implementation 'com.android.support:multidex:1.0.3'
 
 
 }
