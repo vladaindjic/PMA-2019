@@ -1,5 +1,7 @@
 package com.mindorks.framework.mvp.service.notification;
 
+import android.annotation.SuppressLint;
+
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.mindorks.framework.mvp.MvpApp;
@@ -9,6 +11,8 @@ import com.mindorks.framework.mvp.di.component.DaggerServiceComponent;
 import com.mindorks.framework.mvp.di.component.ServiceComponent;
 
 import javax.inject.Inject;
+
+import io.reactivex.functions.Consumer;
 
 public class NotificationFirebaseService extends FirebaseMessagingService {
 
@@ -27,6 +31,7 @@ public class NotificationFirebaseService extends FirebaseMessagingService {
         component.inject(this);
     }
 
+    @SuppressLint("CheckResult")
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
@@ -41,7 +46,12 @@ public class NotificationFirebaseService extends FirebaseMessagingService {
             notification.setPrmotionId(remoteMessage.getData().get("notificationPromotionId"));
 
             //Save
-             dataManager.saveNotification(notification);
+             dataManager.saveNotification(notification).subscribe(new Consumer<Boolean>() {
+                 @Override
+                 public void accept(Boolean aBoolean) throws Exception {
+                     System.out.println("Notifikacija upisana");
+                 }
+             });
         }
     }
 
