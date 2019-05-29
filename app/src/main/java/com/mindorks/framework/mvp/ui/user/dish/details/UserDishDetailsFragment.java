@@ -29,6 +29,7 @@ import com.mindorks.framework.mvp.data.network.model.DishDetailsResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantDetailsResponse;
 import com.mindorks.framework.mvp.di.component.ActivityComponent;
 import com.mindorks.framework.mvp.ui.base.BaseFragment;
+import com.mindorks.framework.mvp.ui.base.BasePresenter;
 
 import java.util.Date;
 import java.util.Locale;
@@ -126,13 +127,12 @@ public class UserDishDetailsFragment extends BaseFragment implements
     @Override
     public void updateDishDetails(final DishDetailsResponse.DishDetails dishDetails) {
 
-        if (dishDetails.getImageUrl() != null) {
-            Glide.with(this)
-                    .load(dishDetails.getImageUrl())
-                    .into(imageView);
-            // FIXME vi3: ako liniju ispod uklonim, nece da update-uje sliku
-            imageView.setImageResource(R.drawable.login_bg);
-        }
+        Glide.with(this)
+                .load(((BasePresenter)mPresenter).getImageUrlFor(BasePresenter.ENTITY_RESTAURANT,
+                        dishDetails.getImageUrl()))
+                .into(imageView);
+        // FIXME vi3: ako liniju ispod uklonim, nece da update-uje sliku
+        //imageView.setImageResource(R.drawable.login_bg);
 
         if (dishDetails.getName() != null) {
             txtViewName.setText(dishDetails.getName());
@@ -179,7 +179,6 @@ public class UserDishDetailsFragment extends BaseFragment implements
                 banana.getValue(Field.FIELD_NUTRIENTS).setKeyValue(Field.NUTRIENT_SUGAR, 14.0f);
                 banana.getValue(Field.FIELD_NUTRIENTS).setKeyValue(Field.NUTRIENT_DIETARY_FIBER, 3.1f);
                 banana.getValue(Field.FIELD_NUTRIENTS).setKeyValue(Field.NUTRIENT_POTASSIUM, 422f);
-
 
 
                 Toast.makeText(getContext(),

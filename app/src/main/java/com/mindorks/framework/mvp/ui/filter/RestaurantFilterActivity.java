@@ -3,7 +3,6 @@ package com.mindorks.framework.mvp.ui.filter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.NavUtils;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,7 +11,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.SeekBar;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,9 +40,6 @@ public class RestaurantFilterActivity extends BaseActivity implements Restaurant
     @Inject
     RestaurantFilterKitchenOptionsAdapter mRestaurantFilterKitchenOptionsAdapter;
 
-    @BindView(R.id.filter_restaurant_options_view)
-    RecyclerView mFilterOptionsView;
-
     @BindView(R.id.filter_kitchen_options_view)
     RecyclerView mKitchenOptionsView;
 
@@ -50,6 +48,20 @@ public class RestaurantFilterActivity extends BaseActivity implements Restaurant
 
     @BindView(R.id.distanceBar)
     SeekBar distanceBar;
+
+    @BindView(R.id.work_time_active_restaurant_switch)
+    Switch switchWorkTime;
+    private boolean checkedSwitchWorkTime = false;
+
+    @BindView(R.id.delivery_user_preferences_switch)
+    Switch switchDelivery;
+    private boolean checkedSwitchDelivery = false;
+
+
+    @BindView(R.id.daily_menu_user_preferences_switch)
+    Switch switchDailyMenu;
+    private boolean checkedSwitchDailyMenu = false;
+
 
     @BindView(R.id.filterSubmitBtn)
     Button buttonSubmit;
@@ -65,6 +77,9 @@ public class RestaurantFilterActivity extends BaseActivity implements Restaurant
 
     @BindView(R.id.filterDistanceText)
     TextView distanceProgres;
+
+    private int currentDistance = 0;
+
 
     private RestaurantFilterResponse.RestaurantFilter restaurantFilter;
 
@@ -100,9 +115,9 @@ public class RestaurantFilterActivity extends BaseActivity implements Restaurant
         }
         System.out.println("Ovde sam");
         mLayoutManager1.setOrientation(LinearLayoutManager.VERTICAL);
-        mFilterOptionsView.setLayoutManager(mLayoutManager1);
-        mFilterOptionsView.setItemAnimator(new DefaultItemAnimator());
-        mFilterOptionsView.setAdapter(mRestaurantFilterOptionsAdapter);
+//        mFilterOptionsView.setLayoutManager(mLayoutManager1);
+//        mFilterOptionsView.setItemAnimator(new DefaultItemAnimator());
+//        mFilterOptionsView.setAdapter(mRestaurantFilterOptionsAdapter);
 
         mLayoutManager2.setOrientation(LinearLayoutManager.VERTICAL);
         mKitchenOptionsView.setLayoutManager(mLayoutManager2);
@@ -110,6 +125,8 @@ public class RestaurantFilterActivity extends BaseActivity implements Restaurant
         mKitchenOptionsView.setAdapter(mRestaurantFilterKitchenOptionsAdapter);
 
         mPresenter.onViewPrepared();
+        updateDistance(20);
+
 
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,9 +140,32 @@ public class RestaurantFilterActivity extends BaseActivity implements Restaurant
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                saveFilterState();
                 Intent intent = UserRestaurantsActivity.getStartIntent(RestaurantFilterActivity.this);
                 startActivity(intent);
                 //finish();
+            }
+        });
+
+
+        switchWorkTime.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                checkedSwitchWorkTime = isChecked;
+            }
+        });
+
+        switchDelivery.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                checkedSwitchDelivery = isChecked;
+            }
+        });
+
+        switchDailyMenu.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                checkedSwitchDailyMenu = isChecked;
             }
         });
 
@@ -139,18 +179,21 @@ public class RestaurantFilterActivity extends BaseActivity implements Restaurant
 
     @Override
     public void updateKitchenOptions(List<RestaurantFilterResponse.RestaurantFilter.KitchenOptions> kitchenOptions) {
+
         System.out.println("************** " + kitchenOptions.size());
         mRestaurantFilterKitchenOptionsAdapter.addItems(kitchenOptions);
     }
 
     @Override
     public void updateDistance(int distance) {
+        this.currentDistance = distance;
         distanceProgres.setText("Distance "+ distance +"/"+ distanceBar.getMax());
         distanceBar.setProgress(distance);
         distanceBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 distanceProgres.setText("Distance "+ progress +"/"+ distanceBar.getMax());
+                currentDistance = progress;
             }
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
@@ -181,6 +224,13 @@ public class RestaurantFilterActivity extends BaseActivity implements Restaurant
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void saveFilterState() {
+        System.out.println("************ Delivery: " + checkedSwitchDelivery + " work: "
+                + checkedSwitchWorkTime + " daily menu: "
+                + checkedSwitchDailyMenu + " distance: " + currentDistance);
+
     }
 
 }

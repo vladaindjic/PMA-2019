@@ -28,6 +28,7 @@ import com.mindorks.framework.mvp.data.db.model.Question;
 import com.mindorks.framework.mvp.data.db.model.User;
 import com.mindorks.framework.mvp.data.network.ApiHeader;
 import com.mindorks.framework.mvp.data.network.ApiHelper;
+import com.mindorks.framework.mvp.data.network.model.AllKitchensResponse;
 import com.mindorks.framework.mvp.data.network.model.BlogResponse;
 import com.mindorks.framework.mvp.data.network.model.ComentVoteRequest;
 import com.mindorks.framework.mvp.data.network.model.CommentRequest;
@@ -213,6 +214,26 @@ public class AppDataManager implements DataManager {
     public void updateApiHeader(Long userId, String accessToken) {
         mApiHelper.getApiHeader().getProtectedApiHeader().setUserId(userId);
         mApiHelper.getApiHeader().getProtectedApiHeader().setAccessToken(accessToken);
+    }
+
+    @Override
+    public boolean isDarkThemeOn() {
+        return mPreferencesHelper.isDarkThemeOn();
+    }
+
+    @Override
+    public boolean isNotificationsTurnedOn() {
+        return mPreferencesHelper.isNotificationsTurnedOn();
+    }
+
+    @Override
+    public boolean isSaveNetworkDataOn() {
+        return mPreferencesHelper.isSaveNetworkDataOn();
+    }
+
+    @Override
+    public String getActiveLanguage() {
+        return mPreferencesHelper.getActiveLanguage();
     }
 
     @Override
@@ -457,6 +478,12 @@ public class AppDataManager implements DataManager {
     public Single<UserDetailsResponse> putUserImageUpdate(File imageBytes) {
         return mApiHelper.putUserImageUpdate(imageBytes);
     }
+
+    @Override
+    public Single<UserDetailsResponse> putUserImageUpdateRaw(byte[] imageBytes) {
+        return mApiHelper.putUserImageUpdateRaw(imageBytes);
+    }
+
     @Override
     public Single<Double> rateRestaurant(Long restaurantid, RestaurantScoreRequest restaurantScoreRequest) {
         return mApiHelper.rateRestaurant(restaurantid,restaurantScoreRequest);
@@ -487,5 +514,8 @@ public class AppDataManager implements DataManager {
         return  mApiHelper.voteCommentDish(id,request);
     }
 
-
+    @Override
+    public Single<AllKitchensResponse> getAllKitchensApiCall() {
+        return  mApiHelper.getAllKitchensApiCall();
+    }
 }

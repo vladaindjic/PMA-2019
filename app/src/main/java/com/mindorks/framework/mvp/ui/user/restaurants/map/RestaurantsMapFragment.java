@@ -23,7 +23,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -46,6 +45,7 @@ import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.di.component.ActivityComponent;
 import com.mindorks.framework.mvp.ui.base.BaseFragment;
+import com.mindorks.framework.mvp.ui.base.BasePresenter;
 import com.mindorks.framework.mvp.ui.user.restaurants.UserRestaurantsActivity;
 import com.mindorks.framework.mvp.ui.user.restaurants.utils.UserRestaurantsCallback;
 
@@ -323,8 +323,8 @@ public class RestaurantsMapFragment extends BaseFragment implements
             myLocationMarker.remove();
         }
 
-        // FIXME SREDITI vi3: povuci sliku korisnika
-        Glide.with(getActivity()).load("https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Petar_II_Petrovic-Njegos.jpg/220px-Petar_II_Petrovic-Njegos.jpg")
+        Glide.with(getActivity()).load(
+                ((BasePresenter)mPresenter).getDataManager().getCurrentUserProfilePicUrl())
                 .into(new SimpleTarget<Drawable>() {
                     @Override
                     public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
@@ -336,8 +336,8 @@ public class RestaurantsMapFragment extends BaseFragment implements
                                 BitmapDescriptorFactory.fromBitmap(createCustomMarker(getContext(), resource));
                         // zakomentarisati, ako ne treba slika da se prikaze
                         myLocationMarker.setIcon(bitmapDescriptor);
-                        myLocationMarker.setTitle("Pero Njegos");
-                        myLocationMarker.setSnippet("Ovde ste vi");
+                        myLocationMarker.setTitle(((BasePresenter)mPresenter).getDataManager().getCurrentUserName());
+                        myLocationMarker.setSnippet(getString(R.string.here_you_are));
                         // cuvamo drawable
                         restaurantsDrawablesMap.put(myLocationMarker.getId(), resource);
                         // vezemo restoran za marker
@@ -373,8 +373,10 @@ public class RestaurantsMapFragment extends BaseFragment implements
                         restaurant.getLongitude());
                 // pamtimo lokaciju
                 restaurantsLocations.add(restaurantLocation);
-
-                Glide.with(getActivity()).load(restaurant.getImageUrl())
+                String urlKogaJebes =
+                        ((BasePresenter)mPresenter).getImageUrlFor(BasePresenter.ENTITY_RESTAURANT, restaurant.getImageUrl());
+                System.out.println("KONJINBOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO " + urlKogaJebes);
+                Glide.with(getActivity()).load(((BasePresenter)mPresenter).getImageUrlFor(BasePresenter.ENTITY_RESTAURANT, restaurant.getImageUrl()))
                         .into(new SimpleTarget<Drawable>() {
 
                             @Override
@@ -400,8 +402,9 @@ public class RestaurantsMapFragment extends BaseFragment implements
                             @Override
                             public void onLoadFailed(@Nullable Drawable errorDrawable) {
                                 super.onLoadFailed(errorDrawable);
-
-                                Glide.with(getActivity()).load(R.drawable.login_bg).into(new SimpleTarget<Drawable>() {
+                                // prikaz podrazumevane slike za restoran
+                                Glide.with(getActivity()).load(BasePresenter.ENTITY_RESTAURANT_IMAGE_URL)
+                                        .into(new SimpleTarget<Drawable>() {
                                     @Override
                                     public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
                                         Marker marker = mMap.addMarker(new MarkerOptions()

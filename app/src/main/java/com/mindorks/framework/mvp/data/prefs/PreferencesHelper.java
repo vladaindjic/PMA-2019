@@ -51,4 +51,9 @@ public interface PreferencesHelper {
 
     void setCurrentUserRole(String userRole);
 
+    boolean isDarkThemeOn();
+    boolean isNotificationsTurnedOn();
+    boolean isSaveNetworkDataOn();
+    String getActiveLanguage();
+
 }

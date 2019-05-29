@@ -27,7 +27,9 @@ public final class AppConstants {
     public static final int API_STATUS_CODE_LOCAL_ERROR = 0;
 
     public static final String DB_NAME = "mindorks_mvp.db";
-    public static final String PREF_NAME = "mindorks_pref";
+//    public static final String PREF_NAME = "mindorks_pref";
+    // FIXME: sada sve pisemo u podrazumevani file za preferences
+    public static final String PREF_NAME = "com.mindorks.framework.mvp_preferences";
 
     public static final long NULL_INDEX = -1L;
 

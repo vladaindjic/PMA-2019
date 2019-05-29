@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.MenuResponse;
+import com.mindorks.framework.mvp.ui.base.BasePresenter;
 import com.mindorks.framework.mvp.ui.base.BaseViewHolder;
 import com.mindorks.framework.mvp.ui.user.restaurants.utils.UserRestaurantsCallback;
 
@@ -31,6 +32,7 @@ public class DishListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     public static final int VIEW_TYPE_EMPTY = 0;
     public static final int VIEW_TYPE_NORMAL = 1;
 
+    private BasePresenter basePresenterForImageUrlProviding;
 
     private DishListItemCallback mCallback;
 
@@ -51,6 +53,14 @@ public class DishListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public void setmCallback(DishListItemCallback mCallback) {
         this.mCallback = mCallback;
+    }
+
+    public BasePresenter getBasePresenterForImageUrlProviding() {
+        return basePresenterForImageUrlProviding;
+    }
+
+    public void setBasePresenterForImageUrlProviding(BasePresenter basePresenterForImageUrlProviding) {
+        this.basePresenterForImageUrlProviding = basePresenterForImageUrlProviding;
     }
 
     public void addItems(List<MenuResponse.Dish> dishList) {
@@ -132,7 +142,8 @@ public class DishListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
             if (dish.getImgUrl() != null) {
                 Glide.with(itemView.getContext())
-                        .load(dish.getImgUrl())
+                        .load(basePresenterForImageUrlProviding.getImageUrlFor(BasePresenter.ENTITY_DISH,
+                                dish.getImgUrl()))
                         .into(imgDish);
             }
 

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.RestaurantPromotionsResponse;
+import com.mindorks.framework.mvp.ui.base.BasePresenter;
 import com.mindorks.framework.mvp.ui.base.BaseViewHolder;
 
 import java.util.List;
@@ -27,6 +28,8 @@ public class UserRestaurantPromotionsAdapter extends RecyclerView.Adapter<BaseVi
 
 
     private UserRestaurantPromotionsCallback mCallback;
+    private BasePresenter basePresenterForImageUrlProviding;
+
 
     private List<RestaurantPromotionsResponse.Promotion> mRestaurantPromotionsList;
 
@@ -36,6 +39,14 @@ public class UserRestaurantPromotionsAdapter extends RecyclerView.Adapter<BaseVi
 
     public void setmCallback(UserRestaurantPromotionsCallback mCallback) {
         this.mCallback = mCallback;
+    }
+
+    public BasePresenter getBasePresenterForImageUrlProviding() {
+        return basePresenterForImageUrlProviding;
+    }
+
+    public void setBasePresenterForImageUrlProviding(BasePresenter basePresenterForImageUrlProviding) {
+        this.basePresenterForImageUrlProviding = basePresenterForImageUrlProviding;
     }
 
     public void addItems(List<RestaurantPromotionsResponse.Promotion> promotionList) {
@@ -96,7 +107,7 @@ public class UserRestaurantPromotionsAdapter extends RecyclerView.Adapter<BaseVi
 
         public ViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this,itemView);
+            ButterKnife.bind(this, itemView);
         }
 
         @Override
@@ -111,13 +122,12 @@ public class UserRestaurantPromotionsAdapter extends RecyclerView.Adapter<BaseVi
 
             final RestaurantPromotionsResponse.Promotion promotion = mRestaurantPromotionsList.get(position);
 
-            if (promotion.getImageUrl() != null) {
-                Glide.with(itemView.getContext())
-                        .load(promotion.getImageUrl())
+            Glide.with(itemView.getContext())
+                    .load(basePresenterForImageUrlProviding.getImageUrlFor(BasePresenter.ENTITY_PROMOTION,
+                            promotion.getImageUrl()))
 //                        .asBitmap()
 //                        .centerCrop()
-                        .into(promotionImageView);
-            }
+                    .into(promotionImageView);
 
             if (promotion.getTitle() != null) {
                 titleTextView.setText(promotion.getTitle());

@@ -16,6 +16,7 @@ import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.di.component.ActivityComponent;
 import com.mindorks.framework.mvp.ui.base.BaseFragment;
+import com.mindorks.framework.mvp.ui.base.BasePresenter;
 import com.mindorks.framework.mvp.ui.user.restaurants.UserRestaurantsActivity;
 import com.mindorks.framework.mvp.ui.user.restaurants.utils.UserRestaurantsCallback;
 
@@ -68,7 +69,9 @@ public class RestaurantsGridFragment extends BaseFragment implements
             component.inject(this);
             setUnBinder(ButterKnife.bind(this, view));
             mPresenter.onAttach(this);
+
             mRestaurantsGridAdapter.setmCallback(this);
+            mRestaurantsGridAdapter.setBasePresenterForImageUrlProviding((BasePresenter)mPresenter);
         }
         return view;
     }

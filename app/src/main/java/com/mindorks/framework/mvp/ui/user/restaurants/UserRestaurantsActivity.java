@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.ui.about.AboutFragment;
@@ -312,6 +313,8 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
     public void updateUserProfilePic(String currentUserProfilePicUrl) {
         Glide.with(this)
                 .load(currentUserProfilePicUrl)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
                 .into(mProfileImageView);
         //load profile pic url into ANImageView
     }

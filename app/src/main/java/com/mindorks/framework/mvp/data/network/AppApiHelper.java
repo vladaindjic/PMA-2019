@@ -15,10 +15,13 @@
 
 package com.mindorks.framework.mvp.data.network;
 
+import android.os.StrictMode;
+
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.androidnetworking.interfaces.UploadProgressListener;
+import com.mindorks.framework.mvp.data.network.model.AllKitchensResponse;
 import com.mindorks.framework.mvp.data.network.model.BlogResponse;
 import com.mindorks.framework.mvp.data.network.model.ComentVoteRequest;
 import com.mindorks.framework.mvp.data.network.model.CommentRequest;
@@ -49,11 +52,15 @@ import com.rx2androidnetworking.Rx2AndroidNetworking;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.nio.charset.Charset;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Single;
+import io.reactivex.SingleObserver;
+import io.reactivex.disposables.Disposable;
+import okhttp3.MediaType;
 
 /**
  * Created by janisharali on 28/01/17.
@@ -242,8 +249,49 @@ public class AppApiHelper implements ApiHelper {
 
     @Override
     public Single<UserDetailsResponse> getUserDetailsApiCall(Long userId) {
+
+//        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+//
+//        StrictMode.setThreadPolicy(policy);
+//
+//        System.out.println("PA MORAS PROCI KROZ OVO MAMU TI JEBEM");
+//        byte[] bytes = "Vlada Indjic je jedan veliki doktor zanata svoga: ".getBytes(Charset.forName("UTF-8"));
+//        Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_USER_UPLOAD_IMAGE + "kurac")
+//                .setContentType("application/octet-stream")
+//                .addHeaders(mApiHeader.getProtectedApiHeader())
+//                .addByteBody(bytes)
+//                .build()
+//                .getObjectSingle(UserDetailsResponse.class).subscribe(new SingleObserver<UserDetailsResponse>() {
+//            @Override
+//            public void onSubscribe(Disposable d) {
+//
+//            }
+//
+//            @Override
+//            public void onSuccess(UserDetailsResponse userDetailsResponse) {
+//
+//            }
+//
+//            @Override
+//            public void onError(Throwable e) {
+//                e.printStackTrace();
+//            }
+//        });
+//        System.out.println("ZASTOOOOOOOOOOOO PA MORAS PROCI KROZ OVO MAMU TI JEBEM");
+
+
         return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_USER_DETAILS)
                 .addHeaders(mApiHeader.getProtectedApiHeader())
+                .build()
+                .getObjectSingle(UserDetailsResponse.class);
+    }
+
+    @Override
+    public Single<UserDetailsResponse> putUserImageUpdateRaw(byte[] imageBytes) {
+        return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_USER_UPLOAD_IMAGE_RAW)
+                .setContentType("application/octet-stream")
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .addByteBody(imageBytes)
                 .build()
                 .getObjectSingle(UserDetailsResponse.class);
     }
@@ -308,19 +356,29 @@ public class AppApiHelper implements ApiHelper {
     @Override
     public Single<UserDetailsResponse> putUserImageUpdate(File imageBytes) {
 
-        return Rx2AndroidNetworking.upload(ApiEndPoint.ENDPOINT_USER_UPLOAD_IMAGE)
+        byte[] bytes = "Vlada Indjic je jedan veliki doktor zanata svoga: ".getBytes();
+        Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_USER_UPLOAD_IMAGE + "kurac")
                 .addHeaders(mApiHeader.getProtectedApiHeader())
-                .addMultipartFile("file", imageBytes)
-//                .addMultipartParameter("key", "value")
-                .setPriority(Priority.HIGH)
+                .addByteBody(bytes)
                 .build()
-                .setUploadProgressListener(new UploadProgressListener() {
-                    @Override
-                    public void onProgress(long bytesUploaded, long totalBytes) {
-                        // do anything with progress
-                        System.out.println("**********Uploaduje se: " + bytesUploaded + " " + totalBytes);
-                    }
-                }).getObjectSingle(UserDetailsResponse.class);
+                .getObjectSingle(LogoutResponse.class);
+
+//                .addMultipartParameter("key", "value")
+
+//        return Rx2AndroidNetworking.
+//                upload(ApiEndPoint.ENDPOINT_USER_UPLOAD_IMAGE)
+//                .addHeaders(mApiHeader.getProtectedApiHeader())
+//                .addMultipartFile("file", imageBytes)
+////                .addMultipartParameter("key", "value")
+//                .setPriority(Priority.HIGH)
+//                .build()
+//                .setUploadProgressListener(new UploadProgressListener() {
+//                    @Override
+//                    public void onProgress(long bytesUploaded, long totalBytes) {
+//                        // do anything with progress
+//                        System.out.println("**********Uploaduje se: " + bytesUploaded + " " + totalBytes);
+//                    }
+//                }).getObjectSingle(UserDetailsResponse.class);
 //                .getAsJSONObject(new JSONObjectRequestListener() {
 //                    @Override
 //                    public void onResponse(JSONObject response) {
@@ -336,10 +394,10 @@ public class AppApiHelper implements ApiHelper {
 //                });
 
 
-//        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_USER_DETAILS)
-//                .addHeaders(mApiHeader.getProtectedApiHeader())
-//                .build()
-//                .getObjectSingle(UserDetailsResponse.class);
+        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_USER_DETAILS)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .build()
+                .getObjectSingle(UserDetailsResponse.class);
 
 
     }
@@ -397,6 +455,12 @@ public class AppApiHelper implements ApiHelper {
                 .getObjectSingle(RestaurantRatingResponse.class);
     }
 
-
+    @Override
+    public Single<AllKitchensResponse> getAllKitchensApiCall() {
+        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_KITCHENS)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .build()
+                .getObjectSingle(AllKitchensResponse.class);
+    }
 }
 

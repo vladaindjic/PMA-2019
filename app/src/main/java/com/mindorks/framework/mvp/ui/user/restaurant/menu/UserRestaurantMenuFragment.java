@@ -15,6 +15,7 @@ import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.MenuResponse;
 import com.mindorks.framework.mvp.di.component.ActivityComponent;
 import com.mindorks.framework.mvp.ui.base.BaseFragment;
+import com.mindorks.framework.mvp.ui.base.BasePresenter;
 import com.mindorks.framework.mvp.ui.user.restaurants.list.RestaurantsListAdapter;
 
 import javax.inject.Inject;
@@ -68,6 +69,7 @@ public class UserRestaurantMenuFragment extends BaseFragment implements UserRest
             mPresenter.onAttach(this);
             // TODO: eventualno callback za RETRY dugme
             // mKitchensAdapter.setmCallback(this);
+            mDishTypeListAdapter.setBasePresenterForImageUrlProviding((BasePresenter)mPresenter);
         }
         return view;
     }

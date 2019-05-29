@@ -16,6 +16,7 @@ import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.MealResponse;
 import com.mindorks.framework.mvp.data.network.model.MenuResponse;
 import com.mindorks.framework.mvp.ui.base.BaseActivity;
+import com.mindorks.framework.mvp.ui.base.BasePresenter;
 import com.mindorks.framework.mvp.ui.user.dish.UserDishActivity;
 import com.mindorks.framework.mvp.ui.user.dish.details.UserDishDetailsNutritiveValuesAdapter;
 import com.mindorks.framework.mvp.ui.user.restaurant.menu.DishListAdapter;
@@ -121,6 +122,7 @@ public class UserMealActivity extends BaseActivity implements UserMealMvpView, D
         mRecyclerViewNutritiveValues.setAdapter(mNutritiveValuesAdapter);
 
         mDishListAdapter.setmCallback(this);
+        mDishListAdapter.setBasePresenterForImageUrlProviding((BasePresenter)mPresenter);
 
         mPresenter.onViewPrepared(mealId);
 

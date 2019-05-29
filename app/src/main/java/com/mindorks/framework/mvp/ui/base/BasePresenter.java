@@ -19,6 +19,7 @@ package com.mindorks.framework.mvp.ui.base;
  * Created by janisharali on 27/01/17.
  */
 
+import android.net.Uri;
 import android.util.Log;
 
 import com.androidnetworking.common.ANConstants;
@@ -153,5 +154,48 @@ public class BasePresenter<V extends MvpView> implements MvpPresenter<V> {
             super("Please call Presenter.onAttach(MvpView) before" +
                     " requesting data to the Presenter");
         }
+    }
+
+    public static final String ENTITY_USER = "USER";
+    public static final String ENTITY_USER_IMAGE_URL = Uri.parse("android.resource://com" +
+            ".mindorks.framework.mvp/drawable/user_default").toString();
+
+    public static final String ENTITY_RESTAURANT = "RESTAURANT";
+    public static final String ENTITY_RESTAURANT_IMAGE_URL = Uri.parse("android.resource://com" +
+            ".mindorks.framework.mvp/drawable/restaurant_default").toString();
+
+    public static final String ENTITY_DISH = "DISH";
+    public static final String ENTITY_DISH_IMAGE_URL = Uri.parse("android.resource://com" +
+            ".mindorks.framework.mvp/drawable/dish_default").toString();
+
+    public static final String ENTITY_PROMOTION = "PROMOTION";
+    public static final String ENTITY_PROMOTION_IMAGE_URL = Uri.parse("android.resource://com" +
+            ".mindorks.framework.mvp/drawable/promotion_default").toString();
+
+
+    public static final String ENTITY_OTHER = "OTHER";
+    public static final String ENTITY_OTHER_IMAGE_URL = Uri.parse("android.resource://com" +
+            ".mindorks.framework.mvp/drawable/dish_default").toString();
+
+    public String getImageUrlFor(String entity, String imgUrlReceivedFromServer) {
+        String imgUrlToRet;
+        if (entity.equals(ENTITY_USER)) {
+            imgUrlToRet = ENTITY_USER_IMAGE_URL;
+        } else if (entity.equals(ENTITY_RESTAURANT)) {
+            imgUrlToRet = ENTITY_RESTAURANT_IMAGE_URL;
+        } else if (entity.equals(ENTITY_DISH)) {
+            imgUrlToRet = ENTITY_DISH_IMAGE_URL;
+        } else if (entity.equals(ENTITY_PROMOTION)) {
+            imgUrlToRet = ENTITY_PROMOTION_IMAGE_URL;
+
+        } else {
+            imgUrlToRet = ENTITY_OTHER_IMAGE_URL;
+        }
+
+        if (imgUrlReceivedFromServer == null || getDataManager().isSaveNetworkDataOn()) {
+            return imgUrlToRet;
+        }
+
+        return imgUrlReceivedFromServer;
     }
 }

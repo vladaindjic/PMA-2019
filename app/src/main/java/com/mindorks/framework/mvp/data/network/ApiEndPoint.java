@@ -63,6 +63,10 @@ public final class ApiEndPoint {
     public static final String ENDPOINT_RESTAURANT_DETAILS = BuildConfig.BASE_URL
             + "/restaurants/";
 
+    public static final String ENDPOINT_KITCHENS = BuildConfig.BASE_URL
+            + "/kitchen/";
+
+
     public static final String ENDPOINT_RESTAURANT_MENU = BuildConfig.BASE_URL
             + "/menu/";
 
@@ -87,6 +91,8 @@ public final class ApiEndPoint {
     public static final String ENDPOINT_USER_UPLOAD_IMAGE = BuildConfig.BASE_URL
             + "/user/image";
 
+    public static final String ENDPOINT_USER_UPLOAD_IMAGE_RAW = BuildConfig.BASE_URL
+            + "/user/imageraw";
 
     public static final String ENDPOINT_DISH_RATING = BuildConfig.BASE_URL
             + "/dish/";

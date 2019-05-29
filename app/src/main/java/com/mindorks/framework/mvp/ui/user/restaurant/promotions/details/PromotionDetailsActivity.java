@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide;
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.PromotionDetailsResponse;
 import com.mindorks.framework.mvp.ui.base.BaseActivity;
+import com.mindorks.framework.mvp.ui.base.BasePresenter;
 
 import javax.inject.Inject;
 
@@ -89,7 +90,8 @@ public class PromotionDetailsActivity extends BaseActivity implements PromotionD
 
         if (promotion.getImageUrl() != null) {
             Glide.with(promotionImageView.getContext())
-                    .load(promotion.getImageUrl())
+                    .load(((BasePresenter)mPresenter).getImageUrlFor(BasePresenter.ENTITY_DISH,
+                            promotion.getImageUrl()))
                     .into(promotionImageView);
         }
 

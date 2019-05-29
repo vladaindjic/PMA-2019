@@ -2,6 +2,7 @@ package com.mindorks.framework.mvp.ui.filter;
 
 import com.androidnetworking.error.ANError;
 import com.mindorks.framework.mvp.data.DataManager;
+import com.mindorks.framework.mvp.data.network.model.AllKitchensResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantFilterResponse;
 import com.mindorks.framework.mvp.ui.base.BasePresenter;
 import com.mindorks.framework.mvp.utils.rx.SchedulerProvider;
@@ -30,18 +31,18 @@ public class RestaurantFilterPresenter<V extends RestaurantFilterMvpView> extend
         getMvpView().showLoading();
 
         getCompositeDisposable().add(getDataManager()
-                .getRestaurantFilterApiCall()
+                .getAllKitchensApiCall()
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
-                .subscribe(new Consumer<RestaurantFilterResponse>() {
+                .subscribe(new Consumer<AllKitchensResponse>() {
 
                     @Override
-                    public void accept(@NonNull RestaurantFilterResponse response)
+                    public void accept(@NonNull AllKitchensResponse response)
                             throws Exception {
                         if (response != null && response.getData() != null) {
-                            getMvpView().updateKitchenOptions(response.getData().getKitchenOptions());
-                            getMvpView().updateRestaurantFilterOptions(response.getData().getRestaurantFilterOptions());
-                            getMvpView().updateDistance(response.getData().getDistance());
+                            getMvpView().updateKitchenOptions(response.getData());
+//                            getMvpView().updateRestaurantFilterOptions(response.getData().getRestaurantFilterOptions());
+//                            getMvpView().updateDistance(response.getData().getDistance());
                         }
                         getMvpView().hideLoading();
                     }

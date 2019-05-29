@@ -25,13 +25,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.UserDetailsResponse;
 import com.mindorks.framework.mvp.di.component.ActivityComponent;
 import com.mindorks.framework.mvp.ui.base.BaseFragment;
+import com.mindorks.framework.mvp.ui.base.BasePresenter;
+import com.mindorks.framework.mvp.ui.user.restaurants.UserRestaurantsActivity;
 
+import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URI;
 
 import javax.inject.Inject;
@@ -128,12 +135,14 @@ public class UserDetailsFragment extends BaseFragment implements
         txtViewEmail.setText(details.getEmail());
         txtViewUsername.setText(details.getUsername());
 
-
-        if (details.getImageUrl() != null) {
-            Glide.with(this)
-                    .load(details.getImageUrl())
-                    .into(imageView);
-        }
+        String imgUrl = ((BasePresenter) mPresenter).getDataManager().getCurrentUserProfilePicUrl();
+        System.out.println("updateDetails " + imgUrl);
+        Glide.with(this)
+                .load(imgUrl)
+                // kako bismo izbegli kesiranje
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                .into(imageView);
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,42 +166,19 @@ public class UserDetailsFragment extends BaseFragment implements
 
                     // prvo moramo traziti permission za pisanje
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        if (getBaseActivity().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                                != PackageManager.PERMISSION_GRANTED) {
-
-                            // Should we show an explanation?
-                            if (shouldShowRequestPermissionRationale(
-                                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                                // Explain to the user why we need to read the contacts
-                            }
-
-                            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                                    WRITE_EXTERNAL_STORAGE_REQUEST_CODE);
-
-                            // MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE is an
-                            // app-defined int constant that should be quite unique
-
+                        if (ActivityCompat.checkSelfPermission(getBaseActivity(),
+                                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getBaseActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                            ActivityCompat.requestPermissions(getBaseActivity(),
+                                    new String[]{Manifest.permission.CAMERA}, CAMERA_REQUEST_CODE);
                             return;
                         }
                     }
 
-                    if (ActivityCompat.checkSelfPermission(getBaseActivity(),
-                            Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getBaseActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                        ActivityCompat.requestPermissions(getBaseActivity(),
-                                new String[]{Manifest.permission.CAMERA}, CAMERA_REQUEST_CODE);
-                        return;
-                    }
 
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     startActivityForResult(intent, REQUEST_CAMERA);
 
                 } else if (items[i].equals("Gallery")) {
-                    if (ActivityCompat.checkSelfPermission(getBaseActivity(),
-                            Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getBaseActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                        ActivityCompat.requestPermissions(getBaseActivity(),
-                                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, READ_EXTERNAL_STORAGE_REQUEST_CODE);
-                        return;
-                    }
                     // ovo sam ostavio, jer mi stvarno nije jasno po kom principu ovo radi jebeno
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         if (getBaseActivity().checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -255,18 +241,6 @@ public class UserDetailsFragment extends BaseFragment implements
                 }
                 break;
 
-            case WRITE_EXTERNAL_STORAGE_REQUEST_CODE:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // ako dobijemo pravo pisanja, onda mozemo i da slikamo
-                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(intent, REQUEST_CAMERA);
-                } else {
-                    Toast.makeText(getBaseActivity(), "No access to write to external storage " +
-                                    "permission " +
-                                    "missing",
-                            Toast.LENGTH_SHORT).show();
-                }
-                break;
         }
     }
 
@@ -279,16 +253,22 @@ public class UserDetailsFragment extends BaseFragment implements
             if (requestCode == REQUEST_CAMERA) {
                 Bundle bundle = data.getExtras();
                 Bitmap bmp = (Bitmap) bundle.get("data");
-                userImageUri = getImageUri(bmp);
-                imageView.setImageURI(userImageUri);
-//                imageView.setImageBitmap(bmp);
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                byte[] imgBytes = stream.toByteArray();
+                imageView.setImageBitmap(bmp);
+                mPresenter.uploadImageRaw(imgBytes);
 
-                uploadPhoto(userImageUri);
             } else if (requestCode == SELECT_FILE) {
                 userImageUri = data.getData();
-                imageView.setImageURI(userImageUri);
-                userImageBitmap = null;
-                uploadPhoto(userImageUri);
+                String path = getPath(userImageUri);
+                byte[] imgBytes = getBytesFromFile(path);
+                if (imgBytes == null) {
+                    Toast.makeText(getBaseActivity(), "Cannot read image", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                mPresenter.uploadImageRaw(imgBytes);
+
             }
 
         }
@@ -301,56 +281,41 @@ public class UserDetailsFragment extends BaseFragment implements
         return android.net.Uri.parse(path);
     }
 
-    public void uploadPhoto(Uri imgUri) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (getBaseActivity().checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-                    != PackageManager.PERMISSION_GRANTED) {
-
-                // Should we show an explanation?
-                if (shouldShowRequestPermissionRationale(
-                        Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                    // Explain to the user why we need to read the contacts
-                }
-
-                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                        READ_EXTERNAL_STORAGE_REQUEST_CODE);
-
-                // MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE is an
-                // app-defined int constant that should be quite unique
-
-                return;
-            }
+    public byte[] getBytesFromFile(String imgPath) {
+        File file = new File(imgPath);
+        int size = (int) file.length();
+        byte[] bytes = new byte[size];
+        try {
+            BufferedInputStream buf = new BufferedInputStream(new FileInputStream(file));
+            buf.read(bytes, 0, bytes.length);
+            buf.close();
+            return bytes;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        return null;
+    }
+
+    public void uploadPhoto(Uri imgUri) {
         String path = getPath(imgUri);
         File file = new File(path);
 
-        System.out.println("ALOOOOOOOOOOOOOOOOOOOOOOOOOOO " + file.exists() + " " + file.getAbsolutePath());
         mPresenter.uploadImageBytes(file);
     }
 
     //method to get the file path from uri
     public String getPath(Uri uri) {
-        Cursor cursor = getBaseActivity().getContentResolver().query(uri, null, null, null, null);
+        String[] projection = { MediaStore.Images.Media.DATA };
+        Cursor cursor = getBaseActivity().getContentResolver().query(uri, projection, null, null,
+                null);
+        if (cursor == null) return null;
+        int column_index =             cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
         cursor.moveToFirst();
-        String document_id = cursor.getString(0);
-        document_id = document_id.substring(document_id.lastIndexOf(":") + 1);
+        String s=cursor.getString(column_index);
         cursor.close();
-
-        cursor = getBaseActivity().getContentResolver().query(
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                null, MediaStore.Images.Media._ID + " = ? ", new String[]{document_id}, null);
-        cursor.moveToFirst();
-        String path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
-        cursor.close();
-
-        return path;
-    }
-
-    public static byte[] convertBitmapToByteArray(Bitmap bmp) {
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        byte[] byteArray = stream.toByteArray();
-        return byteArray;
+        return s;
     }
 
     @OnClick(R.id.nav_back_btn)
@@ -367,17 +332,31 @@ public class UserDetailsFragment extends BaseFragment implements
     @Override
     public void successImageUpload() {
         Toast.makeText(getBaseActivity(), "Image has been successfully upload", Toast.LENGTH_SHORT).show();
-        // posto zarko ne vraca novi link
-        imageView.setImageURI(userImageUri);
+
+        if (details.getImageUrl() != null) {
+            ((BasePresenter) mPresenter).getDataManager().setCurrentUserProfilePicUrl(details.getImageUrl());
+        } else {
+            ((BasePresenter) mPresenter).getDataManager().setCurrentUserProfilePicUrl(BasePresenter.ENTITY_USER_IMAGE_URL);
+        }
+        String imgUrl = ((BasePresenter) mPresenter).getDataManager().getCurrentUserProfilePicUrl();
+        System.out.println("successImageUpload " + imgUrl);
+        // postavljamo sliku
+        Glide.with(this)
+                .load(imgUrl)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                .into(imageView);
+
+        ((UserRestaurantsActivity)getBaseActivity()).updateUserProfilePic(imgUrl);
+
     }
 
     @Override
     public void failImageUpload() {
+        Toast.makeText(getBaseActivity(), "Image upload fail", Toast.LENGTH_SHORT).show();
         // vracamo sliku koja je bila prethodna
-        if (details.getImageUrl() != null) {
-            Glide.with(this)
-                    .load(details.getImageUrl())
-                    .into(imageView);
-        }
+//        Glide.with(this)
+//                .load(((BasePresenter) mPresenter).getDataManager().getCurrentUserProfilePicUrl())
+//                .into(imageView);
     }
 }

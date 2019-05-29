@@ -16,6 +16,7 @@ import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.di.component.ActivityComponent;
 import com.mindorks.framework.mvp.ui.base.BaseActivity;
 import com.mindorks.framework.mvp.ui.base.BaseFragment;
+import com.mindorks.framework.mvp.ui.base.BasePresenter;
 import com.mindorks.framework.mvp.ui.user.restaurants.UserRestaurantsActivity;
 import com.mindorks.framework.mvp.ui.user.restaurants.utils.UserRestaurantsCallback;
 import com.mindorks.framework.mvp.ui.user.subscrptions.SubscriptionActivity;
@@ -72,6 +73,7 @@ public class RestaurantsListFragment extends BaseFragment implements
             setUnBinder(ButterKnife.bind(this, view));
             mPresenter.onAttach(this);
             mRestaurantsListAdapter.setmCallback(this);
+            mRestaurantsListAdapter.setBasePresenterForImageUrlProviding((BasePresenter)mPresenter);
         }
         return view;
     }

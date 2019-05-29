@@ -43,11 +43,19 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     private static final String PREF_KEY_CURRENT_USER_ROLE = "PREF_KEY_CURRENT_USER_ROLE";
 
+    // iscitano iz strings.xml
+    private static final String PREF_KEY_DARK_THEME = "pref_dark_theme";
+    private static final String PREF_KEY_SAVE_NETWORK_DATA = "pref_save_network_data";
+    private static final String PREF_KEY_NOTIFICATIONS = "pref_notifications";
+    private static final String PREF_KEY_LANGUAGE = "pref_language";
+
+
     private final SharedPreferences mPrefs;
 
     @Inject
     public AppPreferencesHelper(@ApplicationContext Context context,
                                 @PreferenceInfo String prefFileName) {
+        System.out.println("ALOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO, konjinooooooooooooooo " + prefFileName);
         mPrefs = context.getSharedPreferences(prefFileName, Context.MODE_PRIVATE);
     }
 
@@ -123,4 +131,25 @@ public class AppPreferencesHelper implements PreferencesHelper {
     public void setCurrentUserRole(String userRole) {
         mPrefs.edit().putString(PREF_KEY_CURRENT_USER_ROLE, userRole).apply();
     }
+
+    @Override
+    public boolean isDarkThemeOn() {
+        return mPrefs.getBoolean(PREF_KEY_DARK_THEME, false);
+    }
+
+    @Override
+    public boolean isNotificationsTurnedOn() {
+        return mPrefs.getBoolean(PREF_KEY_NOTIFICATIONS, true);
+    }
+
+    @Override
+    public boolean isSaveNetworkDataOn() {
+        return mPrefs.getBoolean(PREF_KEY_SAVE_NETWORK_DATA, false);
+    }
+
+    @Override
+    public String getActiveLanguage() {
+        return mPrefs.getString(PREF_KEY_LANGUAGE, "english_us");
+    }
+
 }

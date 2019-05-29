@@ -15,6 +15,7 @@ import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.RestaurantPromotionsResponse;
 import com.mindorks.framework.mvp.di.component.ActivityComponent;
 import com.mindorks.framework.mvp.ui.base.BaseFragment;
+import com.mindorks.framework.mvp.ui.base.BasePresenter;
 import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantActivity;
 
 import java.util.List;
@@ -72,6 +73,7 @@ public class UserRestaurantPromotionsFragment extends BaseFragment implements
             setUnBinder(ButterKnife.bind(this, view));
             mPresenter.onAttach(this);
             mUserRestaurantPromotionsAdapter.setmCallback(this);
+            mUserRestaurantPromotionsAdapter.setBasePresenterForImageUrlProviding((BasePresenter)mPresenter);
         }
         return view;
     }

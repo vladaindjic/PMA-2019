@@ -24,6 +24,7 @@ import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.RestaurantDetailsResponse;
 import com.mindorks.framework.mvp.di.component.ActivityComponent;
 import com.mindorks.framework.mvp.ui.base.BaseFragment;
+import com.mindorks.framework.mvp.ui.base.BasePresenter;
 
 import javax.inject.Inject;
 
@@ -196,11 +197,10 @@ public class UserRestaurantDetailsFragment extends BaseFragment implements
                     Toast.LENGTH_SHORT).show();
         }
 
-        if (restaurantDetails.getImageUrl() != null) {
-            Glide.with(this)
-                    .load(restaurantDetails.getImageUrl())
-                    .into(imageView);
-        }
+        Glide.with(this)
+                .load(((BasePresenter)mPresenter).getImageUrlFor(BasePresenter.ENTITY_RESTAURANT,
+                        restaurantDetails.getImageUrl()))
+                .into(imageView);
     }
 
     @Override

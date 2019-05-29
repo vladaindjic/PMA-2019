@@ -116,7 +116,7 @@ public class RestaurantFilterKitchenOptionsAdapter extends RecyclerView.Adapter<
 
             if (kitchen.getName() != null) {
                 checkBox.setText(kitchen.getName());
-                checkBox.setChecked(kitchen.getValue());
+                checkBox.setChecked(false);
             }
 
             checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
