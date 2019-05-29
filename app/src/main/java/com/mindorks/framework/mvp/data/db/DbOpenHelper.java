@@ -50,4 +50,5 @@ public class DbOpenHelper extends DaoMaster.OpenHelper {
                 // + UserDao.Properties.Name.columnName + " TEXT DEFAULT 'DEFAULT_VAL'");
         }
     }
+
 }

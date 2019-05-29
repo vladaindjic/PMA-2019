@@ -23,6 +23,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.internal.$Gson$Types;
 import com.google.gson.reflect.TypeToken;
 import com.mindorks.framework.mvp.data.db.DbHelper;
+import com.mindorks.framework.mvp.data.db.model.Notification;
 import com.mindorks.framework.mvp.data.db.model.Option;
 import com.mindorks.framework.mvp.data.db.model.Question;
 import com.mindorks.framework.mvp.data.db.model.User;
@@ -299,6 +300,16 @@ public class AppDataManager implements DataManager {
     @Override
     public Observable<Boolean> saveOptionList(List<Option> optionList) {
         return mDbHelper.saveOptionList(optionList);
+    }
+
+    @Override
+    public Observable<List<Notification>> getAllNotification() {
+        return mDbHelper.getAllNotification();
+    }
+
+    @Override
+    public Observable<Boolean> saveNotification(Notification notification) {
+        return mDbHelper.saveNotification(notification);
     }
 
     @Override

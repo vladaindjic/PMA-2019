@@ -37,7 +37,8 @@ public class Option {
 
     @Expose
     @SerializedName("option_text")
-    @Property(nameInDb = "option_text")
+    @Property(nameInDb = "option_text")    @Generated(hash = 104107376)
+
     private String optionText;
 
     @Expose

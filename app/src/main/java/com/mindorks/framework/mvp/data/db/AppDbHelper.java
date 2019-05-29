@@ -17,6 +17,8 @@ package com.mindorks.framework.mvp.data.db;
 
 import com.mindorks.framework.mvp.data.db.model.DaoMaster;
 import com.mindorks.framework.mvp.data.db.model.DaoSession;
+import com.mindorks.framework.mvp.data.db.model.Notification;
+import com.mindorks.framework.mvp.data.db.model.NotificationDao;
 import com.mindorks.framework.mvp.data.db.model.Option;
 import com.mindorks.framework.mvp.data.db.model.Question;
 import com.mindorks.framework.mvp.data.db.model.User;
@@ -133,6 +135,28 @@ public class AppDbHelper implements DbHelper {
             @Override
             public Boolean call() throws Exception {
                 mDaoSession.getOptionDao().insertInTx(optionList);
+                return true;
+            }
+        });
+    }
+
+    @Override
+    public Observable<List<Notification>> getAllNotification() {
+        return Observable.fromCallable(new Callable<List<Notification>>(){
+
+            @Override
+            public List<Notification> call() throws Exception {
+                return mDaoSession.getNotificationDao().loadAll();
+            }
+        });
+    }
+
+    @Override
+    public Observable<Boolean> saveNotification(final Notification notification) {
+        return Observable.fromCallable(new Callable<Boolean>() {
+            @Override
+            public Boolean call() throws Exception {
+                mDaoSession.getNotificationDao().insertInTx(notification);
                 return true;
             }
         });

@@ -1,15 +1,31 @@
 package com.mindorks.framework.mvp.service.notification;
 
-import android.app.NotificationManager;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.util.Log;
-
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import com.mindorks.framework.mvp.R;
+import com.mindorks.framework.mvp.MvpApp;
+import com.mindorks.framework.mvp.data.DataManager;
+import com.mindorks.framework.mvp.data.db.model.Notification;
+import com.mindorks.framework.mvp.di.component.DaggerServiceComponent;
+import com.mindorks.framework.mvp.di.component.ServiceComponent;
+
+import javax.inject.Inject;
 
 public class NotificationFirebaseService extends FirebaseMessagingService {
+
+
+    private static final String TAG = "NotificationFirebaseService";
+
+    @Inject
+    DataManager dataManager;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        ServiceComponent component = DaggerServiceComponent.builder()
+                .applicationComponent(((MvpApp) getApplication()).getComponent())
+                .build();
+        component.inject(this);
+    }
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -19,11 +35,15 @@ public class NotificationFirebaseService extends FirebaseMessagingService {
             System.out.println("Body " + remoteMessage.getNotification().getBody());
 
 
+            Notification notification = new Notification();
+            notification.setNotificationTitle(remoteMessage.getNotification().getTitle());
+            notification.setNotificationBody(remoteMessage.getNotification().getBody());
+            notification.setPrmotionId(remoteMessage.getData().get("notificationPromotionId"));
 
-
+            //Save
+             dataManager.saveNotification(notification);
         }
     }
-
 
 
 }
