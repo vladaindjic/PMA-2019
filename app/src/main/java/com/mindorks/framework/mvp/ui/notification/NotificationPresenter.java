@@ -37,11 +37,16 @@ public class NotificationPresenter<V extends NotificationMvpView> extends BasePr
                 .subscribe(new Consumer<List<Notification>>() {
                     @Override
                     public void accept(List<Notification> notificationsList) throws Exception {
+                        System.out.println(notificationsList.size());
+
+                        /***
+                         * Ovdije negdje greska sa neki id-om necega, iscita se iz baze tacan broj
+                         */
                         if (!isViewAttached()) {
                             return;
                         }
 
-                        getMvpView().showMessage(notificationsList.size());
+                        getMvpView().updateNotifications(notificationsList);
 
                     }
                 }));

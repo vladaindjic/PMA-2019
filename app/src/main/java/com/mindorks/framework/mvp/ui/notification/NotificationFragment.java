@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.mindorks.framework.mvp.R;
+import com.mindorks.framework.mvp.data.db.model.Notification;
 import com.mindorks.framework.mvp.data.network.model.NotificationResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.di.component.ActivityComponent;
@@ -90,7 +91,7 @@ public class NotificationFragment extends BaseFragment implements NotificationMv
     }
 
     @Override
-    public void updateNotifications(List<NotificationResponse.Notifications.Notification> notificationsList) {
+    public void updateNotifications(List<Notification>notificationsList) {
         mNotificationListAdapter.addItems(notificationsList);
     }
 
