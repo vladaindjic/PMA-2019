@@ -9,7 +9,7 @@ import android.content.Intent;
 import android.widget.Toast;
 import com.mindorks.framework.mvp.R;
 
-public class UserPreferencesFragment extends PreferenceFragmentCompat {
+public class UserPreferencesFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener{
 
     public static final String TAG = "UserPreferencesFragment";
 
@@ -33,6 +33,7 @@ public class UserPreferencesFragment extends PreferenceFragmentCompat {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState){
+        //registerChangeListener();
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getContext());
         boolean useThemeDark = sp.getBoolean("pref_dark_theme", false);
         if (useThemeDark) {
@@ -41,7 +42,6 @@ public class UserPreferencesFragment extends PreferenceFragmentCompat {
             getContext().setTheme(R.style.AppTheme);
         }
         super.onCreate(savedInstanceState);
-        registerChangeListener();
     }
 
     private void restartActivity() {
@@ -53,18 +53,26 @@ public class UserPreferencesFragment extends PreferenceFragmentCompat {
     @Override
     public void onResume() {
         super.onResume();
+
+        getPreferenceScreen().getSharedPreferences()
+                .registerOnSharedPreferenceChangeListener(this);
     }
 
-    private void registerChangeListener () {
-        final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getContext());
+    @Override
+    public void onPause() {
+        super.onPause();
 
-        sp.registerOnSharedPreferenceChangeListener(new SharedPreferences.OnSharedPreferenceChangeListener() {
-            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-                Toast toast=Toast.makeText(getContext(),"Hello Javatpoint",Toast.LENGTH_SHORT);
-                toast.setMargin(50,50);
-                toast.show();
-                restartActivity();
-            }
-        });
+        getPreferenceScreen().getSharedPreferences()
+                .unregisterOnSharedPreferenceChangeListener(this);
     }
+
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,String key)
+    {
+        //Your Code
+        if (key.equals("pref_dark_theme")) {
+
+            restartActivity();
+        }
+    }
+
 }
