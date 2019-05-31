@@ -112,9 +112,9 @@
 
 
     <!--User Restaurants-->
-    <string name="list">Lista</string>
-    <string name="grid">Grid</string>
-    <string name="map">Mapa</string>
+    <string name="list">Листа</string>
+    <string name="grid">Грид</string>
+    <string name="map">Мапа</string>
 
 
     <!--User Restaurant-->

@@ -59,13 +59,19 @@ public abstract class BaseFragment extends Fragment implements MvpView {
         switch (languagePref_ID) {
             case "en":
                 //Locale localeEN = new Locale("en_US");
-                LocaleHelper.setLocale(getActivity(), "en");
+                LocaleHelper.setLocale(getBaseActivity(), "en");
                 //setLocaleOnCreate(localeEN);
                 break;
             case "sr":
-                LocaleHelper.setLocale(getActivity(), "sr");
+                LocaleHelper.setLocale(getBaseActivity(), "sr");
                 //setLocaleOnCreate(localeHU);
                 break;
+            case "cir":
+
+                LocaleHelper.setLocale(getBaseActivity(), "cir");
+                //setLocaleOnCreate(localeHU);
+                break;
+
 
         }
 

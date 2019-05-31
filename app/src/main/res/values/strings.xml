@@ -195,13 +195,13 @@
         can set as default for this application.</string>
 
     <string-array name="pref_language_entries">
-        <!--<item>Српски (ћирилица)</item>-->
+        <item>Српски (ћирилица)</item>
         <item>English</item>
         <item>Srpski (latinica)</item>
     </string-array>
 
     <string-array name="pref_languages_values">
-        <!--<item>srpski_cirilica</item>-->
+        <item>cir</item>
         <item>en</item>
         <item>sr</item>
     </string-array>

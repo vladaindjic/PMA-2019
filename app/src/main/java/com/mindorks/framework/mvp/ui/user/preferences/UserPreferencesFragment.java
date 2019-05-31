@@ -54,13 +54,18 @@ public class UserPreferencesFragment extends PreferenceFragmentCompat implements
                 //Locale localeEN = new Locale("en_US");
                 System.out.println("evo me pref en");
 
-                LocaleHelper.setLocale(getActivity(), "en");
+                LocaleHelper.setLocale(getContext(), "en");
                 //setLocaleOnCreate(localeEN);
                 break;
             case "sr":
                 System.out.println("evo me activity sr");
 
-                LocaleHelper.setLocale(getActivity(), "sr");
+                LocaleHelper.setLocale(getContext(), "sr");
+                //setLocaleOnCreate(localeHU);
+                break;
+            case "cir":
+
+                LocaleHelper.setLocale(getContext(), "cir");
                 //setLocaleOnCreate(localeHU);
                 break;
 
