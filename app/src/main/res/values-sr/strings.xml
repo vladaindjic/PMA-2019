@@ -1,0 +1,223 @@
+<!--
+  ~ Copyright (C) 2017 MINDORKS NEXTGEN PRIVATE LIMITED
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     https://mindorks.com/license/apache-v2
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License
+  -->
+
+<resources>
+    <string name="app_name">Samo jedi</string>
+
+    <!--Toolbar menus-->
+    <string name="clear">Obrisi</string>
+    <string name="cut">Iseci</string>
+    <string name="copy">Kopiraj</string>
+    <string name="paste">Nalepi</string>
+    <string name="delete">Obrisi</string>
+    <string name="share">Podeli</string>
+
+    <string name="search">Pretrazi</string>
+    <string name="filter">Filter</string>
+
+
+    <!--Drawer-->
+    <string name="open_drawer">Otvori fioku</string>
+    <string name="close_drawer">Zatvori fioku</string>
+
+    <!--Drawer Menus-->
+    <string name="about">O nama</string>
+    <string name="logout">Odjavi se</string>
+    <string name="feed">Moje objave</string>
+
+    <!--App Message-->
+    <string name="api_retry_error">Molimo pokusajte ponovo!</string>
+    <string name="api_default_error">Nesto lose se desilo!</string>
+    <string name="some_error">Dogodila se greska!</string>
+    <string name="connection_error">Izgubila se konekcija sa internetom!</string>
+
+    <!--Login-->
+    <string name="appName">Samo jedi!</string>
+    <string name="login_dummy">Uloguj se</string>
+    <string name="login">Uloguj se</string>
+    <string name="email">Email</string>
+    <string name="password">Sifra</string>
+
+
+    <!--Registration-->
+    <string name="register">Registracija</string>
+    <string name="registration">Registruj se</string>
+    <string name="name">Ime</string>
+    <string name="lastname">Prezime</string>
+    <string name="username">Korisnicko ime</string>
+    <string name="repeat_password">Ponovite sifru</string>
+
+
+    <string name="not_matching_password">Sifre se ne poklapaju.</string>
+    <string name="empty_name">Molimo Vas unesite ime.</string>
+    <string name="empty_lastname">Molimo Vas unesite prezime.</string>
+    <string name="empty_username">Molimo Vas unesite korisnicko ime.</string>
+
+
+    <!--Login Validation-->
+    <string name="empty_email">Molimo Vas unesite email.</string>
+    <string name="invalid_email">Molimo Vas unesite validan email.</string>
+    <string name="empty_password">Molimo Vas unesite sifru.</string>
+
+
+    <!--about fragment-->
+    <string name="project_info">Ovo je nasa aplikacija. Copyright Fleka od Dzeka ;)</string>
+    <string name="link_mvp_blog">1. https://blog.mindorks.com</string>
+    <string name="link_mvp_repo">2. https://github.com/MindorksOpenSource/android-mvp-architecture</string>
+    <string name="link_mindorks_blog">3. https://blog.mindorks.com</string>
+    <string name="link_mindorks_repo">4. https://github.com/MindorksOpenSource</string>
+    <string name="version">"version"</string>
+
+    <!--rating dialog-->
+    <!--<string name="rate_us">Rate Us</string>-->
+    <string name="rating_message">Molimo Vas recite nam kako da unapredimo sebe?</string>
+    <string name="rating_play_store_redirect_message_line_1">Strava! Hvala za 5 zvezdica.</string>
+    <string name="rating_play_store_redirect_message_line_2">Molimo Vas pomozite drugima, da saznaju koliko je dobra ova aplikacija.</string>
+    <string name="rating_play_store_text">Ocenite nas na Play Store-u</string>
+    <string name="rating_not_provided_error">Molimo Vas dajte nam zvezdice.</string>
+    <string name="rating_thanks">Hvala!</string>
+
+    <!--play store-->
+    <string name="app_google_play_store_link">"https://play.google.com/store/apps/details?id="</string>
+    <string name="app_market_link">"market://details?id="</string>
+
+    <!--button-->
+    <string name="later">Kasnije</string>
+    <string name="submit">Posalji</string>
+
+    <!--feed-->
+    <string name="title">Moje objave</string>
+    <string name="open_source">Otvori izvor</string>
+    <string name="blog">Blog</string>
+
+    <!--empty state-->
+    <string name="empty_screen">Nemamo nista za prikazati sad.</string>
+    <string name="please_retry">Molimo Vas pokusajte ponovo</string>
+    <string name="retry">Ponovi</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Cao prazni ekranu</string>
+
+
+    <!--User Restaurants-->
+    <string name="list">Lista</string>
+    <string name="grid">Grid</string>
+    <string name="map">Mapa</string>
+
+
+    <!--User Restaurant-->
+    <string name="details">Detalji</string>
+    <string name="rating">Rejting</string>
+    <string name="restaurant_menu">Meni</string>
+    <string name="daily_menu">Dnevni Meni</string>
+    <string name="promotions">Promocije</string>
+
+    <!--Milan dodao-->
+    <!--Promotion details-->
+    <string name="price">Cena</string>
+    <string name="duration">Trajanje</string>
+
+
+    <!--Vlada dodao-->
+    <!--Restaurant details-->
+    <string name="delivery">Dostava:</string>
+    <string name="phone">Telefon:</string>
+    <string name="work_time">Radno vreme:</string>
+    <string name="email_restaurant">E-mail:</string>
+    <string name="how_to_find_us">Kako do nas</string>
+
+    <string name="kitchens">Kuhinje:</string>
+    <string name="bullet">•</string>
+
+    <string name="restaurant_rating">Rejting:</string>
+    <string name="rate_us">Oceni nas</string>
+    <string name="comment_us">Unesite svoj komentar ovde</string>
+    <string name="leave_comment">Komentar</string>
+    <string name="comments">Komentari</string>
+
+    <string name="filterDistanceString">Udaljenost</string>
+    <string name="cancelBtn">Odkazi</string>
+    <string name="submitBtn">Posalji</string>
+    <string name="kitchen">Kuhinja</string>
+    <string name="no">Ne</string>
+    <string name="yes">Da</string>
+
+    <string name="description">Opis:</string>
+    <string name="price_colon">Cena:</string>
+    <string name="nutritive_values">Nutritivne vrednosti:</string>
+    <string name="eat_me">Pojedi me</string>
+
+
+    <!--Daily menu-->
+    <string name="time_format">HH:mm</string>
+    <string name="dishes">Jela:</string>
+    <string name="title_activity_pokusaj_maps">Mapa</string>
+    <string name="title_activity_maps">Mapa</string>
+
+    <string name="settings">Podesavanja</string>
+    <string name="myProfile">Moj profil</string>
+    <string name="restaurants">Restorani</string>
+    <string name="my_restaurants">Moji restorani</string>
+    <string name="notifications">Obavestenja</string>
+
+    <string name="subscriptions">Pretplate</string>
+    <string name="pref_appearance_group_title">Appearance</string>
+    <string name="pref_dark_theme_title">Tamna tema</string>
+    <string name="pref_dark_theme_summary">Ovo j dobro koristiti u okruzenju sa slabim osvetljenjem.
+    </string>
+
+    <string name="pref_network_data_usage_group_title">Koriscenje interneta</string>
+    <string name="pref_save_network_data_usage_title">Sacuvaj koriscenje interneta</string>
+    <string name="pref_save_network_data_usage_summary">Kada koristite mobilni internet, ova opcija
+        bi trebala biti ukljucena da se smanji potrosnja inteneta. Koriscenje mobilnih podataka je
+        minimizirano ignorisuci slike koje bi se preuzimale pri svakom otvaranju.</string>
+
+    <string name="pref_notifications_title">Obavestenja</string>
+    <string name="pref_notifications_summary">Mozete iskljuciti obavestenja ako Vas uznemiravaju.
+        Takodje, smanjite potrosnju mobilnih podataka.</string>
+
+
+    <string name="pref_languages_group_title">Jezici</string>
+    <string name="pref_languages_title">Odaberite jezik</string>
+    <string name="pref_languages_summary">Posoji nekoliko predefinisanih jezika koje mozete odabrati
+        pri koriscenju ove aplikacije.</string>
+
+    <string-array name="pref_language_entries">
+        <!--<item>Српски (ћирилица)</item>-->
+        <item>English</item>
+        <item>Srpski (latinica)</item>
+    </string-array>
+
+    <string-array name="pref_languages_values">
+        <!--<item>srpski_cirilica</item>-->
+        <item>en</item>
+        <item>sr</item>
+    </string-array>
+
+    <string name="pref_language_default_value">sr</string>
+
+    <string name="dish_type">Tip jela</string>
+
+    <!--Manager-->
+    <string name="cook">Cook</string>
+    <string name="insert_promotion_title">Unesite naziv promocije</string>
+    <string name="insert_promotion_subtitle">Unesite podnaziv promocije</string>
+    <string name="insert_promotion_details">Unesite detalje promocije</string>
+    <string name="insert_promotion_price">Unesite cenu promocije</string>
+    <string name="insert_promotion_duration">Unesite trajanje promocije</string>
+
+    <string name="dish">Jelo</string>
+    <string name="nutritive_value">Nutritivne vrednosti</string>
+</resources>

@@ -24,10 +24,12 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.view.View;
+import android.widget.Toast;
 
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.di.component.ActivityComponent;
 import com.mindorks.framework.mvp.utils.CommonUtils;
+import com.mindorks.framework.mvp.utils.LocaleHelper;
 
 import butterknife.Unbinder;
 
@@ -40,7 +42,8 @@ public abstract class BaseFragment extends Fragment implements MvpView {
     private BaseActivity mActivity;
     private Unbinder mUnBinder;
     private ProgressDialog mProgressDialog;
-
+    public static final String KEY_PREF_LANGUAGE = "pref_language";
+    public String languagePref_ID;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getContext());
@@ -50,7 +53,24 @@ public abstract class BaseFragment extends Fragment implements MvpView {
         } else {
             getContext().setTheme(R.style.AppTheme);
         }
+
+        languagePref_ID = sp.getString(KEY_PREF_LANGUAGE, "");
+
+        switch (languagePref_ID) {
+            case "en":
+                //Locale localeEN = new Locale("en_US");
+                LocaleHelper.setLocale(getActivity(), "en");
+                //setLocaleOnCreate(localeEN);
+                break;
+            case "sr":
+                LocaleHelper.setLocale(getActivity(), "sr");
+                //setLocaleOnCreate(localeHU);
+                break;
+
+        }
+
         super.onCreate(savedInstanceState);
+
         setHasOptionsMenu(false);
     }
 

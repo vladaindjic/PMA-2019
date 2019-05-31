@@ -195,18 +195,18 @@
         can set as default for this application.</string>
 
     <string-array name="pref_language_entries">
-        <item>Српски (ћирилица)</item>
-        <item>Srpski (latinica)</item>
+        <!--<item>Српски (ћирилица)</item>-->
         <item>English</item>
+        <item>Srpski (latinica)</item>
     </string-array>
 
     <string-array name="pref_languages_values">
-        <item>srpski_cirilica</item>
-        <item>srpski_latinica</item>
-        <item>english_us</item>
+        <!--<item>srpski_cirilica</item>-->
+        <item>en</item>
+        <item>sr</item>
     </string-array>
 
-    <string name="pref_language_default_value">english_us</string>
+    <string name="pref_language_default_value">en</string>
 
     <string name="dish_type">Dish Type</string>
 

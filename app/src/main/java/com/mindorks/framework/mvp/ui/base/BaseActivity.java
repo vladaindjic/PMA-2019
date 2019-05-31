@@ -40,7 +40,10 @@ import com.mindorks.framework.mvp.di.component.DaggerActivityComponent;
 import com.mindorks.framework.mvp.di.module.ActivityModule;
 import com.mindorks.framework.mvp.ui.login.LoginActivity;
 import com.mindorks.framework.mvp.utils.CommonUtils;
+import com.mindorks.framework.mvp.utils.LocaleHelper;
 import com.mindorks.framework.mvp.utils.NetworkUtils;
+
+import java.util.Locale;
 
 import butterknife.Unbinder;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -58,6 +61,9 @@ public abstract class BaseActivity extends AppCompatActivity
 
     private Unbinder mUnBinder;
 
+    public static final String KEY_PREF_LANGUAGE = "pref_language";
+    public String languagePref_ID;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -67,7 +73,27 @@ public abstract class BaseActivity extends AppCompatActivity
         } else {
             this.setTheme(R.style.AppTheme);
         }
+
+        languagePref_ID = sp.getString(KEY_PREF_LANGUAGE,"");
+
+        switch (languagePref_ID) {
+            case "en":
+                //Locale localeEN = new Locale("en_US");
+                System.out.println("evo me activity en");
+
+                LocaleHelper.setLocale(this, "en");
+                //setLocaleOnCreate(localeEN);
+                break;
+            case "sr":
+                System.out.println("evo me activity sr");
+
+                LocaleHelper.setLocale(this, "sr");
+                //setLocaleOnCreate(localeHU);
+                break;
+
+        }
         super.onCreate(savedInstanceState);
+
         mActivityComponent = DaggerActivityComponent.builder()
                 .activityModule(new ActivityModule(this))
                 .applicationComponent(((MvpApp) getApplication()).getComponent())
