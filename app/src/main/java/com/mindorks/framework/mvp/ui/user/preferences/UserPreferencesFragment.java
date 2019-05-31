@@ -7,7 +7,6 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.content.Intent;
-import android.widget.Toast;
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.utils.LocaleHelper;
 
@@ -47,29 +46,7 @@ public class UserPreferencesFragment extends PreferenceFragmentCompat implements
             getContext().setTheme(R.style.AppTheme);
         }
 
-        languagePref_ID = sp.getString(KEY_PREF_LANGUAGE, "");
 
-        switch (languagePref_ID) {
-            case "en":
-                //Locale localeEN = new Locale("en_US");
-                System.out.println("evo me pref en");
-
-                LocaleHelper.setLocale(getContext(), "en");
-                //setLocaleOnCreate(localeEN);
-                break;
-            case "sr":
-                System.out.println("evo me activity sr");
-
-                LocaleHelper.setLocale(getContext(), "sr");
-                //setLocaleOnCreate(localeHU);
-                break;
-            case "cir":
-
-                LocaleHelper.setLocale(getContext(), "cir");
-                //setLocaleOnCreate(localeHU);
-                break;
-
-        }
         super.onCreate(savedInstanceState);
 
     }
@@ -87,7 +64,9 @@ public class UserPreferencesFragment extends PreferenceFragmentCompat implements
         getPreferenceScreen().getSharedPreferences()
                 .registerOnSharedPreferenceChangeListener(this);
 
-        Locale locale = new Locale(LocaleHelper.getLanguage(getContext()));
+        languagePref_ID = getPreferenceScreen().getSharedPreferences().getString(KEY_PREF_LANGUAGE, "");
+
+        Locale locale = new Locale(languagePref_ID);
         Locale.setDefault(locale);
         Configuration config = getContext().getResources().getConfiguration();
         config.locale = locale;
@@ -101,15 +80,44 @@ public class UserPreferencesFragment extends PreferenceFragmentCompat implements
 
         getPreferenceScreen().getSharedPreferences()
                 .unregisterOnSharedPreferenceChangeListener(this);
+        languagePref_ID = getPreferenceScreen().getSharedPreferences().getString(KEY_PREF_LANGUAGE, "");
+
+        Locale locale = new Locale(languagePref_ID);
+        Locale.setDefault(locale);
+        Configuration config = getContext().getResources().getConfiguration();
+        config.locale = locale;
+        getContext().getResources().updateConfiguration(config,
+                getContext().getResources().getDisplayMetrics());
     }
 
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,String key)
     {
         //Your Code
-        //if (key.equals("pref_dark_theme")) {
+        if (key.equals("pref_dark_theme")) {
 
-        restartActivity();
-        //}
+            restartActivity();
+        }
+        languagePref_ID = sharedPreferences.getString(KEY_PREF_LANGUAGE, "");
+
+        switch (languagePref_ID) {
+            case "en":
+                //Locale localeEN = new Locale("en_US");
+
+                LocaleHelper.setLocale(getContext(), "en");
+                getActivity().recreate();
+                break;
+            case "sr":
+
+                LocaleHelper.setLocale(getContext(), "sr");
+                getActivity().recreate();
+                break;
+            case "cir":
+
+                LocaleHelper.setLocale(getContext(), "cir");
+                getActivity().recreate();
+                break;
+
+        }
     }
 
 }

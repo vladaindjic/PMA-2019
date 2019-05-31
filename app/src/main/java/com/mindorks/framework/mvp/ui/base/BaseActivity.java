@@ -79,21 +79,21 @@ public abstract class BaseActivity extends AppCompatActivity
         switch (languagePref_ID) {
             case "en":
                 //Locale localeEN = new Locale("en_US");
-                System.out.println("evo me activity en");
 
                 LocaleHelper.setLocale(this, "en");
                 //setLocaleOnCreate(localeEN);
                 break;
             case "sr":
-                System.out.println("evo me activity sr");
 
                 LocaleHelper.setLocale(this, "sr");
                 //setLocaleOnCreate(localeHU);
+
                 break;
             case "cir":
 
                 LocaleHelper.setLocale(this, "cir");
                 //setLocaleOnCreate(localeHU);
+
                 break;
 
         }

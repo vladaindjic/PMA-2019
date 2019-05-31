@@ -35,9 +35,9 @@ public class LocaleHelper {
     }
 
     public static Context setLocale(Context context, String language) {
-        Toast toast=Toast.makeText(context,"Hello Javatpoint "+language,Toast.LENGTH_SHORT);
+        /*Toast toast=Toast.makeText(context,"Hello Javatpoint "+language,Toast.LENGTH_SHORT);
         toast.setMargin(50,50);
-        toast.show();
+        toast.show();*/
         persist(context, language);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
