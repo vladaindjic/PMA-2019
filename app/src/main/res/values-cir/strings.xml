@@ -14,66 +14,66 @@
   -->
 
 <resources>
-    <string name="app_name">Samo jedi</string>
+    <string name="app_name">Само једи</string>
 
     <!--Toolbar menus-->
-    <string name="clear">Obrisi</string>
-    <string name="cut">Iseci</string>
-    <string name="copy">Kopiraj</string>
-    <string name="paste">Nalepi</string>
-    <string name="delete">Obrisi</string>
-    <string name="share">Podeli</string>
+    <string name="clear">Обриши</string>
+    <string name="cut">Исеци</string>
+    <string name="copy">Копирај</string>
+    <string name="paste">Налепи</string>
+    <string name="delete">Обриши</string>
+    <string name="share">Подели</string>
 
-    <string name="search">Pretrazi</string>
-    <string name="filter">Filter</string>
+    <string name="search">Претражи</string>
+    <string name="filter">Филтер</string>
 
 
     <!--Drawer-->
-    <string name="open_drawer">Otvori fioku</string>
-    <string name="close_drawer">Zatvori fioku</string>
+    <string name="open_drawer">Oтвори фиоку</string>
+    <string name="close_drawer">Затвори фиоку</string>
 
     <!--Drawer Menus-->
-    <string name="about">O nama</string>
-    <string name="logout">Odjavi se</string>
-    <string name="feed">Moje objave</string>
+    <string name="about">O нама</string>
+    <string name="logout">Одјави сe</string>
+    <string name="feed">Моје објаве</string>
 
     <!--App Message-->
-    <string name="api_retry_error">Molimo pokusajte ponovo!</string>
-    <string name="api_default_error">Nesto lose se desilo!</string>
-    <string name="some_error">Dogodila se greska!</string>
-    <string name="connection_error">Izgubila se konekcija sa internetom!</string>
+    <string name="api_retry_error">Молимо покушајте поново!</string>
+    <string name="api_default_error">Нешто лоше се десило!</string>
+    <string name="some_error">Догодила се грешка!</string>
+    <string name="connection_error">Изгубила се конекција са интернетом!</string>
 
     <!--Login-->
-    <string name="appName">Samo jedi!</string>
-    <string name="login_dummy">Uloguj se</string>
-    <string name="login">Uloguj se</string>
+    <string name="appName">Само једи!</string>
+    <string name="login_dummy">Улогуј сe</string>
+    <string name="login">Улогуј сe</string>
     <string name="email">Email</string>
-    <string name="password">Sifra</string>
+    <string name="password">Шифра</string>
 
 
     <!--Registration-->
-    <string name="register">Registracija</string>
-    <string name="registration">Registruj se</string>
-    <string name="name">Ime</string>
-    <string name="lastname">Prezime</string>
-    <string name="username">Korisnicko ime</string>
-    <string name="repeat_password">Ponovite sifru</string>
+    <string name="register">Регистрација</string>
+    <string name="registration">Ресгиструј сe</string>
+    <string name="name">Име</string>
+    <string name="lastname">Презиме</string>
+    <string name="username">Корисничко име</string>
+    <string name="repeat_password">Поновите шифру</string>
 
 
-    <string name="not_matching_password">Sifre se ne poklapaju.</string>
-    <string name="empty_name">Molimo Vas unesite ime.</string>
-    <string name="empty_lastname">Molimo Vas unesite prezime.</string>
-    <string name="empty_username">Molimo Vas unesite korisnicko ime.</string>
+    <string name="not_matching_password">Шифре се не поклапју.</string>
+    <string name="empty_name">Moлимо Вас унесите шифру.</string>
+    <string name="empty_lastname">Moлимо Вас унесите презиме.</string>
+    <string name="empty_username">Moлимо Вас унесите корисничко име.</string>
 
 
     <!--Login Validation-->
-    <string name="empty_email">Molimo Vas unesite email.</string>
-    <string name="invalid_email">Molimo Vas unesite validan email.</string>
-    <string name="empty_password">Molimo Vas unesite sifru.</string>
+    <string name="empty_email">Moлимо Вас унесите email.</string>
+    <string name="invalid_email">Moлимо Вас унесите валидан email.</string>
+    <string name="empty_password">Moлимо Вас унесите шифру.</string>
 
 
     <!--about fragment-->
-    <string name="project_info">Ovo je nasa aplikacija. Copyright Fleka od Dzeka ;)</string>
+    <string name="project_info">Ово је наша апликација. Copyright Fleka od Dzeka ;)</string>
     <string name="link_mvp_blog">1. https://blog.mindorks.com</string>
     <string name="link_mvp_repo">2. https://github.com/MindorksOpenSource/android-mvp-architecture</string>
     <string name="link_mindorks_blog">3. https://blog.mindorks.com</string>
@@ -82,33 +82,33 @@
 
     <!--rating dialog-->
     <!--<string name="rate_us">Rate Us</string>-->
-    <string name="rating_message">Molimo Vas recite nam kako da unapredimo sebe?</string>
-    <string name="rating_play_store_redirect_message_line_1">Strava! Hvala za 5 zvezdica.</string>
-    <string name="rating_play_store_redirect_message_line_2">Molimo Vas pomozite drugima, da saznaju koliko je dobra ova aplikacija.</string>
-    <string name="rating_play_store_text">Ocenite nas na Play Store-u</string>
-    <string name="rating_not_provided_error">Molimo Vas dajte nam zvezdice.</string>
-    <string name="rating_thanks">Hvala!</string>
+    <string name="rating_message">Молимо Вас реците нам како да унапредите себе?</string>
+    <string name="rating_play_store_redirect_message_line_1">Страва! Хвала за 5 звездица.</string>
+    <string name="rating_play_store_redirect_message_line_2">Молимо Вас помозите другима, да сазнају колико је добра ова апликација.</string>
+    <string name="rating_play_store_text">Оцените нас на Play Store-u</string>
+    <string name="rating_not_provided_error">Молимо Вас дајте нам звездице.</string>
+    <string name="rating_thanks">Хвала!</string>
 
     <!--play store-->
     <string name="app_google_play_store_link">"https://play.google.com/store/apps/details?id="</string>
     <string name="app_market_link">"market://details?id="</string>
 
     <!--button-->
-    <string name="later">Kasnije</string>
-    <string name="submit">Posalji</string>
+    <string name="later">Касније</string>
+    <string name="submit">Пошаљи</string>
 
     <!--feed-->
-    <string name="title">Moje objave</string>
-    <string name="open_source">Otvori izvor</string>
-    <string name="blog">Blog</string>
+    <string name="title">Moje објаве</string>
+    <string name="open_source">Отвори иѕвор</string>
+    <string name="blog">Блог</string>
 
     <!--empty state-->
-    <string name="empty_screen">Nemamo nista za prikazati sad.</string>
-    <string name="please_retry">Molimo Vas pokusajte ponovo</string>
-    <string name="retry">Ponovi</string>
+    <string name="empty_screen">Немамо ништа за приказати сад.</string>
+    <string name="please_retry">Молимо Вас покушајте поново</string>
+    <string name="retry">Понови</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Cao prazni ekranu</string>
+    <string name="hello_blank_fragment">Ћао празни екрану</string>
 
 
     <!--User Restaurants-->
@@ -118,81 +118,82 @@
 
 
     <!--User Restaurant-->
-    <string name="details">Detalji</string>
-    <string name="rating">Rejting</string>
-    <string name="restaurant_menu">Meni</string>
-    <string name="daily_menu">Dnevni Meni</string>
-    <string name="promotions">Promocije</string>
+    <string name="details">Детаљи</string>
+    <string name="rating">Рејтинг</string>
+    <string name="restaurant_menu">Мени</string>
+    <string name="daily_menu">Дневни Мени</string>
+    <string name="promotions">Промоције</string>
 
     <!--Milan dodao-->
     <!--Promotion details-->
-    <string name="price">Cena</string>
-    <string name="duration">Trajanje</string>
+    <string name="price">Цена</string>
+    <string name="duration">Трајање</string>
 
 
     <!--Vlada dodao-->
     <!--Restaurant details-->
-    <string name="delivery">Dostava:</string>
-    <string name="phone">Telefon:</string>
-    <string name="work_time">Radno vreme:</string>
+    <string name="delivery">Достава:</string>
+    <string name="phone">Телефон:</string>
+    <string name="work_time">Радно време:</string>
     <string name="email_restaurant">E-mail:</string>
-    <string name="how_to_find_us">Kako do nas</string>
+    <string name="how_to_find_us">Kaко до нас</string>
 
-    <string name="kitchens">Kuhinje:</string>
+    <string name="kitchens">Кухиње:</string>
     <string name="bullet">•</string>
 
-    <string name="restaurant_rating">Rejting:</string>
-    <string name="rate_us">Oceni nas</string>
-    <string name="comment_us">Unesite svoj komentar ovde</string>
-    <string name="leave_comment">Komentar</string>
-    <string name="comments">Komentari</string>
+    <string name="restaurant_rating">Рејтинг:</string>
+    <string name="rate_us">Оцени нас</string>
+    <string name="comment_us">Унесите свој коментар овде</string>
+    <string name="leave_comment">Коментар</string>
+    <string name="comments">Коментари</string>
 
-    <string name="filterDistanceString">Udaljenost</string>
-    <string name="cancelBtn">Odkazi</string>
-    <string name="submitBtn">Posalji</string>
-    <string name="kitchen">Kuhinja</string>
-    <string name="no">Ne</string>
-    <string name="yes">Da</string>
+    <string name="filterDistanceString">Удаљеност</string>
+    <string name="cancelBtn">Одкажи</string>
+    <string name="submitBtn">Пошаљи</string>
+    <string name="kitchen">Кухиња</string>
+    <string name="no">Нe</string>
+    <string name="yes">Дa</string>
 
-    <string name="description">Opis:</string>
-    <string name="price_colon">Cena:</string>
-    <string name="nutritive_values">Nutritivne vrednosti:</string>
-    <string name="eat_me">Pojedi me</string>
+    <string name="description">Опис:</string>
+    <string name="price_colon">Цена:</string>
+    <string name="nutritive_values">Нутритивне вредности:</string>
+    <string name="eat_me">Поједи мe</string>
 
 
     <!--Daily menu-->
     <string name="time_format">HH:mm</string>
-    <string name="dishes">Jela:</string>
-    <string name="title_activity_pokusaj_maps">Mapa</string>
-    <string name="title_activity_maps">Mapa</string>
+    <string name="dishes">Јела:</string>
+    <string name="title_activity_pokusaj_maps">Мапа</string>
+    <string name="title_activity_maps">Мапа</string>
 
-    <string name="settings">Podesavanja</string>
-    <string name="myProfile">Moj profil</string>
-    <string name="restaurants">Restorani</string>
-    <string name="my_restaurants">Moji restorani</string>
-    <string name="notifications">Obavestenja</string>
+    <string name="settings">Подешавања</string>
+    <string name="myProfile">Moј профил</string>
+    <string name="restaurants">Ресторани</string>
+    <string name="my_restaurants">Moji ресторани</string>
+    <string name="notifications">Обавештења</string>
 
-    <string name="subscriptions">Pretplate</string>
+    <string name="subscriptions">Претплате</string>
     <string name="pref_appearance_group_title">Appearance</string>
-    <string name="pref_dark_theme_title">Tamna tema</string>
-    <string name="pref_dark_theme_summary">Ovo j dobro koristiti u okruzenju sa slabim osvetljenjem.
+    <string name="pref_dark_theme_title">Taмна тема</string>
+    <string name="pref_dark_theme_summary">Ово је добро користити у окружењу са слабијим
+        осветљењем.
     </string>
 
-    <string name="pref_network_data_usage_group_title">Koriscenje interneta</string>
-    <string name="pref_save_network_data_usage_title">Sacuvaj koriscenje interneta</string>
-    <string name="pref_save_network_data_usage_summary">Kada koristite mobilni internet, ova opcija
-        bi trebala biti ukljucena da se smanji potrosnja inteneta. Koriscenje mobilnih podataka je
-        minimizirano ignorisuci slike koje bi se preuzimale pri svakom otvaranju.</string>
+    <string name="pref_network_data_usage_group_title">Коришћење интернета</string>
+    <string name="pref_save_network_data_usage_title">Смањи потрошњу интернета</string>
+    <string name="pref_save_network_data_usage_summary">Када користите мобилни интернет, ова опција
+        би требала бити укључена да се смањи потрошнја интернета. Коришћење мобилних података је
+        минимизирано игноришући слике које би се преузеле при сваком отварању.</string>
 
-    <string name="pref_notifications_title">Obavestenja</string>
-    <string name="pref_notifications_summary">Mozete iskljuciti obavestenja ako Vas uznemiravaju.
-        Takodje, smanjite potrosnju mobilnih podataka.</string>
+    <string name="pref_notifications_title">Обавештења</string>
+    <string name="pref_notifications_summary">Можете искључити обавештења ако Вас узнемиравају.
+        Такође, смањите потрошњу мобилних података.</string>
 
 
-    <string name="pref_languages_group_title">Jezici</string>
-    <string name="pref_languages_title">Odaberite jezik</string>
-    <string name="pref_languages_summary">Posoji nekoliko predefinisanih jezika koje mozete odabrati
-        pri koriscenju ove aplikacije.</string>
+    <string name="pref_languages_group_title">Језици</string>
+    <string name="pref_languages_title">Одаберите језик</string>
+    <string name="pref_languages_summary">Постоји неколико предефинисаних језика које можете
+        одабрати при коришћењу ове апликације.</string>
 
     <string-array name="pref_language_entries">
         <item>Српски (ћирилица)</item>
@@ -208,16 +209,16 @@
 
     <string name="pref_language_default_value">en</string>
 
-    <string name="dish_type">Tip jela</string>
+    <string name="dish_type">Тип јела</string>
 
     <!--Manager-->
     <string name="cook">Cook</string>
-    <string name="insert_promotion_title">Unesite naziv promocije</string>
-    <string name="insert_promotion_subtitle">Unesite podnaziv promocije</string>
-    <string name="insert_promotion_details">Unesite detalje promocije</string>
-    <string name="insert_promotion_price">Unesite cenu promocije</string>
-    <string name="insert_promotion_duration">Unesite trajanje promocije</string>
+    <string name="insert_promotion_title">Унесите назив промоције</string>
+    <string name="insert_promotion_subtitle">Унесите подназив промоције</string>
+    <string name="insert_promotion_details">Унесите детаље промоције</string>
+    <string name="insert_promotion_price">Унесите цену промоције</string>
+    <string name="insert_promotion_duration">Унесите трајање промоције</string>
 
-    <string name="dish">Jelo</string>
-    <string name="nutritive_value">Nutritivne vrednosti</string>
+    <string name="dish">Јело</string>
+    <string name="nutritive_value">Нутритивне вредности</string>
 </resources>

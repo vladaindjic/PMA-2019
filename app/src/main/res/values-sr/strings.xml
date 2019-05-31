@@ -175,11 +175,11 @@
     <string name="subscriptions">Pretplate</string>
     <string name="pref_appearance_group_title">Appearance</string>
     <string name="pref_dark_theme_title">Tamna tema</string>
-    <string name="pref_dark_theme_summary">Ovo j dobro koristiti u okruzenju sa slabim osvetljenjem.
+    <string name="pref_dark_theme_summary">Ovo jе dobro koristiti u okruzenju sa slabim osvetljenjem.
     </string>
 
-    <string name="pref_network_data_usage_group_title">Koriscenje interneta</string>
-    <string name="pref_save_network_data_usage_title">Sacuvaj koriscenje interneta</string>
+    <string name="pref_network_data_usage_group_title">Potrošnja interneta</string>
+    <string name="pref_save_network_data_usage_title">Smanji potrošnju interneta</string>
     <string name="pref_save_network_data_usage_summary">Kada koristite mobilni internet, ova opcija
         bi trebala biti ukljucena da se smanji potrosnja inteneta. Koriscenje mobilnih podataka je
         minimizirano ignorisuci slike koje bi se preuzimale pri svakom otvaranju.</string>
@@ -191,7 +191,7 @@
 
     <string name="pref_languages_group_title">Jezici</string>
     <string name="pref_languages_title">Odaberite jezik</string>
-    <string name="pref_languages_summary">Posoji nekoliko predefinisanih jezika koje mozete odabrati
+    <string name="pref_languages_summary">Postoji nekoliko predefinisanih jezika koje mozete odabrati
         pri koriscenju ove aplikacije.</string>
 
     <string-array name="pref_language_entries">
