@@ -122,6 +122,11 @@ public class UserPreferencesFragment extends PreferenceFragmentCompat implements
                 LocaleHelper.setLocale(getContext(), "it");
                 getActivity().recreate();
                 break;
+            case "es":
+
+                LocaleHelper.setLocale(getContext(), "es");
+                getActivity().recreate();
+                break;
 
         }
     }

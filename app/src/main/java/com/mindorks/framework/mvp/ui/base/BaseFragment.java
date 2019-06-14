@@ -77,6 +77,12 @@ public abstract class BaseFragment extends Fragment implements MvpView {
                 //setLocaleOnCreate(localeHU);
 
                 break;
+            case "es":
+
+                LocaleHelper.setLocale(getBaseActivity(), "es");
+                //setLocaleOnCreate(localeHU);
+
+                break;
 
         }
 

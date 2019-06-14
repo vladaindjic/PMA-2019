@@ -1,0 +1,227 @@
+<!--
+  ~ Copyright (C) 2017 MINDORKS NEXTGEN PRIVATE LIMITED
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     https://mindorks.com/license/apache-v2
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License
+  -->
+
+<resources>
+    <string name="app_name">Solo come</string>
+
+    <!--Toolbar menus-->
+    <string name="clear">Limpia</string>
+    <string name="cut">Cortar</string>
+    <string name="copy">Copiar</string>
+    <string name="paste">Pasture</string>
+    <string name="delete">Borrar</string>
+    <string name="share">Compartir</string>
+
+    <string name="search">Buscar</string>
+    <string name="filter">Filtrar</string>
+
+
+    <!--Drawer-->
+    <string name="open_drawer">Cajon abierto</string>
+    <string name="close_drawer">Cajon cerca</string>
+
+    <!--Drawer Menus-->
+    <string name="about">Acerca de</string>
+    <string name="logout">Cerrar sesión</string>
+    <string name="feed">Mi Feed</string>
+
+    <!--App Message-->
+    <string name="api_retry_error">Por favor, intenta de nuevo!</string>
+    <string name="api_default_error">Algo malo paso!</string>
+    <string name="some_error">Ocurrió un error!</string>
+    <string name="connection_error">Conexión a internet perdida!</string>
+
+    <!--Login-->
+    <string name="appName">Solo come!</string>
+    <string name="login_dummy">Iniciar sesión</string>
+    <string name="login">Iniciar sesión</string>
+    <string name="email">Email</string>
+    <string name="password">Contraseña</string>
+
+
+    <!--Registration-->
+    <string name="register">Registro</string>
+    <string name="registration">Regístrate</string>
+    <string name="name">Nombre</string>
+    <string name="lastname">Apellido</string>
+    <string name="username">Nombre de usuario</string>
+    <string name="repeat_password">Repite la contraseña</string>
+
+
+    <string name="not_matching_password">Las contraseñas no coinciden.</string>
+    <string name="empty_name">Por favor, proporcione un nombre no vacío.</string>
+    <string name="empty_lastname">Por favor proporcione un apellido no vacío.</string>
+    <string name="empty_username">Por favor, proporcione un nombre de usuario no vacío.</string>
+
+
+    <!--Login Validation-->
+    <string name="empty_email">Por favor, proporcione un correo electrónico no vacío.</string>
+    <string name="invalid_email">Por favor proporcione un correo electrónico válido.</string>
+    <string name="empty_password">Por favor, proporcione una contraseña no vacía.</string>
+
+
+    <!--about fragment-->
+    <string name="project_info">Esta es nuestra aplicación. Derechos de autor Fleka od Dzeka ;)</string>
+    <string name="link_mvp_blog">1. https://blog.mindorks.com</string>
+    <string name="link_mvp_repo">2. https://github.com/MindorksOpenSource/android-mvp-architecture</string>
+    <string name="link_mindorks_blog">3. https://blog.mindorks.com</string>
+    <string name="link_mindorks_repo">4. https://github.com/MindorksOpenSource</string>
+    <string name="version">"version"</string>
+
+    <!--rating dialog-->
+    <!--<string name="rate_us">Rate Us</string>-->
+    <string name="rating_message">Por favor, háganoslo saber, ¿cómo podemos mejorar a nosotros mismos?</string>
+    <string name="rating_play_store_redirect_message_line_1">¡Increíble! Gracias por las 5 estrellas.</string>
+    <string name="rating_play_store_redirect_message_line_2">Por favor, ayuda a otros, en saber algunas cosas buenas acerca de esta aplicación.</string>
+    <string name="rating_play_store_text">Califícanos en Play Store</string>
+    <string name="rating_not_provided_error">Por favor danos estrellas.</string>
+    <string name="rating_thanks">Gracias!</string>
+
+    <!--play store-->
+    <string name="app_google_play_store_link">"https://play.google.com/store/apps/details?id="</string>
+    <string name="app_market_link">"market://details?id="</string>
+
+    <!--button-->
+    <string name="later">Luego</string>
+    <string name="submit">Enviar</string>
+
+    <!--feed-->
+    <string name="title">Mi Feed</string>
+    <string name="open_source">Fuente abierta</string>
+    <string name="blog">Blog</string>
+
+    <!--empty state-->
+    <string name="empty_screen">No tenemos nada aquí en este momento.</string>
+    <string name="please_retry">Por favor, intenta de nuevo</string>
+    <string name="retry">Procesar de nuevo</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hola fragmento en blanco</string>
+
+
+    <!--User Restaurants-->
+    <string name="list">Lista</string>
+    <string name="grid">Cuadrícula</string>
+    <string name="map">Mapa</string>
+
+
+    <!--User Restaurant-->
+    <string name="details">Detalles</string>
+    <string name="rating">Clasificación</string>
+    <string name="restaurant_menu">Menú</string>
+    <string name="daily_menu">Menú diario</string>
+    <string name="promotions">Promociones</string>
+
+    <!--Milan dodao-->
+    <!--Promotion details-->
+    <string name="price">Price</string>
+    <string name="duration">Duration</string>
+
+
+    <!--Vlada dodao-->
+    <!--Restaurant details-->
+    <string name="delivery">Entrega:</string>
+    <string name="phone">Teléfono:</string>
+    <string name="work_time">:</string>
+    <string name="email_restaurant">E-mail:</string>
+    <string name="how_to_find_us">Tiempo de trabajo</string>
+
+    <string name="kitchens">Kitchens:</string>
+    <string name="bullet">•</string>
+
+    <string name="restaurant_rating">Clasificación:</string>
+    <string name="rate_us">Nos califica</string>
+    <string name="comment_us">Deja tu comentario aquí</string>
+    <string name="leave_comment">Comentario</string>
+    <string name="comments">Comentarios</string>
+
+    <string name="filterDistanceString">Distancia</string>
+    <string name="cancelBtn">Cancelar</string>
+    <string name="submitBtn">Enviar</string>
+    <string name="kitchen">Cocina</string>
+    <string name="no">No</string>
+    <string name="yes">Sí</string>
+
+    <string name="description">Descripción:</string>
+    <string name="price_colon">Precio:</string>
+    <string name="nutritive_values">Valores nutritivos:</string>
+    <string name="eat_me">Cómeme</string>
+
+
+    <!--Daily menu-->
+    <string name="time_format">HH:mm</string>
+    <string name="dishes">Los platos:</string>
+    <string name="title_activity_pokusaj_maps">Mapa</string>
+    <string name="title_activity_maps">Mapa</string>
+
+    <string name="settings">Ajustes</string>
+    <string name="myProfile">Mi perfil</string>
+    <string name="restaurants">Los restaurantes</string>
+    <string name="my_restaurants">Mis restaurantes</string>
+    <string name="notifications">Notificaciones</string>
+
+    <string name="subscriptions">Suscripciones</string>
+    <string name="pref_appearance_group_title">Apariencia</string>
+    <string name="pref_dark_theme_title">Tema oscuro</string>
+    <string name="pref_dark_theme_summary">Esto es bueno para usar en ambientes con poca luz.
+     condiciones</string>
+
+    <string name="pref_network_data_usage_group_title">Uso de datos de red</string>
+    <string name="pref_save_network_data_usage_title">Guardar datos de red</string>
+    <string name="pref_save_network_data_usage_summary">Cuando se usan datos móviles, este
+         La opción debe estar activada para guardar los datos de la red. Consumo de datos de la red.
+     se minimiza al ignorar las imágenes que deben descargarse para cada entidad.</string>
+
+    <string name="pref_notifications_title">Notificaciones</string>
+    <string name="pref_notifications_summary">Puede desactivar las notificaciones si son
+         demasiado distrae Además, se guardarán algunos datos de la red.</string>
+
+
+    <string name="pref_languages_group_title">Idiomas</string>
+    <string name="pref_languages_title">Elige lengua</string>
+    <string name="pref_languages_summary">Hay pocos idiomas predefinidos que
+         Puede establecer como predeterminado para esta aplicación.</string>
+
+    <string-array name="pref_language_entries">
+        <item>Српски (ћирилица)</item>
+        <item>Srpski (latinica)</item>
+        <item>English</item>
+        <item>Italian</item>
+        <item>Spansih</item>
+    </string-array>
+
+    <string-array name="pref_languages_values">
+        <item>cir</item>
+        <item>sr</item>
+        <item>en</item>
+        <item>it</item>
+        <item>es</item>
+    </string-array>
+
+    <string name="pref_language_default_value">en</string>
+
+    <string name="dish_type">Tipo de plato</string>
+
+    <!--Manager-->
+    <string name="cook">Cocinar</string>
+    <string name="insert_promotion_title">Insertar título de promoción</string>
+    <string name="insert_promotion_subtitle">Insertar subtitulo de promoción.</string>
+    <string name="insert_promotion_details">Insertar detalles de la promoción</string>
+    <string name="insert_promotion_price">Insertar precio de promoción</string>
+    <string name="insert_promotion_duration">Insertar la duración de la promoción</string>
+
+    <string name="dish">Plato</string>
+    <string name="nutritive_value">Valor nutritivo</string>
+</resources>

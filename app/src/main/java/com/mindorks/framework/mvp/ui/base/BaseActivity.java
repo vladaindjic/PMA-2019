@@ -101,6 +101,12 @@ public abstract class BaseActivity extends AppCompatActivity
                 //setLocaleOnCreate(localeHU);
 
                 break;
+            case "es":
+
+                LocaleHelper.setLocale(this, "es");
+                //setLocaleOnCreate(localeHU);
+
+                break;
 
         }
         super.onCreate(savedInstanceState);
