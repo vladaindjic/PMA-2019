@@ -3,8 +3,11 @@ package com.mindorks.framework.mvp.ui.user.restaurants.grid;
 import com.androidnetworking.error.ANError;
 import com.mindorks.framework.mvp.data.DataManager;
 import com.mindorks.framework.mvp.data.db.model.UserFilter;
+import com.mindorks.framework.mvp.data.network.model.FilterRestaurantRequest;
 import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
+import com.mindorks.framework.mvp.ui.base.BaseFragment;
 import com.mindorks.framework.mvp.ui.base.BasePresenter;
+import com.mindorks.framework.mvp.ui.user.restaurants.UserRestaurantsActivity;
 import com.mindorks.framework.mvp.utils.rx.SchedulerProvider;
 
 import javax.inject.Inject;
@@ -31,16 +34,22 @@ public class RestaurantsGridPresenter<V extends RestaurantsGridMvpView> extends 
         Long userFilterId = getDataManager().getActiveUserFilterId();
         System.out.println("Nasisi se kurcine " + userFilterId);
 
+        RestaurantsGridFragment fragment = (RestaurantsGridFragment)getMvpView();
+        UserRestaurantsActivity activity = (UserRestaurantsActivity)fragment.getBaseActivity();
+        final String query = activity.getSearchQuery();
+
         getDataManager().getUserFilter(getDataManager().getActiveUserFilterId())
                 .subscribe(new Consumer<UserFilter>() {
                     @Override
                     public void accept(UserFilter userFilter) throws Exception {
-                        getRestaurantsUsingFilter(userFilter);
+                        getRestaurantsUsingFilter(new FilterRestaurantRequest(
+                                query,
+                                userFilter));
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        getRestaurantsUsingFilter(null);
+                        getRestaurantsUsingFilter(new FilterRestaurantRequest(query, null));
                     }
                 });
 
@@ -48,9 +57,9 @@ public class RestaurantsGridPresenter<V extends RestaurantsGridMvpView> extends 
 
     }
 
-    private void getRestaurantsUsingFilter(UserFilter userFilter) {
+    private void getRestaurantsUsingFilter(FilterRestaurantRequest filterRestaurantRequest) {
         getCompositeDisposable().add(getDataManager()
-                .getRestaurantsApiCall(userFilter)
+                .getRestaurantsApiCall(filterRestaurantRequest)
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(new Consumer<RestaurantsResponse>() {

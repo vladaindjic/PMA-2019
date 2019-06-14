@@ -72,8 +72,7 @@ public class UserFilter {
     private transient UserFilterDao myDao;
 
     @Generated(hash = 349634050)
-    public UserFilter(Long id, boolean delivery, boolean open, boolean dailyMenu,
-            double distance) {
+    public UserFilter(Long id, boolean delivery, boolean open, boolean dailyMenu, double distance) {
         this.id = id;
         this.delivery = delivery;
         this.open = open;

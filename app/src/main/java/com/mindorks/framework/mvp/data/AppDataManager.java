@@ -37,6 +37,7 @@ import com.mindorks.framework.mvp.data.network.model.ComentVoteRequest;
 import com.mindorks.framework.mvp.data.network.model.CommentRequest;
 import com.mindorks.framework.mvp.data.network.model.DailyMenuResponse;
 import com.mindorks.framework.mvp.data.network.model.DishDetailsResponse;
+import com.mindorks.framework.mvp.data.network.model.FilterRestaurantRequest;
 import com.mindorks.framework.mvp.data.network.model.LoginRequest;
 import com.mindorks.framework.mvp.data.network.model.LoginResponse;
 import com.mindorks.framework.mvp.data.network.model.LogoutResponse;
@@ -409,8 +410,8 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Single<RestaurantsResponse> getRestaurantsApiCall(UserFilter userFilter) {
-        return mApiHelper.getRestaurantsApiCall(userFilter);
+    public Single<RestaurantsResponse> getRestaurantsApiCall(FilterRestaurantRequest filterRestaurantRequest) {
+        return mApiHelper.getRestaurantsApiCall(filterRestaurantRequest);
     }
 
     @Override

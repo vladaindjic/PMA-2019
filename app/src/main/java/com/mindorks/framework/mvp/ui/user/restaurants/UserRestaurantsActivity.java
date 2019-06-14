@@ -27,7 +27,6 @@ import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.ui.about.AboutFragment;
 import com.mindorks.framework.mvp.ui.base.BaseActivity;
-import com.mindorks.framework.mvp.ui.base.BasePresenter;
 import com.mindorks.framework.mvp.ui.custom.RoundedImageView;
 import com.mindorks.framework.mvp.ui.filter.RestaurantFilterActivity;
 import com.mindorks.framework.mvp.ui.login.LoginActivity;
@@ -35,7 +34,6 @@ import com.mindorks.framework.mvp.ui.main.MainActivity;
 import com.mindorks.framework.mvp.ui.notification.NotificationFragment;
 import com.mindorks.framework.mvp.ui.settings.SettingsFragment;
 import com.mindorks.framework.mvp.ui.user.details.UserDetailsFragment;
-import com.mindorks.framework.mvp.ui.user.preferences.UserPreferencesFragment;
 import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantActivity;
 import com.mindorks.framework.mvp.ui.user.restaurants.utils.UserRestaurantsCallback;
 import com.mindorks.framework.mvp.ui.user.subscrptions.SubscriptionActivity;
@@ -75,6 +73,8 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
     private TextView mEmailTextView;
 
     private ActionBarDrawerToggle mDrawerToggle;
+
+    private String searchQuery = null;
 
     public static Intent getStartIntent(Context context) {
         Intent intent = new Intent(context, UserRestaurantsActivity.class);
@@ -218,12 +218,29 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
                         Toast.LENGTH_SHORT).show();
                 searchItem.collapseActionView();
                 // TODO vi3: posalji upit i reloaduj restorane
+                // postavicemo parametar pretrage da bi mogli fragmenti da ga dobave
+                searchQuery = query;
+                // update-ujemo fragmente
+                mViewPager.getAdapter().notifyDataSetChanged();
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
                 return false;
+            }
+        });
+
+        searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                searchQuery = null;
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                return true;
             }
         });
 
@@ -394,5 +411,13 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
 //                        SettingsFragment.TAG)
 //                .commit();
         // TODO vi3: ovde otvoriti fragment
+    }
+
+    public String getSearchQuery() {
+        return searchQuery;
+    }
+
+    public void setSearchQuery(String searchQuery) {
+        this.searchQuery = searchQuery;
     }
 }

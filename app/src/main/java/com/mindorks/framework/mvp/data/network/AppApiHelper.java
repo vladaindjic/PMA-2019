@@ -24,6 +24,7 @@ import com.mindorks.framework.mvp.data.network.model.ComentVoteRequest;
 import com.mindorks.framework.mvp.data.network.model.CommentRequest;
 import com.mindorks.framework.mvp.data.network.model.DailyMenuResponse;
 import com.mindorks.framework.mvp.data.network.model.DishDetailsResponse;
+import com.mindorks.framework.mvp.data.network.model.FilterRestaurantRequest;
 import com.mindorks.framework.mvp.data.network.model.LoginRequest;
 import com.mindorks.framework.mvp.data.network.model.LoginResponse;
 import com.mindorks.framework.mvp.data.network.model.LogoutResponse;
@@ -136,11 +137,11 @@ public class AppApiHelper implements ApiHelper {
     }
 
     @Override
-    public Single<RestaurantsResponse> getRestaurantsApiCall(UserFilter userFilter) {
+    public Single<RestaurantsResponse> getRestaurantsApiCall(FilterRestaurantRequest filterRestaurantRequest) {
         // TODO vi3: dodati parametre za filterisanje, treba ubaciti i id korisnika koji salje
         // zahtev; to mozda moze i na serveru preko tokena da se gleda
         // i ustedu saobracaja
-        System.out.println("FILTEREEEEEEEEEEEEEEEEEEEEEEEEEE " + userFilter);
+        System.out.println("FILTEREEEEEEEEEEEEEEEEEEEEEEEEEE " + filterRestaurantRequest.getQuery() + " " + filterRestaurantRequest.getUserFilter());
         return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_RESTAURANTS)
                 .addHeaders(mApiHeader.getProtectedApiHeader())
                 .build()
