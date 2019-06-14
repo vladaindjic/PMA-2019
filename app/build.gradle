@@ -150,4 +150,5 @@ task generateDao(type: GradleBuild) {
 
 // za firebase i notifikacije
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'org.greenrobot.greendao'
 

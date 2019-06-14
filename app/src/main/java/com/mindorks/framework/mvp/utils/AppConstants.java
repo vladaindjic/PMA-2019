@@ -28,7 +28,7 @@ public final class AppConstants {
 
     // FIXME: sada sve pisemo u podrazumevani file za preferences
     public static final String PREF_NAME = "com.mindorks.framework.mvp_preferences";
-    public static final String DB_NAME = "mindorks_pma.db";
+    public static final String DB_NAME = "mindorks_pma3.db";
 
     public static final long NULL_INDEX = -1L;
 

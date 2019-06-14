@@ -27,6 +27,7 @@ import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.ui.about.AboutFragment;
 import com.mindorks.framework.mvp.ui.base.BaseActivity;
+import com.mindorks.framework.mvp.ui.base.BasePresenter;
 import com.mindorks.framework.mvp.ui.custom.RoundedImageView;
 import com.mindorks.framework.mvp.ui.filter.RestaurantFilterActivity;
 import com.mindorks.framework.mvp.ui.login.LoginActivity;

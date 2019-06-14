@@ -18,16 +18,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mindorks.framework.mvp.R;
+import com.mindorks.framework.mvp.data.db.model.KitchenOption;
+import com.mindorks.framework.mvp.data.db.model.UserFilter;
 import com.mindorks.framework.mvp.data.network.model.RestaurantFilterResponse;
 import com.mindorks.framework.mvp.ui.base.BaseActivity;
+import com.mindorks.framework.mvp.ui.base.BasePresenter;
 import com.mindorks.framework.mvp.ui.user.restaurants.UserRestaurantsActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.functions.Consumer;
 
 public class RestaurantFilterActivity extends BaseActivity implements RestaurantFilterMvpView {
 
@@ -230,6 +235,38 @@ public class RestaurantFilterActivity extends BaseActivity implements Restaurant
         System.out.println("************ Delivery: " + checkedSwitchDelivery + " work: "
                 + checkedSwitchWorkTime + " daily menu: "
                 + checkedSwitchDailyMenu + " distance: " + currentDistance);
+
+        final List<RestaurantFilterResponse.RestaurantFilter.KitchenOptions> kos =
+                mRestaurantFilterKitchenOptionsAdapter.getmKitchenOptionList();
+
+
+        UserFilter userFilter = new UserFilter();
+        userFilter.setDailyMenu(checkedSwitchDailyMenu);
+        userFilter.setDelivery(checkedSwitchDelivery);
+        userFilter.setOpen(checkedSwitchWorkTime);
+        userFilter.setDistance(currentDistance);
+
+        ((BasePresenter)mPresenter).getDataManager().saveUserFilter(userFilter).subscribe(new Consumer<Long>() {
+            @Override
+            public void accept(Long aLong) throws Exception {
+                KitchenOption kitchenOption;
+                for (RestaurantFilterResponse.RestaurantFilter.KitchenOptions ko: kos) {
+                    kitchenOption = new KitchenOption();
+                    kitchenOption.setChecked(ko.getValue() == null ? false: ko.getValue());
+                    kitchenOption.setKitchenName(ko.getName());
+                    kitchenOption.setUserFilterId(aLong);
+                    ((BasePresenter)mPresenter).getDataManager().saveKitchenOption(kitchenOption).subscribe(new Consumer<Boolean>() {
+                        @Override
+                        public void accept(Boolean aBoolean) throws Exception {
+                            System.out.println("Nasisi se karine, mamu ti jebem vegansku.");
+                        }
+                    });
+                }
+            }
+        });
+
+        // TODO vi3: odraditi proveru da li postoji trenutni user filter, pa onda na njega
+        // vezivati dalje i brisati sve kitchen options-e
 
     }
 

@@ -15,10 +15,12 @@
 
 package com.mindorks.framework.mvp.data.db;
 
+import com.mindorks.framework.mvp.data.db.model.KitchenOption;
 import com.mindorks.framework.mvp.data.db.model.Notification;
 import com.mindorks.framework.mvp.data.db.model.Option;
 import com.mindorks.framework.mvp.data.db.model.Question;
 import com.mindorks.framework.mvp.data.db.model.User;
+import com.mindorks.framework.mvp.data.db.model.UserFilter;
 
 import java.util.List;
 
@@ -52,5 +54,11 @@ public interface DbHelper {
     Observable<List<Notification>> getAllNotification();
 
     Observable<Boolean> saveNotification(Notification notification);
+
+    Observable<Long> saveUserFilter(UserFilter userFilter);
+    Observable<UserFilter> getUserFilter(long id);
+
+    Observable<Boolean> saveKitchenOption(KitchenOption kitchenOption);
+
 
 }

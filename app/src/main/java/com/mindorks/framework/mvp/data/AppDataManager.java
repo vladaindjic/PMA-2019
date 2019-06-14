@@ -23,10 +23,12 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.internal.$Gson$Types;
 import com.google.gson.reflect.TypeToken;
 import com.mindorks.framework.mvp.data.db.DbHelper;
+import com.mindorks.framework.mvp.data.db.model.KitchenOption;
 import com.mindorks.framework.mvp.data.db.model.Notification;
 import com.mindorks.framework.mvp.data.db.model.Option;
 import com.mindorks.framework.mvp.data.db.model.Question;
 import com.mindorks.framework.mvp.data.db.model.User;
+import com.mindorks.framework.mvp.data.db.model.UserFilter;
 import com.mindorks.framework.mvp.data.network.ApiHeader;
 import com.mindorks.framework.mvp.data.network.ApiHelper;
 import com.mindorks.framework.mvp.data.network.model.AllKitchensResponse;
@@ -310,6 +312,21 @@ public class AppDataManager implements DataManager {
     @Override
     public Observable<Boolean> saveNotification(Notification notification) {
         return mDbHelper.saveNotification(notification);
+    }
+
+    @Override
+    public Observable<Long> saveUserFilter(UserFilter userFilter) {
+        return mDbHelper.saveUserFilter(userFilter);
+    }
+
+    @Override
+    public Observable<UserFilter> getUserFilter(long id) {
+        return mDbHelper.getUserFilter(id);
+    }
+
+    @Override
+    public Observable<Boolean> saveKitchenOption(KitchenOption kitchenOption) {
+        return mDbHelper.saveKitchenOption(kitchenOption);
     }
 
     @Override

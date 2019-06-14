@@ -48,6 +48,14 @@ public class RestaurantFilterKitchenOptionsAdapter extends RecyclerView.Adapter<
         notifyDataSetChanged();
     }
 
+    public List<RestaurantFilterResponse.RestaurantFilter.KitchenOptions> getmKitchenOptionList() {
+        return mKitchenOptionList;
+    }
+
+    public void setmKitchenOptionList(List<RestaurantFilterResponse.RestaurantFilter.KitchenOptions> mKitchenOptionList) {
+        this.mKitchenOptionList = mKitchenOptionList;
+    }
+
     @Override
     public void onBindViewHolder(BaseViewHolder holder, int position) {
         holder.onBind(position);
@@ -123,6 +131,7 @@ public class RestaurantFilterKitchenOptionsAdapter extends RecyclerView.Adapter<
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     checkBox.setChecked(isChecked);
+                    kitchen.setValue(isChecked);
                 }
             });
         }

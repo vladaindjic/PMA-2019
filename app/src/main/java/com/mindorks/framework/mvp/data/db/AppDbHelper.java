@@ -17,11 +17,13 @@ package com.mindorks.framework.mvp.data.db;
 
 import com.mindorks.framework.mvp.data.db.model.DaoMaster;
 import com.mindorks.framework.mvp.data.db.model.DaoSession;
+import com.mindorks.framework.mvp.data.db.model.KitchenOption;
 import com.mindorks.framework.mvp.data.db.model.Notification;
 import com.mindorks.framework.mvp.data.db.model.NotificationDao;
 import com.mindorks.framework.mvp.data.db.model.Option;
 import com.mindorks.framework.mvp.data.db.model.Question;
 import com.mindorks.framework.mvp.data.db.model.User;
+import com.mindorks.framework.mvp.data.db.model.UserFilter;
 
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -158,6 +160,37 @@ public class AppDbHelper implements DbHelper {
             public Boolean call() throws Exception {
                 mDaoSession.getNotificationDao().insertInTx(notification);
                 return true;
+            }
+        });
+    }
+
+    @Override
+    public Observable<Long> saveUserFilter(final UserFilter userFilter) {
+        return Observable.fromCallable(new Callable<Long>() {
+            @Override
+            public Long call() throws Exception {
+                return mDaoSession.getUserFilterDao().insert(userFilter);
+            }
+        });
+    }
+
+    @Override
+    public Observable<Boolean> saveKitchenOption(final KitchenOption kitchenOption) {
+        return Observable.fromCallable(new Callable<Boolean>() {
+            @Override
+            public Boolean call() throws Exception {
+                mDaoSession.getKitchenOptionDao().insertInTx(kitchenOption);
+                return true;
+            }
+        });
+    }
+
+    @Override
+    public Observable<UserFilter> getUserFilter(final long id) {
+        return Observable.fromCallable(new Callable<UserFilter>() {
+            @Override
+            public UserFilter call() throws Exception {
+                return mDaoSession.getUserFilterDao().load(id);
             }
         });
     }
