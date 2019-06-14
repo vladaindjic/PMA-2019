@@ -246,15 +246,17 @@ public class RestaurantFilterActivity extends BaseActivity implements Restaurant
         userFilter.setOpen(checkedSwitchWorkTime);
         userFilter.setDistance(currentDistance);
 
+
+
         ((BasePresenter)mPresenter).getDataManager().saveUserFilter(userFilter).subscribe(new Consumer<Long>() {
             @Override
-            public void accept(Long aLong) throws Exception {
+            public void accept(Long userFilterId) throws Exception {
                 KitchenOption kitchenOption;
                 for (RestaurantFilterResponse.RestaurantFilter.KitchenOptions ko: kos) {
                     kitchenOption = new KitchenOption();
                     kitchenOption.setChecked(ko.getValue() == null ? false: ko.getValue());
                     kitchenOption.setKitchenName(ko.getName());
-                    kitchenOption.setUserFilterId(aLong);
+                    kitchenOption.setUserFilterId(userFilterId);
                     ((BasePresenter)mPresenter).getDataManager().saveKitchenOption(kitchenOption).subscribe(new Consumer<Boolean>() {
                         @Override
                         public void accept(Boolean aBoolean) throws Exception {
@@ -262,6 +264,7 @@ public class RestaurantFilterActivity extends BaseActivity implements Restaurant
                         }
                     });
                 }
+                ((BasePresenter)mPresenter).getDataManager().setActiveUserFilterId(userFilterId);
             }
         });
 

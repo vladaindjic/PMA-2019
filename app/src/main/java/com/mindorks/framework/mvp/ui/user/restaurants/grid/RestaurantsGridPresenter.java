@@ -2,6 +2,7 @@ package com.mindorks.framework.mvp.ui.user.restaurants.grid;
 
 import com.androidnetworking.error.ANError;
 import com.mindorks.framework.mvp.data.DataManager;
+import com.mindorks.framework.mvp.data.db.model.UserFilter;
 import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.ui.base.BasePresenter;
 import com.mindorks.framework.mvp.utils.rx.SchedulerProvider;
@@ -26,8 +27,30 @@ public class RestaurantsGridPresenter<V extends RestaurantsGridMvpView> extends 
     public void onViewPrepared() {
 
         getMvpView().showLoading();
+
+        Long userFilterId = getDataManager().getActiveUserFilterId();
+        System.out.println("Nasisi se kurcine " + userFilterId);
+
+        getDataManager().getUserFilter(getDataManager().getActiveUserFilterId())
+                .subscribe(new Consumer<UserFilter>() {
+                    @Override
+                    public void accept(UserFilter userFilter) throws Exception {
+                        getRestaurantsUsingFilter(userFilter);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        getRestaurantsUsingFilter(null);
+                    }
+                });
+
+
+
+    }
+
+    private void getRestaurantsUsingFilter(UserFilter userFilter) {
         getCompositeDisposable().add(getDataManager()
-                .getRestaurantsApiCall()
+                .getRestaurantsApiCall(userFilter)
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(new Consumer<RestaurantsResponse>() {

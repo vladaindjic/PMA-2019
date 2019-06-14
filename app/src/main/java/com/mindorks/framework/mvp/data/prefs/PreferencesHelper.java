@@ -55,5 +55,7 @@ public interface PreferencesHelper {
     boolean isNotificationsTurnedOn();
     boolean isSaveNetworkDataOn();
     String getActiveLanguage();
+    void setActiveUserFilterId(Long userFilterId);
+    Long getActiveUserFilterId();
 
 }

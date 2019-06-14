@@ -43,6 +43,8 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     private static final String PREF_KEY_CURRENT_USER_ROLE = "PREF_KEY_CURRENT_USER_ROLE";
 
+    private static final String PREF_KEY_CURRENT_USER_FILTER_ID = "PREF_KEY_CURRENT_USER_FILTER_ID";
+
     // iscitano iz strings.xml
     private static final String PREF_KEY_DARK_THEME = "pref_dark_theme";
     private static final String PREF_KEY_SAVE_NETWORK_DATA = "pref_save_network_data";
@@ -152,4 +154,15 @@ public class AppPreferencesHelper implements PreferencesHelper {
         return mPrefs.getString(PREF_KEY_LANGUAGE, "english_us");
     }
 
+    @Override
+    public void setActiveUserFilterId(Long userFilterId) {
+        mPrefs.edit().putLong(PREF_KEY_CURRENT_USER_FILTER_ID, userFilterId).apply();
+    }
+
+    @Override
+    public Long getActiveUserFilterId() {
+        // TODO vi3: vidi da kada nema nijedan upisan filter, ili pri pokretanju android aplikacije
+        // dodas jedan, ili jednostavno da na serveru imamo neke podrazumevane vrednosti
+        return mPrefs.getLong(PREF_KEY_CURRENT_USER_FILTER_ID, -1L);
+    }
 }

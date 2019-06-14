@@ -240,6 +240,16 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public void setActiveUserFilterId(Long userFilterId) {
+        mPreferencesHelper.setActiveUserFilterId(userFilterId);
+    }
+
+    @Override
+    public Long getActiveUserFilterId() {
+        return mPreferencesHelper.getActiveUserFilterId();
+    }
+
+    @Override
     public void updateUserInfo(
             String accessToken,
             Long userId,
@@ -399,8 +409,8 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Single<RestaurantsResponse> getRestaurantsApiCall() {
-        return mApiHelper.getRestaurantsApiCall();
+    public Single<RestaurantsResponse> getRestaurantsApiCall(UserFilter userFilter) {
+        return mApiHelper.getRestaurantsApiCall(userFilter);
     }
 
     @Override

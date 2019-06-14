@@ -15,12 +15,9 @@
 
 package com.mindorks.framework.mvp.data.network;
 
-import android.os.StrictMode;
-
-import com.androidnetworking.common.Priority;
-import com.androidnetworking.error.ANError;
-import com.androidnetworking.interfaces.JSONObjectRequestListener;
-import com.androidnetworking.interfaces.UploadProgressListener;
+import com.mindorks.framework.mvp.data.AppDataManager;
+import com.mindorks.framework.mvp.data.DataManager;
+import com.mindorks.framework.mvp.data.db.model.UserFilter;
 import com.mindorks.framework.mvp.data.network.model.AllKitchensResponse;
 import com.mindorks.framework.mvp.data.network.model.BlogResponse;
 import com.mindorks.framework.mvp.data.network.model.ComentVoteRequest;
@@ -49,18 +46,12 @@ import com.mindorks.framework.mvp.data.network.model.UserRegistrationResponse;
 import com.mindorks.framework.mvp.data.network.model.manager.RestaurantDishesResponse;
 import com.rx2androidnetworking.Rx2AndroidNetworking;
 
-import org.json.JSONObject;
-
 import java.io.File;
-import java.nio.charset.Charset;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Single;
-import io.reactivex.SingleObserver;
-import io.reactivex.disposables.Disposable;
-import okhttp3.MediaType;
 
 /**
  * Created by janisharali on 28/01/17.
@@ -145,10 +136,11 @@ public class AppApiHelper implements ApiHelper {
     }
 
     @Override
-    public Single<RestaurantsResponse> getRestaurantsApiCall() {
+    public Single<RestaurantsResponse> getRestaurantsApiCall(UserFilter userFilter) {
         // TODO vi3: dodati parametre za filterisanje, treba ubaciti i id korisnika koji salje
         // zahtev; to mozda moze i na serveru preko tokena da se gleda
         // i ustedu saobracaja
+        System.out.println("FILTEREEEEEEEEEEEEEEEEEEEEEEEEEE " + userFilter);
         return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_RESTAURANTS)
                 .addHeaders(mApiHeader.getProtectedApiHeader())
                 .build()
