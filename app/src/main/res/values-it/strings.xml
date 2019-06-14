@@ -198,12 +198,14 @@
         <item>Српски (ћирилица)</item>
         <item>English</item>
         <item>Srpski (latinica)</item>
+        <item>Italian</item>
     </string-array>
 
     <string-array name="pref_languages_values">
         <item>cir</item>
         <item>en</item>
         <item>sr</item>
+        <item>it</item>
     </string-array>
 
     <string name="pref_language_default_value">en</string>

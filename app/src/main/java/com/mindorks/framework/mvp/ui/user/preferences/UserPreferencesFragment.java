@@ -94,8 +94,9 @@ public class UserPreferencesFragment extends PreferenceFragmentCompat implements
     {
         //Your Code
         if (key.equals("pref_dark_theme")) {
+            getActivity().recreate();
 
-            restartActivity();
+            //restartActivity();
         }
         languagePref_ID = sharedPreferences.getString(KEY_PREF_LANGUAGE, "");
 
@@ -114,6 +115,11 @@ public class UserPreferencesFragment extends PreferenceFragmentCompat implements
             case "cir":
 
                 LocaleHelper.setLocale(getContext(), "cir");
+                getActivity().recreate();
+                break;
+            case "it":
+
+                LocaleHelper.setLocale(getContext(), "it");
                 getActivity().recreate();
                 break;
 

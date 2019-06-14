@@ -74,7 +74,7 @@ public abstract class BaseActivity extends AppCompatActivity
             this.setTheme(R.style.AppTheme);
         }
 
-        /*languagePref_ID = sp.getString(KEY_PREF_LANGUAGE,"");
+        languagePref_ID = sp.getString(KEY_PREF_LANGUAGE,"");
 
         switch (languagePref_ID) {
             case "en":
@@ -95,8 +95,14 @@ public abstract class BaseActivity extends AppCompatActivity
                 //setLocaleOnCreate(localeHU);
 
                 break;
+            case "it":
 
-        }*/
+                LocaleHelper.setLocale(this, "it");
+                //setLocaleOnCreate(localeHU);
+
+                break;
+
+        }
         super.onCreate(savedInstanceState);
 
         mActivityComponent = DaggerActivityComponent.builder()
