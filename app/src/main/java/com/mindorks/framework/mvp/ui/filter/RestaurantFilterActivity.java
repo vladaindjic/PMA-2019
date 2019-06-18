@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.db.model.KitchenOption;
 import com.mindorks.framework.mvp.data.db.model.UserFilter;
+import com.mindorks.framework.mvp.data.network.model.FilterRestaurantRequest;
 import com.mindorks.framework.mvp.data.network.model.RestaurantFilterResponse;
 import com.mindorks.framework.mvp.ui.base.BaseActivity;
 import com.mindorks.framework.mvp.ui.base.BasePresenter;
@@ -35,6 +36,8 @@ import butterknife.ButterKnife;
 import io.reactivex.functions.Consumer;
 
 public class RestaurantFilterActivity extends BaseActivity implements RestaurantFilterMvpView {
+
+    private static final int DEFAULT_DISTANCE = 33;
 
     @Inject
     RestaurantFilterMvpPresenter<RestaurantFilterMvpView> mPresenter;
@@ -113,7 +116,7 @@ public class RestaurantFilterActivity extends BaseActivity implements Restaurant
         setSupportActionBar(mToolbar);
 
         System.out.println("OVDE");
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             System.out.println("OVDI ?");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -130,7 +133,6 @@ public class RestaurantFilterActivity extends BaseActivity implements Restaurant
         mKitchenOptionsView.setAdapter(mRestaurantFilterKitchenOptionsAdapter);
 
         mPresenter.onViewPrepared();
-        updateDistance(20);
 
 
         buttonCancel.setOnClickListener(new View.OnClickListener() {
@@ -187,19 +189,60 @@ public class RestaurantFilterActivity extends BaseActivity implements Restaurant
 
         System.out.println("************** " + kitchenOptions.size());
         mRestaurantFilterKitchenOptionsAdapter.addItems(kitchenOptions);
+
+        // TODO vi3: odraditi poziv da dobavimo sadrzaj filtera iz baze
+        // i onda da setujemo odgovarajuce vrednosti
+        mPresenter.readUserFilter();
+    }
+
+    @Override
+    public void updateUserFilter(UserFilter userFilter) {
+        if (userFilter == null) {
+            // default distance
+            updateDistance(DEFAULT_DISTANCE);
+            return;
+        }
+        // set distance
+        updateDistance((int) userFilter.getDistance());
+        // set open
+        this.switchWorkTime.setChecked(userFilter.isOpen());
+        this.checkedSwitchWorkTime = userFilter.isOpen();
+        // set delivery
+        this.switchDelivery.setChecked(userFilter.isDelivery());
+        this.checkedSwitchDelivery = userFilter.isDelivery();
+        // set daily menu
+        this.switchDailyMenu.setChecked(userFilter.isDailyMenu());
+        this.checkedSwitchDailyMenu = userFilter.isDailyMenu();
+        // check if there is any kitchen option stored in db
+        if (userFilter.getKitchenOptionList() == null || userFilter.getKitchenOptionList().size() <= 0) {
+            return;
+        }
+        List<RestaurantFilterResponse.RestaurantFilter.KitchenOptions> kitchenOptionsFromServer =
+                mRestaurantFilterKitchenOptionsAdapter.getmKitchenOptionList();
+        // marke kitchen option pulled from server checked if it is checked in db
+        for (RestaurantFilterResponse.RestaurantFilter.KitchenOptions koServer : kitchenOptionsFromServer) {
+            for (KitchenOption koDb : userFilter.getKitchenOptionList()) {
+                // FIXME vi3: check if the equality by name is ok
+                if (koServer.getName().toUpperCase().equals(koDb.getKitchenName().toUpperCase())) {
+                    koServer.setValue(koDb.getChecked());
+                }
+            }
+        }
+        mRestaurantFilterKitchenOptionsAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void updateDistance(int distance) {
         this.currentDistance = distance;
-        distanceProgres.setText("Distance "+ distance +"/"+ distanceBar.getMax());
+        distanceProgres.setText("Distance " + distance + "/" + distanceBar.getMax());
         distanceBar.setProgress(distance);
         distanceBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                distanceProgres.setText("Distance "+ progress +"/"+ distanceBar.getMax());
+                distanceProgres.setText("Distance " + progress + "/" + distanceBar.getMax());
                 currentDistance = progress;
             }
+
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
                 Toast.makeText(getApplicationContext(),
@@ -220,6 +263,7 @@ public class RestaurantFilterActivity extends BaseActivity implements Restaurant
     public void onPointerCaptureChanged(boolean hasCapture) {
 
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -247,24 +291,23 @@ public class RestaurantFilterActivity extends BaseActivity implements Restaurant
         userFilter.setDistance(currentDistance);
 
 
-
-        ((BasePresenter)mPresenter).getDataManager().saveUserFilter(userFilter).subscribe(new Consumer<Long>() {
+        ((BasePresenter) mPresenter).getDataManager().saveUserFilter(userFilter).subscribe(new Consumer<Long>() {
             @Override
             public void accept(Long userFilterId) throws Exception {
                 KitchenOption kitchenOption;
-                for (RestaurantFilterResponse.RestaurantFilter.KitchenOptions ko: kos) {
+                for (RestaurantFilterResponse.RestaurantFilter.KitchenOptions ko : kos) {
                     kitchenOption = new KitchenOption();
-                    kitchenOption.setChecked(ko.getValue() == null ? false: ko.getValue());
+                    kitchenOption.setChecked(ko.getValue() == null ? false : ko.getValue());
                     kitchenOption.setKitchenName(ko.getName());
                     kitchenOption.setUserFilterId(userFilterId);
-                    ((BasePresenter)mPresenter).getDataManager().saveKitchenOption(kitchenOption).subscribe(new Consumer<Boolean>() {
+                    ((BasePresenter) mPresenter).getDataManager().saveKitchenOption(kitchenOption).subscribe(new Consumer<Boolean>() {
                         @Override
                         public void accept(Boolean aBoolean) throws Exception {
                             System.out.println("Nasisi se karine, mamu ti jebem vegansku.");
                         }
                     });
                 }
-                ((BasePresenter)mPresenter).getDataManager().setActiveUserFilterId(userFilterId);
+                ((BasePresenter) mPresenter).getDataManager().setActiveUserFilterId(userFilterId);
             }
         });
 

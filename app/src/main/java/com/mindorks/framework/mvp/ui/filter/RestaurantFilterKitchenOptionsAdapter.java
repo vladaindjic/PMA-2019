@@ -16,6 +16,7 @@ import com.mindorks.framework.mvp.ui.base.BaseViewHolder;
 import com.mindorks.framework.mvp.ui.user.restaurants.utils.RestaurantFilterCallback;
 import com.mindorks.framework.mvp.utils.AppLogger;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -124,7 +125,10 @@ public class RestaurantFilterKitchenOptionsAdapter extends RecyclerView.Adapter<
 
             if (kitchen.getName() != null) {
                 checkBox.setText(kitchen.getName());
-                checkBox.setChecked(false);
+            }
+
+            if (kitchen.getValue() != null) {
+                checkBox.setChecked(kitchen.getValue());
             }
 
             checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
