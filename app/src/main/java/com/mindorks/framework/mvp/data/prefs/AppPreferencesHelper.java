@@ -45,6 +45,8 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     private static final String PREF_KEY_CURRENT_USER_FILTER_ID = "PREF_KEY_CURRENT_USER_FILTER_ID";
 
+    private static final String PREF_KEY_RESTAURANT_ID_MANAGER = "PREF_KEY_RESTAURANT_ID_MANAGER";
+
     // iscitano iz strings.xml
     private static final String PREF_KEY_DARK_THEME = "pref_dark_theme";
     private static final String PREF_KEY_SAVE_NETWORK_DATA = "pref_save_network_data";
@@ -164,5 +166,16 @@ public class AppPreferencesHelper implements PreferencesHelper {
         // TODO vi3: vidi da kada nema nijedan upisan filter, ili pri pokretanju android aplikacije
         // dodas jedan, ili jednostavno da na serveru imamo neke podrazumevane vrednosti
         return mPrefs.getLong(PREF_KEY_CURRENT_USER_FILTER_ID, -1L);
+    }
+
+    @Override
+    public Long getRestaurantIdManager() {
+        return mPrefs.getLong(PREF_KEY_RESTAURANT_ID_MANAGER, -1L);
+    }
+
+    @Override
+    public void setRestaurantIdManager(Long restaurantId) {
+        mPrefs.edit().putLong(PREF_KEY_RESTAURANT_ID_MANAGER,
+                restaurantId != null ? restaurantId : -1L).apply();
     }
 }

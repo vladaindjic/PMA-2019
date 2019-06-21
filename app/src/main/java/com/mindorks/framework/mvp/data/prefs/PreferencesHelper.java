@@ -51,6 +51,9 @@ public interface PreferencesHelper {
 
     void setCurrentUserRole(String userRole);
 
+    Long getRestaurantIdManager();
+    void setRestaurantIdManager(Long restaurantId);
+
     boolean isDarkThemeOn();
     boolean isNotificationsTurnedOn();
     boolean isSaveNetworkDataOn();

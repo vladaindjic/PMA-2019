@@ -88,6 +88,7 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
                         } else {
                             getMvpView().hideLoading();
                             getMvpView().openManagerRestaurantActivity();
+                            getDataManager().setRestaurantIdManager(response.getRestaurantId());
                         }
 
 

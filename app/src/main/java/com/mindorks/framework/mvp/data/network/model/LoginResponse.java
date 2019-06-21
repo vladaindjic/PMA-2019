@@ -50,7 +50,7 @@ public class LoginResponse {
 
     @Expose
     @SerializedName("restaurant_id")
-    private Long restaurant_id;
+    private Long restaurantId;
 
     @Expose
     @SerializedName("message")
@@ -147,14 +147,6 @@ public class LoginResponse {
         this.serverProfilePicUrl = serverProfilePicUrl;
     }
 
-    public Long getRestaurant_id() {
-        return restaurant_id;
-    }
-
-    public void setRestaurant_id(Long restaurant_id) {
-        this.restaurant_id = restaurant_id;
-    }
-
     public String getUserRole() {
         return userRole;
     }
@@ -169,6 +161,14 @@ public class LoginResponse {
 
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
+    }
+
+    public Long getRestaurantId() {
+        return restaurantId;
+    }
+
+    public void setRestaurantId(Long restaurantId) {
+        this.restaurantId = restaurantId;
     }
 
     @Override

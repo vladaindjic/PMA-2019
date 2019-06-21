@@ -251,6 +251,16 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public Long getRestaurantIdManager() {
+        return mPreferencesHelper.getRestaurantIdManager();
+    }
+
+    @Override
+    public void setRestaurantIdManager(Long restaurantId) {
+        mPreferencesHelper.setRestaurantIdManager(restaurantId);
+    }
+
+    @Override
     public void updateUserInfo(
             String accessToken,
             Long userId,
