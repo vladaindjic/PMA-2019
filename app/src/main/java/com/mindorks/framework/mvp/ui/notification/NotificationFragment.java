@@ -1,5 +1,6 @@
 package com.mindorks.framework.mvp.ui.notification;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -16,7 +17,9 @@ import com.mindorks.framework.mvp.data.network.model.NotificationResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.di.component.ActivityComponent;
 import com.mindorks.framework.mvp.ui.base.BaseFragment;
+import com.mindorks.framework.mvp.ui.user.restaurant.promotions.details.PromotionDetailsActivity;
 import com.mindorks.framework.mvp.ui.user.restaurants.UserRestaurantsActivity;
+import com.mindorks.framework.mvp.ui.user.restaurants.utils.PromotionNotificationCallBack;
 import com.mindorks.framework.mvp.ui.user.restaurants.utils.UserRestaurantsCallback;
 
 import java.util.List;
@@ -27,7 +30,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class NotificationFragment extends BaseFragment implements NotificationMvpView, UserRestaurantsCallback {
+public class NotificationFragment extends BaseFragment implements NotificationMvpView, UserRestaurantsCallback, PromotionNotificationCallBack {
 
     public static final String TAG = "NotificationFragment";
 
@@ -62,6 +65,7 @@ public class NotificationFragment extends BaseFragment implements NotificationMv
             setUnBinder(ButterKnife.bind(this, view));
             mPresenter.onAttach(this);
             mNotificationListAdapter.setmCallback(this);
+            mNotificationListAdapter.setmCallbackPromotion(this);
         }
 
         return view;
@@ -108,5 +112,12 @@ public class NotificationFragment extends BaseFragment implements NotificationMv
     @Override
     public void onsEmptyViewRetryButtonClick() {
 
+    }
+
+    @Override
+    public void openPromotionDetails(String prmotionId) {
+        Intent intent = PromotionDetailsActivity.getStartIntent(getActivity());
+        intent.putExtra("promotionId",Long.parseLong(prmotionId));
+        startActivity(intent);
     }
 }

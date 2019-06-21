@@ -14,6 +14,7 @@ import com.mindorks.framework.mvp.data.db.model.Notification;
 import com.mindorks.framework.mvp.data.network.model.NotificationResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.ui.base.BaseViewHolder;
+import com.mindorks.framework.mvp.ui.user.restaurants.utils.PromotionNotificationCallBack;
 import com.mindorks.framework.mvp.ui.user.restaurants.utils.UserRestaurantsCallback;
 
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<BaseViewHolder
     private List<Notification> mNotifications;
 
     private UserRestaurantsCallback mCallback;
+    private PromotionNotificationCallBack mCallbackPromotion;
 
     public UserRestaurantsCallback getmCallback() {
         return mCallback;
@@ -39,6 +41,13 @@ public class NotificationListAdapter extends RecyclerView.Adapter<BaseViewHolder
         this.mCallback = mCallback;
     }
 
+    public PromotionNotificationCallBack getmCallbackPromotion() {
+        return mCallbackPromotion;
+    }
+
+    public void setmCallbackPromotion(PromotionNotificationCallBack mCallbackPromotion) {
+        this.mCallbackPromotion = mCallbackPromotion;
+    }
 
     public NotificationListAdapter(ArrayList<Notification> mNotifications) {
         this.mNotifications = mNotifications;
@@ -98,6 +107,14 @@ public class NotificationListAdapter extends RecyclerView.Adapter<BaseViewHolder
             }
             System.out.println("Koliko puta sam ovde");
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mCallbackPromotion != null) {
+                        mCallbackPromotion.openPromotionDetails(notification.getPrmotionId());
+                    }
+                }
+            });
 //            textView.setOnClickListener(new View.OnClickListener() {
 //                @Override
 //                public void onClick(View v) {

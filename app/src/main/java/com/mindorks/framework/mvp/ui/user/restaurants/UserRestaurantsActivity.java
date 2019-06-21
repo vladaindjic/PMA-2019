@@ -35,6 +35,8 @@ import com.mindorks.framework.mvp.ui.notification.NotificationFragment;
 import com.mindorks.framework.mvp.ui.settings.SettingsFragment;
 import com.mindorks.framework.mvp.ui.user.details.UserDetailsFragment;
 import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantActivity;
+import com.mindorks.framework.mvp.ui.user.restaurant.promotions.details.PromotionDetailsActivity;
+import com.mindorks.framework.mvp.ui.user.restaurants.utils.PromotionNotificationCallBack;
 import com.mindorks.framework.mvp.ui.user.restaurants.utils.UserRestaurantsCallback;
 import com.mindorks.framework.mvp.ui.user.subscrptions.SubscriptionActivity;
 
@@ -272,6 +274,7 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
         //finish();
 
     }
+
 
     @Override
     public void onsEmptyViewRetryButtonClick() {
