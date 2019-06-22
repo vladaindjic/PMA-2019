@@ -100,4 +100,7 @@ public class ManagerRestaurantPromotionsPresenter<V extends ManagerRestaurantPro
                            }
                 ));
     }
+
 }
+
+

@@ -118,4 +118,5 @@ public class ManagerRestaurantPromotionDetailsPresenter<V extends ManagerRestaur
 
         getMvpView().hideLoading();
     }
+
 }

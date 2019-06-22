@@ -233,4 +233,12 @@
     <string name="work_time_active_restaurant">Work</string>
     <string name="delivery_txt_user_preferences">Delivery</string>
     <string name="delivery_user_preferences_txt">Daily Menu</string>
+
+    <string-array name="nutrition_values">
+        <item>Kalorijska vrednost</item>
+        <item>Masti</item>
+        <item>Proteini</item>
+        <item>Ugljeni hidrati</item>
+    </string-array>
+
 </resources>
