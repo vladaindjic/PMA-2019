@@ -92,7 +92,7 @@ public class ManagerRestaurantMenuPresenter<V extends ManagerRestaurantMenuMvpVi
                                         dish = new MenuResponse.Dish();
                                         dish.setId(rci.getId());
                                         dish.setImgUrl(rci.getImgUrl());
-                                        dish.setName(rci.getRestaurantCookItemData());
+                                        dish.setName(rci.getName());
                                         dish.setPrice(rci.getPrice());
                                         dishList.add(dish);
                                     }

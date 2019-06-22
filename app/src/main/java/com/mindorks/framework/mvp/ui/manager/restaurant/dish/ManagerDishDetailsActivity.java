@@ -7,27 +7,31 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.Button;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.DishDetailsResponse;
-import com.mindorks.framework.mvp.data.network.model.PromotionDetailsResponse;
 import com.mindorks.framework.mvp.ui.base.BaseActivity;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ManagerDishDetailsActivity extends BaseActivity implements
-        ManagerDishDetailsMvpView {
+        ManagerDishDetailsMvpView,ManagerDishNutitiveValueCallback {
 
     private static final String TAG = "ManagerDishDetailsActivity";
 
@@ -41,14 +45,17 @@ public class ManagerDishDetailsActivity extends BaseActivity implements
     @BindView(R.id.manager_dish_details_name)
     TextView txtViewName;
 
-    @BindView(R.id.manager_dish_details_kitchen)
-    TextView txtViewKitchen;
+//    @BindView(R.id.manager_dish_details_kitchen)
+//    TextView txtViewKitchen;
 
     @BindView(R.id.manager_dish_details_txt_price_values)
     TextView txtViewPrice;
 
     @BindView(R.id.manager_dish_details_txt_description_values)
     TextView txtViewDescription;
+
+    @BindView(R.id.manager_nutritive_values_txt)
+    EditText txtNutritionValue;
 
     // Kitchen
     @Inject
@@ -60,15 +67,28 @@ public class ManagerDishDetailsActivity extends BaseActivity implements
     @BindView(R.id.manager_dish_details_nutritive_values_recyclerview)
     RecyclerView mRecyclerView;
 
+    @BindView(R.id.nutritive_values_spinner)
+    Spinner spinner;
 
-    public static Intent getStartIntent(Context context) {
-        Intent intent = new Intent(context, ManagerDishDetailsActivity.class);
-        return intent;
-    }
+    @BindView(R.id.dish_kitchen_spinner)
+    Spinner kitchenSpinner;
+
+    ArrayAdapter<String> adapter;
+    ArrayAdapter<String> kitchenAdapter;
+
+    List<String> nutritionValue;
+
+    DishDetailsResponse.DishDetails dishDetailsOrginal;
+    DishDetailsResponse.DishDetails dishDetailsEdited;
 
 
     public ManagerDishDetailsActivity() {
         // Required empty public constructor
+    }
+
+    public static Intent getStartIntent(Context context) {
+        Intent intent = new Intent(context, ManagerDishDetailsActivity.class);
+        return intent;
     }
 
     @Override
@@ -90,23 +110,42 @@ public class ManagerDishDetailsActivity extends BaseActivity implements
     protected void setUp() {
         Bundle bundle = getIntent().getExtras();
         Long dishId = bundle.getLong("dishId");
-
+        mNutritiveValuesAdapter.setmCallback(this);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mNutritiveValuesAdapter);
 
+        this.nutritionValue = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.nutrition_values)));
+
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, nutritionValue);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinner.setAdapter(adapter);
+
+        mPresenter.getRestaurantKithen();
+
+        kitchenSpinner.setAdapter(adapter);
+
         //Ako je id razlicit od -1 ucitaj podatke pa prikazi.
-        if(dishId != -1) {
+        if (dishId != -1) {
             mPresenter.onViewPrepared(dishId);
-        }else {
-            this.updateDishDetails(new DishDetailsResponse.DishDetails());
+        } else {
+            this.dishDetailsEdited = new DishDetailsResponse.DishDetails();
+            this.dishDetailsEdited.setKitchen(new DishDetailsResponse.Kitchen());
+            this.dishDetailsEdited.setNutritiveValues(new ArrayList<DishDetailsResponse.NutritiveValue>());
+            this.dishDetailsOrginal = new DishDetailsResponse.DishDetails();
+            this.dishDetailsOrginal.setKitchen(new DishDetailsResponse.Kitchen());
+            this.dishDetailsOrginal.setNutritiveValues(new ArrayList<DishDetailsResponse.NutritiveValue>());
         }
 
     }
 
     @Override
     public void updateDishDetails(final DishDetailsResponse.DishDetails dishDetails) {
+        this.dishDetailsEdited = dishDetails;
+        this.saveOrginalDishState();
 
         if (dishDetails.getImageUrl() != null) {
             Glide.with(this)
@@ -119,9 +158,9 @@ public class ManagerDishDetailsActivity extends BaseActivity implements
         if (dishDetails.getName() != null) {
             txtViewName.setText(dishDetails.getName());
         }
-        if (dishDetails.getKitchen() != null && dishDetails.getKitchen().getName() != null) {
-            txtViewKitchen.setText(dishDetails.getKitchen().getName());
-        }
+//        if (dishDetails.getKitchen() != null && dishDetails.getKitchen().getName() != null) {
+//            txtViewKitchen.setText(dishDetails.getKitchen().getName());
+//        }
         if (dishDetails.getPrice() != null) {
             txtViewPrice.setText(String.format(Locale.US, "%.2f", dishDetails.getPrice()));
         }
@@ -131,6 +170,9 @@ public class ManagerDishDetailsActivity extends BaseActivity implements
 
         if (dishDetails.getNutritiveValues() != null) {
             mNutritiveValuesAdapter.addItems(dishDetails.getNutritiveValues());
+            this.nutritionValue = this.removeUsedNutirionValues(dishDetails.getNutritiveValues());
+            adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, nutritionValue);
+            spinner.setAdapter(adapter);
         } else {
             // TODO vi3: ne bi bilo lose prikazati prazan prikaz kada nema nutritivnih vrednosti
             Toast.makeText(this,
@@ -140,4 +182,128 @@ public class ManagerDishDetailsActivity extends BaseActivity implements
 
     }
 
+    @Override
+    public void setKitchenAdapter(List<String> kitchens) {
+        kitchenAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, kitchens);
+        kitchenSpinner.setAdapter(kitchenAdapter);
+    }
+
+    private void saveOrginalDishState() {
+        this.dishDetailsOrginal = new DishDetailsResponse.DishDetails();
+        this.dishDetailsOrginal.setId(this.dishDetailsEdited.getId());
+        this.dishDetailsOrginal.setDescription(this.dishDetailsEdited.getDescription());
+        DishDetailsResponse.Kitchen kitchen = new DishDetailsResponse.Kitchen();
+        kitchen.setId(this.dishDetailsEdited.getKitchen().getId());
+        kitchen.setName(this.dishDetailsEdited.getName());
+        this.dishDetailsOrginal.setKitchen(kitchen);
+        this.dishDetailsOrginal.setImageUrl(this.dishDetailsEdited.getImageUrl());
+        this.dishDetailsOrginal.setName(this.dishDetailsEdited.getName());
+        this.dishDetailsOrginal.setPrice(this.dishDetailsEdited.getPrice());
+        List<DishDetailsResponse.NutritiveValue> nutritiveValues = new ArrayList<>();
+        nutritiveValues.addAll(this.dishDetailsEdited.getNutritiveValues());
+        this.dishDetailsOrginal.setNutritiveValues(nutritiveValues);
+    }
+
+    @OnClick(R.id.manager_dish_details_cancel_btn)
+    public void cancelUpdate() {
+        this.updateDishDetails(this.dishDetailsOrginal);
+
+    }
+
+
+    private List<String> removeUsedNutirionValues(List<DishDetailsResponse.NutritiveValue> nutritiveValues) {
+        List<String> myValues = new ArrayList<>();
+        List<String> dishValues = new ArrayList<>();
+
+        for (String value : nutritionValue) {
+            myValues.add(value.toLowerCase());
+        }
+
+        for (DishDetailsResponse.NutritiveValue value : nutritiveValues) {
+            dishValues.add(value.getName().toLowerCase());
+        }
+
+        List<String> union = new ArrayList<>(myValues);
+        union.addAll(dishValues);
+
+        List<String> intersection = new ArrayList<>(myValues);
+        intersection.retainAll(dishValues);
+
+
+        union.removeAll(intersection);
+        return union;
+    }
+
+
+    @OnClick(R.id.manager_add_nutritive_value_btn)
+    public void addNutritionValue() {
+        String nutritionValue = spinner.getSelectedItem().toString();
+        System.out.println(spinner.getSelectedItemPosition());
+        Toast.makeText(this, spinner.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
+        System.out.println(this.txtNutritionValue.getText().toString());
+        switch (nutritionValue.toLowerCase()) {
+            case "kalorijska vrednost": {
+                DishDetailsResponse.NutritiveValue value = new DishDetailsResponse.NutritiveValue();
+                value.setName(this.spinner.getSelectedItem().toString());
+                value.setValue(Double.parseDouble(this.txtNutritionValue.getText().toString()));
+                value.setUnit("kcal");
+                this.dishDetailsEdited.getNutritiveValues().add(value);
+                this.mNutritiveValuesAdapter.addItems(this.dishDetailsEdited.getNutritiveValues());
+                this.nutritionValue.remove(this.spinner.getSelectedItemPosition());
+                adapter.notifyDataSetChanged();
+                break;
+            }
+            case "masti": {
+                this.nutritionValue.remove(this.spinner.getSelectedItemPosition());
+                DishDetailsResponse.NutritiveValue value = new DishDetailsResponse.NutritiveValue();
+                value.setName(this.spinner.getSelectedItem().toString());
+                value.setValue(Double.parseDouble(this.txtNutritionValue.getText().toString()));
+                value.setUnit("g");
+                this.dishDetailsEdited.getNutritiveValues().add(value);
+                this.mNutritiveValuesAdapter.addItems(this.dishDetailsEdited.getNutritiveValues());
+                adapter.notifyDataSetChanged();
+                break;
+            }
+            case "proteini": {
+                DishDetailsResponse.NutritiveValue value = new DishDetailsResponse.NutritiveValue();
+                value.setName(this.spinner.getSelectedItem().toString());
+                value.setValue(Double.parseDouble(this.txtNutritionValue.getText().toString()));
+                value.setUnit("g");
+                this.dishDetailsEdited.getNutritiveValues().add(value);
+                this.mNutritiveValuesAdapter.addItems(this.dishDetailsEdited.getNutritiveValues());
+                this.nutritionValue.remove(this.spinner.getSelectedItemPosition());
+                adapter.notifyDataSetChanged();
+                break;
+            }
+            case "ugljeni hidrati": {
+                DishDetailsResponse.NutritiveValue value = new DishDetailsResponse.NutritiveValue();
+                value.setName(this.spinner.getSelectedItem().toString());
+
+                value.setValue(Double.parseDouble(this.txtNutritionValue.getText().toString()));
+                value.setUnit("g");
+                this.dishDetailsEdited.getNutritiveValues().add(value);
+                this.mNutritiveValuesAdapter.addItems(this.dishDetailsEdited.getNutritiveValues());
+                this.nutritionValue.remove(this.spinner.getSelectedItemPosition());
+                adapter.notifyDataSetChanged();
+                break;
+            }
+        }
+        this.txtNutritionValue.setText("");
+
+
+    }
+
+    @Override
+    public void deleteNutritiveValue(String name) {
+        List<DishDetailsResponse.NutritiveValue> nutritiveValues = this.dishDetailsEdited.getNutritiveValues();
+        for(DishDetailsResponse.NutritiveValue value : nutritiveValues){
+            if(value.getName().toLowerCase().equals(name.toLowerCase())){
+                this.dishDetailsEdited.getNutritiveValues().remove(value);
+                this.nutritionValue.add(value.getName());
+                break;
+            }
+        }
+        mNutritiveValuesAdapter.addItems(this.dishDetailsEdited.getNutritiveValues());
+        adapter.notifyDataSetChanged();
+    }
 }

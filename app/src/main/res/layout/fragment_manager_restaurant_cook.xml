@@ -42,15 +42,6 @@
         <!--android:textSize="20sp" />-->
         <!--</LinearLayout>-->
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="50dp"
-            android:background="@color/blue_grey_light"
-            android:hint="Search"
-            android:tooltipText="Search" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/item_cook_item_list_view"

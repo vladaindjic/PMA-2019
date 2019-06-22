@@ -169,6 +169,7 @@ public class ManagerRestaurantActivity extends BaseActivity implements ManagerRe
         // TODO vi3: ovo cemo recimo iskoristiti za uklanjanje jela
     }
 
+
     @Override
     public void openPromotionDetailsActivity(Long promotionId) {
         Intent intent = ManagerRestaurantPromotionDetailsActivity.getStartIntent(this);

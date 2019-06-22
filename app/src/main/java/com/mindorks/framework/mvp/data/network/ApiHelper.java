@@ -72,7 +72,6 @@ public interface ApiHelper {
     Single<OpenSourceResponse> getOpenSourceApiCall();
 
     Single<RestaurantsResponse> getRestaurantsApiCall(FilterRestaurantRequest filterRestaurantRequest);
-
     // TODO vi3: treba dodati i proveru koji user salji ili to sa servera gledati po jwt-u
     public Single<RestaurantsResponse> getSubscriptionsApiCall();
 
@@ -131,6 +130,12 @@ public interface ApiHelper {
     Single<RestaurantRatingResponse>voteCommentDish(Long id, ComentVoteRequest request);
 
     Single<AllKitchensResponse> getAllKitchensApiCall();
+    Single<AllKitchensResponse> getAllKitchensForRestaurant(Long restaurantId);
 
 
+    Single<RestaurantCookResponse> deleteDish(Long id);
+    Single<RestaurantPromotionsResponse> deletePromotion(Long promotionId);
+    Single<DailyMenuResponse> deleteMeal(Long mealId);
+    Single<RestaurantPromotionsResponse> createPromotion(PromotionDetailsResponse.Promotion promotion);
+    Single<RestaurantPromotionsResponse> updatePromotion(Long promotionId, PromotionDetailsResponse.Promotion promotion);
 }

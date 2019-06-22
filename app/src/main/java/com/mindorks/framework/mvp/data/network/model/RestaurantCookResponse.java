@@ -77,14 +77,11 @@ public class RestaurantCookResponse {
 
         public static class RestaurantCookItem {
             @Expose
-            @SerializedName("restaurant_id")
-            Long restaurantId;
-            @Expose
             @SerializedName("id")
             private Long id;
             @Expose
             @SerializedName("name")
-            private String restaurantCookItemData;
+            private String name;
             @Expose
             @SerializedName("img_url")
             private String imgUrl;
@@ -92,27 +89,14 @@ public class RestaurantCookResponse {
             @SerializedName("price")
             private Double price;
 
-            public RestaurantCookItem(Long restaurantId, Long id, String restaurantCookItemData, String imgUrl, Double price) {
-                this.restaurantId = restaurantId;
+            public RestaurantCookItem() {
+            }
+
+            public RestaurantCookItem(Long id, String name, String imgUrl, Double price) {
                 this.id = id;
-                this.restaurantCookItemData = restaurantCookItemData;
+                this.name = name;
                 this.imgUrl = imgUrl;
                 this.price = price;
-            }
-
-            public RestaurantCookItem(Long id) {
-                this.id = id;
-            }
-
-            public RestaurantCookItem(Long id, String restaurantCookItemData) {
-                this.id = id;
-                this.restaurantCookItemData = restaurantCookItemData;
-            }
-
-            public RestaurantCookItem(Long id, String restaurantCookItemData, Long restaurantId) {
-                this.id = id;
-                this.restaurantCookItemData = restaurantCookItemData;
-                this.restaurantId = restaurantId;
             }
 
             public String getImgUrl() {
@@ -139,20 +123,12 @@ public class RestaurantCookResponse {
                 this.id = id;
             }
 
-            public String getRestaurantCookItemData() {
-                return restaurantCookItemData;
+            public String getName() {
+                return name;
             }
 
-            public void setRestaurantCookItemData(String restaurantCookItemData) {
-                this.restaurantCookItemData = restaurantCookItemData;
-            }
-
-            public Long getRestaurantId() {
-                return restaurantId;
-            }
-
-            public void setRestaurantId(Long restaurantId) {
-                this.restaurantId = restaurantId;
+            public void setName(String name) {
+                this.name = name;
             }
         }
     }

@@ -15,13 +15,6 @@
 
 package com.mindorks.framework.mvp.data.network;
 
-import com.androidnetworking.common.Priority;
-import com.androidnetworking.error.ANError;
-import com.androidnetworking.interfaces.JSONObjectRequestListener;
-import com.androidnetworking.interfaces.UploadProgressListener;
-import com.mindorks.framework.mvp.data.AppDataManager;
-import com.mindorks.framework.mvp.data.DataManager;
-import com.mindorks.framework.mvp.data.db.model.UserFilter;
 import com.mindorks.framework.mvp.data.network.model.AllKitchensResponse;
 import com.mindorks.framework.mvp.data.network.model.BlogResponse;
 import com.mindorks.framework.mvp.data.network.model.ComentVoteRequest;
@@ -50,8 +43,6 @@ import com.mindorks.framework.mvp.data.network.model.UserRegistrationRequest;
 import com.mindorks.framework.mvp.data.network.model.UserRegistrationResponse;
 import com.mindorks.framework.mvp.data.network.model.manager.RestaurantDishesResponse;
 import com.rx2androidnetworking.Rx2AndroidNetworking;
-
-import org.json.JSONObject;
 
 import java.io.File;
 
@@ -434,5 +425,56 @@ public class AppApiHelper implements ApiHelper {
                 .build()
                 .getObjectSingle(AllKitchensResponse.class);
     }
+
+    @Override
+    public Single<AllKitchensResponse> getAllKitchensForRestaurant(Long restaurantId) {
+        return  Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_KITCHENS+restaurantId)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .build()
+                .getObjectSingle(AllKitchensResponse.class);
+    }
+
+    @Override
+    public Single<RestaurantCookResponse> deleteDish(Long id) {
+        return  Rx2AndroidNetworking.delete(ApiEndPoint.ENDPOINT_MANAGER_RESTAURANT_COOK_DELETE+id)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .build()
+                .getObjectSingle(RestaurantCookResponse.class);
+    }
+
+    @Override
+    public Single<RestaurantPromotionsResponse> deletePromotion(Long promotionId) {
+        return  Rx2AndroidNetworking.delete(ApiEndPoint.ENDPOINT_MANAGER_RESTAURANT_PROMOTION_DELETE+promotionId)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .build()
+                .getObjectSingle(RestaurantPromotionsResponse.class);
+    }
+
+    @Override
+    public Single<DailyMenuResponse> deleteMeal(Long mealId) {
+        return Rx2AndroidNetworking.delete(ApiEndPoint.ENDPOINT_MANAGER_RESTAURANT_DAILY_MENU_DISH_DELETE+mealId)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .build()
+                .getObjectSingle(DailyMenuResponse.class);
+    }
+
+    @Override
+    public Single<RestaurantPromotionsResponse> createPromotion(PromotionDetailsResponse.Promotion promotion) {
+        return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_MANAGER_RESTAURANT_PROMOTION_CREATE)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .addApplicationJsonBody(promotion)
+                .build()
+                .getObjectSingle(RestaurantPromotionsResponse.class);
+    }
+
+    @Override
+    public Single<RestaurantPromotionsResponse> updatePromotion(Long promotionId, PromotionDetailsResponse.Promotion promotion) {
+        return Rx2AndroidNetworking.put(ApiEndPoint.ENDPOINT_MANAGER_RESTAURANT_PROMOTION_CREATE+"/"+promotionId)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .addApplicationJsonBody(promotion)
+                .build()
+                .getObjectSingle(RestaurantPromotionsResponse.class);
+    }
+
 }
 

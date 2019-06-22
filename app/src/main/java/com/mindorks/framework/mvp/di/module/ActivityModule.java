@@ -474,6 +474,7 @@ public class ActivityModule {
         return new MealListAdapter(new ArrayList<DailyMenuResponse.Meal>());
     }
 
+
     @Provides
     RestaurantFilterMvpPresenter<RestaurantFilterMvpView> RestaurantFilterPresenter(
             RestaurantFilterPresenter<RestaurantFilterMvpView> presenter) {

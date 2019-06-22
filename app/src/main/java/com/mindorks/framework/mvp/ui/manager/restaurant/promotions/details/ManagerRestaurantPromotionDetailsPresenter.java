@@ -3,6 +3,7 @@ package com.mindorks.framework.mvp.ui.manager.restaurant.promotions.details;
 import com.androidnetworking.error.ANError;
 import com.mindorks.framework.mvp.data.DataManager;
 import com.mindorks.framework.mvp.data.network.model.PromotionDetailsResponse;
+import com.mindorks.framework.mvp.data.network.model.RestaurantPromotionsResponse;
 import com.mindorks.framework.mvp.ui.base.BasePresenter;
 import com.mindorks.framework.mvp.ui.manager.restaurant.promotions.ManagerRestaurantPromotionsMvpPresenter;
 import com.mindorks.framework.mvp.utils.rx.SchedulerProvider;
@@ -71,7 +72,51 @@ public class ManagerRestaurantPromotionDetailsPresenter<V extends ManagerRestaur
 
         //TODO Milan: Ovdije obaviti poziv ka beku
         getMvpView().showLoading();
-        getMvpView().updatePromotion(promotion);
+
+        getCompositeDisposable().add(getDataManager()
+        .createPromotion(promotion)
+        .subscribeOn(getSchedulerProvider().io())
+        .observeOn(getSchedulerProvider().ui())
+        .subscribe(new Consumer<RestaurantPromotionsResponse>() {
+            @Override
+            public void accept(RestaurantPromotionsResponse restaurantPromotionsResponse) throws Exception {
+                //TODO:SLIKA
+                getMvpView().back();
+                getMvpView().hideLoading();
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+                System.out.println("GRESKAA!");
+            }
+        }));
+
         getMvpView().hideLoading();
     }
+
+    @Override
+    public void updatePromotion(long promotionId, PromotionDetailsResponse.Promotion editedPromotion) {
+        getMvpView().showLoading();
+
+        getCompositeDisposable().add(getDataManager()
+                .updatePromotion(promotionId,editedPromotion)
+                .subscribeOn(getSchedulerProvider().io())
+                .observeOn(getSchedulerProvider().ui())
+                .subscribe(new Consumer<RestaurantPromotionsResponse>() {
+                    @Override
+                    public void accept(RestaurantPromotionsResponse restaurantPromotionsResponse) throws Exception {
+                        //TODO:SLIKA
+                        getMvpView().back();
+                        getMvpView().hideLoading();
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        System.out.println("GRESKAA IZMENA!");
+                    }
+                }));
+
+        getMvpView().hideLoading();
+    }
+
 }

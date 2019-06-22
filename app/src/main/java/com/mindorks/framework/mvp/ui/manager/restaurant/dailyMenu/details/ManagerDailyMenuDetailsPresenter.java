@@ -58,4 +58,5 @@ public class ManagerDailyMenuDetailsPresenter<V extends ManagerDailyMenuDetailsM
         getMvpView().prepareDishForAutocomplete(dishList);
 
     }
+
 }
