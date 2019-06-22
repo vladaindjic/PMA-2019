@@ -110,8 +110,8 @@ public class ManagerRestaurantMenuFragment extends BaseFragment implements Manag
         mRecyclerView.setAdapter(mDishTypeListAdapter);
 
         // TODO vi3: ovde svakako ide restoran ciji je korisnik manager
-        mPresenter.onViewPrepared(1L);
-        mPresenter.getAllRestaurantDishes(1L);
+        mPresenter.onViewPrepared();
+        mPresenter.getAllRestaurantDishes();
 
         // na klik dugmeta radimo dodavanje
         btnAddDishType.setOnClickListener(new View.OnClickListener() {

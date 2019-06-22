@@ -3,6 +3,7 @@ package com.mindorks.framework.mvp.ui.manager.restaurant.menu;
 import com.androidnetworking.error.ANError;
 import com.mindorks.framework.mvp.data.DataManager;
 import com.mindorks.framework.mvp.data.network.model.MenuResponse;
+import com.mindorks.framework.mvp.data.network.model.RestaurantCookResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantDetailsResponse;
 import com.mindorks.framework.mvp.data.network.model.manager.RestaurantDishesResponse;
 import com.mindorks.framework.mvp.ui.base.BasePresenter;
@@ -31,13 +32,13 @@ public class ManagerRestaurantMenuPresenter<V extends ManagerRestaurantMenuMvpVi
     }
 
     @Override
-    public void onViewPrepared(Long restaurantId) {
+    public void onViewPrepared() {
         getMvpView().showLoading();
 
 
         // TODO vi3: REST API call
         getCompositeDisposable().add(getDataManager()
-                .getRestaurantMenuApiCall(restaurantId)
+                .getRestaurantMenuApiCall(getDataManager().getRestaurantIdManager())
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(new Consumer<MenuResponse>() {
@@ -69,19 +70,35 @@ public class ManagerRestaurantMenuPresenter<V extends ManagerRestaurantMenuMvpVi
     }
 
     @Override
-    public void getAllRestaurantDishes(Long restaurantId) {
+    public void getAllRestaurantDishes() {
         getMvpView().showLoading();
-
+        // zovemo ipak Cook
         getCompositeDisposable().add(getDataManager()
-                .getRestaurantDishesApiCall(restaurantId)
+                .getRestaurantCookApiCall(getDataManager().getRestaurantIdManager())
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
-                .subscribe(new Consumer<RestaurantDishesResponse>() {
+                .subscribe(new Consumer<RestaurantCookResponse>() {
                     @Override
-                    public void accept(@NonNull RestaurantDishesResponse response)
+                    public void accept(@NonNull RestaurantCookResponse response)
                             throws Exception {
-                        if (response != null && response.getData() != null) {
-                            getMvpView().updateAllRestaurantDishes(response.getData());
+                        System.out.println("VI3: HOCES LI SE SMILOVATI");
+                        if (response != null) {
+                            RestaurantCookResponse.RestaurantCook cook = response.getData();
+                            if (cook != null) {
+                                if (cook.getRestaurantCookItemList() != null) {
+                                    List<MenuResponse.Dish> dishList = new ArrayList<>();
+                                    MenuResponse.Dish dish;
+                                    for (RestaurantCookResponse.RestaurantCook.RestaurantCookItem rci: cook.getRestaurantCookItemList()) {
+                                        dish = new MenuResponse.Dish();
+                                        dish.setId(rci.getId());
+                                        dish.setImgUrl(rci.getImgUrl());
+                                        dish.setName(rci.getRestaurantCookItemData());
+                                        dish.setPrice(rci.getPrice());
+                                        dishList.add(dish);
+                                    }
+                                    getMvpView().updateAllRestaurantDishes(dishList);
+                                }
+                            }
                         }
                         getMvpView().hideLoading();
                     }

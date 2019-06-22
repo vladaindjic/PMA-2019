@@ -287,15 +287,15 @@ public class AppApiHelper implements ApiHelper {
     @Override
     public Single<MenuResponse> putMenuApiCall(MenuResponse.Menu menu) {
         return Rx2AndroidNetworking.put(ApiEndPoint.ENDPOINT_MANAGER_UPDATE_MENU)
-                .addHeaders(mApiHeader.getPublicApiHeader())
-                .addBodyParameter(menu)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .addApplicationJsonBody(menu)
                 .build()
                 .getObjectSingle(MenuResponse.class);
     }
 
     @Override
     public Single<RestaurantCookResponse> getRestaurantCookApiCall(Long restaurantId) {
-        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_MANAGER_RESTAURANT_COOK)
+        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_MANAGER_RESTAURANT_COOK + restaurantId)
                 .addHeaders(mApiHeader.getProtectedApiHeader())
                 .build()
                 .getObjectSingle(RestaurantCookResponse.class);

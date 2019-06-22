@@ -83,7 +83,7 @@ public class RestaurantCookResponse {
             @SerializedName("id")
             private Long id;
             @Expose
-            @SerializedName("restaurantCookItemData")
+            @SerializedName("name")
             private String restaurantCookItemData;
             @Expose
             @SerializedName("img_url")
