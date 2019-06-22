@@ -116,6 +116,7 @@ public interface ApiHelper {
 //    Single<UserDetailsResponse> putUserImageUpdate(byte[] imageBytes);
     Single<UserDetailsResponse> putUserImageUpdate(File imageBytes);
     Single<UserDetailsResponse> putUserImageUpdateRaw(byte[] imageBytes);
+    Single<RestaurantDetailsResponse> putRestaurantImageUpdateRaw(byte[] imageBytes);
 
     Single<Double> rateRestaurant(Long restaurantid, RestaurantScoreRequest restaurantScoreRequest);
 

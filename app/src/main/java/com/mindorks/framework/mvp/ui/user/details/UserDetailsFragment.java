@@ -11,6 +11,8 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -90,6 +92,8 @@ public class UserDetailsFragment extends BaseFragment implements
     LinearLayoutManager mLayoutManager;
 
     private UserDetailsResponse.UserDetails details;
+    private String mCameraFileName;
+
 
     public UserDetailsFragment() {
         // Required empty public constructor
@@ -185,7 +189,15 @@ public class UserDetailsFragment extends BaseFragment implements
                     }
 
 
+                    StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+                    StrictMode.setVmPolicy(builder.build());
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    File outFile = new File(Environment.getExternalStorageDirectory(),
+                            "korisnik_" +
+                                    String.valueOf(System.currentTimeMillis()) + ".jpg");
+                    mCameraFileName = outFile.toString();
+                    Uri imageUri = Uri.fromFile(outFile);
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
                     startActivityForResult(intent, REQUEST_CAMERA);
 
                 } else if (items[i].equals("Gallery")) {
@@ -230,7 +242,15 @@ public class UserDetailsFragment extends BaseFragment implements
         switch (requestCode) {
             case CAMERA_REQUEST_CODE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+                    StrictMode.setVmPolicy(builder.build());
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    File outFile = new File(Environment.getExternalStorageDirectory(),
+                            "korisnik_" +
+                                    String.valueOf(System.currentTimeMillis()) + ".jpg");
+                    mCameraFileName = outFile.toString();
+                    Uri imageUri = Uri.fromFile(outFile);
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
                     startActivityForResult(intent, REQUEST_CAMERA);
                 } else {
                     Toast.makeText(getBaseActivity(), "Camera permission missing",
@@ -261,12 +281,16 @@ public class UserDetailsFragment extends BaseFragment implements
         if (resultCode == Activity.RESULT_OK) {
 
             if (requestCode == REQUEST_CAMERA) {
-                Bundle bundle = data.getExtras();
-                Bitmap bmp = (Bitmap) bundle.get("data");
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                byte[] imgBytes = stream.toByteArray();
-                imageView.setImageBitmap(bmp);
+                Uri imgUri = data.getData();
+                if (data.getData() == null) {
+                    imgUri = Uri.fromFile(new File(mCameraFileName));
+                }
+                imageView.setImageURI(imgUri);
+                String path = getPath(imgUri);
+                if (path == null) {
+                    path = mCameraFileName;
+                }
+                byte[] imgBytes = getBytesFromFile(path);
                 mPresenter.uploadImageRaw(imgBytes);
 
             } else if (requestCode == SELECT_FILE) {

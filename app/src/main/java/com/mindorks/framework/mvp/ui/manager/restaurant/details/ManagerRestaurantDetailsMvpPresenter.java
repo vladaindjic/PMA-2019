@@ -6,7 +6,7 @@ import com.mindorks.framework.mvp.ui.base.MvpPresenter;
 public interface ManagerRestaurantDetailsMvpPresenter<V extends ManagerRestaurantDetailsMvpView>
         extends MvpPresenter<V> {
 
-    void onViewPrepared(Long restaurantId);
+    void onViewPrepared();
     void submitRestaurantDetails(RestaurantDetailsResponse.RestaurantDetails restaurantDetails);
     void getAndPrepareKitchensForAutocomplete();
 

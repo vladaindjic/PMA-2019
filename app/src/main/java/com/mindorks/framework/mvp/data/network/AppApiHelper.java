@@ -259,6 +259,16 @@ public class AppApiHelper implements ApiHelper {
     }
 
     @Override
+    public Single<RestaurantDetailsResponse> putRestaurantImageUpdateRaw(byte[] imageBytes) {
+        return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_RESTAURANT_UPLOAD_IMAGE_RAW)
+                .setContentType("application/octet-stream")
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .addByteBody(imageBytes)
+                .build()
+                .getObjectSingle(RestaurantDetailsResponse.class);
+    }
+
+    @Override
     public Single<RestaurantRatingResponse> getDishRatingApiCall(Long id) {
         return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_DISH_RATING + id + "/raiting")
                 .addHeaders(mApiHeader.getProtectedApiHeader())

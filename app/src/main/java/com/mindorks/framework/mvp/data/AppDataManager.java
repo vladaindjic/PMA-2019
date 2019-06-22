@@ -534,6 +534,11 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public Single<RestaurantDetailsResponse> putRestaurantImageUpdateRaw(byte[] imageBytes) {
+        return mApiHelper.putRestaurantImageUpdateRaw(imageBytes);
+    }
+
+    @Override
     public Single<Double> rateRestaurant(Long restaurantid, RestaurantScoreRequest restaurantScoreRequest) {
         return mApiHelper.rateRestaurant(restaurantid,restaurantScoreRequest);
     }
