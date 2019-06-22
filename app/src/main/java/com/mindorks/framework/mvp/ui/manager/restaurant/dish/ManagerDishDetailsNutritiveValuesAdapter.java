@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.mindorks.framework.mvp.R;
@@ -22,7 +23,7 @@ public class ManagerDishDetailsNutritiveValuesAdapter extends RecyclerView.Adapt
     public static final int VIEW_TYPE_NORMAL = 1;
 
 
-//    private ManagerRestaurantsCallback mCallback;
+    private ManagerDishNutitiveValueCallback mCallback;
 
     private List<DishDetailsResponse.NutritiveValue> mNutritiveValues;
 
@@ -30,13 +31,13 @@ public class ManagerDishDetailsNutritiveValuesAdapter extends RecyclerView.Adapt
         this.mNutritiveValues = mNutritiveValues;
     }
 
-//    public ManagerRestaurantsCallback getmCallback() {
-//        return mCallback;
-//    }
-//
-//    public void setmCallback(ManagerRestaurantsCallback mCallback) {
-//        this.mCallback = mCallback;
-//    }
+    public ManagerDishNutitiveValueCallback getmCallback() {
+        return mCallback;
+    }
+
+    public void setmCallback(ManagerDishNutitiveValueCallback mCallback) {
+        this.mCallback = mCallback;
+    }
 
     public void addItems(List<DishDetailsResponse.NutritiveValue> nutritiveValues) {
         mNutritiveValues.clear();
@@ -96,6 +97,9 @@ public class ManagerDishDetailsNutritiveValuesAdapter extends RecyclerView.Adapt
         @BindView(R.id.manager_dish_details_nutritive_values_item_txt_unit)
         TextView txtViewUnit;
 
+        @BindView(R.id.manager_restaurant_details_remove_nutritive_value_btn)
+        Button nutitiveValueDeleteBtn;
+
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -151,6 +155,15 @@ public class ManagerDishDetailsNutritiveValuesAdapter extends RecyclerView.Adapt
 //                    }
 //                }
 //            });
+
+            nutitiveValueDeleteBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(mCallback!=null){
+                        mCallback.deleteNutritiveValue(nutritiveValue.getName());
+                    }
+                }
+            });
         }
     }
 

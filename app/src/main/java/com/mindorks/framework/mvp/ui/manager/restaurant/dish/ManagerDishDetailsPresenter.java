@@ -1,7 +1,11 @@
 package com.mindorks.framework.mvp.ui.manager.restaurant.dish;
 
 import com.mindorks.framework.mvp.data.DataManager;
+import com.mindorks.framework.mvp.data.db.model.KitchenOption;
+import com.mindorks.framework.mvp.data.network.model.AllKitchensResponse;
 import com.mindorks.framework.mvp.data.network.model.DishDetailsResponse;
+import com.mindorks.framework.mvp.data.network.model.FilterRestaurantRequest;
+import com.mindorks.framework.mvp.data.network.model.RestaurantFilterResponse;
 import com.mindorks.framework.mvp.ui.base.BasePresenter;
 import com.mindorks.framework.mvp.utils.rx.SchedulerProvider;
 
@@ -11,6 +15,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
 
 public class ManagerDishDetailsPresenter<V extends ManagerDishDetailsMvpView> extends BasePresenter<V>
         implements ManagerDishDetailsMvpPresenter<V> {
@@ -82,6 +87,42 @@ public class ManagerDishDetailsPresenter<V extends ManagerDishDetailsMvpView> ex
 //                        }
 //                    }
 //                }));
+    }
+
+    @Override
+    public void getRestaurantKithen() {
+
+        Long restaurantId = -1L;
+        restaurantId = getDataManager().getRestaurantIdManager();
+
+        getCompositeDisposable().add(getDataManager()
+                .getAllKitchensForRestaurant(restaurantId)
+                .subscribeOn(getSchedulerProvider().io())
+                .observeOn(getSchedulerProvider().ui())
+                .subscribe(new Consumer<AllKitchensResponse>() {
+                               @Override
+                               public void accept(AllKitchensResponse allKitchensResponse) throws Exception {
+                                   if(allKitchensResponse!=null && allKitchensResponse.getData()!=null){
+                                       List<String> kitchens = new ArrayList<>();
+                                       List<RestaurantFilterResponse.RestaurantFilter.KitchenOptions> allKitchens = allKitchensResponse.getData();
+                                       for(RestaurantFilterResponse.RestaurantFilter.KitchenOptions ko:allKitchens){
+                                           kitchens.add(ko.getName());
+                                       }
+
+                                       getMvpView().setKitchenAdapter(kitchens);
+                                   }
+
+
+
+                               }
+                           }, new Consumer<Throwable>() {
+                               @Override
+                               public void accept(Throwable throwable) throws Exception {
+
+                               }
+                           }
+                ));
+
     }
 
 }

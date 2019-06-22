@@ -569,6 +569,11 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public Single<AllKitchensResponse> getAllKitchensForRestaurant(Long restaurantId) {
+        return mApiHelper.getAllKitchensForRestaurant(restaurantId);
+    }
+
+    @Override
     public Single<RestaurantCookResponse> deleteDish(Long id) {
         return  mApiHelper.deleteDish(id);
     }

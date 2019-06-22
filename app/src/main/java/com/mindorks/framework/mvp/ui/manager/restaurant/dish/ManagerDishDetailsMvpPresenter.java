@@ -7,4 +7,5 @@ public interface ManagerDishDetailsMvpPresenter<V extends ManagerDishDetailsMvpV
 
     public void onViewPrepared(Long dishId);
 
+    void getRestaurantKithen();
 }

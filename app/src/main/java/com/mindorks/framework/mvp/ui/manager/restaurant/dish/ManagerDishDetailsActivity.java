@@ -31,7 +31,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ManagerDishDetailsActivity extends BaseActivity implements
-        ManagerDishDetailsMvpView {
+        ManagerDishDetailsMvpView,ManagerDishNutitiveValueCallback {
 
     private static final String TAG = "ManagerDishDetailsActivity";
 
@@ -74,6 +74,7 @@ public class ManagerDishDetailsActivity extends BaseActivity implements
     Spinner kitchenSpinner;
 
     ArrayAdapter<String> adapter;
+    ArrayAdapter<String> kitchenAdapter;
 
     List<String> nutritionValue;
 
@@ -109,7 +110,7 @@ public class ManagerDishDetailsActivity extends BaseActivity implements
     protected void setUp() {
         Bundle bundle = getIntent().getExtras();
         Long dishId = bundle.getLong("dishId");
-
+        mNutritiveValuesAdapter.setmCallback(this);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -122,6 +123,9 @@ public class ManagerDishDetailsActivity extends BaseActivity implements
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinner.setAdapter(adapter);
+
+        mPresenter.getRestaurantKithen();
+
         kitchenSpinner.setAdapter(adapter);
 
         //Ako je id razlicit od -1 ucitaj podatke pa prikazi.
@@ -129,8 +133,10 @@ public class ManagerDishDetailsActivity extends BaseActivity implements
             mPresenter.onViewPrepared(dishId);
         } else {
             this.dishDetailsEdited = new DishDetailsResponse.DishDetails();
+            this.dishDetailsEdited.setKitchen(new DishDetailsResponse.Kitchen());
             this.dishDetailsEdited.setNutritiveValues(new ArrayList<DishDetailsResponse.NutritiveValue>());
             this.dishDetailsOrginal = new DishDetailsResponse.DishDetails();
+            this.dishDetailsOrginal.setKitchen(new DishDetailsResponse.Kitchen());
             this.dishDetailsOrginal.setNutritiveValues(new ArrayList<DishDetailsResponse.NutritiveValue>());
         }
 
@@ -176,6 +182,12 @@ public class ManagerDishDetailsActivity extends BaseActivity implements
 
     }
 
+    @Override
+    public void setKitchenAdapter(List<String> kitchens) {
+        kitchenAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, kitchens);
+        kitchenSpinner.setAdapter(kitchenAdapter);
+    }
+
     private void saveOrginalDishState() {
         this.dishDetailsOrginal = new DishDetailsResponse.DishDetails();
         this.dishDetailsOrginal.setId(this.dishDetailsEdited.getId());
@@ -195,6 +207,7 @@ public class ManagerDishDetailsActivity extends BaseActivity implements
     @OnClick(R.id.manager_dish_details_cancel_btn)
     public void cancelUpdate() {
         this.updateDishDetails(this.dishDetailsOrginal);
+
     }
 
 
@@ -280,4 +293,17 @@ public class ManagerDishDetailsActivity extends BaseActivity implements
 
     }
 
+    @Override
+    public void deleteNutritiveValue(String name) {
+        List<DishDetailsResponse.NutritiveValue> nutritiveValues = this.dishDetailsEdited.getNutritiveValues();
+        for(DishDetailsResponse.NutritiveValue value : nutritiveValues){
+            if(value.getName().toLowerCase().equals(name.toLowerCase())){
+                this.dishDetailsEdited.getNutritiveValues().remove(value);
+                this.nutritionValue.add(value.getName());
+                break;
+            }
+        }
+        mNutritiveValuesAdapter.addItems(this.dishDetailsEdited.getNutritiveValues());
+        adapter.notifyDataSetChanged();
+    }
 }

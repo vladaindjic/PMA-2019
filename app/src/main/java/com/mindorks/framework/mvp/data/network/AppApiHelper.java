@@ -457,6 +457,14 @@ public class AppApiHelper implements ApiHelper {
     }
 
     @Override
+    public Single<AllKitchensResponse> getAllKitchensForRestaurant(Long restaurantId) {
+        return  Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_KITCHENS+restaurantId)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .build()
+                .getObjectSingle(AllKitchensResponse.class);
+    }
+
+    @Override
     public Single<RestaurantCookResponse> deleteDish(Long id) {
         return  Rx2AndroidNetworking.delete(ApiEndPoint.ENDPOINT_MANAGER_RESTAURANT_COOK_DELETE+id)
                 .addHeaders(mApiHeader.getProtectedApiHeader())

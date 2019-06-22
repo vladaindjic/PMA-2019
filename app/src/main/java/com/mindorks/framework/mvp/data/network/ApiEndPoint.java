@@ -148,6 +148,8 @@ public final class ApiEndPoint {
             + "/dishcommentscore/";
 
 
+
+
     public static final String ENDPOINT_MANAGER_RESTAURANT_PROMOTION_DELETE = BuildConfig.BASE_URL
             +"/promotion/";
 

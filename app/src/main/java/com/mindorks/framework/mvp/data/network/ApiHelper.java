@@ -129,7 +129,7 @@ public interface ApiHelper {
     Single<RestaurantRatingResponse>voteCommentDish(Long id, ComentVoteRequest request);
 
     Single<AllKitchensResponse> getAllKitchensApiCall();
-//    Single<> getAllKitchensForRestaurant(Long restaurantId);
+    Single<AllKitchensResponse> getAllKitchensForRestaurant(Long restaurantId);
 
 
     Single<RestaurantCookResponse> deleteDish(Long id);
