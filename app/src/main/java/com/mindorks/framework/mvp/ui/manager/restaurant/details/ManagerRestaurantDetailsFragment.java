@@ -246,7 +246,8 @@ public class ManagerRestaurantDetailsFragment extends BaseFragment implements
         this.originalRestaurantDetails.setPhone(this.restaurantDetails.getPhone());
         this.originalRestaurantDetails.setAddress(this.restaurantDetails.getAddress());
         this.originalRestaurantDetails.setDelivery(this.restaurantDetails.isDelivery());
-        this.originalRestaurantDetails.setImageUrl(this.restaurantDetails.getImageUrl());
+        // nema potrebe da saljemo imgUrl
+        // this.originalRestaurantDetails.setImageUrl(this.restaurantDetails.getImageUrl());
         this.originalRestaurantDetails.setWorkTime(this.restaurantDetails.getWorkTime());
 
         this.originalRestaurantDetails.setKitchens(new ArrayList<RestaurantDetailsResponse.Kitchen>());
@@ -263,7 +264,7 @@ public class ManagerRestaurantDetailsFragment extends BaseFragment implements
 
     private void submitUpdatingRestaurantDetails() {
         RestaurantDetailsResponse.RestaurantDetails restaurantDetails = new RestaurantDetailsResponse.RestaurantDetails();
-        restaurantDetails.setId(this.restaurantDetails.getId());
+        //restaurantDetails.setId(this.restaurantDetails.getId());
         restaurantDetails.setName(this.editName.getText().toString());
         restaurantDetails.setAddress(this.editAddress.getText().toString());
         restaurantDetails.setEmail(this.editEmail.getText().toString());

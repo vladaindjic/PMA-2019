@@ -144,9 +144,6 @@ public class AppApiHelper implements ApiHelper {
 
     @Override
     public Single<RestaurantsResponse> getRestaurantsApiCall(FilterRestaurantRequest filterRestaurantRequest) {
-        // TODO vi3: dodati parametre za filterisanje, treba ubaciti i id korisnika koji salje
-        // zahtev; to mozda moze i na serveru preko tokena da se gleda
-        // i ustedu saobracaja
         return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_RESTAURANTS)
                 .addHeaders(mApiHeader.getProtectedApiHeader())
                 .addApplicationJsonBody(filterRestaurantRequest)
@@ -156,9 +153,6 @@ public class AppApiHelper implements ApiHelper {
 
     @Override
     public Single<RestaurantsResponse> getSubscriptionsApiCall() {
-        // TODO vi3: dodati parametre za filterisanje, treba ubaciti i id korisnika koji salje
-        // zahtev; to mozda moze i na serveru preko tokena da se gleda
-        // i ustedu saobracaja
         return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_SUBSCRIPTIONS)
                 .addHeaders(mApiHeader.getProtectedApiHeader())
                 .build()
@@ -248,37 +242,6 @@ public class AppApiHelper implements ApiHelper {
 
     @Override
     public Single<UserDetailsResponse> getUserDetailsApiCall(Long userId) {
-
-//        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-//
-//        StrictMode.setThreadPolicy(policy);
-//
-//        System.out.println("PA MORAS PROCI KROZ OVO MAMU TI JEBEM");
-//        byte[] bytes = "Vlada Indjic je jedan veliki doktor zanata svoga: ".getBytes(Charset.forName("UTF-8"));
-//        Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_USER_UPLOAD_IMAGE + "kurac")
-//                .setContentType("application/octet-stream")
-//                .addHeaders(mApiHeader.getProtectedApiHeader())
-//                .addByteBody(bytes)
-//                .build()
-//                .getObjectSingle(UserDetailsResponse.class).subscribe(new SingleObserver<UserDetailsResponse>() {
-//            @Override
-//            public void onSubscribe(Disposable d) {
-//
-//            }
-//
-//            @Override
-//            public void onSuccess(UserDetailsResponse userDetailsResponse) {
-//
-//            }
-//
-//            @Override
-//            public void onError(Throwable e) {
-//                e.printStackTrace();
-//            }
-//        });
-//        System.out.println("ZASTOOOOOOOOOOOO PA MORAS PROCI KROZ OVO MAMU TI JEBEM");
-
-
         return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_USER_DETAILS)
                 .addHeaders(mApiHeader.getProtectedApiHeader())
                 .build()
@@ -305,8 +268,8 @@ public class AppApiHelper implements ApiHelper {
 
     public Single<RestaurantDetailsResponse> putRestaurantDetailsApiCall(RestaurantDetailsResponse.RestaurantDetails restaurantDetails) {
         return Rx2AndroidNetworking.put(ApiEndPoint.ENDPOINT_MANAGER_UPDATE_RESTAURANT_DETAILS)
-                .addHeaders(mApiHeader.getPublicApiHeader())
-                .addBodyParameter(restaurantDetails)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .addApplicationJsonBody(restaurantDetails)
                 .build()
                 .getObjectSingle(RestaurantDetailsResponse.class);
     }
