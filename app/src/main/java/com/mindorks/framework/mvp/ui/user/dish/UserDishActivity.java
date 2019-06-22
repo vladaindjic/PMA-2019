@@ -272,8 +272,6 @@ public class UserDishActivity extends BaseActivity implements UserDishMvpView {
 //                    @Override
 //                    public void onSuccess(DataReadResponse dataReadResponse) {
 //                        Log.d(LOG_TAG, "onSuccess()");
-//                        System.out.println("KURVINU TI MAMU JEBEM GOSTOJA I SIMKELA SMRADINO " +
-//                                "VEGANSKA: " + dataReadResponse.getDataSets().size());
 //                    }
 //                })
 //                .addOnFailureListener(new OnFailureListener() {

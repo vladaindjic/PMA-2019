@@ -15,6 +15,10 @@
 
 package com.mindorks.framework.mvp.data.network;
 
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.androidnetworking.interfaces.UploadProgressListener;
 import com.mindorks.framework.mvp.data.AppDataManager;
 import com.mindorks.framework.mvp.data.DataManager;
 import com.mindorks.framework.mvp.data.db.model.UserFilter;
@@ -46,6 +50,8 @@ import com.mindorks.framework.mvp.data.network.model.UserRegistrationRequest;
 import com.mindorks.framework.mvp.data.network.model.UserRegistrationResponse;
 import com.mindorks.framework.mvp.data.network.model.manager.RestaurantDishesResponse;
 import com.rx2androidnetworking.Rx2AndroidNetworking;
+
+import org.json.JSONObject;
 
 import java.io.File;
 
@@ -141,9 +147,9 @@ public class AppApiHelper implements ApiHelper {
         // TODO vi3: dodati parametre za filterisanje, treba ubaciti i id korisnika koji salje
         // zahtev; to mozda moze i na serveru preko tokena da se gleda
         // i ustedu saobracaja
-        System.out.println("FILTEREEEEEEEEEEEEEEEEEEEEEEEEEE " + filterRestaurantRequest.getQuery() + " " + filterRestaurantRequest.getUserFilter());
-        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_RESTAURANTS)
+        return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_RESTAURANTS)
                 .addHeaders(mApiHeader.getProtectedApiHeader())
+                .addApplicationJsonBody(filterRestaurantRequest)
                 .build()
                 .getObjectSingle(RestaurantsResponse.class);
     }

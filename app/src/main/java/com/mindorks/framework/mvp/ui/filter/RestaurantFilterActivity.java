@@ -303,7 +303,6 @@ public class RestaurantFilterActivity extends BaseActivity implements Restaurant
                     ((BasePresenter) mPresenter).getDataManager().saveKitchenOption(kitchenOption).subscribe(new Consumer<Boolean>() {
                         @Override
                         public void accept(Boolean aBoolean) throws Exception {
-                            System.out.println("Nasisi se karine, mamu ti jebem vegansku.");
                         }
                     });
                 }

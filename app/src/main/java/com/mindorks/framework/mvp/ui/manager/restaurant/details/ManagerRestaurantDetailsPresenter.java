@@ -30,9 +30,8 @@ public class ManagerRestaurantDetailsPresenter<V extends ManagerRestaurantDetail
     @Override
     public void onViewPrepared(Long restaurantId) {
         getMvpView().showLoading();
-
         getCompositeDisposable().add(getDataManager()
-                .getRestaurantDetailsApiCall(restaurantId)
+                .getRestaurantDetailsApiCall(getDataManager().getRestaurantIdManager())
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(new Consumer<RestaurantDetailsResponse>() {
@@ -40,13 +39,6 @@ public class ManagerRestaurantDetailsPresenter<V extends ManagerRestaurantDetail
                     public void accept(@NonNull RestaurantDetailsResponse response)
                             throws Exception {
                         if (response != null && response.getData() != null) {
-                            // TODO vi3: ovo je samo za tesiranje
-                            List<RestaurantDetailsResponse.Kitchen> kitchenList = new ArrayList<>();
-                            kitchenList.add(new RestaurantDetailsResponse.Kitchen(1L, "Kineska"));
-                            kitchenList.add(new RestaurantDetailsResponse.Kitchen(2L,
-                                    "Italijanska"));
-                            kitchenList.add(new RestaurantDetailsResponse.Kitchen(3L, "Srpska"));
-                            response.getData().setKitchens(kitchenList);
                             getMvpView().updateRestaurantDetails(response.getData());
                         }
                         getMvpView().hideLoading();

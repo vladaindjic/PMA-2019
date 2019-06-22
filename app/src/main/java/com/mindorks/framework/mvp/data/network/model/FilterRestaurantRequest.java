@@ -50,6 +50,7 @@ public class FilterRestaurantRequest {
                     kitchenOptionList.add(new UserFilter.KitchenOption(ko.getId(), ko.getKitchenName()));
                 }
             }
+            this.userFilter.setKitchenOptionList(kitchenOptionList);
         }
 
     }
