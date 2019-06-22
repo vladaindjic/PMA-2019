@@ -17,6 +17,15 @@ public class FilterRestaurantRequest {
     @SerializedName("filter")
     private UserFilter userFilter;
 
+    @Expose
+    @SerializedName("latitude")
+    private Double latitude;
+
+    @Expose
+    @SerializedName("longitude")
+    private Double longitude;
+
+
     public FilterRestaurantRequest() {
 
     }
@@ -45,6 +54,14 @@ public class FilterRestaurantRequest {
 
     }
 
+    public FilterRestaurantRequest(String query,
+                                   com.mindorks.framework.mvp.data.db.model.UserFilter userFilter,
+                                   Double latitude, Double longitude) {
+        this(query, userFilter);
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
     public String getQuery() {
         return query;
     }
@@ -59,6 +76,22 @@ public class FilterRestaurantRequest {
 
     public void setUserFilter(UserFilter userFilter) {
         this.userFilter = userFilter;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 
     public static class UserFilter {

@@ -27,12 +27,12 @@ public class RestaurantsGridPresenter<V extends RestaurantsGridMvpView> extends 
     }
 
     @Override
-    public void onViewPrepared() {
+    public void onViewPrepared(final Double latitude, final Double longitude) {
 
         getMvpView().showLoading();
 
         Long userFilterId = getDataManager().getActiveUserFilterId();
-        System.out.println("Nasisi se kurcine " + userFilterId);
+        System.out.println("Nasisi se kurcine " + userFilterId + " " + latitude + " " + longitude);
 
         RestaurantsGridFragment fragment = (RestaurantsGridFragment)getMvpView();
         UserRestaurantsActivity activity = (UserRestaurantsActivity)fragment.getBaseActivity();
@@ -44,12 +44,13 @@ public class RestaurantsGridPresenter<V extends RestaurantsGridMvpView> extends 
                     public void accept(UserFilter userFilter) throws Exception {
                         getRestaurantsUsingFilter(new FilterRestaurantRequest(
                                 query,
-                                userFilter));
+                                userFilter, latitude, longitude));
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        getRestaurantsUsingFilter(new FilterRestaurantRequest(query, null));
+                        getRestaurantsUsingFilter(new FilterRestaurantRequest(query, null,
+                                latitude, longitude));
                     }
                 });
 

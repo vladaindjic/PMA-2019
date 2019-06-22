@@ -30,7 +30,7 @@ public class RestaurantsMapPresenter<V extends RestaurantsMapMvpView> extends Ba
     }
 
     @Override
-    public void onViewPrepared() {
+    public void onViewPrepared(final Double latitude, final Double longitude) {
         getMvpView().showLoading();
         RestaurantsMapFragment fragment = (RestaurantsMapFragment) getMvpView();
         UserRestaurantsActivity activity = (UserRestaurantsActivity)fragment.getBaseActivity();
@@ -40,12 +40,14 @@ public class RestaurantsMapPresenter<V extends RestaurantsMapMvpView> extends Ba
                 .subscribe(new Consumer<UserFilter>() {
                     @Override
                     public void accept(UserFilter userFilter) throws Exception {
-                        getRestaurantsUsingFilter(new FilterRestaurantRequest(query, userFilter));
+                        getRestaurantsUsingFilter(new FilterRestaurantRequest(query, userFilter,
+                                longitude, latitude));
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        getRestaurantsUsingFilter(new FilterRestaurantRequest(query, null));
+                        getRestaurantsUsingFilter(new FilterRestaurantRequest(query, null,
+                                longitude, latitude));
                     }
                 });
 

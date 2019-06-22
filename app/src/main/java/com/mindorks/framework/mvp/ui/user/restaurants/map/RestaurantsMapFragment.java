@@ -160,10 +160,11 @@ public class RestaurantsMapFragment extends BaseFragment implements
                     Toast.makeText(getBaseActivity(),
                             currentLocation.getLatitude() + " " + currentLocation.getLongitude(), Toast.LENGTH_SHORT).show();
                     System.out.println(currentLocation.getLatitude() + " " + currentLocation.getLongitude());
-                    mPresenter.onViewPrepared();
+                    mPresenter.onViewPrepared(currentLocation.getLatitude(),
+                            currentLocation.getLongitude());
                 } else {
                     Toast.makeText(getBaseActivity(), "No Location recorded", Toast.LENGTH_SHORT).show();
-                    mPresenter.onViewPrepared();
+                    mPresenter.onViewPrepared(null, null);
                 }
             }
         });
@@ -179,7 +180,7 @@ public class RestaurantsMapFragment extends BaseFragment implements
                 } else {
                     Toast.makeText(getBaseActivity(), "Location permission missing", Toast.LENGTH_SHORT).show();
                     // korisnik ne dozvoljava da pristupimo lokaciji
-                    mPresenter.onViewPrepared();
+                    mPresenter.onViewPrepared(null, null);
                 }
                 break;
         }

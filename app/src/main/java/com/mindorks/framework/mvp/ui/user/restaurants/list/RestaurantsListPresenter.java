@@ -30,7 +30,7 @@ public class RestaurantsListPresenter<V extends RestaurantsListMvpView> extends 
     }
 
     @Override
-    public void onViewPrepared(int whatToPrepare) {
+    public void onViewPrepared(int whatToPrepare, final Double latitude, final Double longitude) {
         getMvpView().showLoading();
 
         if (whatToPrepare == PREPARE_ALL_RESTAURANTS) {
@@ -44,12 +44,13 @@ public class RestaurantsListPresenter<V extends RestaurantsListMvpView> extends 
                         @Override
                         public void accept(UserFilter userFilter) throws Exception {
                             getRestaurantsUsingFilter(new FilterRestaurantRequest(query,
-                                    userFilter));
+                                    userFilter, latitude, longitude));
                         }
                     }, new Consumer<Throwable>() {
                         @Override
                         public void accept(Throwable throwable) throws Exception {
-                            getRestaurantsUsingFilter(new FilterRestaurantRequest(query, null));
+                            getRestaurantsUsingFilter(new FilterRestaurantRequest(query, null,
+                                    latitude, longitude));
                         }
                     });
         } else if (whatToPrepare == PREPARE_MY_RESTAURANTS) {

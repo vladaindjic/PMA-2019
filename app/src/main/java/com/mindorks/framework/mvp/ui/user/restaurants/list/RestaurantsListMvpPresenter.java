@@ -8,6 +8,6 @@ public interface RestaurantsListMvpPresenter<V extends RestaurantsListMvpView>
     public final static int PREPARE_ALL_RESTAURANTS = 0;
     public final static int PREPARE_MY_RESTAURANTS = 1;
 
-    public void onViewPrepared(int whatToPrepare);
+    public void onViewPrepared(int whatToPrepare, Double latitude, Double longitude);
 
 }

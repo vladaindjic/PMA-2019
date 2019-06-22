@@ -1,7 +1,12 @@
 package com.mindorks.framework.mvp.ui.user.restaurants.grid;
 
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -12,6 +17,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.di.component.ActivityComponent;
@@ -46,6 +55,10 @@ public class RestaurantsGridFragment extends BaseFragment implements
 
     @BindView(R.id.restaurants_grid_recyclerview)
     RecyclerView mRecyclerView;
+
+    private static final int LOCATION_REQUEST_CODE = 334;
+    private FusedLocationProviderClient fusedLocationProviderClient;
+    private Location currentLocation;
 
     public static RestaurantsGridFragment newInstance() {
         Bundle args = new Bundle();
@@ -84,7 +97,52 @@ public class RestaurantsGridFragment extends BaseFragment implements
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mRestaurantsGridAdapter);
 
-        mPresenter.onViewPrepared();
+        // klijent za lokaciju
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getBaseActivity());
+        fetchLastLocation();
+    }
+
+    private void fetchLastLocation() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ActivityCompat.checkSelfPermission(getBaseActivity(),
+                    Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getBaseActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(getBaseActivity(),
+                        new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQUEST_CODE);
+                return;
+            }
+        }
+
+        Task<Location> task = fusedLocationProviderClient.getLastLocation();
+        task.addOnSuccessListener(new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if (location != null) {
+                    currentLocation = location;
+                    Toast.makeText(getBaseActivity(),
+                            currentLocation.getLatitude() + " " + currentLocation.getLongitude(), Toast.LENGTH_SHORT).show();
+                    System.out.println(currentLocation.getLatitude() + " " + currentLocation.getLongitude());
+                    mPresenter.onViewPrepared(currentLocation.getLatitude(), currentLocation.getLongitude());
+                } else {
+                    Toast.makeText(getBaseActivity(), "No Location recorded", Toast.LENGTH_SHORT).show();
+                    mPresenter.onViewPrepared(null, null);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResult) {
+        switch (requestCode) {
+            case LOCATION_REQUEST_CODE:
+                if (grantResult.length > 0 && grantResult[0] == PackageManager.PERMISSION_GRANTED) {
+                    fetchLastLocation();
+                } else {
+                    Toast.makeText(getBaseActivity(), "Location permission missing", Toast.LENGTH_SHORT).show();
+                    // korisnik ne dozvoljava da pristupimo lokaciji
+                    mPresenter.onViewPrepared(null, null);
+                }
+                break;
+        }
     }
 
     @Override
