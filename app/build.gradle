@@ -34,7 +34,7 @@ android {
     buildTypes {
         debug {
 //            buildConfigField("String", "BASE_URL", "\"http://www.mocky.io/v2\"")
-            buildConfigField("String", "BASE_URL", "\"http://192.168.0.18:8080\"")
+            buildConfigField("String", "BASE_URL", "\"http://192.168.0.16:8080\"")
             buildConfigField("String", "API_KEY", "\"ABCXYZ123TEST\"")
         }
         release {

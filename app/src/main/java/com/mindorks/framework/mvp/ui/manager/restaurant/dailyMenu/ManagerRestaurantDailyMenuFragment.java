@@ -89,12 +89,12 @@ public class ManagerRestaurantDailyMenuFragment extends BaseFragment implements 
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mMealListAdapter);
 
-        // TODO vi3: ucitati restoran ciji je ulogovani korisnik manager
-        mPresenter.onViewPrepared(1L);
+        mPresenter.onViewPrepared();
     }
 
     @Override
     public void updateDailyMenu(DailyMenuResponse.DailyMenu dailyMenu) {
+
         if (dailyMenu.getName() != null) {
             txtName.setText(dailyMenu.getName());
         }
@@ -108,7 +108,6 @@ public class ManagerRestaurantDailyMenuFragment extends BaseFragment implements 
         if (dailyMenu.getEndTime() != null) {
             txtEnd.setText(timeFormat.format(dailyMenu.getEndTime()));
         }
-
         if (dailyMenu.getMeals() != null) {
             mMealListAdapter.addItems(dailyMenu.getMeals());
         }
@@ -117,6 +116,11 @@ public class ManagerRestaurantDailyMenuFragment extends BaseFragment implements 
     @Override
     public void openMealActivity(DailyMenuResponse.Meal meal) {
         Toast.makeText(getActivity(),"Otvaram aktivnost izmena",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void deleteMeal(Long id) {
+        mPresenter.deleteMeal(id);
     }
 
     @OnClick(R.id.add_daily_menu_button)

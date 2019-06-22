@@ -29,12 +29,15 @@ public class ManagerRestaurantCookPresenter<V extends ManagerRestaurantCookMvpVi
     }
 
     @Override
-    public void onViewPrepared(Long restaurantId) {
+    public void onViewPrepared() {
         getMvpView().showLoading();
         getMvpView().hideLoading();
 
         // TODO vi3: kreirati API poziv koji vrati sva jela, bez kategorija
+        Long restaurantId = -1L;
+        restaurantId = getDataManager().getRestaurantIdManager();
         System.out.println("ovde sam*******************************************");
+
         getCompositeDisposable().add(getDataManager()
                 .getRestaurantCookApiCall(restaurantId)
                 .subscribeOn(getSchedulerProvider().io())
@@ -67,5 +70,30 @@ public class ManagerRestaurantCookPresenter<V extends ManagerRestaurantCookMvpVi
                         }
                     }
                 }));
+    }
+
+    @Override
+    public void deleteDish(Long id) {
+        getMvpView().showLoading();
+        getCompositeDisposable().add(getDataManager()
+        .deleteDish(id)
+        .subscribeOn(getSchedulerProvider().io())
+        .observeOn(getSchedulerProvider().ui())
+        .subscribe(new Consumer<RestaurantCookResponse>() {
+            @Override
+            public void accept(RestaurantCookResponse restaurantCookResponse) throws Exception {
+
+                if(restaurantCookResponse!=null && restaurantCookResponse.getData()!=null){
+                    getMvpView().updateRestaurantCook(restaurantCookResponse.getData().getRestaurantCookItemList());
+                }
+                getMvpView().hideLoading();
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+                System.out.println("GRESKAA!");
+            }
+        }));
+
     }
 }

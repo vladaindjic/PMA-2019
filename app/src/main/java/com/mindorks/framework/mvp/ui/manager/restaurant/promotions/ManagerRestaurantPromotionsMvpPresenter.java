@@ -6,4 +6,5 @@ public interface ManagerRestaurantPromotionsMvpPresenter<V extends ManagerRestau
         extends MvpPresenter<V> {
     public void onViewPrepared();
 
+    void deletePromotion(Long promotionId);
 }

@@ -567,4 +567,29 @@ public class AppDataManager implements DataManager {
     public Single<AllKitchensResponse> getAllKitchensApiCall() {
         return  mApiHelper.getAllKitchensApiCall();
     }
+
+    @Override
+    public Single<RestaurantCookResponse> deleteDish(Long id) {
+        return  mApiHelper.deleteDish(id);
+    }
+
+    @Override
+    public Single<RestaurantPromotionsResponse> deletePromotion(Long promotionId) {
+        return mApiHelper.deletePromotion(promotionId);
+    }
+
+    @Override
+    public Single<DailyMenuResponse> deleteMeal(Long mealId) {
+        return mApiHelper.deleteMeal(mealId);
+    }
+
+    @Override
+    public Single<RestaurantPromotionsResponse> createPromotion(PromotionDetailsResponse.Promotion promotion) {
+        return  mApiHelper.createPromotion(promotion);
+    }
+
+    @Override
+    public Single<RestaurantPromotionsResponse> updatePromotion(Long promotionId, PromotionDetailsResponse.Promotion promotion) {
+        return mApiHelper.updatePromotion(promotionId,promotion);
+    }
 }

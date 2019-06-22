@@ -41,6 +41,7 @@ public class ManagerRestaurantPromotionsAdapter extends RecyclerView.Adapter<Bas
     }
 
     public void addItems(List<RestaurantPromotionsResponse.Promotion> promotionList) {
+        mRestaurantPromotionsList.clear();
         mRestaurantPromotionsList.addAll(promotionList);
         notifyDataSetChanged();
     }
@@ -142,10 +143,7 @@ public class ManagerRestaurantPromotionsAdapter extends RecyclerView.Adapter<Bas
                 @Override
                 public void onClick(View v) {
                     if(mCallback!=null){
-                        mCallback.deletePromotion(promotion,position);
-                        //FIXME Milan: Dogovoriti gdje se radi birsanje
-                        mRestaurantPromotionsList.remove(position);
-                        notifyDataSetChanged();
+                        mCallback.deletePromotion(promotion.getId());
                     }
                 }
             });

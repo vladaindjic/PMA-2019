@@ -316,7 +316,7 @@ public class AppApiHelper implements ApiHelper {
 
     @Override
     public Single<RestaurantCookResponse> getRestaurantCookApiCall(Long restaurantId) {
-        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_MANAGER_RESTAURANT_COOK)
+        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_MANAGER_RESTAURANT_COOK+restaurantId)
                 .addHeaders(mApiHeader.getProtectedApiHeader())
                 .build()
                 .getObjectSingle(RestaurantCookResponse.class);
@@ -455,5 +455,48 @@ public class AppApiHelper implements ApiHelper {
                 .build()
                 .getObjectSingle(AllKitchensResponse.class);
     }
+
+    @Override
+    public Single<RestaurantCookResponse> deleteDish(Long id) {
+        return  Rx2AndroidNetworking.delete(ApiEndPoint.ENDPOINT_MANAGER_RESTAURANT_COOK_DELETE+id)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .build()
+                .getObjectSingle(RestaurantCookResponse.class);
+    }
+
+    @Override
+    public Single<RestaurantPromotionsResponse> deletePromotion(Long promotionId) {
+        return  Rx2AndroidNetworking.delete(ApiEndPoint.ENDPOINT_MANAGER_RESTAURANT_PROMOTION_DELETE+promotionId)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .build()
+                .getObjectSingle(RestaurantPromotionsResponse.class);
+    }
+
+    @Override
+    public Single<DailyMenuResponse> deleteMeal(Long mealId) {
+        return Rx2AndroidNetworking.delete(ApiEndPoint.ENDPOINT_MANAGER_RESTAURANT_DAILY_MENU_DISH_DELETE+mealId)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .build()
+                .getObjectSingle(DailyMenuResponse.class);
+    }
+
+    @Override
+    public Single<RestaurantPromotionsResponse> createPromotion(PromotionDetailsResponse.Promotion promotion) {
+        return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_MANAGER_RESTAURANT_PROMOTION_CREATE)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .addApplicationJsonBody(promotion)
+                .build()
+                .getObjectSingle(RestaurantPromotionsResponse.class);
+    }
+
+    @Override
+    public Single<RestaurantPromotionsResponse> updatePromotion(Long promotionId, PromotionDetailsResponse.Promotion promotion) {
+        return Rx2AndroidNetworking.put(ApiEndPoint.ENDPOINT_MANAGER_RESTAURANT_PROMOTION_CREATE+"/"+promotionId)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .addApplicationJsonBody(promotion)
+                .build()
+                .getObjectSingle(RestaurantPromotionsResponse.class);
+    }
+
 }
 
