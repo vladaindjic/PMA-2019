@@ -167,8 +167,6 @@ public class RestaurantsListFragment extends BaseFragment implements
         mRestaurantsListAdapter.addItems(restaurants);
     }
 
-    // FIXME vi3: sta koji kurac sa ovime da radim
-
 
     @Override
     public void onsEmptyViewRetryButtonClick() {

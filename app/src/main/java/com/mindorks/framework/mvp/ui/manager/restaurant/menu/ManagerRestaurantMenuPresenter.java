@@ -81,7 +81,6 @@ public class ManagerRestaurantMenuPresenter<V extends ManagerRestaurantMenuMvpVi
                     @Override
                     public void accept(@NonNull RestaurantCookResponse response)
                             throws Exception {
-                        System.out.println("VI3: HOCES LI SE SMILOVATI");
                         if (response != null) {
                             RestaurantCookResponse.RestaurantCook cook = response.getData();
                             if (cook != null) {

@@ -108,8 +108,6 @@ public class ManagerRestaurantDetailsPresenter<V extends ManagerRestaurantDetail
 
     public void submitRestaurantImage() {
         byte[] imgBytes = getMvpView().getImgBytes();
-        System.out.println("VI3: UPDATE SLIKE RESTORANA: " + imgBytes != null ? imgBytes.length :
-                0);
         if (imgBytes != null) {
             getCompositeDisposable().add(getDataManager()
                     .putRestaurantImageUpdateRaw(imgBytes)

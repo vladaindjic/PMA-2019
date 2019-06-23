@@ -100,8 +100,6 @@ public class ManagerRestaurantPromotionDetailsPresenter<V extends ManagerRestaur
 
     public void submitPromotionImage(Long promotionId) {
         byte[] imgBytes = getMvpView().getImgBytes();
-        System.out.println("VI3: UPDATE SLIKE RESTORANA: " + imgBytes != null ? imgBytes.length :
-                0);
         if (imgBytes != null) {
             getCompositeDisposable().add(getDataManager()
                     .putPromotionImageUpdateRaw(imgBytes,promotionId)

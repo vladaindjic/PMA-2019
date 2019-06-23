@@ -150,7 +150,6 @@ public class RestaurantsGridFragment extends BaseFragment implements
         mRestaurantsGridAdapter.addItems(restaurants);
     }
 
-    // FIXME vi3: sta koji kurac sa ovime da radim
     @Override
     public void onsEmptyViewRetryButtonClick() {
 

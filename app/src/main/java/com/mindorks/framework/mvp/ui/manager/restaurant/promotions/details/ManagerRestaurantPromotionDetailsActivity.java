@@ -181,7 +181,7 @@ public class ManagerRestaurantPromotionDetailsActivity extends BaseActivity impl
                     // prvo moramo traziti permission za pisanje
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         if (ActivityCompat.checkSelfPermission(ManagerRestaurantPromotionDetailsActivity.this,
-                                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(ManagerRestaurantPromotionDetailsActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                             ActivityCompat.requestPermissions(ManagerRestaurantPromotionDetailsActivity.this,
                                     new String[]{Manifest.permission.CAMERA}, CAMERA_REQUEST_CODE);
                             return;
@@ -337,7 +337,6 @@ public class ManagerRestaurantPromotionDetailsActivity extends BaseActivity impl
                     return;
                 }
                 imageView.setImageURI(userImageUri);
-                System.out.println("VI3: SIZE: " + imgBytes.length);
             }
         }
     }

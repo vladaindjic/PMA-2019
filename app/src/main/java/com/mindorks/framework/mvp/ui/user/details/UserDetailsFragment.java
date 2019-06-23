@@ -182,7 +182,7 @@ public class UserDetailsFragment extends BaseFragment implements
                     // prvo moramo traziti permission za pisanje
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         if (ActivityCompat.checkSelfPermission(getBaseActivity(),
-                                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getBaseActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                             requestPermissions(
                                     new String[]{Manifest.permission.CAMERA}, CAMERA_REQUEST_CODE);
                             return;

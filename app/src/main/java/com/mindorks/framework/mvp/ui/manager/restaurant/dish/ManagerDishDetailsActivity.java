@@ -251,7 +251,7 @@ public class ManagerDishDetailsActivity extends BaseActivity implements
                     // prvo moramo traziti permission za pisanje
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         if (ActivityCompat.checkSelfPermission(ManagerDishDetailsActivity.this,
-                                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(ManagerDishDetailsActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                             ActivityCompat.requestPermissions(ManagerDishDetailsActivity.this,
                                     new String[]{Manifest.permission.CAMERA}, CAMERA_REQUEST_CODE);
                             return;
@@ -407,7 +407,6 @@ public class ManagerDishDetailsActivity extends BaseActivity implements
                     return;
                 }
                 imageView.setImageURI(userImageUri);
-                System.out.println("VI3: SIZE: " + imgBytes.length);
             }
         }
     }

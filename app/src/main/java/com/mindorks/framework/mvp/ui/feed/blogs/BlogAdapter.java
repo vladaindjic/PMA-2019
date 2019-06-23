@@ -100,7 +100,6 @@ public class BlogAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         notifyDataSetChanged();
     }
 
-    // FIXME vi3: sta koji kurac sa ovime da radim
     public interface Callback {
         void onBlogEmptyViewRetryClick();
     }

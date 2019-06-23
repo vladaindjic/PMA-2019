@@ -301,9 +301,8 @@ public class ManagerRestaurantDetailsFragment extends BaseFragment implements
                     // prvo moramo traziti permission za pisanje
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         if (ActivityCompat.checkSelfPermission(getBaseActivity(),
-                                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getBaseActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                             requestPermissions(new String[]{Manifest.permission.CAMERA}, CAMERA_REQUEST_CODE);
-                            System.out.println("VI3: NEMA JEBENE PERMISIJE ZA KAMERU");
                             return;
                         }
                     }
@@ -317,7 +316,6 @@ public class ManagerRestaurantDetailsFragment extends BaseFragment implements
                     mCameraFileName = outFile.toString();
                     Uri imageUri = Uri.fromFile(outFile);
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-                    System.out.println("VI3: OTVARAM KAMERU");
                     startActivityForResult(intent, REQUEST_CAMERA);
 
                 } else if (items[i].equals("Gallery")) {
@@ -362,9 +360,7 @@ public class ManagerRestaurantDetailsFragment extends BaseFragment implements
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
             case CAMERA_REQUEST_CODE:
-                System.out.println("VI3: KAMERA ODOBRENA");
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    System.out.println("VI3: KAMERA ODOBRENA KAKO TREBA");
 
                     StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
                     StrictMode.setVmPolicy(builder.build());
@@ -377,7 +373,6 @@ public class ManagerRestaurantDetailsFragment extends BaseFragment implements
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
                     startActivityForResult(intent, REQUEST_CAMERA);
                 } else {
-                    System.out.println("VI3: KAMERA ODOBRENA KAKO NEEEEEEEEEEEEE TREBA");
                     Toast.makeText(getBaseActivity(), "Camera permission missing",
                             Toast.LENGTH_SHORT).show();
                 }
@@ -462,7 +457,6 @@ public class ManagerRestaurantDetailsFragment extends BaseFragment implements
                     return;
                 }
                 imageView.setImageURI(userImageUri);
-                System.out.println("VI3: SIZE: " + imgBytes.length);
             }
         }
     }

@@ -260,7 +260,6 @@ public class AppApiHelper implements ApiHelper {
 
         float aspectRatio = (float)bitmapImage.getWidth() / (float)bitmapImage.getHeight() ;
         newWidth = (int)(aspectRatio * ((float)newHeight));
-        System.out.println("VI3: RATIO: " + aspectRatio + " S_SIRINA: " + newWidth + " S_VISINA: " + newHeight + " N_SIRINA: " + newWidth + " N_VISINA: " + newHeight);
 
         // New bitmap with the correct size, may not return a null object
         Bitmap mutableBitmapImage = Bitmap.createScaledBitmap(bitmapImage, newWidth, newHeight,
