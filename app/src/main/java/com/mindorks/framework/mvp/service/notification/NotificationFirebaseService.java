@@ -47,56 +47,51 @@ public class NotificationFirebaseService extends FirebaseMessagingService {
     @SuppressLint("CheckResult")
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
+
+
         super.onMessageReceived(remoteMessage);
-        System.out.println("Dosao sa ovdije?");
-        if (remoteMessage.getNotification() != null) {
+        System.out.println("Notifikacija");
+        System.out.println("Title " + remoteMessage.getData().get("title"));
+        System.out.println("Body " + remoteMessage.getData().get("body"));
+        System.out.println("Id " + remoteMessage.getData().get("notificationPromotionId"));
 
-            System.out.println("Notifikacija");
-            System.out.println("Title " + remoteMessage.getNotification().getTitle());
-            System.out.println("Body " + remoteMessage.getNotification().getBody());
+        Intent intent = new Intent(this, PromotionDetailsActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.putExtra("notificationPromotionId", remoteMessage.getData().get("notificationPromotionId"));
 
-            Intent intent = new Intent(this, PromotionDetailsActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            intent.putExtra("notificationPromotionId", remoteMessage.getData().get("notificationPromotionId"));
+        PendingIntent pendingIntent = PendingIntent.getActivity(this,createId(),intent,0);
 
-            PendingIntent pendingIntent = PendingIntent.getActivity(this,0,intent,0);
+        String channelId = "pma_channel";
 
-            String channelId = "pma_channel";
+        //Create notification
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channelId)
+                .setSmallIcon(R.mipmap.app_icon)
+                .setContentTitle(remoteMessage.getData().get("title"))
+                .setContentText(remoteMessage.getData().get("body"))
+                .setAutoCancel(true)
+                .setContentIntent(pendingIntent);
 
-            //Create notification
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channelId)
-                    .setSmallIcon(R.mipmap.app_icon)
-                    .setContentTitle(remoteMessage.getNotification().getTitle())
-                    .setContentText(remoteMessage.getNotification().getBody())
-                    .setAutoCancel(true)
-                    .setContentIntent(pendingIntent);
+        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
-            NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(channelId, "PMA Channel", NotificationManager.IMPORTANCE_DEFAULT);
+            manager.createNotificationChannel(channel);
+        }
+        manager.notify(createId(), builder.build());
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                NotificationChannel channel = new NotificationChannel(channelId, "PMA Channel", NotificationManager.IMPORTANCE_DEFAULT);
-                manager.createNotificationChannel(channel);
+
+        Notification notification = new Notification();
+        notification.setNotificationTitle(remoteMessage.getData().get("title"));
+        notification.setNotificationBody(remoteMessage.getData().get("body"));
+        notification.setPrmotionId(remoteMessage.getData().get("notificationPromotionId"));
+
+        //Save
+        dataManager.saveNotification(notification).subscribe(new Consumer<Boolean>() {
+            @Override
+            public void accept(Boolean aBoolean) throws Exception {
+                System.out.println("Notifikacija upisana");
             }
-            manager.notify(createId(), builder.build());
-
-
-            Notification notification = new Notification();
-            notification.setNotificationTitle(remoteMessage.getNotification().getTitle());
-            notification.setNotificationBody(remoteMessage.getNotification().getBody());
-            notification.setPrmotionId(remoteMessage.getData().get("notificationPromotionId"));
-
-            //Save
-            dataManager.saveNotification(notification).subscribe(new Consumer<Boolean>() {
-                @Override
-                public void accept(Boolean aBoolean) throws Exception {
-                    System.out.println("Notifikacija upisana");
-                }
-            });
-        }
-        if (remoteMessage.getData().size() > 0) {
-            System.out.println("Imam podatke?");
-            System.out.println(remoteMessage.getData().toString());
-        }
+        });
     }
 
 

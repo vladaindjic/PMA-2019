@@ -70,8 +70,9 @@ public class PromotionDetailsActivity extends BaseActivity implements PromotionD
     protected void setUp() {
 
         String id = "";
-        id= getIntent().getStringExtra("notificationPromotionId");
+        id= getIntent().getExtras().getString("notificationPromotionId");
 
+        System.out.println("Notifkacija"+id);
         setSupportActionBar(mToolbar);
 
         Long promotionId = getIntent().getLongExtra("promotionId", 0L);
