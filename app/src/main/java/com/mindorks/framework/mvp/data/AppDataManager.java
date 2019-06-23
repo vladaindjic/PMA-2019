@@ -583,6 +583,11 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public Single<DishDetailsResponse> putDishImageUpdateRaw(byte[] imageBytes, Long dishId) {
+        return mApiHelper.putDishImageUpdateRaw(imageBytes, dishId);
+    }
+
+    @Override
     public Single<Double> rateRestaurant(Long restaurantid, RestaurantScoreRequest restaurantScoreRequest) {
         return mApiHelper.rateRestaurant(restaurantid,restaurantScoreRequest);
     }
@@ -648,7 +653,7 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Single<RestaurantCookResponse> addDish(Long restaurantId, DishRequestDto requestData) {
+    public Single<DishDetailsResponse> addDish(Long restaurantId, DishRequestDto requestData) {
         return mApiHelper.addDish(restaurantId,requestData);
     }
 

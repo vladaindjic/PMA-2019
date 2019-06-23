@@ -125,6 +125,8 @@ public interface ApiHelper {
 
     Single<RestaurantPromotionsResponse> putPromotionImageUpdateRaw(byte[] imageBytes,Long promotionId);
 
+    Single<DishDetailsResponse> putDishImageUpdateRaw(byte[] imageBytes, Long dishId);
+
     Single<Double> rateRestaurant(Long restaurantid, RestaurantScoreRequest restaurantScoreRequest);
 
     Single<Double> rateDish(Long dishId, RestaurantScoreRequest scoreRequest);
@@ -153,6 +155,6 @@ public interface ApiHelper {
 
     Single<RestaurantPromotionsResponse> updatePromotion(Long promotionId, PromotionDetailsResponse.Promotion promotion);
 
-    Single<RestaurantCookResponse> addDish(Long restaurantId, DishRequestDto requestData);
+    Single<DishDetailsResponse> addDish(Long restaurantId, DishRequestDto requestData);
     Single<RestaurantCookResponse> updateDish(Long dishId,DishRequestDto requestData);
 }

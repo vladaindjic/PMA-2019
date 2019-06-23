@@ -13,4 +13,6 @@ public interface ManagerDishDetailsMvpPresenter<V extends ManagerDishDetailsMvpV
     void createDish(DishRequestDto requestData);
 
     void updateDish(long dishId, DishRequestDto requestData);
+
+    void submitDishImage(Long dishId);
 }

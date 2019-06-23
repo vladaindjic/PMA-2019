@@ -310,6 +310,17 @@ public class AppApiHelper implements ApiHelper {
     }
 
     @Override
+    public Single<DishDetailsResponse> putDishImageUpdateRaw(byte[] imageBytes, Long dishId) {
+        return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_DISH_UPLOAD_IMAGE_RAW + dishId +
+                "/imageraw/")
+                .setContentType("application/octet-stream")
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .addByteBody(getScaledImage(imageBytes, IMAGE_HEIGHT, IMAGE_HEIGHT))
+                .build()
+                .getObjectSingle(DishDetailsResponse.class);
+    }
+
+    @Override
     public Single<RestaurantRatingResponse> getDishRatingApiCall(Long id) {
         return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_DISH_RATING + id + "/raiting")
                 .addHeaders(mApiHeader.getProtectedApiHeader())
@@ -526,12 +537,12 @@ public class AppApiHelper implements ApiHelper {
     }
 
     @Override
-    public Single<RestaurantCookResponse> addDish(Long restaurantId, DishRequestDto requestData) {
+    public Single<DishDetailsResponse> addDish(Long restaurantId, DishRequestDto requestData) {
         return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_MANAGER_RESTAURANT_COOK_DELETE+restaurantId)
                 .addHeaders(mApiHeader.getProtectedApiHeader())
                 .addApplicationJsonBody(requestData)
                 .build()
-                .getObjectSingle(RestaurantCookResponse.class);
+                .getObjectSingle(DishDetailsResponse.class);
     }
 
     @Override

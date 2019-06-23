@@ -10,4 +10,5 @@ public interface ManagerDishDetailsMvpView extends MvpView {
     void updateDishDetails(DishDetailsResponse.DishDetails dishDetails);
     void setKitchenAdapter(List<String> kitchens);
     void back();
+    byte[] getImgBytes();
 }

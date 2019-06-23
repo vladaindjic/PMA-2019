@@ -1,11 +1,13 @@
 package com.mindorks.framework.mvp.ui.manager.restaurant.dish;
 
+import com.androidnetworking.error.ANError;
 import com.mindorks.framework.mvp.data.DataManager;
 import com.mindorks.framework.mvp.data.network.model.AllKitchensResponse;
 import com.mindorks.framework.mvp.data.network.model.DishDetailsResponse;
 import com.mindorks.framework.mvp.data.network.model.DishRequestDto;
 import com.mindorks.framework.mvp.data.network.model.RestaurantCookResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantFilterResponse;
+import com.mindorks.framework.mvp.data.network.model.RestaurantPromotionsResponse;
 import com.mindorks.framework.mvp.ui.base.BasePresenter;
 import com.mindorks.framework.mvp.utils.rx.SchedulerProvider;
 
@@ -14,6 +16,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
 
@@ -153,13 +156,12 @@ public class ManagerDishDetailsPresenter<V extends ManagerDishDetailsMvpView> ex
                 .addDish(restaurantId, requestData)
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
-                .subscribe(new Consumer<RestaurantCookResponse>() {
+                .subscribe(new Consumer<DishDetailsResponse>() {
                     @Override
-                    public void accept(RestaurantCookResponse restaurantCookResponse) throws Exception {
-                        if (restaurantCookResponse != null && restaurantCookResponse.getData() != null) {
-                            System.out.println("USPEH");
-                            getMvpView().hideLoading();
-                            getMvpView().back();
+                    public void accept(DishDetailsResponse response) throws Exception {
+                        if (response != null && response.getData() != null) {
+                            getMvpView().updateDishDetails(response.getData());
+                            submitDishImage(response.getData().getId());
                         }
                     }
                 }, new Consumer<Throwable>() {
@@ -173,7 +175,7 @@ public class ManagerDishDetailsPresenter<V extends ManagerDishDetailsMvpView> ex
     }
 
     @Override
-    public void updateDish(long dishId, DishRequestDto requestData) {
+    public void updateDish(final long dishId, DishRequestDto requestData) {
         getCompositeDisposable().add(getDataManager()
                 .updateDish(dishId, requestData)
                 .subscribeOn(getSchedulerProvider().io())
@@ -182,9 +184,8 @@ public class ManagerDishDetailsPresenter<V extends ManagerDishDetailsMvpView> ex
                     @Override
                     public void accept(RestaurantCookResponse restaurantCookResponse) throws Exception {
                         if (restaurantCookResponse != null && restaurantCookResponse.getData() != null) {
-                            System.out.println("USPEH");
+                            submitDishImage(dishId);
                             getMvpView().hideLoading();
-                            getMvpView().back();
                         }
                     }
                 }, new Consumer<Throwable>() {
@@ -196,4 +197,43 @@ public class ManagerDishDetailsPresenter<V extends ManagerDishDetailsMvpView> ex
                 }));
     }
 
+    @Override
+    public void submitDishImage(Long dishId) {
+        byte[] imgBytes = getMvpView().getImgBytes();
+        System.out.println("VI3: UPDATE SLIKE RESTORANA: " + imgBytes != null ? imgBytes.length :
+                0);
+        if (imgBytes != null) {
+            getCompositeDisposable().add(getDataManager()
+                    .putDishImageUpdateRaw(imgBytes, dishId)
+                    .subscribeOn(getSchedulerProvider().io())
+                    .observeOn(getSchedulerProvider().ui())
+                    .subscribe(new Consumer<DishDetailsResponse>() {
+                        @Override
+                        public void accept(@NonNull DishDetailsResponse response)
+                                throws Exception {
+                            if (response != null && response.getData() != null) {
+                                getMvpView().back();
+                            }
+                        }
+                    }, new Consumer<Throwable>() {
+                        @Override
+                        public void accept(@NonNull Throwable throwable)
+                                throws Exception {
+                            if (!isViewAttached()) {
+                                return;
+                            }
+                            // ako ne uspe upload slike, onda cemo ostaviti menadzera na ovoj
+                            // aktivnosti
+                            getMvpView().hideLoading();
+
+                            // handle the error here
+                            if (throwable instanceof ANError) {
+                                ANError anError = (ANError) throwable;
+                                handleApiError(anError);
+                            }
+                        }
+                    }));
+        }
+        getMvpView().back();
+    }
 }
