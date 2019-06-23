@@ -295,7 +295,12 @@ public class ManagerRestaurantMenuFragment extends BaseFragment implements Manag
         menu.setName(this.menu.getName());
         // proveriti da li treba da se pravi nova lista
         menu.setDishTypeList(this.menu.getDishTypeList());
-
+        // svi negativni ID-evi se ponistavaju
+        for (MenuResponse.DishType dt: menu.getDishTypeList()) {
+            if (dt.getId() <= 0) {
+                dt.setId(null);
+            }
+        }
         mPresenter.submitMenu(menu);
 
         // TODO vi3: takodje treba videti koji je najbolji nacin da se uradi

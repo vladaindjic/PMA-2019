@@ -49,7 +49,7 @@ public class PromotionDetailsResponse {
 
         @Expose
         @SerializedName("id")
-        private int id;
+        private Long id;
 
         @Expose
         @SerializedName("title")
@@ -79,7 +79,8 @@ public class PromotionDetailsResponse {
         public Promotion() {
         }
 
-        public Promotion(int id, String title, String imageUrl, String subTitle, String details, String price, String duration) {
+        public Promotion(Long id, String title, String imageUrl, String subTitle, String details,
+                         String price, String duration) {
             this.id = id;
             this.title = title;
             this.imageUrl = imageUrl;
@@ -90,11 +91,11 @@ public class PromotionDetailsResponse {
         }
 
 
-        public int getId() {
+        public Long getId() {
             return id;
         }
 
-        public void setId(int id) {
+        public void setId(Long id) {
             this.id = id;
         }
 

@@ -97,6 +97,8 @@ public final class ApiEndPoint {
     public static final String ENDPOINT_RESTAURANT_UPLOAD_IMAGE_RAW = BuildConfig.BASE_URL
             + "/restaurants/imageraw";
 
+    public static final String ENDPOINT_PROMOTION_UPLOAD_IMAGE_RAW = BuildConfig.BASE_URL
+            + "/promotion/";
 
     public static final String ENDPOINT_DISH_RATING = BuildConfig.BASE_URL
             + "/dish/";
