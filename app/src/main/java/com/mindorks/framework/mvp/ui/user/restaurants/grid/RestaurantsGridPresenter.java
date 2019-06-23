@@ -32,7 +32,6 @@ public class RestaurantsGridPresenter<V extends RestaurantsGridMvpView> extends 
         getMvpView().showLoading();
 
         Long userFilterId = getDataManager().getActiveUserFilterId();
-        System.out.println("Nasisi se kurcine " + userFilterId + " " + latitude + " " + longitude);
 
         RestaurantsGridFragment fragment = (RestaurantsGridFragment)getMvpView();
         UserRestaurantsActivity activity = (UserRestaurantsActivity)fragment.getBaseActivity();

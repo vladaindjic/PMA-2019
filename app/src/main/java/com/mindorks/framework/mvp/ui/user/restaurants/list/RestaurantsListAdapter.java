@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.ui.base.BasePresenter;
@@ -118,12 +119,12 @@ public class RestaurantsListAdapter extends RecyclerView.Adapter<BaseViewHolder>
 
             final RestaurantsResponse.Restaurant restaurant = mRestaurantsResponseList.get(position);
 
-            String imgUrl = restaurant.getImageUrl();
-
+            String imgUrlToShow = basePresenterForImageUrlProviding.getImageUrlFor(BasePresenter.ENTITY_RESTAURANT,
+                    restaurant.getImageUrl());
             Glide.with(itemView.getContext())
-                    .load(basePresenterForImageUrlProviding.getImageUrlFor(BasePresenter.ENTITY_RESTAURANT, restaurant.getImageUrl()))
-//                        .asBitmap()
-//                        .centerCrop()
+                    .load(imgUrlToShow)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
                     .into(coverImageView);
 
             if (restaurant.getName() != null) {

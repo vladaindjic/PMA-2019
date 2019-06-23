@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.PromotionDetailsResponse;
 import com.mindorks.framework.mvp.ui.base.BaseActivity;
@@ -92,6 +93,8 @@ public class PromotionDetailsActivity extends BaseActivity implements PromotionD
             Glide.with(promotionImageView.getContext())
                     .load(((BasePresenter)mPresenter).getImageUrlFor(BasePresenter.ENTITY_DISH,
                             promotion.getImageUrl()))
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
                     .into(promotionImageView);
         }
 

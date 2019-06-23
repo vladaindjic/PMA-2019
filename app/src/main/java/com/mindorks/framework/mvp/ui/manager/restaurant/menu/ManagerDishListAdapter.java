@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.MenuResponse;
 import com.mindorks.framework.mvp.ui.base.BaseViewHolder;
@@ -151,6 +152,8 @@ public class ManagerDishListAdapter extends RecyclerView.Adapter<BaseViewHolder>
             if (dish.getImgUrl() != null) {
                 Glide.with(itemView.getContext())
                         .load(dish.getImgUrl())
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .skipMemoryCache(true)
                         .into(imgDish);
             }
 

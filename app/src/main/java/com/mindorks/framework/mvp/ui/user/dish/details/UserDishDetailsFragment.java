@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.fitness.Fitness;
 import com.google.android.gms.fitness.FitnessOptions;
@@ -130,6 +131,8 @@ public class UserDishDetailsFragment extends BaseFragment implements
         Glide.with(this)
                 .load(((BasePresenter)mPresenter).getImageUrlFor(BasePresenter.ENTITY_RESTAURANT,
                         dishDetails.getImageUrl()))
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
                 .into(imageView);
         // FIXME vi3: ako liniju ispod uklonim, nece da update-uje sliku
         //imageView.setImageResource(R.drawable.login_bg);

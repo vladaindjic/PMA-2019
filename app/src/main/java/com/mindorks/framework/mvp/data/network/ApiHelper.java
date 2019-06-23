@@ -28,6 +28,7 @@ import com.mindorks.framework.mvp.data.network.model.LoginResponse;
 import com.mindorks.framework.mvp.data.network.model.LogoutResponse;
 import com.mindorks.framework.mvp.data.network.model.MealResponse;
 import com.mindorks.framework.mvp.data.network.model.MenuResponse;
+import com.mindorks.framework.mvp.data.network.model.MyRestaurantsResponse;
 import com.mindorks.framework.mvp.data.network.model.NotificationResponse;
 import com.mindorks.framework.mvp.data.network.model.OpenSourceResponse;
 import com.mindorks.framework.mvp.data.network.model.PromotionDetailsResponse;
@@ -74,7 +75,7 @@ public interface ApiHelper {
     Single<RestaurantsResponse> getRestaurantsApiCall(FilterRestaurantRequest filterRestaurantRequest);
 
     // TODO vi3: treba dodati i proveru koji user salji ili to sa servera gledati po jwt-u
-    public Single<RestaurantsResponse> getSubscriptionsApiCall();
+    public Single<MyRestaurantsResponse> getSubscriptionsApiCall();
 
     Single<RestaurantPromotionsResponse> getRestaurantPromotions(Long restaurantId);
 

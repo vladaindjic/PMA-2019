@@ -17,7 +17,10 @@ package com.mindorks.framework.mvp.data.db;
 
 import com.mindorks.framework.mvp.data.db.model.DaoMaster;
 import com.mindorks.framework.mvp.data.db.model.DaoSession;
+import com.mindorks.framework.mvp.data.db.model.KitchenDB;
 import com.mindorks.framework.mvp.data.db.model.KitchenOption;
+import com.mindorks.framework.mvp.data.db.model.MyRestaurantDB;
+import com.mindorks.framework.mvp.data.db.model.MyRestaurantDBDao;
 import com.mindorks.framework.mvp.data.db.model.Notification;
 import com.mindorks.framework.mvp.data.db.model.NotificationDao;
 import com.mindorks.framework.mvp.data.db.model.Option;
@@ -25,7 +28,11 @@ import com.mindorks.framework.mvp.data.db.model.Question;
 import com.mindorks.framework.mvp.data.db.model.User;
 import com.mindorks.framework.mvp.data.db.model.UserFilter;
 
+import org.greenrobot.greendao.query.QueryBuilder;
+import org.greenrobot.greendao.query.WhereCondition;
+
 import java.util.List;
+import java.util.Properties;
 import java.util.concurrent.Callable;
 
 import javax.inject.Inject;
@@ -191,6 +198,82 @@ public class AppDbHelper implements DbHelper {
             @Override
             public UserFilter call() throws Exception {
                 return mDaoSession.getUserFilterDao().load(id);
+            }
+        });
+    }
+
+    @Override
+    public Observable<List<MyRestaurantDB>> getAllMyRestaurants() {
+        return Observable.fromCallable(new Callable<List<MyRestaurantDB>>() {
+            @Override
+            public List<MyRestaurantDB> call() throws Exception {
+                return mDaoSession.getMyRestaurantDBDao().loadAll();
+            }
+        });
+    }
+
+    @Override
+    public Observable<Boolean> deleteAllMyRestaurants() {
+        return Observable.fromCallable(new Callable<Boolean>() {
+            @Override
+            public Boolean call() throws Exception {
+                mDaoSession.getMyRestaurantDBDao().deleteAll();
+                return true;
+            }
+        });
+    }
+
+    @Override
+    public Observable<MyRestaurantDB> getMyRestaurant(final long id) {
+        return Observable.fromCallable(new Callable<MyRestaurantDB>() {
+            @Override
+            public MyRestaurantDB call() throws Exception {
+                return mDaoSession.getMyRestaurantDBDao().load(id);
+            }
+        });
+    }
+
+    @Override
+    public Observable<MyRestaurantDB> getMyRestaurantByRemoteDatabaseId(final long remoteDatabaseId) {
+        return Observable.fromCallable(new Callable<MyRestaurantDB>() {
+            @Override
+            public MyRestaurantDB call() throws Exception {
+                List<MyRestaurantDB> myRestaurantDBList =
+                        mDaoSession.getMyRestaurantDBDao().queryBuilder().where(MyRestaurantDBDao.Properties.Id.eq(remoteDatabaseId)).list();
+                if (myRestaurantDBList != null && myRestaurantDBList.size() > 0)
+                    return myRestaurantDBList.get(0);
+                return null;
+            }
+        });
+    }
+
+    @Override
+    public Observable<Long> saveMyRestaurant(final MyRestaurantDB myRestaurantDB) {
+        return Observable.fromCallable(new Callable<Long>() {
+            @Override
+            public Long call() throws Exception {
+                return mDaoSession.getMyRestaurantDBDao().insert(myRestaurantDB);
+            }
+        });
+    }
+
+    @Override
+    public Observable<Long> saveKitchenDB(final KitchenDB kitchenDB) {
+        return Observable.fromCallable(new Callable<Long>() {
+            @Override
+            public Long call() throws Exception {
+                return mDaoSession.getKitchenDBDao().insert(kitchenDB);
+            }
+        });
+    }
+
+    @Override
+    public Observable<Boolean> deleteAllKitchensDB() {
+        return Observable.fromCallable(new Callable<Boolean>() {
+            @Override
+            public Boolean call() throws Exception {
+                mDaoSession.getKitchenDBDao().deleteAll();
+                return true;
             }
         });
     }

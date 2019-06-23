@@ -26,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.OpenSourceResponse;
 import com.mindorks.framework.mvp.ui.base.BaseViewHolder;
@@ -132,8 +133,8 @@ public class OpenSourceAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             if (repo.getCoverImgUrl() != null) {
                 Glide.with(itemView.getContext())
                         .load(repo.getCoverImgUrl())
-//                        .asBitmap()
-//                        .centerCrop()
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .skipMemoryCache(true)
                         .into(coverImageView);
             }
 

@@ -3,8 +3,11 @@ package com.mindorks.framework.mvp.ui.user.restaurants.list;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -180,5 +183,14 @@ public class RestaurantsListFragment extends BaseFragment implements
         } else {
             Toast.makeText(getContext(), "Ne valja ti ovo, druze (:", Toast.LENGTH_SHORT).show();
         }
+    }
+
+
+    public boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                =
+                (ConnectivityManager) getBaseActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }

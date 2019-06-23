@@ -23,7 +23,9 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.internal.$Gson$Types;
 import com.google.gson.reflect.TypeToken;
 import com.mindorks.framework.mvp.data.db.DbHelper;
+import com.mindorks.framework.mvp.data.db.model.KitchenDB;
 import com.mindorks.framework.mvp.data.db.model.KitchenOption;
+import com.mindorks.framework.mvp.data.db.model.MyRestaurantDB;
 import com.mindorks.framework.mvp.data.db.model.Notification;
 import com.mindorks.framework.mvp.data.db.model.Option;
 import com.mindorks.framework.mvp.data.db.model.Question;
@@ -43,6 +45,7 @@ import com.mindorks.framework.mvp.data.network.model.LoginResponse;
 import com.mindorks.framework.mvp.data.network.model.LogoutResponse;
 import com.mindorks.framework.mvp.data.network.model.MealResponse;
 import com.mindorks.framework.mvp.data.network.model.MenuResponse;
+import com.mindorks.framework.mvp.data.network.model.MyRestaurantsResponse;
 import com.mindorks.framework.mvp.data.network.model.NotificationResponse;
 import com.mindorks.framework.mvp.data.network.model.OpenSourceResponse;
 import com.mindorks.framework.mvp.data.network.model.PromotionDetailsResponse;
@@ -356,6 +359,41 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public Observable<List<MyRestaurantDB>> getAllMyRestaurants() {
+        return mDbHelper.getAllMyRestaurants();
+    }
+
+    @Override
+    public Observable<Boolean> deleteAllMyRestaurants() {
+        return mDbHelper.deleteAllMyRestaurants();
+    }
+
+    @Override
+    public Observable<MyRestaurantDB> getMyRestaurant(long id) {
+        return mDbHelper.getMyRestaurant(id);
+    }
+
+    @Override
+    public Observable<MyRestaurantDB> getMyRestaurantByRemoteDatabaseId(long remoteDatabaseId) {
+        return mDbHelper.getMyRestaurantByRemoteDatabaseId(remoteDatabaseId);
+    }
+
+    @Override
+    public Observable<Long> saveMyRestaurant(MyRestaurantDB myRestaurantDB) {
+        return mDbHelper.saveMyRestaurant(myRestaurantDB);
+    }
+
+    @Override
+    public Observable<Long> saveKitchenDB(KitchenDB kitchenDB) {
+        return mDbHelper.saveKitchenDB(kitchenDB);
+    }
+
+    @Override
+    public Observable<Boolean> deleteAllKitchensDB() {
+        return mDbHelper.deleteAllKitchensDB();
+    }
+
+    @Override
     public Observable<Boolean> seedDatabaseQuestions() {
 
         GsonBuilder builder = new GsonBuilder().excludeFieldsWithoutExposeAnnotation();
@@ -425,7 +463,7 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Single<RestaurantsResponse> getSubscriptionsApiCall() {
+    public Single<MyRestaurantsResponse> getSubscriptionsApiCall() {
         return mApiHelper.getSubscriptionsApiCall();
     }
 

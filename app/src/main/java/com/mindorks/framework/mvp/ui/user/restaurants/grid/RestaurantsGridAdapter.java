@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.ui.base.BasePresenter;
@@ -119,8 +120,8 @@ public class RestaurantsGridAdapter extends RecyclerView.Adapter<BaseViewHolder>
 
             Glide.with(itemView.getContext())
                     .load(basePresenterForImageUrlProviding.getImageUrlFor(BasePresenter.ENTITY_RESTAURANT, restaurant.getImageUrl()))
-                    //.asBitmap()
-                    //.centerCrop()
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
                     .into(coverImageView);
             if (restaurant.getName() != null) {
                 titleTextView.setText(restaurant.getName());

@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -244,7 +245,6 @@ public class RestaurantsMapFragment extends BaseFragment implements
             // Use the equals() method on a Marker to check for equals.  Do not use ==.
             ImageView imgView = view.findViewById(R.id.map_restaurant_image);
             // ovo nece postaviti sliku, jer je asinhrono ocigledno
-            // Glide.with(getBaseActivity()).load(R.drawable.login_bg).into(imgView);
 
             if (restaurantsDrawablesMap.containsKey(marker.getId())) {
                 imgView.setImageDrawable(restaurantsDrawablesMap.get(marker.getId()));
@@ -329,6 +329,8 @@ public class RestaurantsMapFragment extends BaseFragment implements
 
         Glide.with(getActivity()).load(
                 ((BasePresenter)mPresenter).getDataManager().getCurrentUserProfilePicUrl())
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
                 .into(new SimpleTarget<Drawable>() {
                     @Override
                     public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
@@ -381,6 +383,8 @@ public class RestaurantsMapFragment extends BaseFragment implements
                         ((BasePresenter)mPresenter).getImageUrlFor(BasePresenter.ENTITY_RESTAURANT, restaurant.getImageUrl());
                 System.out.println("KONJINBOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO " + urlKogaJebes);
                 Glide.with(getActivity()).load(((BasePresenter)mPresenter).getImageUrlFor(BasePresenter.ENTITY_RESTAURANT, restaurant.getImageUrl()))
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .skipMemoryCache(true)
                         .into(new SimpleTarget<Drawable>() {
 
                             @Override
@@ -408,6 +412,8 @@ public class RestaurantsMapFragment extends BaseFragment implements
                                 super.onLoadFailed(errorDrawable);
                                 // prikaz podrazumevane slike za restoran
                                 Glide.with(getActivity()).load(BasePresenter.ENTITY_RESTAURANT_IMAGE_URL)
+                                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                        .skipMemoryCache(true)
                                         .into(new SimpleTarget<Drawable>() {
                                     @Override
                                     public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {

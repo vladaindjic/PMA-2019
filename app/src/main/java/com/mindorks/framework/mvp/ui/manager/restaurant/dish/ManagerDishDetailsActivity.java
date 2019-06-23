@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.DishDetailsResponse;
 import com.mindorks.framework.mvp.ui.base.BaseActivity;
@@ -150,6 +151,8 @@ public class ManagerDishDetailsActivity extends BaseActivity implements
         if (dishDetails.getImageUrl() != null) {
             Glide.with(this)
                     .load(dishDetails.getImageUrl())
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
                     .into(imageView);
             // FIXME vi3: ako liniju ispod uklonim, nece da update-uje sliku
             imageView.setImageResource(R.drawable.login_bg);

@@ -191,8 +191,8 @@ public class BasePresenter<V extends MvpView> implements MvpPresenter<V> {
         } else {
             imgUrlToRet = ENTITY_OTHER_IMAGE_URL;
         }
-
-        if (imgUrlReceivedFromServer == null || getDataManager().isSaveNetworkDataOn()) {
+        // nista nismo dobili sa servera, ukljucena je ustena interneta, nema konekcije
+        if (imgUrlReceivedFromServer == null || getDataManager().isSaveNetworkDataOn() || !getMvpView().isNetworkConnected()) {
             return imgUrlToRet;
         }
 

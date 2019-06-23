@@ -15,12 +15,15 @@
 
 package com.mindorks.framework.mvp.data.db;
 
+import com.mindorks.framework.mvp.data.db.model.KitchenDB;
 import com.mindorks.framework.mvp.data.db.model.KitchenOption;
+import com.mindorks.framework.mvp.data.db.model.MyRestaurantDB;
 import com.mindorks.framework.mvp.data.db.model.Notification;
 import com.mindorks.framework.mvp.data.db.model.Option;
 import com.mindorks.framework.mvp.data.db.model.Question;
 import com.mindorks.framework.mvp.data.db.model.User;
 import com.mindorks.framework.mvp.data.db.model.UserFilter;
+import com.mindorks.framework.mvp.data.network.model.MyRestaurantsResponse;
 
 import java.util.List;
 
@@ -60,5 +63,13 @@ public interface DbHelper {
 
     Observable<Boolean> saveKitchenOption(KitchenOption kitchenOption);
 
+    // potrebno radi kesiranja restorana
+    Observable<List<MyRestaurantDB>> getAllMyRestaurants();
+    Observable<Boolean> deleteAllMyRestaurants();
+    Observable<MyRestaurantDB> getMyRestaurant(long id);
+    Observable<MyRestaurantDB> getMyRestaurantByRemoteDatabaseId(long remoteDatabaseId);
+    Observable<Long> saveMyRestaurant(MyRestaurantDB myRestaurantDB);
+    Observable<Long> saveKitchenDB(KitchenDB kitchenDB);
+    Observable<Boolean> deleteAllKitchensDB();
 
 }

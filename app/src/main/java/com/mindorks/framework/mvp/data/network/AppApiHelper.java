@@ -27,6 +27,7 @@ import com.mindorks.framework.mvp.data.network.model.LoginResponse;
 import com.mindorks.framework.mvp.data.network.model.LogoutResponse;
 import com.mindorks.framework.mvp.data.network.model.MealResponse;
 import com.mindorks.framework.mvp.data.network.model.MenuResponse;
+import com.mindorks.framework.mvp.data.network.model.MyRestaurantsResponse;
 import com.mindorks.framework.mvp.data.network.model.NotificationResponse;
 import com.mindorks.framework.mvp.data.network.model.OpenSourceResponse;
 import com.mindorks.framework.mvp.data.network.model.PromotionDetailsResponse;
@@ -143,11 +144,11 @@ public class AppApiHelper implements ApiHelper {
     }
 
     @Override
-    public Single<RestaurantsResponse> getSubscriptionsApiCall() {
+    public Single<MyRestaurantsResponse> getSubscriptionsApiCall() {
         return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_SUBSCRIPTIONS)
                 .addHeaders(mApiHeader.getProtectedApiHeader())
                 .build()
-                .getObjectSingle(RestaurantsResponse.class);
+                .getObjectSingle(MyRestaurantsResponse.class);
     }
 
 
@@ -363,7 +364,6 @@ public class AppApiHelper implements ApiHelper {
 //                    @Override
 //                    public void onError(ANError error) {
 //                        // handle error
-//                        System.out.println("**********Nasise se kurcine, mamu ti jebem " + error);
 //                    }
 //                });
 

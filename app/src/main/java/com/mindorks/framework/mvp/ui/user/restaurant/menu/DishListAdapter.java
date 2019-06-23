@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.MenuResponse;
 import com.mindorks.framework.mvp.ui.base.BasePresenter;
@@ -144,6 +145,8 @@ public class DishListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                 Glide.with(itemView.getContext())
                         .load(basePresenterForImageUrlProviding.getImageUrlFor(BasePresenter.ENTITY_DISH,
                                 dish.getImgUrl()))
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .skipMemoryCache(true)
                         .into(imgDish);
             }
 
