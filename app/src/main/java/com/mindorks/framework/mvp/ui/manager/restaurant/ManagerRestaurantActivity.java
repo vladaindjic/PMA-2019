@@ -14,12 +14,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.MenuResponse;
 import com.mindorks.framework.mvp.ui.base.BaseActivity;
-import com.mindorks.framework.mvp.ui.custom.RoundedImageView;
 import com.mindorks.framework.mvp.ui.login.LoginActivity;
 import com.mindorks.framework.mvp.ui.manager.restaurant.cook.ManagerRestaurantCookItemListAdapter;
 import com.mindorks.framework.mvp.ui.manager.restaurant.dailyMenu.details.ManagerDailyMenuDetailsActivity;
@@ -55,7 +53,6 @@ public class ManagerRestaurantActivity extends BaseActivity implements ManagerRe
     NavigationView mNavigationView;
 
     private ActionBarDrawerToggle mDrawerToggle;
-
 
 
     public static Intent getStartIntent(Context context) {
@@ -179,9 +176,10 @@ public class ManagerRestaurantActivity extends BaseActivity implements ManagerRe
     }
 
     @Override
-    public void openDailyMenuDetailsActivity(int dailyMenuId) {
+    public void openDailyMenuDetailsActivity(Long dailyMenuId, Long mealId) {
         Intent intent = ManagerDailyMenuDetailsActivity.getStartIntent(this);
         intent.putExtra("menuId", dailyMenuId);
+        intent.putExtra("mealId", mealId);
         startActivity(intent);
     }
 

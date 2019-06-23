@@ -155,4 +155,7 @@ public interface ApiHelper {
 
     Single<RestaurantCookResponse> addDish(Long restaurantId, DishRequestDto requestData);
     Single<RestaurantCookResponse> updateDish(Long dishId,DishRequestDto requestData);
+
+    Single<DailyMenuResponse> addMeal(Long id, MealResponse.MealDetails data);
+    Single<DailyMenuResponse> updateMeal(Long mealId, MealResponse.MealDetails data);
 }
