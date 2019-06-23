@@ -21,6 +21,7 @@ import com.mindorks.framework.mvp.data.network.model.ComentVoteRequest;
 import com.mindorks.framework.mvp.data.network.model.CommentRequest;
 import com.mindorks.framework.mvp.data.network.model.DailyMenuResponse;
 import com.mindorks.framework.mvp.data.network.model.DishDetailsResponse;
+import com.mindorks.framework.mvp.data.network.model.DishRequestDto;
 import com.mindorks.framework.mvp.data.network.model.FilterRestaurantRequest;
 import com.mindorks.framework.mvp.data.network.model.LoginRequest;
 import com.mindorks.framework.mvp.data.network.model.LoginResponse;
@@ -485,6 +486,24 @@ public class AppApiHelper implements ApiHelper {
                 .addApplicationJsonBody(promotion)
                 .build()
                 .getObjectSingle(RestaurantPromotionsResponse.class);
+    }
+
+    @Override
+    public Single<RestaurantCookResponse> addDish(Long restaurantId, DishRequestDto requestData) {
+        return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_MANAGER_RESTAURANT_COOK_DELETE+restaurantId)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .addApplicationJsonBody(requestData)
+                .build()
+                .getObjectSingle(RestaurantCookResponse.class);
+    }
+
+    @Override
+    public Single<RestaurantCookResponse> updateDish(Long dishId, DishRequestDto requestData) {
+        return  Rx2AndroidNetworking.put(ApiEndPoint.ENDPOINT_MANAGER_RESTAURANT_COOK_DELETE+dishId)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .addApplicationJsonBody(requestData)
+                .build()
+                .getObjectSingle(RestaurantCookResponse.class);
     }
 
 }

@@ -22,6 +22,7 @@ import com.mindorks.framework.mvp.data.network.model.ComentVoteRequest;
 import com.mindorks.framework.mvp.data.network.model.CommentRequest;
 import com.mindorks.framework.mvp.data.network.model.DailyMenuResponse;
 import com.mindorks.framework.mvp.data.network.model.DishDetailsResponse;
+import com.mindorks.framework.mvp.data.network.model.DishRequestDto;
 import com.mindorks.framework.mvp.data.network.model.FilterRestaurantRequest;
 import com.mindorks.framework.mvp.data.network.model.LoginRequest;
 import com.mindorks.framework.mvp.data.network.model.LoginResponse;
@@ -151,4 +152,7 @@ public interface ApiHelper {
     Single<PromotionDetailsResponse> createPromotion(PromotionDetailsResponse.Promotion promotion);
 
     Single<RestaurantPromotionsResponse> updatePromotion(Long promotionId, PromotionDetailsResponse.Promotion promotion);
+
+    Single<RestaurantCookResponse> addDish(Long restaurantId, DishRequestDto requestData);
+    Single<RestaurantCookResponse> updateDish(Long dishId,DishRequestDto requestData);
 }
