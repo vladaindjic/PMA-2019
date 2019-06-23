@@ -123,6 +123,7 @@ public class ManagerRestaurantDetailsFragment extends BaseFragment implements
 
     private RestaurantDetailsResponse.RestaurantDetails originalRestaurantDetails;
 
+    // vi3: slika
     private static final int CAMERA_REQUEST_CODE = 10001;
     private static final int READ_EXTERNAL_STORAGE_REQUEST_CODE = 10002;
     private static final int WRITE_EXTERNAL_STORAGE_REQUEST_CODE = 10003;
@@ -131,6 +132,7 @@ public class ManagerRestaurantDetailsFragment extends BaseFragment implements
     byte[] imgBytes = null;
     private Uri userImageUri = null;
     private String mCameraFileName;
+    // vi3: slika
 
     public static ManagerRestaurantDetailsFragment newInstance() {
         Bundle args = new Bundle();
@@ -453,7 +455,7 @@ public class ManagerRestaurantDetailsFragment extends BaseFragment implements
         return imgBytes;
     }
 
-// =========================================================== vi3: slika
+    // =========================================================== vi3: slika
 
     // cuvamo originalno stanje
     private void saveOriginalRestaurantDetailsState() {
@@ -478,7 +480,7 @@ public class ManagerRestaurantDetailsFragment extends BaseFragment implements
         // samo ih ponovo postavimo i to je to
         // sve izmene ce biti ponostene
         this.updateRestaurantDetails(this.originalRestaurantDetails);
-        // ponistimo imgBytes
+        // vi3: slika - ponistimo imgBytes
         imgBytes = null;
     }
 

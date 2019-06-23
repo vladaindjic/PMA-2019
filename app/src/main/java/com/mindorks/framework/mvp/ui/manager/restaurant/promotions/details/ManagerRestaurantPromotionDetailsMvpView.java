@@ -7,4 +7,5 @@ public interface ManagerRestaurantPromotionDetailsMvpView extends MvpView {
 
     public void updatePromotion(PromotionDetailsResponse.Promotion promotion);
     public void back();
+    byte[] getImgBytes();
 }

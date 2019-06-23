@@ -260,6 +260,17 @@ public class AppApiHelper implements ApiHelper {
     }
 
     @Override
+    public Single<RestaurantPromotionsResponse> putPromotionImageUpdateRaw(byte[] imageBytes,
+                                                                           Long promotionId) {
+        return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_PROMOTION_UPLOAD_IMAGE_RAW+promotionId+"/imageraw/")
+                .setContentType("application/octet-stream")
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .addByteBody(imageBytes)
+                .build()
+                .getObjectSingle(RestaurantPromotionsResponse.class);
+    }
+
+    @Override
     public Single<RestaurantRatingResponse> getDishRatingApiCall(Long id) {
         return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_DISH_RATING + id + "/raiting")
                 .addHeaders(mApiHeader.getProtectedApiHeader())
@@ -459,12 +470,12 @@ public class AppApiHelper implements ApiHelper {
     }
 
     @Override
-    public Single<RestaurantPromotionsResponse> createPromotion(PromotionDetailsResponse.Promotion promotion) {
+    public Single<PromotionDetailsResponse> createPromotion(PromotionDetailsResponse.Promotion promotion) {
         return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_MANAGER_RESTAURANT_PROMOTION_CREATE)
                 .addHeaders(mApiHeader.getProtectedApiHeader())
                 .addApplicationJsonBody(promotion)
                 .build()
-                .getObjectSingle(RestaurantPromotionsResponse.class);
+                .getObjectSingle(PromotionDetailsResponse.class);
     }
 
     @Override

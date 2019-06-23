@@ -535,7 +535,12 @@ public class AppDataManager implements DataManager {
 
     @Override
     public Single<RestaurantDetailsResponse> putRestaurantImageUpdateRaw(byte[] imageBytes) {
-        return mApiHelper.putRestaurantImageUpdateRaw(imageBytes);
+        return  mApiHelper.putRestaurantImageUpdateRaw(imageBytes);
+    }
+
+    @Override
+    public Single<RestaurantPromotionsResponse> putPromotionImageUpdateRaw(byte[] imageBytes, Long promotionId) {
+        return mApiHelper.putPromotionImageUpdateRaw(imageBytes,promotionId);
     }
 
     @Override
@@ -594,7 +599,7 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Single<RestaurantPromotionsResponse> createPromotion(PromotionDetailsResponse.Promotion promotion) {
+    public Single<PromotionDetailsResponse> createPromotion(PromotionDetailsResponse.Promotion promotion) {
         return  mApiHelper.createPromotion(promotion);
     }
 

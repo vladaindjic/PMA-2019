@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.RestaurantPromotionsResponse;
 import com.mindorks.framework.mvp.ui.base.BaseViewHolder;
@@ -121,6 +122,8 @@ public class ManagerRestaurantPromotionsAdapter extends RecyclerView.Adapter<Bas
             if (promotion.getImageUrl() != null) {
                 Glide.with(itemView.getContext())
                         .load(promotion.getImageUrl())
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .skipMemoryCache(true)
 //                        .asBitmap()
 //                        .centerCrop()
                         .into(promotionImageView);

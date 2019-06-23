@@ -72,6 +72,7 @@ public interface ApiHelper {
     Single<OpenSourceResponse> getOpenSourceApiCall();
 
     Single<RestaurantsResponse> getRestaurantsApiCall(FilterRestaurantRequest filterRestaurantRequest);
+
     // TODO vi3: treba dodati i proveru koji user salji ili to sa servera gledati po jwt-u
     public Single<RestaurantsResponse> getSubscriptionsApiCall();
 
@@ -98,6 +99,7 @@ public interface ApiHelper {
     Single<UserDetailsResponse> getUserDetailsApiCall(Long userId);
 
     Single<RestaurantRatingResponse> getDishRatingApiCall(Long restaurantId);
+
     // mozda bude trebalo da se pravi poseban request objekat, mada mislim da za sada nema potrebe
     Single<RestaurantDetailsResponse> putRestaurantDetailsApiCall(RestaurantDetailsResponse.RestaurantDetails restaurantDetails);
 
@@ -112,10 +114,14 @@ public interface ApiHelper {
 
     Single<DishDetailsResponse> getDishDetailsApiCall(Long dishId);
 
-//    Single<UserDetailsResponse> putUserImageUpdate(byte[] imageBytes);
+    //    Single<UserDetailsResponse> putUserImageUpdate(byte[] imageBytes);
     Single<UserDetailsResponse> putUserImageUpdate(File imageBytes);
+
     Single<UserDetailsResponse> putUserImageUpdateRaw(byte[] imageBytes);
+
     Single<RestaurantDetailsResponse> putRestaurantImageUpdateRaw(byte[] imageBytes);
+
+    Single<RestaurantPromotionsResponse> putPromotionImageUpdateRaw(byte[] imageBytes,Long promotionId);
 
     Single<Double> rateRestaurant(Long restaurantid, RestaurantScoreRequest restaurantScoreRequest);
 
@@ -124,18 +130,24 @@ public interface ApiHelper {
     Single<RestaurantRatingResponse> postComment(Long restaurantId, CommentRequest request);
 
 
-    Single<RestaurantRatingResponse> leaevComment(Long dishId,CommentRequest request);
+    Single<RestaurantRatingResponse> leaevComment(Long dishId, CommentRequest request);
+
     Single<RestaurantRatingResponse> voteComment(Long id, ComentVoteRequest request);
 
-    Single<RestaurantRatingResponse>voteCommentDish(Long id, ComentVoteRequest request);
+    Single<RestaurantRatingResponse> voteCommentDish(Long id, ComentVoteRequest request);
 
     Single<AllKitchensResponse> getAllKitchensApiCall();
+
     Single<AllKitchensResponse> getAllKitchensForRestaurant(Long restaurantId);
 
 
     Single<RestaurantCookResponse> deleteDish(Long id);
+
     Single<RestaurantPromotionsResponse> deletePromotion(Long promotionId);
+
     Single<DailyMenuResponse> deleteMeal(Long mealId);
-    Single<RestaurantPromotionsResponse> createPromotion(PromotionDetailsResponse.Promotion promotion);
+
+    Single<PromotionDetailsResponse> createPromotion(PromotionDetailsResponse.Promotion promotion);
+
     Single<RestaurantPromotionsResponse> updatePromotion(Long promotionId, PromotionDetailsResponse.Promotion promotion);
 }
