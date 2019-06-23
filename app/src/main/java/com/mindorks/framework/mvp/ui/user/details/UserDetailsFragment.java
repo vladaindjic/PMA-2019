@@ -204,7 +204,8 @@ public class UserDetailsFragment extends BaseFragment implements
                 } else if (items[i].equals("Gallery")) {
                     // ovo sam ostavio, jer mi stvarno nije jasno po kom principu ovo radi jebeno
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        if (getBaseActivity().checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                        if (ActivityCompat.checkSelfPermission(getBaseActivity(),
+                                Manifest.permission.READ_EXTERNAL_STORAGE)
                                 != PackageManager.PERMISSION_GRANTED) {
 
                             // Should we show an explanation?
@@ -299,7 +300,8 @@ public class UserDetailsFragment extends BaseFragment implements
             if (requestCode == REQUEST_CAMERA) {
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (getBaseActivity().checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                    if (ActivityCompat.checkSelfPermission(getBaseActivity(),
+                            Manifest.permission.READ_EXTERNAL_STORAGE)
                             != PackageManager.PERMISSION_GRANTED) {
 
                         // Should we show an explanation?

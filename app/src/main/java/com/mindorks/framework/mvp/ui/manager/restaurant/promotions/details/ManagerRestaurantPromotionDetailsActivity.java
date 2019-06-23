@@ -16,6 +16,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
@@ -72,6 +73,8 @@ public class ManagerRestaurantPromotionDetailsActivity extends BaseActivity impl
     private static final int CAMERA_REQUEST_CODE = 1011;
     private static final int READ_EXTERNAL_STORAGE_REQUEST_CODE = 1012;
     private static final int WRITE_EXTERNAL_STORAGE_REQUEST_CODE = 1013;
+    private static final int READ_EXTERNAL_STORAGE_REQUEST_CODE_CAMERA_SHOT = 1017;
+
 
     private static final int REQUEST_CAMERA = 1, SELECT_FILE = 0;
     byte[] imgBytes = null;
@@ -199,7 +202,8 @@ public class ManagerRestaurantPromotionDetailsActivity extends BaseActivity impl
                 } else if (items[i].equals("Gallery")) {
                     // ovo sam ostavio, jer mi stvarno nije jasno po kom principu ovo radi jebeno
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                        if (ActivityCompat.checkSelfPermission(ManagerRestaurantPromotionDetailsActivity.this,
+                                Manifest.permission.READ_EXTERNAL_STORAGE)
                                 != PackageManager.PERMISSION_GRANTED) {
 
                             // Should we show an explanation?
@@ -208,7 +212,8 @@ public class ManagerRestaurantPromotionDetailsActivity extends BaseActivity impl
                                 // Explain to the user why we need to read the contacts
                             }
 
-                            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                            ActivityCompat.requestPermissions(ManagerRestaurantPromotionDetailsActivity.this,
+                                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                                     READ_EXTERNAL_STORAGE_REQUEST_CODE);
 
                             // MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE is an
@@ -266,6 +271,20 @@ public class ManagerRestaurantPromotionDetailsActivity extends BaseActivity impl
                             Toast.LENGTH_SHORT).show();
                 }
                 break;
+            case READ_EXTERNAL_STORAGE_REQUEST_CODE_CAMERA_SHOT:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Uri imgUri = Uri.fromFile(new File(mCameraFileName));
+                    imageView.setImageURI(imgUri);
+                    String path = getPath(imgUri);
+                    if (path == null) {
+                        path = mCameraFileName;
+                    }
+                    imgBytes = getBytesFromFile(path);
+                } else {
+                    Toast.makeText(this, "No access to external storage permission " +
+                                    "missing when taking shot",
+                            Toast.LENGTH_SHORT).show();
+                }
 
         }
     }
@@ -276,8 +295,31 @@ public class ManagerRestaurantPromotionDetailsActivity extends BaseActivity impl
 
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == REQUEST_CAMERA) {
-                Uri imgUri = data.getData();
-                if (data.getData() == null) {
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (ActivityCompat.checkSelfPermission(ManagerRestaurantPromotionDetailsActivity.this,
+                            Manifest.permission.READ_EXTERNAL_STORAGE)
+                            != PackageManager.PERMISSION_GRANTED) {
+
+                        // Should we show an explanation?
+                        if (shouldShowRequestPermissionRationale(
+                                Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                            // Explain to the user why we need to read the contacts
+                        }
+
+                        ActivityCompat.requestPermissions(ManagerRestaurantPromotionDetailsActivity.this,
+                                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                                READ_EXTERNAL_STORAGE_REQUEST_CODE_CAMERA_SHOT);
+
+                        // MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE is an
+                        // app-defined int constant that should be quite unique
+
+                        return;
+                    }
+                }
+
+                Uri imgUri = null;
+                if (data == null || data.getData() == null) {
                     imgUri = Uri.fromFile(new File(mCameraFileName));
                 }
                 imageView.setImageURI(imgUri);
