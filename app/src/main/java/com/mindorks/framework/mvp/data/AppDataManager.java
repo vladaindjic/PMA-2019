@@ -661,4 +661,16 @@ public class AppDataManager implements DataManager {
     public Single<RestaurantCookResponse> updateDish(Long dishId, DishRequestDto requestData) {
         return  mApiHelper.updateDish(dishId,requestData);
     }
+
+    @Override
+    public Single<DailyMenuResponse> addMeal(Long id, MealResponse.MealDetails data) {
+        return mApiHelper.addMeal(id,data);
+    }
+
+    @Override
+    public Single<DailyMenuResponse> updateMeal(Long mealId, MealResponse.MealDetails data) {
+        return mApiHelper.updateMeal(mealId,data);
+    }
+
+
 }

@@ -7,7 +7,7 @@ public interface ManagerRestaurantMvpView extends MvpView {
 
     public void openPromotionDetailsActivity(Long promotionId);
 
-    public void openDailyMenuDetailsActivity(int dailyMenuId);
+    public void openDailyMenuDetailsActivity(Long dailyMenuId,Long mealId);
 
     public void openLoginActivity();
 

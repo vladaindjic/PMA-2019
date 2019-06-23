@@ -15,6 +15,8 @@
 
 package com.mindorks.framework.mvp.data.network;
 
+import android.widget.Button;
+
 import com.mindorks.framework.mvp.BuildConfig;
 
 /**
@@ -72,6 +74,12 @@ public final class ApiEndPoint {
 
     public static final String ENDPOINT_RESTAURANT_DAILY_MENU = BuildConfig.BASE_URL
             + "/dailymenu/";
+
+    public static final String ENDPOINT_RESTAURANT_MEAL = BuildConfig.BASE_URL
+            + "/meal/dailymenu/";
+
+    public static final String ENDPOINT_RESTAURANT_MEAL_UPDATE = BuildConfig.BASE_URL
+            + "/meal/";
 
 
     public static final String ENDPOINT_RESTAURANT_RATING = BuildConfig.BASE_URL

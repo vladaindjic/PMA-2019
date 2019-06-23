@@ -85,7 +85,7 @@ public class MealResponse {
             this.endTime = endTime;
             this.description = description;
             this.price = price;
-            this.dishList = dishList;
+            this.dishList = new ArrayList<>();
             this.nutritiveValues = nutritiveValues;
         }
 
@@ -114,7 +114,7 @@ public class MealResponse {
         }
 
         public Date getEndTime() {
-            return endTime;
+            return  endTime;
         }
 
         public void setEndTime(Date endTime) {

@@ -301,7 +301,7 @@ public class AppApiHelper implements ApiHelper {
     @Override
     public Single<RestaurantPromotionsResponse> putPromotionImageUpdateRaw(byte[] imageBytes,
                                                                            Long promotionId) {
-        return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_PROMOTION_UPLOAD_IMAGE_RAW+promotionId+"/imageraw/")
+        return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_PROMOTION_UPLOAD_IMAGE_RAW + promotionId + "/imageraw/")
                 .setContentType("application/octet-stream")
                 .addHeaders(mApiHeader.getProtectedApiHeader())
                 .addByteBody(getScaledImage(imageBytes, IMAGE_HEIGHT, IMAGE_HEIGHT))
@@ -488,7 +488,7 @@ public class AppApiHelper implements ApiHelper {
 
     @Override
     public Single<AllKitchensResponse> getAllKitchensForRestaurant(Long restaurantId) {
-        return  Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_KITCHENS+restaurantId)
+        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_KITCHENS + restaurantId)
                 .addHeaders(mApiHeader.getProtectedApiHeader())
                 .build()
                 .getObjectSingle(AllKitchensResponse.class);
@@ -496,7 +496,7 @@ public class AppApiHelper implements ApiHelper {
 
     @Override
     public Single<RestaurantCookResponse> deleteDish(Long id) {
-        return  Rx2AndroidNetworking.delete(ApiEndPoint.ENDPOINT_MANAGER_RESTAURANT_COOK_DELETE+id)
+        return Rx2AndroidNetworking.delete(ApiEndPoint.ENDPOINT_MANAGER_RESTAURANT_COOK_DELETE + id)
                 .addHeaders(mApiHeader.getProtectedApiHeader())
                 .build()
                 .getObjectSingle(RestaurantCookResponse.class);
@@ -504,7 +504,7 @@ public class AppApiHelper implements ApiHelper {
 
     @Override
     public Single<RestaurantPromotionsResponse> deletePromotion(Long promotionId) {
-        return  Rx2AndroidNetworking.delete(ApiEndPoint.ENDPOINT_MANAGER_RESTAURANT_PROMOTION_DELETE+promotionId)
+        return Rx2AndroidNetworking.delete(ApiEndPoint.ENDPOINT_MANAGER_RESTAURANT_PROMOTION_DELETE + promotionId)
                 .addHeaders(mApiHeader.getProtectedApiHeader())
                 .build()
                 .getObjectSingle(RestaurantPromotionsResponse.class);
@@ -512,7 +512,7 @@ public class AppApiHelper implements ApiHelper {
 
     @Override
     public Single<DailyMenuResponse> deleteMeal(Long mealId) {
-        return Rx2AndroidNetworking.delete(ApiEndPoint.ENDPOINT_MANAGER_RESTAURANT_DAILY_MENU_DISH_DELETE+mealId)
+        return Rx2AndroidNetworking.delete(ApiEndPoint.ENDPOINT_MANAGER_RESTAURANT_DAILY_MENU_DISH_DELETE + mealId)
                 .addHeaders(mApiHeader.getProtectedApiHeader())
                 .build()
                 .getObjectSingle(DailyMenuResponse.class);
@@ -529,7 +529,7 @@ public class AppApiHelper implements ApiHelper {
 
     @Override
     public Single<RestaurantPromotionsResponse> updatePromotion(Long promotionId, PromotionDetailsResponse.Promotion promotion) {
-        return Rx2AndroidNetworking.put(ApiEndPoint.ENDPOINT_MANAGER_RESTAURANT_PROMOTION_CREATE+"/"+promotionId)
+        return Rx2AndroidNetworking.put(ApiEndPoint.ENDPOINT_MANAGER_RESTAURANT_PROMOTION_CREATE + "/" + promotionId)
                 .addHeaders(mApiHeader.getProtectedApiHeader())
                 .addApplicationJsonBody(promotion)
                 .build()
@@ -547,12 +547,29 @@ public class AppApiHelper implements ApiHelper {
 
     @Override
     public Single<RestaurantCookResponse> updateDish(Long dishId, DishRequestDto requestData) {
-        return  Rx2AndroidNetworking.put(ApiEndPoint.ENDPOINT_MANAGER_RESTAURANT_COOK_DELETE+dishId)
+        return Rx2AndroidNetworking.put(ApiEndPoint.ENDPOINT_MANAGER_RESTAURANT_COOK_DELETE + dishId)
                 .addHeaders(mApiHeader.getProtectedApiHeader())
                 .addApplicationJsonBody(requestData)
                 .build()
                 .getObjectSingle(RestaurantCookResponse.class);
     }
 
+    @Override
+    public Single<DailyMenuResponse> addMeal(Long id, MealResponse.MealDetails data) {
+        return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_RESTAURANT_MEAL + id)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .addApplicationJsonBody(data)
+                .build()
+                .getObjectSingle(DailyMenuResponse.class);
+    }
+
+    @Override
+    public Single<DailyMenuResponse> updateMeal(Long mealId, MealResponse.MealDetails data) {
+        return Rx2AndroidNetworking.put(ApiEndPoint.ENDPOINT_RESTAURANT_MEAL_UPDATE+mealId)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .addApplicationJsonBody(data)
+                .build()
+                .getObjectSingle(DailyMenuResponse.class);
+    }
 }
 
