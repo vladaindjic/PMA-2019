@@ -69,9 +69,9 @@ public class ManagerRestaurantPromotionDetailsActivity extends BaseActivity impl
     private long promotionId;
 
 
-    private static final int CAMERA_REQUEST_CODE = 100001;
-    private static final int READ_EXTERNAL_STORAGE_REQUEST_CODE = 100002;
-    private static final int WRITE_EXTERNAL_STORAGE_REQUEST_CODE = 100003;
+    private static final int CAMERA_REQUEST_CODE = 1011;
+    private static final int READ_EXTERNAL_STORAGE_REQUEST_CODE = 1012;
+    private static final int WRITE_EXTERNAL_STORAGE_REQUEST_CODE = 1013;
 
     private static final int REQUEST_CAMERA = 1, SELECT_FILE = 0;
     byte[] imgBytes = null;

@@ -397,8 +397,8 @@ public class ManagerRestaurantDetailsFragment extends BaseFragment implements
 
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == REQUEST_CAMERA) {
-                Uri imgUri = data.getData();
-                if (data.getData() == null) {
+                Uri imgUri = null;
+                if (data == null || data.getData() == null) {
                     imgUri = Uri.fromFile(new File(mCameraFileName));
                 }
                 imageView.setImageURI(imgUri);

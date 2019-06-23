@@ -60,6 +60,7 @@ public class UserDetailsFragment extends BaseFragment implements
 
     private static final int CAMERA_REQUEST_CODE = 1001;
     private static final int READ_EXTERNAL_STORAGE_REQUEST_CODE = 1002;
+    private static final int READ_EXTERNAL_STORAGE_REQUEST_CODE_CAMERA_SHOT = 1007;
     private static final int WRITE_EXTERNAL_STORAGE_REQUEST_CODE = 1003;
 
     private static final int REQUEST_CAMERA = 1, SELECT_FILE = 0;
@@ -270,6 +271,21 @@ public class UserDetailsFragment extends BaseFragment implements
                             Toast.LENGTH_SHORT).show();
                 }
                 break;
+            case READ_EXTERNAL_STORAGE_REQUEST_CODE_CAMERA_SHOT:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Uri imgUri = Uri.fromFile(new File(mCameraFileName));
+                    imageView.setImageURI(imgUri);
+                    String path = getPath(imgUri);
+                    if (path == null) {
+                        path = mCameraFileName;
+                    }
+                    byte[] imgBytes = getBytesFromFile(path);
+                    mPresenter.uploadImageRaw(imgBytes);
+                } else {
+                    Toast.makeText(getBaseActivity(), "No access to external storage permission " +
+                                    "missing when taking shot",
+                            Toast.LENGTH_SHORT).show();
+                }
 
         }
     }
@@ -281,8 +297,30 @@ public class UserDetailsFragment extends BaseFragment implements
         if (resultCode == Activity.RESULT_OK) {
 
             if (requestCode == REQUEST_CAMERA) {
-                Uri imgUri = data.getData();
-                if (data.getData() == null) {
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (getBaseActivity().checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                            != PackageManager.PERMISSION_GRANTED) {
+
+                        // Should we show an explanation?
+                        if (shouldShowRequestPermissionRationale(
+                                Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                            // Explain to the user why we need to read the contacts
+                        }
+
+                        requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                                READ_EXTERNAL_STORAGE_REQUEST_CODE_CAMERA_SHOT);
+
+                        // MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE is an
+                        // app-defined int constant that should be quite unique
+
+                        return;
+                    }
+                }
+
+
+                Uri imgUri = null;
+                if (data == null || data.getData() == null) {
                     imgUri = Uri.fromFile(new File(mCameraFileName));
                 }
                 imageView.setImageURI(imgUri);
