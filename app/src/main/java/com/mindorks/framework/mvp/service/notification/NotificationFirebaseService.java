@@ -53,12 +53,13 @@ public class NotificationFirebaseService extends FirebaseMessagingService {
         System.out.println("Notifikacija");
         System.out.println("Title " + remoteMessage.getData().get("title"));
         System.out.println("Body " + remoteMessage.getData().get("body"));
+        System.out.println("Id " + remoteMessage.getData().get("notificationPromotionId"));
 
         Intent intent = new Intent(this, PromotionDetailsActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.putExtra("notificationPromotionId", remoteMessage.getData().get("notificationPromotionId"));
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(this,0,intent,0);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this,createId(),intent,0);
 
         String channelId = "pma_channel";
 
