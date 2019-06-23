@@ -183,7 +183,7 @@ public class UserDetailsFragment extends BaseFragment implements
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         if (ActivityCompat.checkSelfPermission(getBaseActivity(),
                                 Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getBaseActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                            ActivityCompat.requestPermissions(getBaseActivity(),
+                            requestPermissions(
                                     new String[]{Manifest.permission.CAMERA}, CAMERA_REQUEST_CODE);
                             return;
                         }

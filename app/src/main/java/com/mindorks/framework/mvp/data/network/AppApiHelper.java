@@ -15,6 +15,11 @@
 
 package com.mindorks.framework.mvp.data.network;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.media.Image;
+
 import com.mindorks.framework.mvp.data.network.model.AllKitchensResponse;
 import com.mindorks.framework.mvp.data.network.model.BlogResponse;
 import com.mindorks.framework.mvp.data.network.model.ComentVoteRequest;
@@ -46,7 +51,10 @@ import com.mindorks.framework.mvp.data.network.model.UserRegistrationResponse;
 import com.mindorks.framework.mvp.data.network.model.manager.RestaurantDishesResponse;
 import com.rx2androidnetworking.Rx2AndroidNetworking;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.util.zip.DeflaterOutputStream;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -59,6 +67,8 @@ import io.reactivex.Single;
 
 @Singleton
 public class AppApiHelper implements ApiHelper {
+
+    private static final int IMAGE_HEIGHT = 512;
 
     private ApiHeader mApiHeader;
 
@@ -241,12 +251,39 @@ public class AppApiHelper implements ApiHelper {
                 .getObjectSingle(UserDetailsResponse.class);
     }
 
+    private static byte[] getScaledImage(byte[] originalImage, int newWidth, int newHeight) {
+        // PNG has not losses, it just ignores this field when compressing
+        final int COMPRESS_QUALITY = 0;
+
+        // Get the bitmap from byte array since, the bitmap has the the resize function
+        Bitmap bitmapImage = (BitmapFactory.decodeByteArray(originalImage, 0, originalImage.length));
+
+        float aspectRatio = (float)bitmapImage.getWidth() / (float)bitmapImage.getHeight() ;
+        newWidth = (int)(aspectRatio * ((float)newHeight));
+        System.out.println("VI3: RATIO: " + aspectRatio + " S_SIRINA: " + newWidth + " S_VISINA: " + newHeight + " N_SIRINA: " + newWidth + " N_VISINA: " + newHeight);
+
+        // New bitmap with the correct size, may not return a null object
+        Bitmap mutableBitmapImage = Bitmap.createScaledBitmap(bitmapImage, newWidth, newHeight,
+                false);
+
+        // Get the byte array from tbe bitmap to be returned
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        mutableBitmapImage.compress(Bitmap.CompressFormat.PNG, 0 , outputStream);
+
+        if (mutableBitmapImage != bitmapImage) {
+            mutableBitmapImage.recycle();
+        } // else they are the same, just recycle once
+
+        bitmapImage.recycle();
+        return outputStream.toByteArray();
+    }
+
     @Override
     public Single<UserDetailsResponse> putUserImageUpdateRaw(byte[] imageBytes) {
         return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_USER_UPLOAD_IMAGE_RAW)
                 .setContentType("application/octet-stream")
                 .addHeaders(mApiHeader.getProtectedApiHeader())
-                .addByteBody(imageBytes)
+                .addByteBody(getScaledImage(imageBytes, IMAGE_HEIGHT, IMAGE_HEIGHT))
                 .build()
                 .getObjectSingle(UserDetailsResponse.class);
     }
@@ -256,7 +293,7 @@ public class AppApiHelper implements ApiHelper {
         return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_RESTAURANT_UPLOAD_IMAGE_RAW)
                 .setContentType("application/octet-stream")
                 .addHeaders(mApiHeader.getProtectedApiHeader())
-                .addByteBody(imageBytes)
+                .addByteBody(getScaledImage(imageBytes, IMAGE_HEIGHT, IMAGE_HEIGHT))
                 .build()
                 .getObjectSingle(RestaurantDetailsResponse.class);
     }
@@ -267,7 +304,7 @@ public class AppApiHelper implements ApiHelper {
         return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_PROMOTION_UPLOAD_IMAGE_RAW+promotionId+"/imageraw/")
                 .setContentType("application/octet-stream")
                 .addHeaders(mApiHeader.getProtectedApiHeader())
-                .addByteBody(imageBytes)
+                .addByteBody(getScaledImage(imageBytes, IMAGE_HEIGHT, IMAGE_HEIGHT))
                 .build()
                 .getObjectSingle(RestaurantPromotionsResponse.class);
     }

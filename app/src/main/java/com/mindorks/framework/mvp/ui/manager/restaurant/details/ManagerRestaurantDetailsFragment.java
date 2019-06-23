@@ -127,6 +127,8 @@ public class ManagerRestaurantDetailsFragment extends BaseFragment implements
     private static final int CAMERA_REQUEST_CODE = 10001;
     private static final int READ_EXTERNAL_STORAGE_REQUEST_CODE = 10002;
     private static final int WRITE_EXTERNAL_STORAGE_REQUEST_CODE = 10003;
+    private static final int READ_EXTERNAL_STORAGE_REQUEST_CODE_CAMERA_SHOT = 10007;
+
 
     private static final int REQUEST_CAMERA = 1, SELECT_FILE = 0;
     byte[] imgBytes = null;
@@ -300,8 +302,8 @@ public class ManagerRestaurantDetailsFragment extends BaseFragment implements
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         if (ActivityCompat.checkSelfPermission(getBaseActivity(),
                                 Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getBaseActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                            ActivityCompat.requestPermissions(getBaseActivity(),
-                                    new String[]{Manifest.permission.CAMERA}, CAMERA_REQUEST_CODE);
+                            requestPermissions(new String[]{Manifest.permission.CAMERA}, CAMERA_REQUEST_CODE);
+                            System.out.println("VI3: NEMA JEBENE PERMISIJE ZA KAMERU");
                             return;
                         }
                     }
@@ -315,12 +317,14 @@ public class ManagerRestaurantDetailsFragment extends BaseFragment implements
                     mCameraFileName = outFile.toString();
                     Uri imageUri = Uri.fromFile(outFile);
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+                    System.out.println("VI3: OTVARAM KAMERU");
                     startActivityForResult(intent, REQUEST_CAMERA);
 
                 } else if (items[i].equals("Gallery")) {
                     // ovo sam ostavio, jer mi stvarno nije jasno po kom principu ovo radi jebeno
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        if (getBaseActivity().checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                        if (ActivityCompat.checkSelfPermission(getBaseActivity(),
+                                Manifest.permission.READ_EXTERNAL_STORAGE)
                                 != PackageManager.PERMISSION_GRANTED) {
 
                             // Should we show an explanation?
@@ -358,7 +362,10 @@ public class ManagerRestaurantDetailsFragment extends BaseFragment implements
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
             case CAMERA_REQUEST_CODE:
+                System.out.println("VI3: KAMERA ODOBRENA");
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    System.out.println("VI3: KAMERA ODOBRENA KAKO TREBA");
+
                     StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
                     StrictMode.setVmPolicy(builder.build());
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -370,6 +377,7 @@ public class ManagerRestaurantDetailsFragment extends BaseFragment implements
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
                     startActivityForResult(intent, REQUEST_CAMERA);
                 } else {
+                    System.out.println("VI3: KAMERA ODOBRENA KAKO NEEEEEEEEEEEEE TREBA");
                     Toast.makeText(getBaseActivity(), "Camera permission missing",
                             Toast.LENGTH_SHORT).show();
                 }
@@ -387,6 +395,21 @@ public class ManagerRestaurantDetailsFragment extends BaseFragment implements
                             Toast.LENGTH_SHORT).show();
                 }
                 break;
+            case READ_EXTERNAL_STORAGE_REQUEST_CODE_CAMERA_SHOT:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Uri imgUri = Uri.fromFile(new File(mCameraFileName));
+                    imageView.setImageURI(imgUri);
+                    String path = getPath(imgUri);
+                    if (path == null) {
+                        path = mCameraFileName;
+                    }
+                    // lokalno cuvamo byte-ove
+                    imgBytes = getBytesFromFile(path);
+                } else {
+                    Toast.makeText(getBaseActivity(), "No access to external storage permission " +
+                                    "missing when taking shot",
+                            Toast.LENGTH_SHORT).show();
+                }
 
         }
     }
@@ -397,6 +420,28 @@ public class ManagerRestaurantDetailsFragment extends BaseFragment implements
 
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == REQUEST_CAMERA) {
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (ActivityCompat.checkSelfPermission(getBaseActivity(),
+                            Manifest.permission.READ_EXTERNAL_STORAGE)
+                            != PackageManager.PERMISSION_GRANTED) {
+
+                        // Should we show an explanation?
+                        if (shouldShowRequestPermissionRationale(
+                                Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                            // Explain to the user why we need to read the contacts
+                        }
+
+                        requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                                READ_EXTERNAL_STORAGE_REQUEST_CODE_CAMERA_SHOT);
+
+                        // MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE is an
+                        // app-defined int constant that should be quite unique
+
+                        return;
+                    }
+                }
+
                 Uri imgUri = null;
                 if (data == null || data.getData() == null) {
                     imgUri = Uri.fromFile(new File(mCameraFileName));
@@ -406,7 +451,8 @@ public class ManagerRestaurantDetailsFragment extends BaseFragment implements
                 if (path == null) {
                     path = mCameraFileName;
                 }
-                imgBytes = getBytesFromFile(path);
+               imgBytes = getBytesFromFile(path);
+
             } else if (requestCode == SELECT_FILE) {
                 userImageUri = data.getData();
                 String path = getPath(userImageUri);
