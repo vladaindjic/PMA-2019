@@ -81,6 +81,13 @@ public class ManagerRestaurantCookFragment extends BaseFragment implements
         return view;
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.onViewPrepared();
+    }
+
     @Override
     protected void setUp(View view) {
         mPresenter.onViewPrepared();

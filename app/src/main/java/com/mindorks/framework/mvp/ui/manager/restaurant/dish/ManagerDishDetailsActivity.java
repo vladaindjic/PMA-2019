@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.DishDetailsResponse;
+import com.mindorks.framework.mvp.data.network.model.DishRequestDto;
 import com.mindorks.framework.mvp.ui.base.BaseActivity;
 
 import java.util.ArrayList;
@@ -80,6 +81,7 @@ public class ManagerDishDetailsActivity extends BaseActivity implements
 
     DishDetailsResponse.DishDetails dishDetailsOrginal;
     DishDetailsResponse.DishDetails dishDetailsEdited;
+    private long dishId;
 
 
     public ManagerDishDetailsActivity() {
@@ -109,7 +111,7 @@ public class ManagerDishDetailsActivity extends BaseActivity implements
     @Override
     protected void setUp() {
         Bundle bundle = getIntent().getExtras();
-        Long dishId = bundle.getLong("dishId");
+        dishId = bundle.getLong("dishId",-1L);
         mNutritiveValuesAdapter.setmCallback(this);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -126,10 +128,10 @@ public class ManagerDishDetailsActivity extends BaseActivity implements
 
         mPresenter.getRestaurantKithen();
 
-        kitchenSpinner.setAdapter(adapter);
+//        kitchenSpinner.setAdapter(adapter);
 
         //Ako je id razlicit od -1 ucitaj podatke pa prikazi.
-        if (dishId != -1) {
+        if (dishId != -1L) {
             mPresenter.onViewPrepared(dishId);
         } else {
             this.dishDetailsEdited = new DishDetailsResponse.DishDetails();
@@ -158,7 +160,8 @@ public class ManagerDishDetailsActivity extends BaseActivity implements
         if (dishDetails.getName() != null) {
             txtViewName.setText(dishDetails.getName());
         }
-//        if (dishDetails.getKitchen() != null && dishDetails.getKitchen().getName() != null) {
+        this.setKitchenSpiner(dishDetails.getKitchen());
+//       if (dishDetails.getKitchen() != null && dishDetails.getKitchen().getName() != null) {
 //            txtViewKitchen.setText(dishDetails.getKitchen().getName());
 //        }
         if (dishDetails.getPrice() != null) {
@@ -182,10 +185,25 @@ public class ManagerDishDetailsActivity extends BaseActivity implements
 
     }
 
+    private void setKitchenSpiner(DishDetailsResponse.Kitchen kitchen) {
+        if(kitchen!=null){
+            for(int i=0;i<kitchenAdapter.getCount();i++){
+                if(kitchen.getName().toLowerCase().equals(kitchenAdapter.getItem(i).toLowerCase())){
+                    kitchenSpinner.setSelection(i);
+                }
+            }
+        }
+    }
+
     @Override
     public void setKitchenAdapter(List<String> kitchens) {
         kitchenAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, kitchens);
         kitchenSpinner.setAdapter(kitchenAdapter);
+    }
+
+    @Override
+    public void back() {
+        finish();
     }
 
     private void saveOrginalDishState() {
@@ -208,6 +226,28 @@ public class ManagerDishDetailsActivity extends BaseActivity implements
     public void cancelUpdate() {
         this.updateDishDetails(this.dishDetailsOrginal);
 
+    }
+
+    @OnClick(R.id.manager_dish_details_submit_btn)
+    public void saveChanges(){
+        System.out.println("Ovdije sam");
+        this.dishDetailsEdited.setName(txtViewName.getText().toString());
+        this.dishDetailsEdited.setPrice(Double.parseDouble(txtViewPrice.getText().toString()));
+        this.dishDetailsEdited.setDescription(txtViewDescription.getText().toString());
+        DishDetailsResponse.Kitchen kitchen = new DishDetailsResponse.Kitchen();
+        kitchen.setName(kitchenSpinner.getSelectedItem().toString());
+        this.dishDetailsEdited.setKitchen(kitchen);
+
+        System.out.println(this.dishDetailsEdited.getNutritiveValues().size());
+
+
+        DishRequestDto requestData = new DishRequestDto(this.dishDetailsEdited);
+        if(dishId!=-1L) {
+            mPresenter.updateDish(dishId,requestData);
+        }else{
+            System.out.println("PUT JELA");
+            mPresenter.createDish(requestData);
+        }
     }
 
 
@@ -254,13 +294,13 @@ public class ManagerDishDetailsActivity extends BaseActivity implements
                 break;
             }
             case "masti": {
-                this.nutritionValue.remove(this.spinner.getSelectedItemPosition());
                 DishDetailsResponse.NutritiveValue value = new DishDetailsResponse.NutritiveValue();
                 value.setName(this.spinner.getSelectedItem().toString());
                 value.setValue(Double.parseDouble(this.txtNutritionValue.getText().toString()));
                 value.setUnit("g");
                 this.dishDetailsEdited.getNutritiveValues().add(value);
                 this.mNutritiveValuesAdapter.addItems(this.dishDetailsEdited.getNutritiveValues());
+                this.nutritionValue.remove(this.spinner.getSelectedItemPosition());
                 adapter.notifyDataSetChanged();
                 break;
             }
