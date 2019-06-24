@@ -15,9 +15,11 @@
 
 package com.mindorks.framework.mvp.di.component;
 
+import com.google.firebase.messaging.FirebaseMessagingService;
 import com.mindorks.framework.mvp.di.PerService;
 import com.mindorks.framework.mvp.di.module.ServiceModule;
 import com.mindorks.framework.mvp.service.SyncService;
+import com.mindorks.framework.mvp.service.notification.NotificationFirebaseService;
 
 import dagger.Component;
 
@@ -30,5 +32,5 @@ import dagger.Component;
 public interface ServiceComponent {
 
     void inject(SyncService service);
-
+    void inject(NotificationFirebaseService service);
 }

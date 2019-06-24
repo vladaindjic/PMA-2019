@@ -6,4 +6,5 @@ import com.mindorks.framework.mvp.ui.utils.OnRetryButtonClickCallback;
 public interface UserRestaurantsCallback extends OnRetryButtonClickCallback {
 
     void openRestaurantDetailsActivity(RestaurantsResponse.Restaurant restaurant);
+
 }

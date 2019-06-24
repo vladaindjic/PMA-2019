@@ -34,7 +34,7 @@ import butterknife.OnClick;
  * A simple {@link Fragment} subclass.
  */
 public class ManagerRestaurantCookFragment extends BaseFragment implements
-        ManagerRestaurantCookMvpView {
+        ManagerRestaurantCookMvpView, ManagerCookItemDeleteCallback {
 
     @Inject
     ManagerRestaurantCookMvpPresenter<ManagerRestaurantCookMvpView> mPresenter;
@@ -76,13 +76,21 @@ public class ManagerRestaurantCookFragment extends BaseFragment implements
             setUnBinder(ButterKnife.bind(this, view));
             mPresenter.onAttach(this);
             mManagerRestaurantCookItemListAdapter.setmCallback((ManagerRestaurantActivity)getBaseActivity());
+            mManagerRestaurantCookItemListAdapter.setmDeleteCallback(this);
         }
         return view;
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.onViewPrepared();
+    }
+
     @Override
     protected void setUp(View view) {
-        mPresenter.onViewPrepared(1L);
+        mPresenter.onViewPrepared();
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mManagerRestaurantCookView.setLayoutManager(mLayoutManager);
         mManagerRestaurantCookView.setItemAnimator(new DefaultItemAnimator());
@@ -108,6 +116,7 @@ public class ManagerRestaurantCookFragment extends BaseFragment implements
 
     @Override
     public void updateRestaurantCook(List<RestaurantCookResponse.RestaurantCook.RestaurantCookItem> restaurantCookItemList) {
+
         mManagerRestaurantCookItemListAdapter.addItems(restaurantCookItemList);
     }
 
@@ -120,5 +129,11 @@ public class ManagerRestaurantCookFragment extends BaseFragment implements
         } else {
             Toast.makeText(getContext(), "Ne valja ti ovo, druze (:", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void deleteDish(Long id) {
+        Toast.makeText(getContext(),"Id: "+id,Toast.LENGTH_SHORT).show();
+        mPresenter.deleteDish(id);
     }
 }

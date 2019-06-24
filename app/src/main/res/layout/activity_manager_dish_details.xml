@@ -35,7 +35,7 @@
                 <ImageView
                     android:id="@+id/manager_dish_details_img"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="300dp"
                     android:scaleType="fitXY"
                     android:src="@drawable/login_bg" />
 
@@ -51,22 +51,20 @@
                         android:layout_width="256dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|top"
-                        android:text="Jelo"
+                        android:hint="Jelo"
                         android:textAlignment="center"
                         android:textAllCaps="true"
                         android:textSize="32sp"
                         android:textStyle="bold" />
 
-                    <EditText
-                        android:id="@+id/manager_dish_details_kitchen"
-                        style="@style/TextStyle.Title.Sub"
-                        android:layout_width="wrap_content"
+                    <Spinner
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center|top"
-                        android:text="Ovde ide kuhinja"
-                        android:textAlignment="center"
-                        android:textSize="24sp"
-                        android:textStyle="bold" />
+                        android:id="@+id/dish_kitchen_spinner"
+                        android:gravity="center"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginBottom="20dp"/>
 
                 </LinearLayout>
 
@@ -100,7 +98,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="0.5"
+                android:hint="0.5"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintBaseline_toBaselineOf="@+id/manager_meal_details_txt_price"
@@ -134,11 +132,12 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
-                    android:text="Ovo bi trebalo da bude neku multiline tekst."
+                    android:hint="Ovo bi trebalo da bude neku multiline tekst."
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
             </LinearLayout>
+
 
 
             <TextView
@@ -152,6 +151,7 @@
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/manager_dish_details_description_linear_layout" />
+
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/manager_dish_details_nutritive_values_recyclerview"
@@ -167,30 +167,52 @@
                 android:background="@drawable/rectangle_border_white"
                 app:layout_constraintTop_toBottomOf="@+id/manager_dish_details_txt_nutritive_values" />
 
+            <Spinner
+                android:id="@+id/nutritive_values_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/manager_dish_details_nutritive_values_recyclerview" />
+            <!--<android.support.v7.widget.RecyclerView-->
+                <!--android:id="@+id/manager_dish_details_nutritive_values_recyclerview"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginStart="32dp"-->
+                <!--android:layout_marginTop="0dp"-->
+                <!--android:layout_marginEnd="32dp"-->
+                <!--android:scrollbars="vertical"-->
+                <!--app:layout_constraintEnd_toEndOf="parent"-->
+                <!--app:layout_constraintHorizontal_bias="0.0"-->
+                <!--app:layout_constraintStart_toStartOf="parent"-->
+                <!--android:background="@drawable/rectangle_border_white"-->
+                <!--app:layout_constraintTop_toBottomOf="@+id/manager_dish_details_txt_nutritive_values" />-->
+
 
             <LinearLayout
                 android:id="@+id/manager_linear_layout_autocomplete_nutritive_value"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="32dp"
                 android:gravity="center"
+
                 android:orientation="horizontal"
-
                 app:layout_constraintEnd_toEndOf="parent"
+
                 app:layout_constraintStart_toStartOf="parent"
-
-                app:layout_constraintTop_toBottomOf="@+id/manager_dish_details_nutritive_values_recyclerview"
-
-                >
+                app:layout_constraintTop_toBottomOf="@+id/nutritive_values_spinner">
 
                 <!--FIXME vi3: zasto ne radi kada se uredjaj rotira-->
                 <!--FIXME vi3: namesti da ide ispod. Nekako da ga zavaram da predje preko
+
                 tastarute mozda. Kada postavim veliko bottom marginu na Submit dugme, prikaze
                  se ispod-->
-                <AutoCompleteTextView
-                    android:id="@+id/manager_nutritive_values_autocomplete_txt"
+                <EditText
+                    android:id="@+id/manager_nutritive_values_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

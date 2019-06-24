@@ -20,6 +20,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 
+import com.mindorks.framework.mvp.data.db.model.Notification;
 import com.mindorks.framework.mvp.data.network.model.BlogResponse;
 import com.mindorks.framework.mvp.data.network.model.DailyMenuResponse;
 import com.mindorks.framework.mvp.data.network.model.DishDetailsResponse;
@@ -473,6 +474,7 @@ public class ActivityModule {
         return new MealListAdapter(new ArrayList<DailyMenuResponse.Meal>());
     }
 
+
     @Provides
     RestaurantFilterMvpPresenter<RestaurantFilterMvpView> RestaurantFilterPresenter(
             RestaurantFilterPresenter<RestaurantFilterMvpView> presenter) {
@@ -506,7 +508,7 @@ public class ActivityModule {
 
     @Provides
     NotificationListAdapter provideNotificationAdapter() {
-        return new NotificationListAdapter(new ArrayList<NotificationResponse.Notifications.Notification>());
+        return new NotificationListAdapter(new ArrayList<Notification>());
     }
 
     @Provides

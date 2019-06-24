@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.MenuResponse;
+import com.mindorks.framework.mvp.ui.base.BasePresenter;
 import com.mindorks.framework.mvp.ui.base.BaseViewHolder;
 import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantActivity;
 import com.mindorks.framework.mvp.ui.user.restaurants.UserRestaurantsActivity;
@@ -33,6 +34,8 @@ public class DishTypeListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
 
     private DishTypeItemListCallback mCallback;
+    private BasePresenter basePresenterForImageUrlProviding;
+
 
     private List<MenuResponse.DishType> mDishTypeList;
     private Context context;
@@ -52,6 +55,14 @@ public class DishTypeListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public void setmCallback(DishTypeItemListCallback mCallback) {
         this.mCallback = mCallback;
+    }
+
+    public BasePresenter getBasePresenterForImageUrlProviding() {
+        return basePresenterForImageUrlProviding;
+    }
+
+    public void setBasePresenterForImageUrlProviding(BasePresenter basePresenterForImageUrlProviding) {
+        this.basePresenterForImageUrlProviding = basePresenterForImageUrlProviding;
     }
 
     public void addItems(List<MenuResponse.DishType> dishTypeList) {
@@ -138,6 +149,7 @@ public class DishTypeListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             // Za sada je moralo ovako da se implementira, jer injekcija ne prolazi
             mDishListAdapter = new DishListAdapter(new ArrayList<MenuResponse.Dish>());
             mDishListAdapter.addItems(dishType.getDishList());
+            mDishListAdapter.setBasePresenterForImageUrlProviding(basePresenterForImageUrlProviding);
 
             mLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
 

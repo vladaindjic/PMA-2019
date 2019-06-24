@@ -63,16 +63,20 @@ public class DailyMenuResponse {
         @Expose
         @SerializedName("meals")
         private List<Meal> meals;
+        @Expose
+        @SerializedName("active_between")
+        private String activeBetween;
 
         public DailyMenu() {
         }
 
-        public DailyMenu(Long id, String name, Date startTime, Date endTime, List<Meal> meals) {
+        public DailyMenu(Long id, String name, Date startTime, Date endTime, List<Meal> meals, String activeBetween) {
             this.id = id;
             this.name = name;
             this.startTime = startTime;
             this.endTime = endTime;
             this.meals = meals;
+            this.activeBetween = activeBetween;
         }
 
         public Long getId() {
@@ -113,6 +117,14 @@ public class DailyMenuResponse {
 
         public void setMeals(List<Meal> meals) {
             this.meals = meals;
+        }
+
+        public String getActiveBetween() {
+            return activeBetween;
+        }
+
+        public void setActiveBetween(String activeBetween) {
+            this.activeBetween = activeBetween;
         }
     }
 

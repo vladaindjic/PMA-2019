@@ -10,9 +10,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mindorks.framework.mvp.R;
+import com.mindorks.framework.mvp.data.db.model.Notification;
 import com.mindorks.framework.mvp.data.network.model.NotificationResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.ui.base.BaseViewHolder;
+import com.mindorks.framework.mvp.ui.user.restaurants.utils.PromotionNotificationCallBack;
 import com.mindorks.framework.mvp.ui.user.restaurants.utils.UserRestaurantsCallback;
 
 import java.util.ArrayList;
@@ -26,9 +28,10 @@ public class NotificationListAdapter extends RecyclerView.Adapter<BaseViewHolder
     public static final int VIEW_TYPE_EMPTY = 0;
     public static final int VIEW_TYPE_NORMAL = 1;
 
-    private List<NotificationResponse.Notifications.Notification> mNotifications;
+    private List<Notification> mNotifications;
 
     private UserRestaurantsCallback mCallback;
+    private PromotionNotificationCallBack mCallbackPromotion;
 
     public UserRestaurantsCallback getmCallback() {
         return mCallback;
@@ -38,12 +41,19 @@ public class NotificationListAdapter extends RecyclerView.Adapter<BaseViewHolder
         this.mCallback = mCallback;
     }
 
+    public PromotionNotificationCallBack getmCallbackPromotion() {
+        return mCallbackPromotion;
+    }
 
-    public NotificationListAdapter(ArrayList<NotificationResponse.Notifications.Notification> mNotifications) {
+    public void setmCallbackPromotion(PromotionNotificationCallBack mCallbackPromotion) {
+        this.mCallbackPromotion = mCallbackPromotion;
+    }
+
+    public NotificationListAdapter(ArrayList<Notification> mNotifications) {
         this.mNotifications = mNotifications;
     }
 
-    public void addItems(List<NotificationResponse.Notifications.Notification> notificationList) {
+    public void addItems(List<Notification> notificationList) {
         this.mNotifications.addAll(notificationList);
         notifyDataSetChanged();
     }
@@ -89,29 +99,37 @@ public class NotificationListAdapter extends RecyclerView.Adapter<BaseViewHolder
                 return;
             }
 
-            final NotificationResponse.Notifications.Notification notification = mNotifications.get(position);
+            final Notification notification = mNotifications.get(position);
 
 
-            if (notification.getNotificationData() != null) {
-                textView.setText(notification.getNotificationData());
+            if (notification.getNotificationTitle() != null) {
+                textView.setText(notification.getNotificationTitle());
             }
             System.out.println("Koliko puta sam ovde");
 
-            textView.setOnClickListener(new View.OnClickListener() {
+            itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mNotifications.remove(notification);
-                    if (notification.getRestaurantId() != null) {
-                        if (mCallback != null) {
-                            RestaurantsResponse.Restaurant restaurant =
-                                    new RestaurantsResponse.Restaurant();
-                            restaurant.setId(notification.getRestaurantId());
-                            mCallback.openRestaurantDetailsActivity(restaurant);
-                        }
+                    if (mCallbackPromotion != null) {
+                        mCallbackPromotion.openPromotionDetails(notification.getPrmotionId());
                     }
-                    notifyDataSetChanged();
                 }
             });
+//            textView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    mNotifications.remove(notification);
+//                    if (notification.getRestaurantId() != null) {
+//                        if (mCallback != null) {
+//                            RestaurantsResponse.Restaurant restaurant =
+//                                    new RestaurantsResponse.Restaurant();
+//                            restaurant.setId(notification.getRestaurantId());
+//                            mCallback.openRestaurantDetailsActivity(restaurant);
+//                        }
+//                    }
+//                    notifyDataSetChanged();
+//                }
+//            });
         }
     }
 

@@ -19,4 +19,34 @@ public class ManagerRestaurantPresenter<V extends ManagerRestaurantMvpView> exte
         super(dataManager, schedulerProvider, compositeDisposable);
     }
 
+    @Override
+    public void onNavMenuCreated() {
+        if (!isViewAttached()) {
+            return;
+        }
+
+//        final String currentUserName = getDataManager().getCurrentUserName();
+//        if (currentUserName != null && !currentUserName.isEmpty()) {
+//            getMvpView().updateUserName(currentUserName);
+//        }
+//
+//        final String currentUserEmail = getDataManager().getCurrentUserEmail();
+//        if (currentUserEmail != null && !currentUserEmail.isEmpty()) {
+//            getMvpView().updateUserEmail(currentUserEmail);
+//        }
+//
+//        final String profilePicUrl = getDataManager().getCurrentUserProfilePicUrl();
+//        if (profilePicUrl != null && !profilePicUrl.isEmpty()) {
+//            getMvpView().updateUserProfilePic(profilePicUrl);
+//        }
+
+    }
+
+    @Override
+    public void onDrawerOptionLogoutClick() {
+        getMvpView().showLoading();
+        getDataManager().setUserAsLoggedOut();
+        getMvpView().hideLoading();
+        getMvpView().openLoginActivity();
+    }
 }

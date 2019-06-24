@@ -24,6 +24,8 @@ import android.widget.EditText;
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.ui.base.BaseActivity;
 import com.mindorks.framework.mvp.ui.main.MainActivity;
+import com.mindorks.framework.mvp.ui.manager.restaurant.ManagerRestaurantActivity;
+import com.mindorks.framework.mvp.ui.splash.SplashActivity;
 import com.mindorks.framework.mvp.ui.user.restaurants.UserRestaurantsActivity;
 import com.mindorks.framework.mvp.ui.userRegistration.UserRegistrationActivity;
 
@@ -98,6 +100,13 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
         startActivity(intent);
         finish();
 
+    }
+
+    @Override
+    public void openManagerRestaurantActivity() {
+        Intent intent = ManagerRestaurantActivity.getStartIntent(LoginActivity.this);
+        startActivity(intent);
+        finish();
     }
 
     @Override

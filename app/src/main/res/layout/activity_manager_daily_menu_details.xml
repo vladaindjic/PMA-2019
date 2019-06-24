@@ -55,14 +55,11 @@
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <EditText
-                    android:id="@+id/user_meal_start_time_txt"
+                <Button
+                    android:id="@+id/user_meal_start_time_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="Start time"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
+                    android:hint="Start time"/>
                 <!--this is used as separator-->
                 <TextView
                     android:layout_width="wrap_content"
@@ -74,13 +71,11 @@
                     android:textStyle="bold" />
 
 
-                <EditText
-                    android:id="@+id/user_meal_end_time_txt"
+                <Button
+                    android:id="@+id/user_meal_end_time_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="End time"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:hint="End time"/>
 
             </LinearLayout>
 
@@ -197,10 +192,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:gravity="bottom|center"
-                >
+                android:gravity="bottom|center">
 
                 <Button
+                    android:id="@+id/submit_meal_details_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/logo_color"
@@ -212,7 +207,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/logo_color"
-                    android:text="@string/cancelBtn" />
+                    android:text="@string/cancelBtn"
+                    android:id="@+id/cancel_meal_details_btn"/>
             </LinearLayout>
         </LinearLayout>
 

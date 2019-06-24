@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -17,6 +18,7 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ManagerMealListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
@@ -35,6 +37,7 @@ public class ManagerMealListAdapter extends RecyclerView.Adapter<BaseViewHolder>
     public interface ManagerMealListItemCallback {
         void openMealActivity(DailyMenuResponse.Meal meal);
 
+        void deleteMeal(Long id);
     }
 
     public ManagerMealListItemCallback getmCallback() {
@@ -46,6 +49,7 @@ public class ManagerMealListAdapter extends RecyclerView.Adapter<BaseViewHolder>
     }
 
     public void addItems(List<DailyMenuResponse.Meal> mealList) {
+        mMealList.clear();
         mMealList.addAll(mealList);
         notifyDataSetChanged();
     }
@@ -58,21 +62,16 @@ public class ManagerMealListAdapter extends RecyclerView.Adapter<BaseViewHolder>
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        return new ManagerMealListAdapter.ViewHolder(
-                LayoutInflater.from(parent.getContext()).inflate(R.layout.manager_meal_list_item_layout,
-                        parent,
-                        false));
-
-//        switch (viewType) {
-//            case VIEW_TYPE_NORMAL:
-//                return new DishListAdapter.ViewHolder(
-//                        LayoutInflater.from(parent.getContext()).inflate(R.layout.dish_type_list_item_layout, parent,
-//                                false));
-//            case VIEW_TYPE_EMPTY:
-//            default:
-//                return new DishListAdapter.EmptyViewHolder(
-//                        LayoutInflater.from(parent.getContext()).inflate(R.layout.item_empty_view, parent, false));
-//        }
+        switch (viewType) {
+            case VIEW_TYPE_NORMAL:
+                return new ManagerMealListAdapter.ViewHolder(
+                        LayoutInflater.from(parent.getContext()).inflate(R.layout.manager_meal_list_item_layout, parent,
+                                false));
+            case VIEW_TYPE_EMPTY:
+            default:
+                return new ManagerMealListAdapter.EmptyViewHolder(
+                        LayoutInflater.from(parent.getContext()).inflate(R.layout.item_empty_view, parent, false));
+        }
     }
 
     @Override
@@ -152,36 +151,35 @@ public class ManagerMealListAdapter extends RecyclerView.Adapter<BaseViewHolder>
                 @Override
                 public void onClick(View v) {
                     //TODO Milan: obraiti se reko callback-a
-                    mMealList.remove(position);
-                    notifyDataSetChanged();
+                    if(mCallback!=null){
+                        mCallback.deleteMeal(meal.getId());
+                    }
                 }
             });
         }
     }
 
-//    public class EmptyViewHolder extends BaseViewHolder {
-//
-//        @BindView(R.id.btn_retry)
-//        Button retryButton;
-//
-//        @BindView(R.id.tv_message)
-//        TextView messageTextView;
-//
-//        public EmptyViewHolder(View itemView) {
-//            super(itemView);
-//            ButterKnife.bind(this, itemView);
-//        }
-//
-//        @Override
-//        protected void clear() {
-//
-//        }
-//
-//        @OnClick(R.id.btn_retry)
-//        void onRetryClick() {
-//            if (mCallback != null)
-//                mCallback.onRestaurantsEmptyViewRetryClick();
-//        }
-//    }
+    public class EmptyViewHolder extends BaseViewHolder {
+
+        @BindView(R.id.btn_retry)
+        Button retryButton;
+
+        @BindView(R.id.tv_message)
+        TextView messageTextView;
+
+        public EmptyViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+
+        @Override
+        protected void clear() {
+
+        }
+
+        @OnClick(R.id.btn_retry)
+        void onRetryClick() {
+        }
+    }
 
 }

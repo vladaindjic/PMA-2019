@@ -15,6 +15,8 @@
 
 package com.mindorks.framework.mvp.data.network;
 
+import android.widget.Button;
+
 import com.mindorks.framework.mvp.BuildConfig;
 
 /**
@@ -63,11 +65,21 @@ public final class ApiEndPoint {
     public static final String ENDPOINT_RESTAURANT_DETAILS = BuildConfig.BASE_URL
             + "/restaurants/";
 
+    public static final String ENDPOINT_KITCHENS = BuildConfig.BASE_URL
+            + "/kitchen/";
+
+
     public static final String ENDPOINT_RESTAURANT_MENU = BuildConfig.BASE_URL
             + "/menu/";
 
     public static final String ENDPOINT_RESTAURANT_DAILY_MENU = BuildConfig.BASE_URL
             + "/dailymenu/";
+
+    public static final String ENDPOINT_RESTAURANT_MEAL = BuildConfig.BASE_URL
+            + "/meal/dailymenu/";
+
+    public static final String ENDPOINT_RESTAURANT_MEAL_UPDATE = BuildConfig.BASE_URL
+            + "/meal/";
 
 
     public static final String ENDPOINT_RESTAURANT_RATING = BuildConfig.BASE_URL
@@ -87,6 +99,17 @@ public final class ApiEndPoint {
     public static final String ENDPOINT_USER_UPLOAD_IMAGE = BuildConfig.BASE_URL
             + "/user/image";
 
+    public static final String ENDPOINT_USER_UPLOAD_IMAGE_RAW = BuildConfig.BASE_URL
+            + "/user/imageraw";
+
+    public static final String ENDPOINT_RESTAURANT_UPLOAD_IMAGE_RAW = BuildConfig.BASE_URL
+            + "/restaurants/imageraw";
+
+    public static final String ENDPOINT_PROMOTION_UPLOAD_IMAGE_RAW = BuildConfig.BASE_URL
+            + "/promotion/";
+
+    public static final String ENDPOINT_DISH_UPLOAD_IMAGE_RAW = BuildConfig.BASE_URL
+            + "/dish/";
 
     public static final String ENDPOINT_DISH_RATING = BuildConfig.BASE_URL
             + "/dish/";
@@ -102,15 +125,18 @@ public final class ApiEndPoint {
 
     // manager endpoints
     public static final String ENDPOINT_MANAGER_UPDATE_RESTAURANT_DETAILS = BuildConfig.BASE_URL
-            + "/5cb5d25d3300001d3b5d7e4e";
+            + "/restaurants/update";
 
     // manager endpoints
     public static final String ENDPOINT_MANAGER_UPDATE_MENU = BuildConfig.BASE_URL
-            + "/5cb784633200001f46cd4b40";
+            + "/menu";
 
 
     public static final String ENDPOINT_MANAGER_RESTAURANT_COOK = BuildConfig.BASE_URL
-            + "/5cb7876e3200007647cd4b43";
+            + "/dish/restaurant/";
+
+    public static  final String ENDPOINT_MANAGER_RESTAURANT_COOK_DELETE = BuildConfig.BASE_URL
+            + "/dish/";
 
     // Sva jela jednog restorana
     public static final String ENDPOINT_MANAGER_RESTAURANT_DISHES = BuildConfig.BASE_URL
@@ -138,6 +164,17 @@ public final class ApiEndPoint {
     public static final String ENDPOINT_COMMENT_DISH_VOTE = BuildConfig.BASE_URL
             + "/dishcommentscore/";
 
+
+
+
+    public static final String ENDPOINT_MANAGER_RESTAURANT_PROMOTION_DELETE = BuildConfig.BASE_URL
+            +"/promotion/";
+
+    public static final String ENDPOINT_MANAGER_RESTAURANT_PROMOTION_CREATE = BuildConfig.BASE_URL
+            +"/promotion";
+
+    public static final String ENDPOINT_MANAGER_RESTAURANT_DAILY_MENU_DISH_DELETE = BuildConfig.BASE_URL+
+            "/dailymenu/";
     private ApiEndPoint() {
         // This class is not publicly instantiable
     }

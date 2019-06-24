@@ -24,13 +24,12 @@ public class ManagerRestaurantCookItemListAdapter extends RecyclerView.Adapter<B
     public static final int VIEW_TYPE_NORMAL = 1;
 
     private List<RestaurantCookResponse.RestaurantCook.RestaurantCookItem> mRestaurantCookItemList;
-
-    public interface ManagerCookItemListCallback {
-        void openDishDetailsActivity(MenuResponse.Dish dish);
-    }
-
-
     private ManagerCookItemListCallback mCallback;
+    private ManagerCookItemDeleteCallback mDeleteCallback;
+
+    public ManagerRestaurantCookItemListAdapter(ArrayList<RestaurantCookResponse.RestaurantCook.RestaurantCookItem> mRestaurantCookItemList) {
+        this.mRestaurantCookItemList = mRestaurantCookItemList;
+    }
 
     public ManagerCookItemListCallback getmCallback() {
         return mCallback;
@@ -40,11 +39,16 @@ public class ManagerRestaurantCookItemListAdapter extends RecyclerView.Adapter<B
         this.mCallback = mCallback;
     }
 
-    public ManagerRestaurantCookItemListAdapter(ArrayList<RestaurantCookResponse.RestaurantCook.RestaurantCookItem> mRestaurantCookItemList) {
-        this.mRestaurantCookItemList = mRestaurantCookItemList;
+    public ManagerCookItemDeleteCallback getmDeleteCallback() {
+        return mDeleteCallback;
+    }
+
+    public void setmDeleteCallback(ManagerCookItemDeleteCallback mDeleteCallback) {
+        this.mDeleteCallback = mDeleteCallback;
     }
 
     public void addItems(List<RestaurantCookResponse.RestaurantCook.RestaurantCookItem> mRestaurantCookItemList) {
+        this.mRestaurantCookItemList.clear();
         this.mRestaurantCookItemList.addAll(mRestaurantCookItemList);
         notifyDataSetChanged();
     }
@@ -68,6 +72,10 @@ public class ManagerRestaurantCookItemListAdapter extends RecyclerView.Adapter<B
         } else {
             return 1;
         }
+    }
+
+    public interface ManagerCookItemListCallback {
+        void openDishDetailsActivity(MenuResponse.Dish dish);
     }
 
     public class ViewHolder extends BaseViewHolder {
@@ -105,8 +113,8 @@ public class ManagerRestaurantCookItemListAdapter extends RecyclerView.Adapter<B
             final RestaurantCookResponse.RestaurantCook.RestaurantCookItem restaurantCookItem = mRestaurantCookItemList.get(position);
 
 
-            if (restaurantCookItem.getRestaurantCookItemData() != null) {
-                textView.setText(restaurantCookItem.getRestaurantCookItemData());
+            if (restaurantCookItem.getName() != null) {
+                textView.setText(restaurantCookItem.getName());
                 textPrice.setText(String.format("%s", restaurantCookItem.getPrice()));
             }
 
@@ -126,6 +134,15 @@ public class ManagerRestaurantCookItemListAdapter extends RecyclerView.Adapter<B
                         MenuResponse.Dish dish = new MenuResponse.Dish();
                         dish.setId(restaurantCookItem.getId());
                         mCallback.openDishDetailsActivity(dish);
+                    }
+                }
+            });
+
+            removeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mDeleteCallback != null) {
+                        mDeleteCallback.deleteDish(restaurantCookItem.getId());
                     }
                 }
             });

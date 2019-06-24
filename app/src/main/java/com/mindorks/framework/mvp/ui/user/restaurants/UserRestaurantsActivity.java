@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.ui.about.AboutFragment;
@@ -33,8 +34,9 @@ import com.mindorks.framework.mvp.ui.main.MainActivity;
 import com.mindorks.framework.mvp.ui.notification.NotificationFragment;
 import com.mindorks.framework.mvp.ui.settings.SettingsFragment;
 import com.mindorks.framework.mvp.ui.user.details.UserDetailsFragment;
-import com.mindorks.framework.mvp.ui.user.preferences.UserPreferencesFragment;
 import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantActivity;
+import com.mindorks.framework.mvp.ui.user.restaurant.promotions.details.PromotionDetailsActivity;
+import com.mindorks.framework.mvp.ui.user.restaurants.utils.PromotionNotificationCallBack;
 import com.mindorks.framework.mvp.ui.user.restaurants.utils.UserRestaurantsCallback;
 import com.mindorks.framework.mvp.ui.user.subscrptions.SubscriptionActivity;
 
@@ -73,6 +75,8 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
     private TextView mEmailTextView;
 
     private ActionBarDrawerToggle mDrawerToggle;
+
+    private String searchQuery = null;
 
     public static Intent getStartIntent(Context context) {
         Intent intent = new Intent(context, UserRestaurantsActivity.class);
@@ -216,12 +220,29 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
                         Toast.LENGTH_SHORT).show();
                 searchItem.collapseActionView();
                 // TODO vi3: posalji upit i reloaduj restorane
+                // postavicemo parametar pretrage da bi mogli fragmenti da ga dobave
+                searchQuery = query;
+                // update-ujemo fragmente
+                mViewPager.getAdapter().notifyDataSetChanged();
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
                 return false;
+            }
+        });
+
+        searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                searchQuery = null;
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                return true;
             }
         });
 
@@ -253,6 +274,7 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
         //finish();
 
     }
+
 
     @Override
     public void onsEmptyViewRetryButtonClick() {
@@ -312,6 +334,8 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
     public void updateUserProfilePic(String currentUserProfilePicUrl) {
         Glide.with(this)
                 .load(currentUserProfilePicUrl)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
                 .into(mProfileImageView);
         //load profile pic url into ANImageView
     }
@@ -390,5 +414,13 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
 //                        SettingsFragment.TAG)
 //                .commit();
         // TODO vi3: ovde otvoriti fragment
+    }
+
+    public String getSearchQuery() {
+        return searchQuery;
+    }
+
+    public void setSearchQuery(String searchQuery) {
+        this.searchQuery = searchQuery;
     }
 }

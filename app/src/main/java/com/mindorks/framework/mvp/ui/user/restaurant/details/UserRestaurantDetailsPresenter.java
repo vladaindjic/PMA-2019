@@ -2,6 +2,7 @@ package com.mindorks.framework.mvp.ui.user.restaurant.details;
 
 import com.androidnetworking.error.ANError;
 import com.mindorks.framework.mvp.data.DataManager;
+import com.mindorks.framework.mvp.data.db.model.MyRestaurantDB;
 import com.mindorks.framework.mvp.data.network.model.RestaurantDetailsResponse;
 import com.mindorks.framework.mvp.ui.base.BasePresenter;
 import com.mindorks.framework.mvp.utils.rx.SchedulerProvider;
@@ -30,37 +31,69 @@ public class UserRestaurantDetailsPresenter<V extends UserRestaurantDetailsMvpVi
     @Override
     public void onViewPrepared(Long restaurantId) {
         getMvpView().showLoading();
-
-        getCompositeDisposable().add(getDataManager()
-                .getRestaurantDetailsApiCall(restaurantId)
-                .subscribeOn(getSchedulerProvider().io())
-                .observeOn(getSchedulerProvider().ui())
-                .subscribe(new Consumer<RestaurantDetailsResponse>() {
-                    @Override
-                    public void accept(@NonNull RestaurantDetailsResponse response)
-                            throws Exception {
-                        if (response != null && response.getData() != null) {
-                            getMvpView().updateRestaurantDetails(response.getData());
+        if (getMvpView().isNetworkConnected()) {
+            getCompositeDisposable().add(getDataManager()
+                    .getRestaurantDetailsApiCall(restaurantId)
+                    .subscribeOn(getSchedulerProvider().io())
+                    .observeOn(getSchedulerProvider().ui())
+                    .subscribe(new Consumer<RestaurantDetailsResponse>() {
+                        @Override
+                        public void accept(@NonNull RestaurantDetailsResponse response)
+                                throws Exception {
+                            if (response != null && response.getData() != null) {
+                                getMvpView().updateRestaurantDetails(response.getData());
+                            }
+                            getMvpView().hideLoading();
                         }
-                        getMvpView().hideLoading();
+                    }, new Consumer<Throwable>() {
+                        @Override
+                        public void accept(@NonNull Throwable throwable)
+                                throws Exception {
+                            if (!isViewAttached()) {
+                                return;
+                            }
+
+                            getMvpView().hideLoading();
+
+                            // handle the error here
+                            if (throwable instanceof ANError) {
+                                ANError anError = (ANError) throwable;
+                                handleApiError(anError);
+                            }
+                        }
+                    }));
+        } else {
+            getCompositeDisposable().add(
+                    getDataManager()
+                            .getMyRestaurantByRemoteDatabaseId(restaurantId)
+                            .subscribe(new Consumer<MyRestaurantDB>() {
+                @Override
+                public void accept(@NonNull MyRestaurantDB myRestaurantDB)
+                        throws Exception {
+                    if (myRestaurantDB != null ) {
+                        getMvpView().updateRestaurantDetails(myRestaurantDB.getRestaurantDetailsFromMyRestaurantDB());
                     }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(@NonNull Throwable throwable)
-                            throws Exception {
-                        if (!isViewAttached()) {
-                            return;
-                        }
-
-                        getMvpView().hideLoading();
-
-                        // handle the error here
-                        if (throwable instanceof ANError) {
-                            ANError anError = (ANError) throwable;
-                            handleApiError(anError);
-                        }
+                    getMvpView().hideLoading();
+                }
+            }, new Consumer<Throwable>() {
+                @Override
+                public void accept(@NonNull Throwable throwable)
+                        throws Exception {
+                    if (!isViewAttached()) {
+                        return;
                     }
-                }));
+                    getMvpView().hideLoading();
+
+                    // handle the error here
+                    if (throwable instanceof ANError) {
+                        ANError anError = (ANError) throwable;
+                        handleApiError(anError);
+                    }
+                }
+            }));
+
+
+        }
     }
 
     @Override

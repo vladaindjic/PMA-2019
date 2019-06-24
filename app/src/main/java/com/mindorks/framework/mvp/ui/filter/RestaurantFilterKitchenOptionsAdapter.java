@@ -16,6 +16,7 @@ import com.mindorks.framework.mvp.ui.base.BaseViewHolder;
 import com.mindorks.framework.mvp.ui.user.restaurants.utils.RestaurantFilterCallback;
 import com.mindorks.framework.mvp.utils.AppLogger;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -46,6 +47,14 @@ public class RestaurantFilterKitchenOptionsAdapter extends RecyclerView.Adapter<
         System.out.println("DODAJEM " + kitchenOptionsList.size());
         this.mKitchenOptionList.addAll(kitchenOptionsList);
         notifyDataSetChanged();
+    }
+
+    public List<RestaurantFilterResponse.RestaurantFilter.KitchenOptions> getmKitchenOptionList() {
+        return mKitchenOptionList;
+    }
+
+    public void setmKitchenOptionList(List<RestaurantFilterResponse.RestaurantFilter.KitchenOptions> mKitchenOptionList) {
+        this.mKitchenOptionList = mKitchenOptionList;
     }
 
     @Override
@@ -116,6 +125,9 @@ public class RestaurantFilterKitchenOptionsAdapter extends RecyclerView.Adapter<
 
             if (kitchen.getName() != null) {
                 checkBox.setText(kitchen.getName());
+            }
+
+            if (kitchen.getValue() != null) {
                 checkBox.setChecked(kitchen.getValue());
             }
 
@@ -123,6 +135,7 @@ public class RestaurantFilterKitchenOptionsAdapter extends RecyclerView.Adapter<
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     checkBox.setChecked(isChecked);
+                    kitchen.setValue(isChecked);
                 }
             });
         }

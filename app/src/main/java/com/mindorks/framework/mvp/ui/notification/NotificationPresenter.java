@@ -2,9 +2,13 @@ package com.mindorks.framework.mvp.ui.notification;
 
 import com.androidnetworking.error.ANError;
 import com.mindorks.framework.mvp.data.DataManager;
+import com.mindorks.framework.mvp.data.db.model.Notification;
+import com.mindorks.framework.mvp.data.db.model.Question;
 import com.mindorks.framework.mvp.data.network.model.NotificationResponse;
 import com.mindorks.framework.mvp.ui.base.BasePresenter;
 import com.mindorks.framework.mvp.utils.rx.SchedulerProvider;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -27,39 +31,60 @@ public class NotificationPresenter<V extends NotificationMvpView> extends BasePr
         getMvpView().showLoading();
 
         getCompositeDisposable().add(getDataManager()
-                .getNotificationsApiCall()
+                .getAllNotification()
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
-                .subscribe(new Consumer<NotificationResponse>() {
+                .subscribe(new Consumer<List<Notification>>() {
+                    @Override
+                    public void accept(List<Notification> notificationsList) throws Exception {
+                        System.out.println(notificationsList.size());
 
-                    @Override
-                    public void accept(@NonNull NotificationResponse response)
-                            throws Exception {
-                        System.out.println("OVO JE RESPONSE " + response);
-                        if (response != null && response.getData() != null) {
-                            System.out.println("*********************Ovde sam");
-                            getMvpView().updateNotifications(response.getData().getNotifications());
-                        }
-                        getMvpView().hideLoading();
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(@NonNull Throwable throwable)
-                            throws Exception {
+                        /***
+                         * Ovdije negdje greska sa neki id-om necega, iscita se iz baze tacan broj
+                         */
                         if (!isViewAttached()) {
                             return;
                         }
 
-                        getMvpView().hideLoading();
+                        getMvpView().updateNotifications(notificationsList);
 
-                        // handle the error here
-                        if (throwable instanceof ANError) {
-                            System.out.println("********************* " + throwable);
-                            ANError anError = (ANError) throwable;
-                            handleApiError(anError);
-                        }
                     }
                 }));
+
+//        getCompositeDisposable().add(getDataManager()
+//                .getNotificationsApiCall()
+//                .subscribeOn(getSchedulerProvider().io())
+//                .observeOn(getSchedulerProvider().ui())
+//                .subscribe(new Consumer<NotificationResponse>() {
+//
+//                    @Override
+//                    public void accept(@NonNull NotificationResponse response)
+//                            throws Exception {
+//                        System.out.println("OVO JE RESPONSE " + response);
+//                        if (response != null && response.getData() != null) {
+//                            System.out.println("*********************Ovde sam");
+//                            getMvpView().updateNotifications(response.getData().getNotifications());
+//                        }
+//                        getMvpView().hideLoading();
+//                    }
+//                }, new Consumer<Throwable>() {
+//                    @Override
+//                    public void accept(@NonNull Throwable throwable)
+//                            throws Exception {
+//                        if (!isViewAttached()) {
+//                            return;
+//                        }
+//
+//                        getMvpView().hideLoading();
+//
+//                        // handle the error here
+//                        if (throwable instanceof ANError) {
+//                            System.out.println("********************* " + throwable);
+//                            ANError anError = (ANError) throwable;
+//                            handleApiError(anError);
+//                        }
+//                    }
+//                }));
 
         getMvpView().hideLoading();
     }

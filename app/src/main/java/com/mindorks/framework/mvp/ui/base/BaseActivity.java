@@ -35,6 +35,7 @@ import android.content.SharedPreferences;
 
 import com.mindorks.framework.mvp.MvpApp;
 import com.mindorks.framework.mvp.R;
+import com.mindorks.framework.mvp.data.network.model.DishDetailsResponse;
 import com.mindorks.framework.mvp.di.component.ActivityComponent;
 import com.mindorks.framework.mvp.di.component.DaggerActivityComponent;
 import com.mindorks.framework.mvp.di.module.ActivityModule;
@@ -44,6 +45,7 @@ import com.mindorks.framework.mvp.utils.LocaleHelper;
 import com.mindorks.framework.mvp.utils.NetworkUtils;
 
 import java.util.Locale;
+import java.util.List;
 
 import butterknife.Unbinder;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -235,4 +237,5 @@ public abstract class BaseActivity extends AppCompatActivity
     }
 
     protected abstract void setUp();
+
 }

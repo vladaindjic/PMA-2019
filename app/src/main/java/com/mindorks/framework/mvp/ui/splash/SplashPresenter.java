@@ -81,12 +81,12 @@ public class SplashPresenter<V extends SplashMvpView> extends BasePresenter<V>
     }
 
     private void decideNextActivity() {
+        FirebaseMessaging.getInstance().subscribeToTopic("JavaSampleApproach");
 
         if (getDataManager().getCurrentUserRole() == null) {
             getMvpView().openLoginActivity();
         } else {
             if (getDataManager().getCurrentUserRole().equals("USER")) {
-                FirebaseMessaging.getInstance().subscribeToTopic("JavaSampleApproach");
                 getMvpView().openUserRestaurantsActivity();
             } else {
                 getMvpView().openManagerRestaurantActivity();

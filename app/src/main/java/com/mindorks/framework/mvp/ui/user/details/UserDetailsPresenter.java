@@ -98,4 +98,41 @@ public class UserDetailsPresenter<V extends UserDetailsMvpView> extends BasePres
                     }
                 }));
     }
+
+    @Override
+    public void uploadImageRaw(byte[] imageBytes) {
+        getMvpView().showLoading();
+
+        getCompositeDisposable().add(getDataManager()
+                .putUserImageUpdateRaw(imageBytes)
+                .subscribeOn(getSchedulerProvider().io())
+                .observeOn(getSchedulerProvider().ui())
+                .subscribe(new Consumer<UserDetailsResponse>() {
+                    @Override
+                    public void accept(@NonNull UserDetailsResponse response)
+                            throws Exception {
+                        if (response != null && response.getData() != null) {
+                            getMvpView().updateDetails(response.getData());
+                            getMvpView().successImageUpload();
+                        }
+                        getMvpView().hideLoading();
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(@NonNull Throwable throwable)
+                            throws Exception {
+                        if (!isViewAttached()) {
+                            return;
+                        }
+                        getMvpView().failImageUpload();
+                        getMvpView().hideLoading();
+
+                        // handle the error here
+                        if (throwable instanceof ANError) {
+                            ANError anError = (ANError) throwable;
+                            handleApiError(anError);
+                        }
+                    }
+                }));
+    }
 }

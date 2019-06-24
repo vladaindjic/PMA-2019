@@ -6,4 +6,6 @@ import com.mindorks.framework.mvp.ui.base.MvpView;
 public interface ManagerRestaurantPromotionDetailsMvpView extends MvpView {
 
     public void updatePromotion(PromotionDetailsResponse.Promotion promotion);
+    public void back();
+    byte[] getImgBytes();
 }

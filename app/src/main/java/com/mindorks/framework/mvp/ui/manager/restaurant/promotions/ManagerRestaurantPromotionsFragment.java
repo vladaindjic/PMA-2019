@@ -80,6 +80,12 @@ public class ManagerRestaurantPromotionsFragment extends BaseFragment implements
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.onViewPrepared();
+    }
+
+    @Override
     protected void setUp(View view) {
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -120,8 +126,9 @@ public class ManagerRestaurantPromotionsFragment extends BaseFragment implements
     }
 
     @Override
-    public void deletePromotion(RestaurantPromotionsResponse.Promotion promotion, int promotionIndex) {
+    public void deletePromotion(Long promotionId) {
         Toast.makeText(getActivity(),"Deleted Promotion...",Toast.LENGTH_SHORT).show();
+        mPresenter.deletePromotion(promotionId);
     }
 
 

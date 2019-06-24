@@ -23,7 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.RequestBuilder;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -40,12 +40,15 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.di.component.ActivityComponent;
 import com.mindorks.framework.mvp.ui.base.BaseFragment;
+import com.mindorks.framework.mvp.ui.base.BasePresenter;
 import com.mindorks.framework.mvp.ui.user.restaurants.UserRestaurantsActivity;
 import com.mindorks.framework.mvp.ui.user.restaurants.utils.UserRestaurantsCallback;
 
@@ -155,15 +158,17 @@ public class RestaurantsMapFragment extends BaseFragment implements
         task.addOnSuccessListener(new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
+
                 if (location != null) {
                     currentLocation = location;
                     Toast.makeText(getBaseActivity(),
                             currentLocation.getLatitude() + " " + currentLocation.getLongitude(), Toast.LENGTH_SHORT).show();
                     System.out.println(currentLocation.getLatitude() + " " + currentLocation.getLongitude());
-                    mPresenter.onViewPrepared();
+                    mPresenter.onViewPrepared(currentLocation.getLatitude(),
+                            currentLocation.getLongitude());
                 } else {
                     Toast.makeText(getBaseActivity(), "No Location recorded", Toast.LENGTH_SHORT).show();
-                    mPresenter.onViewPrepared();
+                    mPresenter.onViewPrepared(null, null);
                 }
             }
         });
@@ -179,7 +184,7 @@ public class RestaurantsMapFragment extends BaseFragment implements
                 } else {
                     Toast.makeText(getBaseActivity(), "Location permission missing", Toast.LENGTH_SHORT).show();
                     // korisnik ne dozvoljava da pristupimo lokaciji
-                    mPresenter.onViewPrepared();
+                    mPresenter.onViewPrepared(null, null);
                 }
                 break;
         }
@@ -240,7 +245,6 @@ public class RestaurantsMapFragment extends BaseFragment implements
             // Use the equals() method on a Marker to check for equals.  Do not use ==.
             ImageView imgView = view.findViewById(R.id.map_restaurant_image);
             // ovo nece postaviti sliku, jer je asinhrono ocigledno
-            // Glide.with(getBaseActivity()).load(R.drawable.login_bg).into(imgView);
 
             if (restaurantsDrawablesMap.containsKey(marker.getId())) {
                 imgView.setImageDrawable(restaurantsDrawablesMap.get(marker.getId()));
@@ -323,8 +327,10 @@ public class RestaurantsMapFragment extends BaseFragment implements
             myLocationMarker.remove();
         }
 
-        // FIXME SREDITI vi3: povuci sliku korisnika
-        Glide.with(getActivity()).load("https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Petar_II_Petrovic-Njegos.jpg/220px-Petar_II_Petrovic-Njegos.jpg")
+        Glide.with(getActivity()).load(
+                ((BasePresenter)mPresenter).getDataManager().getCurrentUserProfilePicUrl())
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
                 .into(new SimpleTarget<Drawable>() {
                     @Override
                     public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
@@ -336,8 +342,8 @@ public class RestaurantsMapFragment extends BaseFragment implements
                                 BitmapDescriptorFactory.fromBitmap(createCustomMarker(getContext(), resource));
                         // zakomentarisati, ako ne treba slika da se prikaze
                         myLocationMarker.setIcon(bitmapDescriptor);
-                        myLocationMarker.setTitle("Pero Njegos");
-                        myLocationMarker.setSnippet("Ovde ste vi");
+                        myLocationMarker.setTitle(((BasePresenter)mPresenter).getDataManager().getCurrentUserName());
+                        myLocationMarker.setSnippet(getString(R.string.here_you_are));
                         // cuvamo drawable
                         restaurantsDrawablesMap.put(myLocationMarker.getId(), resource);
                         // vezemo restoran za marker
@@ -373,8 +379,12 @@ public class RestaurantsMapFragment extends BaseFragment implements
                         restaurant.getLongitude());
                 // pamtimo lokaciju
                 restaurantsLocations.add(restaurantLocation);
-
-                Glide.with(getActivity()).load(restaurant.getImageUrl())
+                String urlKogaJebes =
+                        ((BasePresenter)mPresenter).getImageUrlFor(BasePresenter.ENTITY_RESTAURANT, restaurant.getImageUrl());
+                System.out.println("KONJINBOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO " + urlKogaJebes);
+                Glide.with(getActivity()).load(((BasePresenter)mPresenter).getImageUrlFor(BasePresenter.ENTITY_RESTAURANT, restaurant.getImageUrl()))
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .skipMemoryCache(true)
                         .into(new SimpleTarget<Drawable>() {
 
                             @Override
@@ -400,8 +410,11 @@ public class RestaurantsMapFragment extends BaseFragment implements
                             @Override
                             public void onLoadFailed(@Nullable Drawable errorDrawable) {
                                 super.onLoadFailed(errorDrawable);
-
-                                Glide.with(getActivity()).load(R.drawable.login_bg).into(new SimpleTarget<Drawable>() {
+                                // prikaz podrazumevane slike za restoran
+                                Glide.with(getActivity()).load(BasePresenter.ENTITY_RESTAURANT_IMAGE_URL)
+                                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                        .skipMemoryCache(true)
+                                        .into(new SimpleTarget<Drawable>() {
                                     @Override
                                     public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
                                         Marker marker = mMap.addMarker(new MarkerOptions()

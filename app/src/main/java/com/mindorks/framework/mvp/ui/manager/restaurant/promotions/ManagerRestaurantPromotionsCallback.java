@@ -7,5 +7,5 @@ public interface ManagerRestaurantPromotionsCallback {
     void onRestaurantsEmptyViewRetryClick();
     void openPromotionDetailsActivity(RestaurantPromotionsResponse.Promotion promotion);
     //TODO Milan: Da li slati citavu promociju ili samo id.
-    void deletePromotion(RestaurantPromotionsResponse.Promotion promotion, int promotionIndex);
+    void deletePromotion(Long promotionId);
 }

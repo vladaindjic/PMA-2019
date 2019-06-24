@@ -43,11 +43,23 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     private static final String PREF_KEY_CURRENT_USER_ROLE = "PREF_KEY_CURRENT_USER_ROLE";
 
+    private static final String PREF_KEY_CURRENT_USER_FILTER_ID = "PREF_KEY_CURRENT_USER_FILTER_ID";
+
+    private static final String PREF_KEY_RESTAURANT_ID_MANAGER = "PREF_KEY_RESTAURANT_ID_MANAGER";
+
+    // iscitano iz strings.xml
+    private static final String PREF_KEY_DARK_THEME = "pref_dark_theme";
+    private static final String PREF_KEY_SAVE_NETWORK_DATA = "pref_save_network_data";
+    private static final String PREF_KEY_NOTIFICATIONS = "pref_notifications";
+    private static final String PREF_KEY_LANGUAGE = "pref_language";
+
+
     private final SharedPreferences mPrefs;
 
     @Inject
     public AppPreferencesHelper(@ApplicationContext Context context,
                                 @PreferenceInfo String prefFileName) {
+        System.out.println("ALOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO, konjinooooooooooooooo " + prefFileName);
         mPrefs = context.getSharedPreferences(prefFileName, Context.MODE_PRIVATE);
     }
 
@@ -122,5 +134,48 @@ public class AppPreferencesHelper implements PreferencesHelper {
     @Override
     public void setCurrentUserRole(String userRole) {
         mPrefs.edit().putString(PREF_KEY_CURRENT_USER_ROLE, userRole).apply();
+    }
+
+    @Override
+    public boolean isDarkThemeOn() {
+        return mPrefs.getBoolean(PREF_KEY_DARK_THEME, false);
+    }
+
+    @Override
+    public boolean isNotificationsTurnedOn() {
+        return mPrefs.getBoolean(PREF_KEY_NOTIFICATIONS, true);
+    }
+
+    @Override
+    public boolean isSaveNetworkDataOn() {
+        return mPrefs.getBoolean(PREF_KEY_SAVE_NETWORK_DATA, false);
+    }
+
+    @Override
+    public String getActiveLanguage() {
+        return mPrefs.getString(PREF_KEY_LANGUAGE, "english_us");
+    }
+
+    @Override
+    public void setActiveUserFilterId(Long userFilterId) {
+        mPrefs.edit().putLong(PREF_KEY_CURRENT_USER_FILTER_ID, userFilterId).apply();
+    }
+
+    @Override
+    public Long getActiveUserFilterId() {
+        // TODO vi3: vidi da kada nema nijedan upisan filter, ili pri pokretanju android aplikacije
+        // dodas jedan, ili jednostavno da na serveru imamo neke podrazumevane vrednosti
+        return mPrefs.getLong(PREF_KEY_CURRENT_USER_FILTER_ID, -1L);
+    }
+
+    @Override
+    public Long getRestaurantIdManager() {
+        return mPrefs.getLong(PREF_KEY_RESTAURANT_ID_MANAGER, -1L);
+    }
+
+    @Override
+    public void setRestaurantIdManager(Long restaurantId) {
+        mPrefs.edit().putLong(PREF_KEY_RESTAURANT_ID_MANAGER,
+                restaurantId != null ? restaurantId : -1L).apply();
     }
 }

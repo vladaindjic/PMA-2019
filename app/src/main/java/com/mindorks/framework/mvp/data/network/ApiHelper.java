@@ -15,16 +15,21 @@
 
 package com.mindorks.framework.mvp.data.network;
 
+import com.mindorks.framework.mvp.data.db.model.UserFilter;
+import com.mindorks.framework.mvp.data.network.model.AllKitchensResponse;
 import com.mindorks.framework.mvp.data.network.model.BlogResponse;
 import com.mindorks.framework.mvp.data.network.model.ComentVoteRequest;
 import com.mindorks.framework.mvp.data.network.model.CommentRequest;
 import com.mindorks.framework.mvp.data.network.model.DailyMenuResponse;
 import com.mindorks.framework.mvp.data.network.model.DishDetailsResponse;
+import com.mindorks.framework.mvp.data.network.model.DishRequestDto;
+import com.mindorks.framework.mvp.data.network.model.FilterRestaurantRequest;
 import com.mindorks.framework.mvp.data.network.model.LoginRequest;
 import com.mindorks.framework.mvp.data.network.model.LoginResponse;
 import com.mindorks.framework.mvp.data.network.model.LogoutResponse;
 import com.mindorks.framework.mvp.data.network.model.MealResponse;
 import com.mindorks.framework.mvp.data.network.model.MenuResponse;
+import com.mindorks.framework.mvp.data.network.model.MyRestaurantsResponse;
 import com.mindorks.framework.mvp.data.network.model.NotificationResponse;
 import com.mindorks.framework.mvp.data.network.model.OpenSourceResponse;
 import com.mindorks.framework.mvp.data.network.model.PromotionDetailsResponse;
@@ -68,10 +73,10 @@ public interface ApiHelper {
 
     Single<OpenSourceResponse> getOpenSourceApiCall();
 
-    Single<RestaurantsResponse> getRestaurantsApiCall();
+    Single<RestaurantsResponse> getRestaurantsApiCall(FilterRestaurantRequest filterRestaurantRequest);
 
     // TODO vi3: treba dodati i proveru koji user salji ili to sa servera gledati po jwt-u
-    public Single<RestaurantsResponse> getSubscriptionsApiCall();
+    public Single<MyRestaurantsResponse> getSubscriptionsApiCall();
 
     Single<RestaurantPromotionsResponse> getRestaurantPromotions(Long restaurantId);
 
@@ -96,6 +101,7 @@ public interface ApiHelper {
     Single<UserDetailsResponse> getUserDetailsApiCall(Long userId);
 
     Single<RestaurantRatingResponse> getDishRatingApiCall(Long restaurantId);
+
     // mozda bude trebalo da se pravi poseban request objekat, mada mislim da za sada nema potrebe
     Single<RestaurantDetailsResponse> putRestaurantDetailsApiCall(RestaurantDetailsResponse.RestaurantDetails restaurantDetails);
 
@@ -110,8 +116,16 @@ public interface ApiHelper {
 
     Single<DishDetailsResponse> getDishDetailsApiCall(Long dishId);
 
-//    Single<UserDetailsResponse> putUserImageUpdate(byte[] imageBytes);
+    //    Single<UserDetailsResponse> putUserImageUpdate(byte[] imageBytes);
     Single<UserDetailsResponse> putUserImageUpdate(File imageBytes);
+
+    Single<UserDetailsResponse> putUserImageUpdateRaw(byte[] imageBytes);
+
+    Single<RestaurantDetailsResponse> putRestaurantImageUpdateRaw(byte[] imageBytes);
+
+    Single<RestaurantPromotionsResponse> putPromotionImageUpdateRaw(byte[] imageBytes,Long promotionId);
+
+    Single<DishDetailsResponse> putDishImageUpdateRaw(byte[] imageBytes, Long dishId);
 
     Single<Double> rateRestaurant(Long restaurantid, RestaurantScoreRequest restaurantScoreRequest);
 
@@ -120,9 +134,30 @@ public interface ApiHelper {
     Single<RestaurantRatingResponse> postComment(Long restaurantId, CommentRequest request);
 
 
-    Single<RestaurantRatingResponse> leaevComment(Long dishId,CommentRequest request);
+    Single<RestaurantRatingResponse> leaevComment(Long dishId, CommentRequest request);
+
     Single<RestaurantRatingResponse> voteComment(Long id, ComentVoteRequest request);
 
-    Single<RestaurantRatingResponse>voteCommentDish(Long id, ComentVoteRequest request);
+    Single<RestaurantRatingResponse> voteCommentDish(Long id, ComentVoteRequest request);
 
+    Single<AllKitchensResponse> getAllKitchensApiCall();
+
+    Single<AllKitchensResponse> getAllKitchensForRestaurant(Long restaurantId);
+
+
+    Single<RestaurantCookResponse> deleteDish(Long id);
+
+    Single<RestaurantPromotionsResponse> deletePromotion(Long promotionId);
+
+    Single<DailyMenuResponse> deleteMeal(Long mealId);
+
+    Single<PromotionDetailsResponse> createPromotion(PromotionDetailsResponse.Promotion promotion);
+
+    Single<RestaurantPromotionsResponse> updatePromotion(Long promotionId, PromotionDetailsResponse.Promotion promotion);
+
+    Single<DishDetailsResponse> addDish(Long restaurantId, DishRequestDto requestData);
+    Single<RestaurantCookResponse> updateDish(Long dishId,DishRequestDto requestData);
+
+    Single<DailyMenuResponse> addMeal(Long id, MealResponse.MealDetails data);
+    Single<DailyMenuResponse> updateMeal(Long mealId, MealResponse.MealDetails data);
 }

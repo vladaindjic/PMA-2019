@@ -2,8 +2,10 @@ package com.mindorks.framework.mvp.ui.user.restaurant.details;
 
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,10 +22,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.RestaurantDetailsResponse;
 import com.mindorks.framework.mvp.di.component.ActivityComponent;
 import com.mindorks.framework.mvp.ui.base.BaseFragment;
+import com.mindorks.framework.mvp.ui.base.BasePresenter;
 
 import javax.inject.Inject;
 
@@ -132,16 +140,16 @@ public class UserRestaurantDetailsFragment extends BaseFragment implements
         txtViewAddress.setText(restaurantDetails.getAddress());
 
         checkBoxDelivery.setChecked(restaurantDetails.isDelivery());
-        checkBoxDelivery.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO vi3: intent koji ce otvoriti pozivanje broja
-                Toast.makeText(getContext(),
-                        "kliknuo sam te",
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
-
+//        checkBoxDelivery.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // TODO vi3: intent koji ce otvoriti pozivanje broja
+//                Toast.makeText(getContext(),
+//                        "kliknuo sam te",
+//                        Toast.LENGTH_SHORT).show();
+//            }
+//        });
+        checkBoxDelivery.setClickable(false);
 
         txtViewPhone.setText(restaurantDetails.getPhone());
 
@@ -181,12 +189,10 @@ public class UserRestaurantDetailsFragment extends BaseFragment implements
         checkBoxStar.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                // TODO vi3: poslati zahtev o promeni stanja
                 mPresenter.subscribeToRestaurant(restaurantDetails.getId());
             }
         });
 
-        // TODO vi3: prikazati kuhinju
         if (restaurantDetails.getKitchens() != null) {
             mKitchensAdapter.addItems(restaurantDetails.getKitchens());
         } else {
@@ -196,11 +202,18 @@ public class UserRestaurantDetailsFragment extends BaseFragment implements
                     Toast.LENGTH_SHORT).show();
         }
 
-        if (restaurantDetails.getImageUrl() != null) {
+        if(isNetworkConnected()){
+            // ako imamo interneta
             Glide.with(this)
-                    .load(restaurantDetails.getImageUrl())
+                    .load(((BasePresenter)mPresenter).getImageUrlFor(BasePresenter.ENTITY_RESTAURANT,
+                            restaurantDetails.getImageUrl()))
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
                     .into(imageView);
+        } else {
+            imageView.setImageResource(R.drawable.restaurant_default);
         }
+
     }
 
     @Override

@@ -34,4 +34,5 @@ public interface MvpPresenter<V extends MvpView> {
     void handleApiError(ANError error);
 
     void setUserAsLoggedOut();
+
 }

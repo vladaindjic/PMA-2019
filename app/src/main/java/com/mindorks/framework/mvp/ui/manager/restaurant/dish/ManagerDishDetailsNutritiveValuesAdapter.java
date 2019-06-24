@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.mindorks.framework.mvp.R;
@@ -22,7 +23,7 @@ public class ManagerDishDetailsNutritiveValuesAdapter extends RecyclerView.Adapt
     public static final int VIEW_TYPE_NORMAL = 1;
 
 
-//    private ManagerRestaurantsCallback mCallback;
+    private ManagerDishNutitiveValueCallback mCallback;
 
     private List<DishDetailsResponse.NutritiveValue> mNutritiveValues;
 
@@ -30,15 +31,16 @@ public class ManagerDishDetailsNutritiveValuesAdapter extends RecyclerView.Adapt
         this.mNutritiveValues = mNutritiveValues;
     }
 
-//    public ManagerRestaurantsCallback getmCallback() {
-//        return mCallback;
-//    }
-//
-//    public void setmCallback(ManagerRestaurantsCallback mCallback) {
-//        this.mCallback = mCallback;
-//    }
+    public ManagerDishNutitiveValueCallback getmCallback() {
+        return mCallback;
+    }
+
+    public void setmCallback(ManagerDishNutitiveValueCallback mCallback) {
+        this.mCallback = mCallback;
+    }
 
     public void addItems(List<DishDetailsResponse.NutritiveValue> nutritiveValues) {
+        mNutritiveValues.clear();
         mNutritiveValues.addAll(nutritiveValues);
         notifyDataSetChanged();
     }
@@ -50,20 +52,17 @@ public class ManagerDishDetailsNutritiveValuesAdapter extends RecyclerView.Adapt
 
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ManagerDishDetailsNutritiveValuesAdapter.ViewHolder(
-                LayoutInflater.from(parent.getContext()).inflate(R.layout.manager_dish_details_nutritive_value_item_layout, parent,
-                        false));
 
-//        switch (viewType) {
-//            case VIEW_TYPE_NORMAL:
-//                return new ManagerDishDetailsKitchensAdapter.ViewHolder(
-//                        LayoutInflater.from(parent.getContext()).inflate(R.layout.restaurants_list_item_layout, parent,
-//                                false));
-//            case VIEW_TYPE_EMPTY:
-//            default:
-//                return new ManagerDishDetailsKitchensAdapter.EmptyViewHolder(
-//                        LayoutInflater.from(parent.getContext()).inflate(R.layout.item_empty_view, parent, false));
-//        }
+        switch (viewType) {
+            case VIEW_TYPE_NORMAL:
+                return new ManagerDishDetailsNutritiveValuesAdapter.ViewHolder(
+                        LayoutInflater.from(parent.getContext()).inflate(R.layout.manager_dish_details_nutritive_value_item_layout, parent,
+                                false));
+            case VIEW_TYPE_EMPTY:
+            default:
+                return new ManagerDishDetailsNutritiveValuesAdapter.EmptyViewHolder(
+                        LayoutInflater.from(parent.getContext()).inflate(R.layout.missing_item, parent, false));
+        }
     }
 
     @Override
@@ -94,6 +93,9 @@ public class ManagerDishDetailsNutritiveValuesAdapter extends RecyclerView.Adapt
 
         @BindView(R.id.manager_dish_details_nutritive_values_item_txt_unit)
         TextView txtViewUnit;
+
+        @BindView(R.id.manager_restaurant_details_remove_nutritive_value_btn)
+        Button nutitiveValueDeleteBtn;
 
 
         public ViewHolder(View itemView) {
@@ -150,32 +152,32 @@ public class ManagerDishDetailsNutritiveValuesAdapter extends RecyclerView.Adapt
 //                    }
 //                }
 //            });
+
+            nutitiveValueDeleteBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(mCallback!=null){
+                        mCallback.deleteNutritiveValue(nutritiveValue.getName());
+                    }
+                }
+            });
         }
     }
 
-//    public class EmptyViewHolder extends BaseViewHolder {
-//
-//        @BindView(R.id.btn_retry)
-//        Button retryButton;
-//
-//        @BindView(R.id.tv_message)
-//        TextView messageTextView;
-//
-//        public EmptyViewHolder(View itemView) {
-//            super(itemView);
-//            ButterKnife.bind(this, itemView);
-//        }
-//
-//        @Override
-//        protected void clear() {
-//
-//        }
-//
-//        @OnClick(R.id.btn_retry)
-//        void onRetryClick() {
-//            if (mCallback != null)
-//                mCallback.onRestaurantsEmptyViewRetryClick();
-//        }
-//    }
+    public class EmptyViewHolder extends BaseViewHolder {
+
+        @BindView(R.id.txt_missing)
+        TextView missingTxt;
+
+        public EmptyViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+            missingTxt.setText("nutrition value!");
+        }
+        @Override
+        protected void clear() {
+
+        }
+    }
 
 }

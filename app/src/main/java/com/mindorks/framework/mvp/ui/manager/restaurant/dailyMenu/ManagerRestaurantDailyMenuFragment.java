@@ -56,6 +56,8 @@ public class ManagerRestaurantDailyMenuFragment extends BaseFragment implements 
     @BindView(R.id.manager_daily_menu_end_time_txt)
     TextView txtEnd;
 
+    private Long dailyMenuId;
+
     public static ManagerRestaurantDailyMenuFragment newInstance() {
         Bundle args = new Bundle();
         ManagerRestaurantDailyMenuFragment fragment = new ManagerRestaurantDailyMenuFragment();
@@ -83,18 +85,26 @@ public class ManagerRestaurantDailyMenuFragment extends BaseFragment implements 
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.onViewPrepared();
+    }
+
+    @Override
     protected void setUp(View view) {
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mMealListAdapter);
 
-        // TODO vi3: ucitati restoran ciji je ulogovani korisnik manager
-        mPresenter.onViewPrepared(1L);
+        mPresenter.onViewPrepared();
     }
 
     @Override
     public void updateDailyMenu(DailyMenuResponse.DailyMenu dailyMenu) {
+
+        this.dailyMenuId = dailyMenu.getId();
+
         if (dailyMenu.getName() != null) {
             txtName.setText(dailyMenu.getName());
         }
@@ -108,7 +118,6 @@ public class ManagerRestaurantDailyMenuFragment extends BaseFragment implements 
         if (dailyMenu.getEndTime() != null) {
             txtEnd.setText(timeFormat.format(dailyMenu.getEndTime()));
         }
-
         if (dailyMenu.getMeals() != null) {
             mMealListAdapter.addItems(dailyMenu.getMeals());
         }
@@ -116,7 +125,19 @@ public class ManagerRestaurantDailyMenuFragment extends BaseFragment implements 
 
     @Override
     public void openMealActivity(DailyMenuResponse.Meal meal) {
+
         Toast.makeText(getActivity(),"Otvaram aktivnost izmena",Toast.LENGTH_SHORT).show();
+        ManagerRestaurantActivity managerRestaurantActivity = (ManagerRestaurantActivity)getActivity();
+        if (managerRestaurantActivity != null) {
+            managerRestaurantActivity.openDailyMenuDetailsActivity(dailyMenuId,meal.getId());
+        } else {
+            Toast.makeText(getContext(), "Ne valja ti ovo, druze (:", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void deleteMeal(Long id) {
+        mPresenter.deleteMeal(id);
     }
 
     @OnClick(R.id.add_daily_menu_button)
@@ -124,7 +145,7 @@ public class ManagerRestaurantDailyMenuFragment extends BaseFragment implements 
 
         ManagerRestaurantActivity managerRestaurantActivity = (ManagerRestaurantActivity)getActivity();
         if (managerRestaurantActivity != null) {
-            managerRestaurantActivity.openDailyMenuDetailsActivity(-1);
+            managerRestaurantActivity.openDailyMenuDetailsActivity(dailyMenuId,-1L);
         } else {
             Toast.makeText(getContext(), "Ne valja ti ovo, druze (:", Toast.LENGTH_SHORT).show();
         }

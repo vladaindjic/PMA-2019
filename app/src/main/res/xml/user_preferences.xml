@@ -5,8 +5,8 @@
     <PreferenceCategory android:title="@string/pref_appearance_group_title">
         <SwitchPreference
             android:defaultValue="false"
-            android:key="pref_dark_theme"
             android:textColor="@color/blue_grey_light"
+            android:key="@string/pref_dark_theme_key"
             android:summary="@string/pref_dark_theme_summary"
             android:title="@string/pref_dark_theme_title" />
     </PreferenceCategory>
@@ -19,8 +19,8 @@
             android:title="@string/pref_save_network_data_usage_title" />
         <SwitchPreference
             android:defaultValue="true"
-            android:key="pref_notifications"
             android:textColor="@color/blue_grey_light"
+            android:key="@string/pref_notifications_key"
             android:summary="@string/pref_notifications_summary"
             android:title="@string/pref_notifications_title" />
     </PreferenceCategory>
@@ -33,9 +33,8 @@
             android:entries="@array/pref_language_entries"
 
             android:entryValues="@array/pref_languages_values"
-            android:key="pref_language"
             android:textColor="@color/blue_grey_light"
-
+            android:key="@string/pref_language_key"
             android:summary="@string/pref_languages_summary"
             android:title="@string/pref_languages_title" />
 

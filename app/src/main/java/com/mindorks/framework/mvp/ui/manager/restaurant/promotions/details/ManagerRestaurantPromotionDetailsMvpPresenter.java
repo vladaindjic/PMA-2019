@@ -8,4 +8,7 @@ public interface ManagerRestaurantPromotionDetailsMvpPresenter<V extends Manager
 
     public void loadData(Long promotionId);
     public void savePromotion(PromotionDetailsResponse.Promotion promotion);
+
+    void updatePromotion(long promotionId, PromotionDetailsResponse.Promotion editedPromotion);
+    void submitPromotionImage(Long promotionId);
 }

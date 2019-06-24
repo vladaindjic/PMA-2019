@@ -8,9 +8,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.PromotionDetailsResponse;
 import com.mindorks.framework.mvp.ui.base.BaseActivity;
+import com.mindorks.framework.mvp.ui.base.BasePresenter;
 
 import javax.inject.Inject;
 
@@ -68,8 +70,9 @@ public class PromotionDetailsActivity extends BaseActivity implements PromotionD
     protected void setUp() {
 
         String id = "";
-        id= getIntent().getStringExtra("notificationPromotionId");
+        id= getIntent().getExtras().getString("notificationPromotionId");
 
+        System.out.println("Notifkacija"+id);
         setSupportActionBar(mToolbar);
 
         Long promotionId = getIntent().getLongExtra("promotionId", 0L);
@@ -89,7 +92,10 @@ public class PromotionDetailsActivity extends BaseActivity implements PromotionD
 
         if (promotion.getImageUrl() != null) {
             Glide.with(promotionImageView.getContext())
-                    .load(promotion.getImageUrl())
+                    .load(((BasePresenter)mPresenter).getImageUrlFor(BasePresenter.ENTITY_DISH,
+                            promotion.getImageUrl()))
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
                     .into(promotionImageView);
         }
 

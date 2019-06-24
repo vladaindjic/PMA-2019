@@ -26,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.BlogResponse;
 import com.mindorks.framework.mvp.ui.base.BaseViewHolder;
@@ -99,7 +100,6 @@ public class BlogAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         notifyDataSetChanged();
     }
 
-    // FIXME vi3: sta koji kurac sa ovime da radim
     public interface Callback {
         void onBlogEmptyViewRetryClick();
     }
@@ -140,8 +140,8 @@ public class BlogAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             if (blog.getCoverImgUrl() != null) {
                 Glide.with(itemView.getContext())
                         .load(blog.getCoverImgUrl())
-                        //.asBitmap()
-                        //.centerCrop()
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .skipMemoryCache(true)
                         .into(coverImageView);
             }
 

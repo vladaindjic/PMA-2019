@@ -2,7 +2,11 @@ package com.mindorks.framework.mvp.ui.manager.restaurant.details;
 
 import com.androidnetworking.error.ANError;
 import com.mindorks.framework.mvp.data.DataManager;
+import com.mindorks.framework.mvp.data.db.model.KitchenOption;
+import com.mindorks.framework.mvp.data.network.model.AllKitchensResponse;
+import com.mindorks.framework.mvp.data.network.model.FilterRestaurantRequest;
 import com.mindorks.framework.mvp.data.network.model.RestaurantDetailsResponse;
+import com.mindorks.framework.mvp.data.network.model.RestaurantFilterResponse;
 import com.mindorks.framework.mvp.ui.base.BasePresenter;
 import com.mindorks.framework.mvp.utils.rx.SchedulerProvider;
 
@@ -28,11 +32,10 @@ public class ManagerRestaurantDetailsPresenter<V extends ManagerRestaurantDetail
     }
 
     @Override
-    public void onViewPrepared(Long restaurantId) {
+    public void onViewPrepared() {
         getMvpView().showLoading();
-
         getCompositeDisposable().add(getDataManager()
-                .getRestaurantDetailsApiCall(restaurantId)
+                .getRestaurantDetailsApiCall(getDataManager().getRestaurantIdManager())
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(new Consumer<RestaurantDetailsResponse>() {
@@ -40,14 +43,8 @@ public class ManagerRestaurantDetailsPresenter<V extends ManagerRestaurantDetail
                     public void accept(@NonNull RestaurantDetailsResponse response)
                             throws Exception {
                         if (response != null && response.getData() != null) {
-                            // TODO vi3: ovo je samo za tesiranje
-                            List<RestaurantDetailsResponse.Kitchen> kitchenList = new ArrayList<>();
-                            kitchenList.add(new RestaurantDetailsResponse.Kitchen(1L, "Kineska"));
-                            kitchenList.add(new RestaurantDetailsResponse.Kitchen(2L,
-                                    "Italijanska"));
-                            kitchenList.add(new RestaurantDetailsResponse.Kitchen(3L, "Srpska"));
-                            response.getData().setKitchens(kitchenList);
                             getMvpView().updateRestaurantDetails(response.getData());
+                            getAndPrepareKitchensForAutocomplete();
                         }
                         getMvpView().hideLoading();
                     }
@@ -84,14 +81,9 @@ public class ManagerRestaurantDetailsPresenter<V extends ManagerRestaurantDetail
                             throws Exception {
                         // TODO vi3: odraditi i prikaz gresaka, ako je update neuspesan
                         if (response != null && response.getData() != null) {
-                            // TODO vi3: ovo je samo za tesiranje
-                            List<RestaurantDetailsResponse.Kitchen> kitchenList = new ArrayList<>();
-                            kitchenList.add(new RestaurantDetailsResponse.Kitchen(1L, "Kineska"));
-                            kitchenList.add(new RestaurantDetailsResponse.Kitchen(2L,
-                                    "Italijanska"));
-                            kitchenList.add(new RestaurantDetailsResponse.Kitchen(3L, "Srpska"));
-                            response.getData().setKitchens(kitchenList);
                             getMvpView().updateRestaurantDetails(response.getData());
+                            // ovde da puknemo sliku
+                            submitRestaurantImage();
                         }
                         getMvpView().hideLoading();
                     }
@@ -114,19 +106,85 @@ public class ManagerRestaurantDetailsPresenter<V extends ManagerRestaurantDetail
                 }));
     }
 
+    public void submitRestaurantImage() {
+        byte[] imgBytes = getMvpView().getImgBytes();
+        if (imgBytes != null) {
+            getCompositeDisposable().add(getDataManager()
+                    .putRestaurantImageUpdateRaw(imgBytes)
+                    .subscribeOn(getSchedulerProvider().io())
+                    .observeOn(getSchedulerProvider().ui())
+                    .subscribe(new Consumer<RestaurantDetailsResponse>() {
+                        @Override
+                        public void accept(@NonNull RestaurantDetailsResponse response)
+                                throws Exception {
+                            if (response != null && response.getData() != null) {
+                                getMvpView().updateRestaurantDetails(response.getData());
+                            }
+                            getMvpView().hideLoading();
+                        }
+                    }, new Consumer<Throwable>() {
+                        @Override
+                        public void accept(@NonNull Throwable throwable)
+                                throws Exception {
+                            if (!isViewAttached()) {
+                                return;
+                            }
+
+                            getMvpView().hideLoading();
+
+                            // handle the error here
+                            if (throwable instanceof ANError) {
+                                ANError anError = (ANError) throwable;
+                                handleApiError(anError);
+                            }
+                        }
+                    }));
+        }
+    }
+
     @Override
     public void getAndPrepareKitchensForAutocomplete() {
         getMvpView().showLoading();
-        List<RestaurantDetailsResponse.Kitchen> kitchenList = new ArrayList<>();
-        kitchenList.add(new RestaurantDetailsResponse.Kitchen(1L, "Kineska"));
-        kitchenList.add(new RestaurantDetailsResponse.Kitchen(2L,
-                "Italijanska"));
-        kitchenList.add(new RestaurantDetailsResponse.Kitchen(3L, "Srpska"));
-        kitchenList.add(new RestaurantDetailsResponse.Kitchen(4L, "Svapska"));
-        kitchenList.add(new RestaurantDetailsResponse.Kitchen(5L, "Grcka"));
-        // TODO vi3: ovde ide API da se dobave kuhinje
+        getCompositeDisposable().add(getDataManager()
+                .getAllKitchensApiCall()
+                .subscribeOn(getSchedulerProvider().io())
+                .observeOn(getSchedulerProvider().ui())
+                .subscribe(new Consumer<AllKitchensResponse>() {
+                    @Override
+                    public void accept(@NonNull AllKitchensResponse response)
+                            throws Exception {
+                        if (response != null && response.getData() != null) {
+                            // posto imamo razlicite objekte
+                            List<RestaurantDetailsResponse.Kitchen> kitchenList = new ArrayList<>();
+                            RestaurantDetailsResponse.Kitchen k;
+                            for(RestaurantFilterResponse.RestaurantFilter.KitchenOptions ko:
+                                    response.getData()){
+                                k = new RestaurantDetailsResponse.Kitchen();
+                                k.setId(ko.getId());
+                                k.setName(ko.getName());
+                                kitchenList.add(k);
+                            }
+                            getMvpView().prepareKitchensForAutocomplete(kitchenList);
+                        }
+                        getMvpView().hideLoading();
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(@NonNull Throwable throwable)
+                            throws Exception {
+                        if (!isViewAttached()) {
+                            return;
+                        }
 
-        getMvpView().prepareKitchensForAutocomplete(kitchenList);
+                        getMvpView().hideLoading();
+
+                        // handle the error here
+                        if (throwable instanceof ANError) {
+                            ANError anError = (ANError) throwable;
+                            handleApiError(anError);
+                        }
+                    }
+                }));
 
         getMvpView().hideLoading();
     }

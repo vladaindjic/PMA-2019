@@ -2,6 +2,7 @@ package com.mindorks.framework.mvp.data.network.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.mindorks.framework.mvp.data.db.model.KitchenDB;
 
 import java.util.List;
 
@@ -243,6 +244,16 @@ public class RestaurantDetailsResponse {
 
         public void setName(String name) {
             this.name = name;
+        }
+
+        public KitchenDB getKitchenDB() {
+            KitchenDB kitchenDB = new KitchenDB();
+            // nema id za bazu
+            kitchenDB.setIdDb(null);
+            kitchenDB.setId(this.id);
+            kitchenDB.setName(this.name);
+            // restoran postavljamo nesto kasnije
+            return kitchenDB;
         }
     }
 

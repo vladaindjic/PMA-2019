@@ -37,10 +37,11 @@ public class ManagerRestaurantPromotionsPresenter<V extends ManagerRestaurantPro
 //
 //        getMvpView().updateRestaurantPromotionsList(promotionList);
 
-
+        Long restaurantId = -1L;
+        restaurantId = getDataManager().getRestaurantIdManager();
 
         getCompositeDisposable().add(getDataManager()
-                .getRestaurantPromotions(0L)
+                .getRestaurantPromotions(restaurantId)
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(new Consumer<RestaurantPromotionsResponse>() {
@@ -61,7 +62,6 @@ public class ManagerRestaurantPromotionsPresenter<V extends ManagerRestaurantPro
                         }
 
                         getMvpView().hideLoading();
-
                         // handle the error here
                         if (throwable instanceof ANError) {
                             ANError anError = (ANError) throwable;
@@ -73,4 +73,34 @@ public class ManagerRestaurantPromotionsPresenter<V extends ManagerRestaurantPro
         getMvpView().hideLoading();
 
     }
+
+    @Override
+    public void deletePromotion(Long promotionId) {
+
+        getMvpView().showLoading();
+
+        getCompositeDisposable().add(getDataManager()
+                .deletePromotion(promotionId)
+                .subscribeOn(getSchedulerProvider().io())
+                .observeOn(getSchedulerProvider().ui())
+                .subscribe(new Consumer<RestaurantPromotionsResponse>() {
+                               @Override
+                               public void accept(RestaurantPromotionsResponse restaurantPromotionsResponse) throws Exception {
+                                   if (restaurantPromotionsResponse != null && restaurantPromotionsResponse.getData() != null) {
+                                       getMvpView().updateRestaurantPromotionsList(restaurantPromotionsResponse.getData());
+                                   }
+                                   getMvpView().hideLoading();
+
+                               }
+                           }, new Consumer<Throwable>() {
+                               @Override
+                               public void accept(Throwable throwable) throws Exception {
+                                   getMvpView().hideLoading();
+                               }
+                           }
+                ));
+    }
+
 }
+
+

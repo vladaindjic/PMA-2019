@@ -23,21 +23,30 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.internal.$Gson$Types;
 import com.google.gson.reflect.TypeToken;
 import com.mindorks.framework.mvp.data.db.DbHelper;
+import com.mindorks.framework.mvp.data.db.model.KitchenDB;
+import com.mindorks.framework.mvp.data.db.model.KitchenOption;
+import com.mindorks.framework.mvp.data.db.model.MyRestaurantDB;
+import com.mindorks.framework.mvp.data.db.model.Notification;
 import com.mindorks.framework.mvp.data.db.model.Option;
 import com.mindorks.framework.mvp.data.db.model.Question;
 import com.mindorks.framework.mvp.data.db.model.User;
+import com.mindorks.framework.mvp.data.db.model.UserFilter;
 import com.mindorks.framework.mvp.data.network.ApiHeader;
 import com.mindorks.framework.mvp.data.network.ApiHelper;
+import com.mindorks.framework.mvp.data.network.model.AllKitchensResponse;
 import com.mindorks.framework.mvp.data.network.model.BlogResponse;
 import com.mindorks.framework.mvp.data.network.model.ComentVoteRequest;
 import com.mindorks.framework.mvp.data.network.model.CommentRequest;
 import com.mindorks.framework.mvp.data.network.model.DailyMenuResponse;
 import com.mindorks.framework.mvp.data.network.model.DishDetailsResponse;
+import com.mindorks.framework.mvp.data.network.model.DishRequestDto;
+import com.mindorks.framework.mvp.data.network.model.FilterRestaurantRequest;
 import com.mindorks.framework.mvp.data.network.model.LoginRequest;
 import com.mindorks.framework.mvp.data.network.model.LoginResponse;
 import com.mindorks.framework.mvp.data.network.model.LogoutResponse;
 import com.mindorks.framework.mvp.data.network.model.MealResponse;
 import com.mindorks.framework.mvp.data.network.model.MenuResponse;
+import com.mindorks.framework.mvp.data.network.model.MyRestaurantsResponse;
 import com.mindorks.framework.mvp.data.network.model.NotificationResponse;
 import com.mindorks.framework.mvp.data.network.model.OpenSourceResponse;
 import com.mindorks.framework.mvp.data.network.model.PromotionDetailsResponse;
@@ -216,6 +225,46 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public boolean isDarkThemeOn() {
+        return mPreferencesHelper.isDarkThemeOn();
+    }
+
+    @Override
+    public boolean isNotificationsTurnedOn() {
+        return mPreferencesHelper.isNotificationsTurnedOn();
+    }
+
+    @Override
+    public boolean isSaveNetworkDataOn() {
+        return mPreferencesHelper.isSaveNetworkDataOn();
+    }
+
+    @Override
+    public String getActiveLanguage() {
+        return mPreferencesHelper.getActiveLanguage();
+    }
+
+    @Override
+    public void setActiveUserFilterId(Long userFilterId) {
+        mPreferencesHelper.setActiveUserFilterId(userFilterId);
+    }
+
+    @Override
+    public Long getActiveUserFilterId() {
+        return mPreferencesHelper.getActiveUserFilterId();
+    }
+
+    @Override
+    public Long getRestaurantIdManager() {
+        return mPreferencesHelper.getRestaurantIdManager();
+    }
+
+    @Override
+    public void setRestaurantIdManager(Long restaurantId) {
+        mPreferencesHelper.setRestaurantIdManager(restaurantId);
+    }
+
+    @Override
     public void updateUserInfo(
             String accessToken,
             Long userId,
@@ -281,8 +330,68 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public Observable<List<Notification>> getAllNotification() {
+        return mDbHelper.getAllNotification();
+    }
+
+    @Override
+    public Observable<Boolean> saveNotification(Notification notification) {
+        return mDbHelper.saveNotification(notification);
+    }
+
+    @Override
+    public Observable<Long> saveUserFilter(UserFilter userFilter) {
+        return mDbHelper.saveUserFilter(userFilter);
+    }
+
+    @Override
+    public Observable<UserFilter> getUserFilter(long id) {
+        return mDbHelper.getUserFilter(id);
+    }
+
+    @Override
+    public Observable<Boolean> saveKitchenOption(KitchenOption kitchenOption) {
+        return mDbHelper.saveKitchenOption(kitchenOption);
+    }
+
+    @Override
     public Observable<List<Question>> getAllQuestions() {
         return mDbHelper.getAllQuestions();
+    }
+
+    @Override
+    public Observable<List<MyRestaurantDB>> getAllMyRestaurants() {
+        return mDbHelper.getAllMyRestaurants();
+    }
+
+    @Override
+    public Observable<Boolean> deleteAllMyRestaurants() {
+        return mDbHelper.deleteAllMyRestaurants();
+    }
+
+    @Override
+    public Observable<MyRestaurantDB> getMyRestaurant(long id) {
+        return mDbHelper.getMyRestaurant(id);
+    }
+
+    @Override
+    public Observable<MyRestaurantDB> getMyRestaurantByRemoteDatabaseId(long remoteDatabaseId) {
+        return mDbHelper.getMyRestaurantByRemoteDatabaseId(remoteDatabaseId);
+    }
+
+    @Override
+    public Observable<Long> saveMyRestaurant(MyRestaurantDB myRestaurantDB) {
+        return mDbHelper.saveMyRestaurant(myRestaurantDB);
+    }
+
+    @Override
+    public Observable<Long> saveKitchenDB(KitchenDB kitchenDB) {
+        return mDbHelper.saveKitchenDB(kitchenDB);
+    }
+
+    @Override
+    public Observable<Boolean> deleteAllKitchensDB() {
+        return mDbHelper.deleteAllKitchensDB();
     }
 
     @Override
@@ -350,12 +459,12 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Single<RestaurantsResponse> getRestaurantsApiCall() {
-        return mApiHelper.getRestaurantsApiCall();
+    public Single<RestaurantsResponse> getRestaurantsApiCall(FilterRestaurantRequest filterRestaurantRequest) {
+        return mApiHelper.getRestaurantsApiCall(filterRestaurantRequest);
     }
 
     @Override
-    public Single<RestaurantsResponse> getSubscriptionsApiCall() {
+    public Single<MyRestaurantsResponse> getSubscriptionsApiCall() {
         return mApiHelper.getSubscriptionsApiCall();
     }
 
@@ -457,6 +566,27 @@ public class AppDataManager implements DataManager {
     public Single<UserDetailsResponse> putUserImageUpdate(File imageBytes) {
         return mApiHelper.putUserImageUpdate(imageBytes);
     }
+
+    @Override
+    public Single<UserDetailsResponse> putUserImageUpdateRaw(byte[] imageBytes) {
+        return mApiHelper.putUserImageUpdateRaw(imageBytes);
+    }
+
+    @Override
+    public Single<RestaurantDetailsResponse> putRestaurantImageUpdateRaw(byte[] imageBytes) {
+        return  mApiHelper.putRestaurantImageUpdateRaw(imageBytes);
+    }
+
+    @Override
+    public Single<RestaurantPromotionsResponse> putPromotionImageUpdateRaw(byte[] imageBytes, Long promotionId) {
+        return mApiHelper.putPromotionImageUpdateRaw(imageBytes,promotionId);
+    }
+
+    @Override
+    public Single<DishDetailsResponse> putDishImageUpdateRaw(byte[] imageBytes, Long dishId) {
+        return mApiHelper.putDishImageUpdateRaw(imageBytes, dishId);
+    }
+
     @Override
     public Single<Double> rateRestaurant(Long restaurantid, RestaurantScoreRequest restaurantScoreRequest) {
         return mApiHelper.rateRestaurant(restaurantid,restaurantScoreRequest);
@@ -485,6 +615,61 @@ public class AppDataManager implements DataManager {
     @Override
     public Single<RestaurantRatingResponse> voteCommentDish(Long id, ComentVoteRequest request) {
         return  mApiHelper.voteCommentDish(id,request);
+    }
+
+    @Override
+    public Single<AllKitchensResponse> getAllKitchensApiCall() {
+        return  mApiHelper.getAllKitchensApiCall();
+    }
+
+    @Override
+    public Single<AllKitchensResponse> getAllKitchensForRestaurant(Long restaurantId) {
+        return mApiHelper.getAllKitchensForRestaurant(restaurantId);
+    }
+
+    @Override
+    public Single<RestaurantCookResponse> deleteDish(Long id) {
+        return  mApiHelper.deleteDish(id);
+    }
+
+    @Override
+    public Single<RestaurantPromotionsResponse> deletePromotion(Long promotionId) {
+        return mApiHelper.deletePromotion(promotionId);
+    }
+
+    @Override
+    public Single<DailyMenuResponse> deleteMeal(Long mealId) {
+        return mApiHelper.deleteMeal(mealId);
+    }
+
+    @Override
+    public Single<PromotionDetailsResponse> createPromotion(PromotionDetailsResponse.Promotion promotion) {
+        return  mApiHelper.createPromotion(promotion);
+    }
+
+    @Override
+    public Single<RestaurantPromotionsResponse> updatePromotion(Long promotionId, PromotionDetailsResponse.Promotion promotion) {
+        return mApiHelper.updatePromotion(promotionId,promotion);
+    }
+
+    @Override
+    public Single<DishDetailsResponse> addDish(Long restaurantId, DishRequestDto requestData) {
+        return mApiHelper.addDish(restaurantId,requestData);
+    }
+
+    @Override
+    public Single<RestaurantCookResponse> updateDish(Long dishId, DishRequestDto requestData) {
+        return  mApiHelper.updateDish(dishId,requestData);
+    }
+
+    @Override
+    public Single<DailyMenuResponse> addMeal(Long id, MealResponse.MealDetails data) {
+        return mApiHelper.addMeal(id,data);
+    }
+
+    @Override
+    public Single<DailyMenuResponse> updateMeal(Long mealId, MealResponse.MealDetails data) {
+        return mApiHelper.updateMeal(mealId,data);
     }
 
 
