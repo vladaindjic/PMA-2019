@@ -94,9 +94,8 @@ public class UserPreferencesFragment extends PreferenceFragmentCompat implements
     {
         //Your Code
         if (key.equals("pref_dark_theme")) {
-            getActivity().recreate();
-
-            //restartActivity();
+//            getActivity().recreate();
+            restartActivity();
         }
         languagePref_ID = sharedPreferences.getString(KEY_PREF_LANGUAGE, "");
 
@@ -105,27 +104,31 @@ public class UserPreferencesFragment extends PreferenceFragmentCompat implements
                 //Locale localeEN = new Locale("en_US");
 
                 LocaleHelper.setLocale(getContext(), "en");
-                getActivity().recreate();
+//                getActivity().recreate();
+                restartActivity();
                 break;
             case "sr":
 
                 LocaleHelper.setLocale(getContext(), "sr");
-                getActivity().recreate();
+//                getActivity().recreate();
+                restartActivity();
                 break;
             case "cir":
 
                 LocaleHelper.setLocale(getContext(), "cir");
-                getActivity().recreate();
+//                getActivity().recreate();
+                restartActivity();
                 break;
             case "it":
 
                 LocaleHelper.setLocale(getContext(), "it");
-                getActivity().recreate();
+//                getActivity().recreate();
+                restartActivity();
                 break;
             case "es":
-
                 LocaleHelper.setLocale(getContext(), "es");
-                getActivity().recreate();
+//                getActivity().recreate();
+                restartActivity();
                 break;
 
         }

@@ -2,6 +2,7 @@ package com.mindorks.framework.mvp.ui.settings;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -66,7 +67,6 @@ public class SettingsFragment extends BaseFragment implements SettingsMvpView {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
-
         ActivityComponent component = getActivityComponent();
         if (component != null) {
             component.inject(this);
@@ -86,7 +86,6 @@ public class SettingsFragment extends BaseFragment implements SettingsMvpView {
                 .add(R.id.user_preferences_container, UserPreferencesFragment.newInstance(),
                         UserPreferencesFragment.TAG)
                 .commit();
-
 
         return view;
     }

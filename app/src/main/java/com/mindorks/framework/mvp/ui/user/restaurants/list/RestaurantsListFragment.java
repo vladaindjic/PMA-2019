@@ -123,8 +123,6 @@ public class RestaurantsListFragment extends BaseFragment implements
             public void onSuccess(Location location) {
                 if (location != null) {
                     currentLocation = location;
-                    Toast.makeText(getBaseActivity(),
-                            currentLocation.getLatitude() + " " + currentLocation.getLongitude(), Toast.LENGTH_SHORT).show();
                     System.out.println(currentLocation.getLatitude() + " " + currentLocation.getLongitude());
                     findAndPrepareProperView(currentLocation.getLatitude(), currentLocation.getLongitude());
                 } else {

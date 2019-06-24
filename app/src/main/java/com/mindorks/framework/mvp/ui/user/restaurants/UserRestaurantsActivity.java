@@ -86,15 +86,17 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_restaurants);
+        if (savedInstanceState == null) {
+            setContentView(R.layout.activity_user_restaurants);
 
-        getActivityComponent().inject(this);
+            getActivityComponent().inject(this);
 
-        setUnBinder(ButterKnife.bind(this));
+            setUnBinder(ButterKnife.bind(this));
 
-        mPresenter.onAttach(UserRestaurantsActivity.this);
+            mPresenter.onAttach(UserRestaurantsActivity.this);
 
-        setUp();
+            setUp();
+        }
     }
 
     // add toolbar
