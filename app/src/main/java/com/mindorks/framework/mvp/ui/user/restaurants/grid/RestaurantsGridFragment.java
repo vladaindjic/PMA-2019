@@ -84,7 +84,7 @@ public class RestaurantsGridFragment extends BaseFragment implements
             mPresenter.onAttach(this);
 
             mRestaurantsGridAdapter.setmCallback(this);
-            mRestaurantsGridAdapter.setBasePresenterForImageUrlProviding((BasePresenter)mPresenter);
+            mRestaurantsGridAdapter.setBasePresenterForImageUrlProviding((BasePresenter) mPresenter);
         }
         return view;
     }
@@ -119,10 +119,20 @@ public class RestaurantsGridFragment extends BaseFragment implements
                 if (location != null) {
                     currentLocation = location;
                     System.out.println(currentLocation.getLatitude() + " " + currentLocation.getLongitude());
-                    mPresenter.onViewPrepared(currentLocation.getLatitude(), currentLocation.getLongitude());
+
+                    if (getContext() != null) {
+                        mPresenter.onViewPrepared(currentLocation.getLatitude(), currentLocation.getLongitude());
+                    } else {
+                        System.out.println("VI3 GADNO: ROTACIJA RESTORAN GRID 1");
+                    }
                 } else {
-                    Toast.makeText(getBaseActivity(), "No Location recorded", Toast.LENGTH_SHORT).show();
-                    mPresenter.onViewPrepared(null, null);
+                    if (getContext() != null) {
+                        Toast.makeText(getBaseActivity(), "No Location recorded", Toast.LENGTH_SHORT).show();
+                        mPresenter.onViewPrepared(null, null);
+                    } else {
+                        System.out.println("VI3 GADNO: ROTACIJA RESTORAN GRID 2");
+                    }
+
                 }
             }
         });

@@ -92,46 +92,50 @@ public class UserPreferencesFragment extends PreferenceFragmentCompat implements
 
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,String key)
     {
-        //Your Code
-        if (key.equals("pref_dark_theme")) {
+//        //Your Code
+//        if (key.equals("pref_dark_theme")) {
 //            getActivity().recreate();
-            restartActivity();
-        }
-        languagePref_ID = sharedPreferences.getString(KEY_PREF_LANGUAGE, "");
-
-        switch (languagePref_ID) {
-            case "en":
-                //Locale localeEN = new Locale("en_US");
-
-                LocaleHelper.setLocale(getContext(), "en");
+//            //restartActivity();
+//        }
+//        languagePref_ID = sharedPreferences.getString(KEY_PREF_LANGUAGE, "");
+//
+//        switch (languagePref_ID) {
+//            case "en":
+//                //Locale localeEN = new Locale("en_US");
+//
+//                LocaleHelper.setLocale(getContext(), "en");
 //                getActivity().recreate();
-                restartActivity();
-                break;
-            case "sr":
-
-                LocaleHelper.setLocale(getContext(), "sr");
+////                restartActivity();
+//                break;
+//            case "sr":
+//
+//                LocaleHelper.setLocale(getContext(), "sr");
 //                getActivity().recreate();
-                restartActivity();
-                break;
-            case "cir":
-
-                LocaleHelper.setLocale(getContext(), "cir");
+////                restartActivity();
+//                break;
+//            case "cir":
+//
+//                LocaleHelper.setLocale(getContext(), "cir");
 //                getActivity().recreate();
-                restartActivity();
-                break;
-            case "it":
-
-                LocaleHelper.setLocale(getContext(), "it");
+////                restartActivity();
+//                break;
+//            case "it":
+//
+//                LocaleHelper.setLocale(getContext(), "it");
 //                getActivity().recreate();
-                restartActivity();
-                break;
-            case "es":
-                LocaleHelper.setLocale(getContext(), "es");
+////                restartActivity();
+//                break;
+//            case "es":
+//                LocaleHelper.setLocale(getContext(), "es");
 //                getActivity().recreate();
-                restartActivity();
-                break;
+////                restartActivity();
+//                break;
+//
+//
+//        }
 
-        }
+        getActivity().recreate();
+
     }
 
 }
