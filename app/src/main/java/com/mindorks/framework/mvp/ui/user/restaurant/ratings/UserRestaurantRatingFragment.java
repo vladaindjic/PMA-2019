@@ -7,6 +7,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -60,6 +61,7 @@ public class UserRestaurantRatingFragment extends BaseFragment implements UserRe
     UserRestaurantCommentAdapter mUserRestaurantCommentAdapter;
 
     boolean callRatingChnaged = true;
+    boolean userClickRatingBar = false;
     Long restaurantId;
 
     public UserRestaurantRatingFragment() {
@@ -121,12 +123,45 @@ public class UserRestaurantRatingFragment extends BaseFragment implements UserRe
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                if (callRatingChnaged) {
+                if (callRatingChnaged && userClickRatingBar) {
                     mPresenter.rateRestaurant(restaurantId, ratingBar);
                     Toast.makeText(getActivity(), ratingBar.getRating() + " " + restaurantId, Toast.LENGTH_SHORT).show();
+                    // ponistimo klik korisnika
+                    userClickRatingBar = false;
                 }
             }
         });
+
+        ratingBar.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    if (!callRatingChnaged) {
+                        return true;
+                    }
+                    userClickRatingBar = true;
+                    float touchPositionX = event.getX();
+                    float width = ratingBar.getWidth();
+                    float starsf = (touchPositionX / width) * 5.0f;
+                    int stars = (int)starsf + 1;
+                    ratingBar.setRating(stars);
+
+                    Toast.makeText(getBaseActivity(), String.valueOf("test"), Toast.LENGTH_SHORT).show();
+                    v.setPressed(false);
+                }
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    v.setPressed(true);
+                }
+
+                if (event.getAction() == MotionEvent.ACTION_CANCEL) {
+                    v.setPressed(false);
+                }
+
+                return true;
+            }
+        });
+
+
 //        // vi3 prebaceno onResume
 //        mPresenter.onViewPrepared(restaurantId);
 
