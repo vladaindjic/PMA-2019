@@ -91,6 +91,7 @@ public class ManagerRestaurantPromotionDetailsActivity extends BaseActivity impl
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setTheme(R.style.AppTheme);
         setContentView(R.layout.activity_manager_restaurant_promotion_details);
 
         getActivityComponent().inject(this);

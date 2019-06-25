@@ -73,6 +73,7 @@ public class ManagerRestaurantDailyMenuFragment extends BaseFragment implements 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        getContext().setTheme(R.style.AppTheme);
         View view = inflater.inflate(R.layout.fragment_manager_restaurant_daily_menu, container, false);
         ActivityComponent component = getActivityComponent();
         if (component != null) {

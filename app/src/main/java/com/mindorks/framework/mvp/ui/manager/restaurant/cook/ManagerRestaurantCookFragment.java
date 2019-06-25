@@ -67,7 +67,8 @@ public class ManagerRestaurantCookFragment extends BaseFragment implements
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        // svetla tema je podrzaumevana za managera
+        getContext().setTheme(R.style.AppTheme);
         View view = inflater.inflate(R.layout.fragment_manager_restaurant_cook, container, false);
 
         ActivityComponent component = getActivityComponent();

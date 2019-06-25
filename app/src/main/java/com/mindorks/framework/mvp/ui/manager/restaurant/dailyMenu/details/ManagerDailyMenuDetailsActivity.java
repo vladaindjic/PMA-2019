@@ -97,6 +97,8 @@ public class ManagerDailyMenuDetailsActivity extends BaseActivity implements Man
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setTheme(R.style.AppTheme);
+
         setContentView(R.layout.activity_manager_daily_menu_details);
 
         getActivityComponent().inject(this);

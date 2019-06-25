@@ -151,6 +151,7 @@ public class ManagerRestaurantDetailsFragment extends BaseFragment implements
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        getContext().setTheme(R.style.AppTheme);
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_manager_restaurant_details, container, false);
 

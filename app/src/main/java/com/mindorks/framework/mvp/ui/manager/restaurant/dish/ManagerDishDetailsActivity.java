@@ -127,6 +127,7 @@ public class ManagerDishDetailsActivity extends BaseActivity implements
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setTheme(R.style.AppTheme);
         setContentView(R.layout.activity_manager_dish_details);
 
         getActivityComponent().inject(this);

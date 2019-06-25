@@ -64,6 +64,7 @@ public class ManagerRestaurantActivity extends BaseActivity implements ManagerRe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setTheme(R.style.AppTheme);
         setContentView(R.layout.activity_manager_restaurant);
 
         getActivityComponent().inject(this);
