@@ -7,6 +7,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -56,7 +57,8 @@ public class UserDishRatingFragment extends BaseFragment implements UserDishRati
     @Inject
     UserDishCommentAdapter mUserDishCommentAdapter;
 
-    boolean callRatingChnaged;
+    boolean callRatingChnaged = true;
+    boolean userClickRatingBar = false;
     Long dishId;
 
     public UserDishRatingFragment() {
@@ -121,12 +123,36 @@ public class UserDishRatingFragment extends BaseFragment implements UserDishRati
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                if (callRatingChnaged) {
+                if (callRatingChnaged && userClickRatingBar) {
                     mPresenter.rateDish(dishId, ratingBar);
-                    Toast.makeText(getActivity(), ratingBar.getRating() + " " + dishId, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), ratingBar.getRating() + " " + dishId,
+                            Toast.LENGTH_SHORT).show();
+                    // ponistimo klik korisnika
+                    userClickRatingBar = false;
+                    callRatingChnaged = false;
                 }
             }
         });
+
+        ratingBar.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP && callRatingChnaged) {
+                    userClickRatingBar = true;
+                    float touchPositionX = event.getX();
+                    float width = ratingBar.getWidth();
+                    float starsf = (touchPositionX / width) * 5.0f;
+                    int stars = (int)starsf + 1;
+                    ratingBar.setRating(stars);
+
+                    Toast.makeText(getBaseActivity(), String.valueOf("test"), Toast.LENGTH_SHORT).show();
+                    v.setPressed(false);
+                }
+
+                return true;
+            }
+        });
+
 //        // vi3 prebaceno onResume
 //        mPresenter.onViewPrepared(dishId);
     }
