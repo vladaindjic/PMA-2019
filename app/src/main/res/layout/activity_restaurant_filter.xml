@@ -28,7 +28,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
-        android:ems="10"
         android:text="@string/filterDistanceString"
         android:textAlignment="textStart"
         android:textSize="18sp"
@@ -150,6 +149,7 @@
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="56dp"
         android:text="@string/submitBtn"
+        android:textColor="?attr/button_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/filterCancelBtn" />
 
@@ -160,6 +160,7 @@
         android:layout_marginEnd="56dp"
         android:layout_marginBottom="56dp"
         android:text="@string/cancelBtn"
+        android:textColor="?attr/button_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
