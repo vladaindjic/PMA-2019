@@ -35,6 +35,7 @@ public class ManagerRestaurantMenuFragment extends BaseFragment implements Manag
         ManagerDishListAdapter.ManagerDishListItemCallback {
 
     private static Long counter = 0L;
+
     synchronized private static Long getNewCounter() {
         return --counter;
     }
@@ -102,13 +103,35 @@ public class ManagerRestaurantMenuFragment extends BaseFragment implements Manag
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        // vi3 prebaceno onResume
+        myLocalSetUp();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            if (getBaseActivity() != null) {
+                // vi3 prebaceno onResume
+                myLocalSetUp();
+            }
+        }
+    }
+
+    @Override
     protected void setUp(View view) {
 
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mDishTypeListAdapter);
+//        // vi3 prebaceno onResume
+//        myLocalSetUp();
+    }
 
+    private void myLocalSetUp() {
         // TODO vi3: ovde svakako ide restoran ciji je korisnik manager
         mPresenter.onViewPrepared();
         mPresenter.getAllRestaurantDishes();
@@ -197,7 +220,7 @@ public class ManagerRestaurantMenuFragment extends BaseFragment implements Manag
 
         this.originalMenu.setDishTypeList(new ArrayList<MenuResponse.DishType>());
         // trebalo bi da iskopiramo svaki dishType, a sacuvacemo dish u njima
-        for (MenuResponse.DishType dt: this.menu.getDishTypeList()) {
+        for (MenuResponse.DishType dt : this.menu.getDishTypeList()) {
             this.originalMenu.getDishTypeList().add(dt.copyAllButDishes());
         }
     }
@@ -219,7 +242,7 @@ public class ManagerRestaurantMenuFragment extends BaseFragment implements Manag
     @Override
     public void removeDishFromMenu(MenuResponse.Dish dish, MenuResponse.DishType dishType) {
         // nadjemo dishtype
-        for (MenuResponse.DishType dt: this.menu.getDishTypeList()) {
+        for (MenuResponse.DishType dt : this.menu.getDishTypeList()) {
             if (dt.getId().equals(dishType.getId())) {
                 dt.getDishList().remove(dish);
                 break;
@@ -234,7 +257,7 @@ public class ManagerRestaurantMenuFragment extends BaseFragment implements Manag
     @Override
     public void addDishToDishType(MenuResponse.Dish dish, MenuResponse.DishType dishType) {
         // nadjemo dishtype
-        for (MenuResponse.DishType dt: this.menu.getDishTypeList()) {
+        for (MenuResponse.DishType dt : this.menu.getDishTypeList()) {
             if (dt.getId().equals(dishType.getId())) {
                 dt.getDishList().add(dish);
                 break;
@@ -260,7 +283,7 @@ public class ManagerRestaurantMenuFragment extends BaseFragment implements Manag
         }
 
         // da li se mozda neko ime poklapa?
-        for (MenuResponse.DishType dt: this.menu.getDishTypeList()) {
+        for (MenuResponse.DishType dt : this.menu.getDishTypeList()) {
             if (dt.getName().toUpperCase().equals(typedTxt.toUpperCase())) {
                 btnAddDishType.setClickable(false);
                 return;
@@ -296,7 +319,7 @@ public class ManagerRestaurantMenuFragment extends BaseFragment implements Manag
         // proveriti da li treba da se pravi nova lista
         menu.setDishTypeList(this.menu.getDishTypeList());
         // svi negativni ID-evi se ponistavaju
-        for (MenuResponse.DishType dt: menu.getDishTypeList()) {
+        for (MenuResponse.DishType dt : menu.getDishTypeList()) {
             if (dt.getId() <= 0) {
                 dt.setId(null);
             }

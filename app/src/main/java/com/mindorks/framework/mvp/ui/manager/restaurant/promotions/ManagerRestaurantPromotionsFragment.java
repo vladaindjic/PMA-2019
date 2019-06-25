@@ -82,7 +82,19 @@ public class ManagerRestaurantPromotionsFragment extends BaseFragment implements
     @Override
     public void onResume() {
         super.onResume();
+        // vi3 prebaceno onResume
         mPresenter.onViewPrepared();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            if (getBaseActivity() != null) {
+                // vi3 prebaceno onResume
+                mPresenter.onViewPrepared();
+            }
+        }
     }
 
     @Override
@@ -93,7 +105,8 @@ public class ManagerRestaurantPromotionsFragment extends BaseFragment implements
         mRecyclerView.setAdapter(mManagerRestaurantPromotionsAdapter);
 
         // TODO vi3: dobaljanje restorana za koji je menadzer zaduzen
-        mPresenter.onViewPrepared();
+        // vi3 prebaceno onResume
+        // mPresenter.onViewPrepared();
     }
 
     @OnClick(R.id.add_promotion_button)

@@ -165,13 +165,37 @@ public class ManagerRestaurantDetailsFragment extends BaseFragment implements
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        // vi3 prebaceno onResume
+        myLocalSetUp();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            if (getBaseActivity() != null) {
+                // vi3 prebaceno onResume
+                myLocalSetUp();
+            }
+        }
+    }
+
+    @Override
     protected void setUp(View view) {
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mKitchensAdapter);
+        // vi3 prebaceno onResume
+//        myLocalSetUp();
+    }
 
+
+    private void myLocalSetUp() {
         // TODO vi3: izvuci iz LoginResponsa. a pre toga sacuvati u preferences
+        // vi3 prebaceno onResume
         mPresenter.onViewPrepared();
         //mPresenter.getAndPrepareKitchensForAutocomplete();
 
@@ -229,6 +253,7 @@ public class ManagerRestaurantDetailsFragment extends BaseFragment implements
         // podrazumevano uklanjamo kuhinju
         removeTypedKitchen();
     }
+
     // TODO vi3: vidi da li je i ovo ovde ok???
     @Override
     synchronized public void prepareKitchensForAutocomplete(List<RestaurantDetailsResponse.Kitchen> kitchenList) {

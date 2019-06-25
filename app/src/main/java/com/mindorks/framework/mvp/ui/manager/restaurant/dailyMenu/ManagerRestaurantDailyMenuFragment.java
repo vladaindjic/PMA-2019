@@ -87,7 +87,18 @@ public class ManagerRestaurantDailyMenuFragment extends BaseFragment implements 
     @Override
     public void onResume() {
         super.onResume();
+        // vi3 prebaceno onResume
         mPresenter.onViewPrepared();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            if (getBaseActivity() != null) {
+                mPresenter.onViewPrepared();
+            }
+        }
     }
 
     @Override
@@ -96,8 +107,8 @@ public class ManagerRestaurantDailyMenuFragment extends BaseFragment implements 
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mMealListAdapter);
-
-        mPresenter.onViewPrepared();
+        // vi3 prebaceno onResume
+        // mPresenter.onViewPrepared();
     }
 
     @Override
