@@ -88,6 +88,7 @@ public class RestaurantsMapFragment extends BaseFragment implements
     private List<RestaurantsResponse.Restaurant> restaurantList;
     private Map<String, RestaurantsResponse.Restaurant> stringRestaurantMap;
     private Map<String, Drawable> restaurantsDrawablesMap;
+    private List<Marker> markerList = new ArrayList<>();
 
 
     public static RestaurantsMapFragment newInstance() {
@@ -129,6 +130,15 @@ public class RestaurantsMapFragment extends BaseFragment implements
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        // vi3 prebaceno onResume
+        // dobavljamo lokaciju
+        fetchLastLocation();
+
+    }
+
+    @Override
     protected void setUp(View view) {
 //        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 //        mRecyclerView.setLayoutManager(mLayoutManager);
@@ -136,8 +146,9 @@ public class RestaurantsMapFragment extends BaseFragment implements
 //        mRecyclerView.setAdapter(mRestaurantsListAdapter);
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getBaseActivity());
-        // dobavljamo lokaciju
-        fetchLastLocation();
+//        // vi3 prebaceno onResume
+//        // dobavljamo lokaciju
+//        fetchLastLocation();
 
         // moramo u isto vreme da dobavimo lokaciju, kao i restorano
         // prvo probamo dobavljanje lokacije
@@ -309,7 +320,11 @@ public class RestaurantsMapFragment extends BaseFragment implements
         if (restaurants == null) {
             return;
         }
-
+        // cistimo sve prethodne markere ako ih ima
+        for(Marker m: this.markerList) {
+            m.remove();
+        }
+        this.markerList.clear();
         this.restaurantList.clear();
         this.restaurantsDrawablesMap.clear();
         this.stringRestaurantMap.clear();
@@ -328,7 +343,7 @@ public class RestaurantsMapFragment extends BaseFragment implements
         }
 
         Glide.with(getActivity()).load(
-                ((BasePresenter)mPresenter).getDataManager().getCurrentUserProfilePicUrl())
+                ((BasePresenter) mPresenter).getDataManager().getCurrentUserProfilePicUrl())
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)
                 .into(new SimpleTarget<Drawable>() {
@@ -342,7 +357,7 @@ public class RestaurantsMapFragment extends BaseFragment implements
                                 BitmapDescriptorFactory.fromBitmap(createCustomMarker(getContext(), resource));
                         // zakomentarisati, ako ne treba slika da se prikaze
                         myLocationMarker.setIcon(bitmapDescriptor);
-                        myLocationMarker.setTitle(((BasePresenter)mPresenter).getDataManager().getCurrentUserName());
+                        myLocationMarker.setTitle(((BasePresenter) mPresenter).getDataManager().getCurrentUserName());
                         myLocationMarker.setSnippet(getString(R.string.here_you_are));
                         // cuvamo drawable
                         restaurantsDrawablesMap.put(myLocationMarker.getId(), resource);
@@ -380,9 +395,9 @@ public class RestaurantsMapFragment extends BaseFragment implements
                 // pamtimo lokaciju
                 restaurantsLocations.add(restaurantLocation);
                 String urlKogaJebes =
-                        ((BasePresenter)mPresenter).getImageUrlFor(BasePresenter.ENTITY_RESTAURANT, restaurant.getImageUrl());
+                        ((BasePresenter) mPresenter).getImageUrlFor(BasePresenter.ENTITY_RESTAURANT, restaurant.getImageUrl());
                 System.out.println("KONJINBOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO " + urlKogaJebes);
-                Glide.with(getActivity()).load(((BasePresenter)mPresenter).getImageUrlFor(BasePresenter.ENTITY_RESTAURANT, restaurant.getImageUrl()))
+                Glide.with(getActivity()).load(((BasePresenter) mPresenter).getImageUrlFor(BasePresenter.ENTITY_RESTAURANT, restaurant.getImageUrl()))
                         .diskCacheStrategy(DiskCacheStrategy.NONE)
                         .skipMemoryCache(true)
                         .into(new SimpleTarget<Drawable>() {
@@ -391,7 +406,8 @@ public class RestaurantsMapFragment extends BaseFragment implements
                             public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
                                 Marker marker = mMap.addMarker(new MarkerOptions()
                                         .position(restaurantLocation));
-
+                                // kesiramo u listu
+                                markerList.add(marker);
                                 // postavljamo ikonicu, nazv restorana i adresu
                                 BitmapDescriptor bitmapDescriptor =
                                         BitmapDescriptorFactory.fromBitmap(createCustomMarker(getContext(), resource));
@@ -415,26 +431,27 @@ public class RestaurantsMapFragment extends BaseFragment implements
                                         .diskCacheStrategy(DiskCacheStrategy.NONE)
                                         .skipMemoryCache(true)
                                         .into(new SimpleTarget<Drawable>() {
-                                    @Override
-                                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                                        Marker marker = mMap.addMarker(new MarkerOptions()
-                                                .position(restaurantLocation));
-
-                                        // postavljamo ikonicu, nazv restorana i adresu
-                                        BitmapDescriptor bitmapDescriptor =
-                                                BitmapDescriptorFactory.fromBitmap(createCustomMarker(getContext(), resource));
-                                        // zakomentarisati, ako ne treba slika da se prikaze
-                                        marker.setIcon(bitmapDescriptor);
-                                        marker.setTitle(restaurant.getName());
-                                        if (restaurant.getAddress() != null) {
-                                            marker.setSnippet(restaurant.getAddress());
-                                        }
-                                        // cuvamo drawable
-                                        restaurantsDrawablesMap.put(marker.getId(), resource);
-                                        // vezemo restoran za marker
-                                        stringRestaurantMap.put(marker.getId(), restaurant);
-                                    }
-                                });
+                                            @Override
+                                            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                                                Marker marker = mMap.addMarker(new MarkerOptions()
+                                                        .position(restaurantLocation));
+                                                // kesiramo u listu
+                                                markerList.add(marker);
+                                                // postavljamo ikonicu, nazv restorana i adresu
+                                                BitmapDescriptor bitmapDescriptor =
+                                                        BitmapDescriptorFactory.fromBitmap(createCustomMarker(getContext(), resource));
+                                                // zakomentarisati, ako ne treba slika da se prikaze
+                                                marker.setIcon(bitmapDescriptor);
+                                                marker.setTitle(restaurant.getName());
+                                                if (restaurant.getAddress() != null) {
+                                                    marker.setSnippet(restaurant.getAddress());
+                                                }
+                                                // cuvamo drawable
+                                                restaurantsDrawablesMap.put(marker.getId(), resource);
+                                                // vezemo restoran za marker
+                                                stringRestaurantMap.put(marker.getId(), restaurant);
+                                            }
+                                        });
 
                             }
                         });

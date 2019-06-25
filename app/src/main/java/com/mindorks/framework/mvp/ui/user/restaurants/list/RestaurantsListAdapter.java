@@ -54,6 +54,7 @@ public class RestaurantsListAdapter extends RecyclerView.Adapter<BaseViewHolder>
     }
 
     public void addItems(List<RestaurantsResponse.Restaurant> restaurantList) {
+        mRestaurantsResponseList.clear();
         mRestaurantsResponseList.addAll(restaurantList);
         notifyDataSetChanged();
     }

@@ -90,6 +90,13 @@ public class RestaurantsGridFragment extends BaseFragment implements
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        // vi3 prebaceno onResume
+        fetchLastLocation();
+    }
+
+    @Override
     protected void setUp(View view) {
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -99,7 +106,8 @@ public class RestaurantsGridFragment extends BaseFragment implements
 
         // klijent za lokaciju
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getBaseActivity());
-        fetchLastLocation();
+//        // vi3 prebaceno onResume
+//        fetchLastLocation();
     }
 
     private void fetchLastLocation() {
