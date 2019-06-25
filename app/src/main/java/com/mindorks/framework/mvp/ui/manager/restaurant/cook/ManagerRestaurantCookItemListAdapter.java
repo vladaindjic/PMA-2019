@@ -14,6 +14,7 @@ import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.MenuResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantCookResponse;
 import com.mindorks.framework.mvp.ui.base.BaseViewHolder;
+import com.mindorks.framework.mvp.ui.manager.restaurant.promotions.ManagerRestaurantPromotionsAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,9 +64,17 @@ public class ManagerRestaurantCookItemListAdapter extends RecyclerView.Adapter<B
 
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ManagerRestaurantCookItemListAdapter.ViewHolder(
-                LayoutInflater.from(parent.getContext()).inflate(R.layout.cook_item_view, parent,
-                        false));
+
+        switch (viewType) {
+            case VIEW_TYPE_NORMAL:
+                return new ManagerRestaurantCookItemListAdapter.ViewHolder(
+                        LayoutInflater.from(parent.getContext()).inflate(R.layout.cook_item_view, parent,
+                                false));
+            case VIEW_TYPE_EMPTY:
+            default:
+                return new ManagerRestaurantCookItemListAdapter.EmptyViewHolder(
+                        LayoutInflater.from(parent.getContext()).inflate(R.layout.missing_item, parent, false));
+        }
     }
 
     @Override
@@ -74,6 +83,15 @@ public class ManagerRestaurantCookItemListAdapter extends RecyclerView.Adapter<B
             return mRestaurantCookItemList.size();
         } else {
             return 1;
+        }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (mRestaurantCookItemList != null && mRestaurantCookItemList.size() > 0) {
+            return VIEW_TYPE_NORMAL;
+        } else {
+            return VIEW_TYPE_EMPTY;
         }
     }
 
@@ -176,6 +194,26 @@ public class ManagerRestaurantCookItemListAdapter extends RecyclerView.Adapter<B
 //                    }
 //                }
 //            });
+        }
+    }
+
+    /**
+     * EmptyViewHolder
+     */
+    public class EmptyViewHolder extends BaseViewHolder {
+
+        @BindView(R.id.txt_missing)
+        TextView messageTextView;
+
+        public EmptyViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+            messageTextView.setText( " dish!");
+        }
+
+        @Override
+        protected void clear() {
+
         }
     }
 

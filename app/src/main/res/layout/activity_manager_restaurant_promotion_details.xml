@@ -72,12 +72,12 @@
                                 android:layout_width="256dp"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center|top"
+                                android:inputType="textCapCharacters"
                                 android:hint="@string/insert_promotion_title"
                                 android:textAlignment="center"
                                 android:textAllCaps="true"
                                 android:textSize="24sp"
                                 android:textStyle="bold"
-
                                 />
 
                             <EditText
@@ -110,11 +110,13 @@
                     android:id="@+id/promotion_details_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="32dp"
                     android:text="@string/details"
                     android:textSize="20sp"
                     android:textStyle="bold"
+                    android:minWidth="90dp"
+
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -137,11 +139,13 @@
                     android:id="@+id/promotion_price_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:text="@string/price"
                     android:textSize="20sp"
                     android:textStyle="bold"
+                    android:minWidth="90dp"
+
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/promotion_details_text_edit" />
 
@@ -162,12 +166,13 @@
                     android:id="@+id/promotion_duration_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:text="@string/duration"
                     android:textSize="20sp"
                     android:textStyle="bold"
+                    android:minWidth="90dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/promotion_price_text_edit" />
@@ -197,7 +202,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/submitBtn"
-                    android:background="@drawable/my_button"
                     android:layout_marginTop="10dp"
 
                     />
@@ -209,7 +213,6 @@
                     android:text="@string/cancelBtn"
                     android:layout_marginStart="50dp"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/my_button"
 
                     />
 

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.mindorks.framework.mvp.R;
@@ -14,6 +15,7 @@ import com.mindorks.framework.mvp.data.db.model.Notification;
 import com.mindorks.framework.mvp.data.network.model.NotificationResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.ui.base.BaseViewHolder;
+import com.mindorks.framework.mvp.ui.manager.restaurant.promotions.ManagerRestaurantPromotionsAdapter;
 import com.mindorks.framework.mvp.ui.user.restaurants.utils.PromotionNotificationCallBack;
 import com.mindorks.framework.mvp.ui.user.restaurants.utils.UserRestaurantsCallback;
 
@@ -22,6 +24,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class NotificationListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
@@ -65,9 +68,26 @@ public class NotificationListAdapter extends RecyclerView.Adapter<BaseViewHolder
 
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new NotificationListAdapter.ViewHolder(
-                LayoutInflater.from(parent.getContext()).inflate(R.layout.notification_item_view, parent,
-                        false));
+
+        switch (viewType) {
+            case VIEW_TYPE_NORMAL:
+                return new NotificationListAdapter.ViewHolder(
+                        LayoutInflater.from(parent.getContext()).inflate(R.layout.manager_restaurant_promotions_list_item_layout, parent,
+                                false));
+            case VIEW_TYPE_EMPTY:
+            default:
+                return new NotificationListAdapter.EmptyViewHolder(
+                        LayoutInflater.from(parent.getContext()).inflate(R.layout.missing_item, parent, false));
+        }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (mNotifications != null && mNotifications.size() > 0) {
+            return VIEW_TYPE_NORMAL;
+        } else {
+            return VIEW_TYPE_EMPTY;
+        }
     }
 
     @Override
@@ -130,6 +150,27 @@ public class NotificationListAdapter extends RecyclerView.Adapter<BaseViewHolder
 //                    notifyDataSetChanged();
 //                }
 //            });
+        }
+    }
+
+
+    /**
+     * EmptyViewHolder
+     */
+    public class EmptyViewHolder extends BaseViewHolder {
+
+        @BindView(R.id.txt_missing)
+        TextView messageTextView;
+
+        public EmptyViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+            this.messageTextView.setText(" notificatinos!");
+        }
+
+        @Override
+        protected void clear() {
+
         }
     }
 

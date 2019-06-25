@@ -65,7 +65,7 @@ public class UserDishCommentAdapter extends RecyclerView.Adapter<BaseViewHolder>
             case VIEW_TYPE_EMPTY:
             default:
                 return new UserDishCommentAdapter.EmptyViewHolder(
-                        LayoutInflater.from(parent.getContext()).inflate(R.layout.item_empty_view, parent, false));
+                        LayoutInflater.from(parent.getContext()).inflate(R.layout.missing_item, parent, false));
         }
     }
 
@@ -184,26 +184,18 @@ public class UserDishCommentAdapter extends RecyclerView.Adapter<BaseViewHolder>
      */
     public class EmptyViewHolder extends BaseViewHolder {
 
-        @BindView(R.id.btn_retry)
-        Button retryButton;
-
-        @BindView(R.id.tv_message)
+        @BindView(R.id.txt_missing)
         TextView messageTextView;
 
         public EmptyViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            this.messageTextView.setText(" comments for this dish!");
         }
 
         @Override
         protected void clear() {
 
-        }
-
-        @OnClick(R.id.btn_retry)
-        void onRetryClick() {
-//            if (mCallback != null)
-//                mCallback.onRestaurantsEmptyViewRetryClick();
         }
     }
 }

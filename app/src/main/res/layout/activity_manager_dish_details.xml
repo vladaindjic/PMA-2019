@@ -52,6 +52,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|top"
                         android:hint="Jelo"
+                        android:inputType="textCapCharacters"
                         android:textAlignment="center"
                         android:textAllCaps="true"
                         android:textSize="32sp"

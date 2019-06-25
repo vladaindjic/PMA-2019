@@ -86,7 +86,7 @@ public class DishTypeListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             case VIEW_TYPE_EMPTY:
             default:
                 return new DishTypeListAdapter.EmptyViewHolder(
-                        LayoutInflater.from(parent.getContext()).inflate(R.layout.item_empty_view, parent, false));
+                        LayoutInflater.from(parent.getContext()).inflate(R.layout.missing_item, parent, false));
         }
     }
 
@@ -169,26 +169,18 @@ public class DishTypeListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public class EmptyViewHolder extends BaseViewHolder {
 
-        @BindView(R.id.btn_retry)
-        Button retryButton;
-
-        @BindView(R.id.tv_message)
+        @BindView(R.id.txt_missing)
         TextView messageTextView;
 
         public EmptyViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            messageTextView.setText( " menu for this restaurant!");
         }
 
         @Override
         protected void clear() {
 
-        }
-
-        @OnClick(R.id.btn_retry)
-        void onRetryClick() {
-            if (mCallback != null)
-                mCallback.onsEmptyViewRetryButtonClick();
         }
     }
 

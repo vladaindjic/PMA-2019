@@ -5,8 +5,8 @@
     android:id="@+id/manager_restaurant_promotions_list_item_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="16dp"
-    android:background="@drawable/customborder"
+    android:layout_margin="8dp"
+    android:background="@drawable/promotion_border_light"
     android:orientation="horizontal">
 
 
@@ -16,14 +16,17 @@
         android:layout_height="128dp"
         android:padding="8dp"
         android:scaleType="fitXY"
-        android:src="@drawable/login_bg" />
+        android:src="@drawable/login_bg"
+
+        android:background="@color/transparent"/>
 
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@color/transparent">
 
         <TextView
             android:id="@+id/manager_promotions_list_item_text_view"
@@ -42,7 +45,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+
+            android:background="@color/transparent"/>
 
         <ImageButton
             android:id="@+id/delete_promotion_button"
@@ -55,7 +60,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_delete_black" />
+            app:srcCompat="@drawable/ic_delete_black"
+            />
 
     </android.support.constraint.ConstraintLayout>
 
