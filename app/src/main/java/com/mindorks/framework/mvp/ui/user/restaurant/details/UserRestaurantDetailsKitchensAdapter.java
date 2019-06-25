@@ -44,6 +44,7 @@ public class UserRestaurantDetailsKitchensAdapter extends RecyclerView.Adapter<B
 //    }
 
     public void addItems(List<RestaurantDetailsResponse.Kitchen> kitchenList) {
+        mKitchenList.clear();
         mKitchenList.addAll(kitchenList);
         notifyDataSetChanged();
     }

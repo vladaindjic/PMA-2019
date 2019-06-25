@@ -128,10 +128,27 @@ public class UserDishDetailsFragment extends BaseFragment implements
     }
 
     @Override
-    protected void setUp(View view) {
+    public void onResume() {
+        super.onResume();
+        // vi3 prebaceno onResume
         Long dishId = getBaseActivity().getIntent().getLongExtra("dishId", 0L);
-        System.out.println("***************************** JEBES LI ME " + dishId);
+        mPresenter.onViewPrepared(dishId);
+    }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            if (getBaseActivity() != null) {
+                // vi3 prebaceno onResume
+                Long dishId = getBaseActivity().getIntent().getLongExtra("dishId", 0L);
+                mPresenter.onViewPrepared(dishId);
+            }
+        }
+    }
+
+    @Override
+    protected void setUp(View view) {
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -140,7 +157,9 @@ public class UserDishDetailsFragment extends BaseFragment implements
         // vi3 GF: da nas aktivnost moze pozvati kada joj se permisija odobri
         ((UserDishActivity) getBaseActivity()).setAddNutritiveValuesCallback(this);
 
-        mPresenter.onViewPrepared(dishId);
+//        // vi3 prebaceno onResume
+//        Long dishId = getBaseActivity().getIntent().getLongExtra("dishId", 0L);
+//        mPresenter.onViewPrepared(dishId);
     }
 
     @Override

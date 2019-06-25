@@ -39,6 +39,7 @@ public class UserDishDetailsNutritiveValuesAdapter extends RecyclerView.Adapter<
 //    }
 
     public void addItems(List<DishDetailsResponse.NutritiveValue> nutritiveValues) {
+        mNutritiveValues.clear();
         mNutritiveValues.addAll(nutritiveValues);
         notifyDataSetChanged();
     }

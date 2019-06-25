@@ -85,12 +85,25 @@ public class ManagerRestaurantCookFragment extends BaseFragment implements
     @Override
     public void onResume() {
         super.onResume();
+        // vi3 prebaceno onResume
         mPresenter.onViewPrepared();
     }
 
     @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(isVisibleToUser) {
+            if (getBaseActivity() != null) {
+                // vi3 prebaceno onResume
+                mPresenter.onViewPrepared();
+            }
+        }
+    }
+
+    @Override
     protected void setUp(View view) {
-        mPresenter.onViewPrepared();
+        // vi3 prebaceno onResume
+//        mPresenter.onViewPrepared();
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mManagerRestaurantCookView.setLayoutManager(mLayoutManager);
         mManagerRestaurantCookView.setItemAnimator(new DefaultItemAnimator());

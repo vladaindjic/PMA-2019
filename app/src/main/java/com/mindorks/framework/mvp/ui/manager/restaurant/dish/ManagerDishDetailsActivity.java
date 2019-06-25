@@ -140,14 +140,26 @@ public class ManagerDishDetailsActivity extends BaseActivity implements
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        // vi3 prebaceno onResume
+        // myLocalSetUp();
+    }
+
+    @Override
     protected void setUp() {
-        Bundle bundle = getIntent().getExtras();
-        dishId = bundle.getLong("dishId",-1L);
         mNutritiveValuesAdapter.setmCallback(this);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mNutritiveValuesAdapter);
+        // vi3 prebaceno onResume
+        myLocalSetUp();
+    }
+
+    private void myLocalSetUp() {
+        Bundle bundle = getIntent().getExtras();
+        dishId = bundle.getLong("dishId",-1L);
 
         this.nutritionValue = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.nutrition_values)));
 
@@ -165,6 +177,7 @@ public class ManagerDishDetailsActivity extends BaseActivity implements
         if (dishId != -1L) {
             mPresenter.onViewPrepared(dishId);
         } else {
+            // FIXME vlada mici: ako hoces da ide na onResume, hendlaj spinner :P
             this.dishDetailsEdited = new DishDetailsResponse.DishDetails();
             this.dishDetailsEdited.setKitchen(new DishDetailsResponse.Kitchen());
             this.dishDetailsEdited.setNutritiveValues(new ArrayList<DishDetailsResponse.NutritiveValue>());

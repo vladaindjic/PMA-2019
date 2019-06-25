@@ -47,6 +47,7 @@ public class MealListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     }
 
     public void addItems(List<DailyMenuResponse.Meal> mealList) {
+        mMealList.clear();
         mMealList.addAll(mealList);
         notifyDataSetChanged();
     }

@@ -102,8 +102,20 @@ public class ManagerRestaurantPromotionDetailsActivity extends BaseActivity impl
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        // vi3 prebaceno onResume
+        // myLocalSetUp();
+    }
+
+    @Override
     protected void setUp() {
         setSupportActionBar(mToolbar);
+        // vi3 prebaceno onResume
+        myLocalSetUp();
+    }
+
+    private void myLocalSetUp() {
         promotionId = getIntent().getLongExtra("promotionId", 0L);
         //Ako je id razlicit od -1 ucitaj podatke pa prikazi.
         if (promotionId != -1) {

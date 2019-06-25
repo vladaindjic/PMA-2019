@@ -120,15 +120,37 @@ public class UserRestaurantDetailsFragment extends BaseFragment implements
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        // vi3 prebaceno onResume
+        Long restaurantId = getBaseActivity().getIntent().getLongExtra("restaurantId", 0L);
+        mPresenter.onViewPrepared(restaurantId);
+    }
+
+    // kada se promeni tab
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            // vi3 prebaceno onResume
+            if (getBaseActivity() != null) {
+                Long restaurantId = getBaseActivity().getIntent().getLongExtra("restaurantId", 0L);
+                mPresenter.onViewPrepared(restaurantId);
+            }
+
+        }
+    }
+
+    @Override
     protected void setUp(View view) {
         Bundle bundle = getArguments();
-        Long restaurantId = getBaseActivity().getIntent().getLongExtra("restaurantId", 0L);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mKitchensAdapter);
-
-        mPresenter.onViewPrepared(restaurantId);
+//        // vi3 prebaceno onResume
+//        Long restaurantId = getBaseActivity().getIntent().getLongExtra("restaurantId", 0L);
+//        mPresenter.onViewPrepared(restaurantId);
     }
 
     @Override
@@ -202,10 +224,10 @@ public class UserRestaurantDetailsFragment extends BaseFragment implements
                     Toast.LENGTH_SHORT).show();
         }
 
-        if(isNetworkConnected()){
+        if (isNetworkConnected()) {
             // ako imamo interneta
             Glide.with(this)
-                    .load(((BasePresenter)mPresenter).getImageUrlFor(BasePresenter.ENTITY_RESTAURANT,
+                    .load(((BasePresenter) mPresenter).getImageUrlFor(BasePresenter.ENTITY_RESTAURANT,
                             restaurantDetails.getImageUrl()))
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .skipMemoryCache(true)

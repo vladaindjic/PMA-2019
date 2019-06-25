@@ -87,6 +87,24 @@ public class UserDishRatingFragment extends BaseFragment implements UserDishRati
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        // vi3 prebaceno onResume
+        mPresenter.onViewPrepared(dishId);
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            if (getBaseActivity() != null) {
+                // vi3 prebaceno onResume
+                mPresenter.onViewPrepared(dishId);
+            }
+        }
+    }
+
+    @Override
     protected void setUp(View view) {
         final Long dishId = getBaseActivity().getIntent().getLongExtra("dishId", 0L);
         this.dishId = dishId;
@@ -109,8 +127,8 @@ public class UserDishRatingFragment extends BaseFragment implements UserDishRati
                 }
             }
         });
-
-        mPresenter.onViewPrepared(dishId);
+//        // vi3 prebaceno onResume
+//        mPresenter.onViewPrepared(dishId);
     }
 
     @Override

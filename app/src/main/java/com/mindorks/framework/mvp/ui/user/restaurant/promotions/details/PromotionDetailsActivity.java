@@ -67,19 +67,25 @@ public class PromotionDetailsActivity extends BaseActivity implements PromotionD
     }
 
     @Override
-    protected void setUp() {
+    protected void onResume() {
+        super.onResume();
+        myLocalSetUp();
+    }
 
+    @Override
+    protected void setUp() {
+        setSupportActionBar(mToolbar);
+        // vi3 prebaceno onResume
+        // myLocalSetUp();
+    }
+
+    private void myLocalSetUp() {
         String id = "";
         id= getIntent().getExtras().getString("notificationPromotionId");
-
         System.out.println("Notifkacija"+id);
-        setSupportActionBar(mToolbar);
-
         Long promotionId = getIntent().getLongExtra("promotionId", 0L);
-
         if (id!=null && !"".equals(id)) {
             mPresenter.onViewPrepared(Long.parseLong(id));
-
         } else {
             mPresenter.onViewPrepared(promotionId);
         }

@@ -109,21 +109,33 @@ public class ManagerDailyMenuDetailsActivity extends BaseActivity implements Man
     }
 
     @Override
-    protected void setUp() {
+    protected void onResume() {
+        super.onResume();
+        //myLocalSetUp();
+    }
 
+    @Override
+    protected void setUp() {
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView.setAdapter(mDishAdapter);
+        mDishAdapter.setmDishMealCallbakc(this);
+        // vi3 prebaceno onResume
+        myLocalSetUp();
+    }
+
+    private void myLocalSetUp() {
         this.mealDetails = new MealResponse.MealDetails();
         this.mealDetailsOrginal = new MealResponse.MealDetails();
         this.dailyMenuId = getIntent().getLongExtra("menuId",-1L);
         this.mealId = getIntent().getLongExtra("mealId",-1L);
 
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mRecyclerView.setAdapter(mDishAdapter);
-        mDishAdapter.setmDishMealCallbakc(this);
 
         mPresenter.prepareDishForAutocomplete();
         if(mealId!=-1L){
             mPresenter.loadMeal(mealId);
+        } else {
+            mDishAdapter.addItems(new ArrayList<MenuResponse.Dish>());
         }
         addDishButton.setOnClickListener(new View.OnClickListener() {
             @Override

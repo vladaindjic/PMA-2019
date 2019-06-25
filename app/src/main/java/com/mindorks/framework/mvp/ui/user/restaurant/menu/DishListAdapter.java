@@ -65,6 +65,7 @@ public class DishListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     }
 
     public void addItems(List<MenuResponse.Dish> dishList) {
+        mDishList.clear();
         mDishList.addAll(dishList);
         notifyDataSetChanged();
     }

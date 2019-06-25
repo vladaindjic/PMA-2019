@@ -72,15 +72,21 @@ public class NotificationFragment extends BaseFragment implements NotificationMv
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        // vi3 prebaceno onResume
+        mPresenter.onViewPrepared();
+    }
+
+    @Override
     protected void setUp(View view) {
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mNotificationView.setLayoutManager(mLayoutManager);
         mNotificationView.setItemAnimator(new DefaultItemAnimator());
         mNotificationView.setAdapter(mNotificationListAdapter);
 
-        System.out.println("POZIVAM ON onVPrepared");
-
-        mPresenter.onViewPrepared();
+        // vi3 prebaceno onResume
+        // mPresenter.onViewPrepared();
     }
 
     @OnClick(R.id.nav_back_btn)

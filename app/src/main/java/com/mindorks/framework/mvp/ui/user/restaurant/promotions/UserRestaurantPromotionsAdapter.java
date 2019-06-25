@@ -51,6 +51,7 @@ public class UserRestaurantPromotionsAdapter extends RecyclerView.Adapter<BaseVi
     }
 
     public void addItems(List<RestaurantPromotionsResponse.Promotion> promotionList) {
+        mRestaurantPromotionsList.clear();
         mRestaurantPromotionsList.addAll(promotionList);
         notifyDataSetChanged();
     }
