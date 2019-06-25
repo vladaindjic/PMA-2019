@@ -488,7 +488,7 @@ public class ManagerDishDetailsActivity extends BaseActivity implements
         this.dishDetailsOrginal.setDescription(this.dishDetailsEdited.getDescription());
         DishDetailsResponse.Kitchen kitchen = new DishDetailsResponse.Kitchen();
         kitchen.setId(this.dishDetailsEdited.getKitchen().getId());
-        kitchen.setName(this.dishDetailsEdited.getName());
+        kitchen.setName(this.dishDetailsEdited.getKitchen().getName());
         this.dishDetailsOrginal.setKitchen(kitchen);
         this.dishDetailsOrginal.setImageUrl(this.dishDetailsEdited.getImageUrl());
         this.dishDetailsOrginal.setName(this.dishDetailsEdited.getName());
