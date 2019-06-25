@@ -2,6 +2,7 @@ package com.mindorks.framework.mvp.ui.user.restaurants.map;
 
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -9,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -78,7 +80,7 @@ public class RestaurantsMapFragment extends BaseFragment implements
     @BindView(R.id.user_restaurants_map)
     MapView mMapView;
 
-    private GoogleMap mMap;
+    private GoogleMap mMap = null;
     private Location currentLocation;
     private FusedLocationProviderClient fusedLocationProviderClient;
     private static final int LOCATION_REQUEST_CODE = 101;
@@ -134,7 +136,10 @@ public class RestaurantsMapFragment extends BaseFragment implements
         super.onResume();
         // vi3 prebaceno onResume
         // dobavljamo lokaciju
-        fetchLastLocation();
+        System.out.println("VI3 uvek je null: " + mMap);
+        if (mMap != null && myLocationPermission) {
+            fetchLastLocation();
+        }
 
     }
 
@@ -157,11 +162,12 @@ public class RestaurantsMapFragment extends BaseFragment implements
     }
 
     private void fetchLastLocation() {
-        if (ActivityCompat.checkSelfPermission(getBaseActivity(),
-                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getBaseActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getBaseActivity(),
-                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQUEST_CODE);
-            return;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ActivityCompat.checkSelfPermission(getBaseActivity(),
+                    Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getBaseActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQUEST_CODE);
+                return;
+            }
         }
 
         myLocationPermission = true;
@@ -187,11 +193,14 @@ public class RestaurantsMapFragment extends BaseFragment implements
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResult) {
+        System.out.println("****************************************** POZOVI SE PLS " + requestCode);
         switch (requestCode) {
             case LOCATION_REQUEST_CODE:
                 if (grantResult.length > 0 && grantResult[0] == PackageManager.PERMISSION_GRANTED) {
-                    fetchLastLocation();
-                    myLocationPermission = true;
+                    // moramo prvo postaviti sve sto treba na mapu, pa onda ucitavati
+                    System.out.println("VI3: ovo je mMap " + mMap + ", a ja sam ti dozvolio " +
+                            "permisiju");
+                    myLocalGoogleMapSetUp();
                 } else {
                     Toast.makeText(getBaseActivity(), "Location permission missing", Toast.LENGTH_SHORT).show();
                     // korisnik ne dozvoljava da pristupimo lokaciji
@@ -206,14 +215,27 @@ public class RestaurantsMapFragment extends BaseFragment implements
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        if (ActivityCompat.checkSelfPermission(getBaseActivity(),
-                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getBaseActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getBaseActivity(),
-                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQUEST_CODE);
-            return;
+        System.out.println("VI3: ovo je mMap " + mMap);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ActivityCompat.checkSelfPermission(getBaseActivity(),
+                    Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getBaseActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQUEST_CODE);
+                System.out.println("VI3: ovo je mMap " + mMap + " a ja ispadam");
+                return;
+            }
         }
-        mMap.setMyLocationEnabled(true);
 
+        myLocalGoogleMapSetUp();
+
+    }
+
+    @SuppressLint("MissingPermission")
+    private void myLocalGoogleMapSetUp() {
+        if (mMap == null) {
+            System.out.println("VI3 MAPA: ne valja, Vladimire, dzaba... :(");
+        }
+
+        mMap.setMyLocationEnabled(true);
 
         mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter());
 
@@ -225,8 +247,8 @@ public class RestaurantsMapFragment extends BaseFragment implements
                 }
             }
         });
-
-
+        myLocationPermission = true;
+        fetchLastLocation();
     }
 
 
@@ -321,7 +343,7 @@ public class RestaurantsMapFragment extends BaseFragment implements
             return;
         }
         // cistimo sve prethodne markere ako ih ima
-        for(Marker m: this.markerList) {
+        for (Marker m : this.markerList) {
             m.remove();
         }
         this.markerList.clear();
@@ -396,7 +418,6 @@ public class RestaurantsMapFragment extends BaseFragment implements
                 restaurantsLocations.add(restaurantLocation);
                 String urlKogaJebes =
                         ((BasePresenter) mPresenter).getImageUrlFor(BasePresenter.ENTITY_RESTAURANT, restaurant.getImageUrl());
-                System.out.println("KONJINBOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO " + urlKogaJebes);
                 Glide.with(getActivity()).load(((BasePresenter) mPresenter).getImageUrlFor(BasePresenter.ENTITY_RESTAURANT, restaurant.getImageUrl()))
                         .diskCacheStrategy(DiskCacheStrategy.NONE)
                         .skipMemoryCache(true)
@@ -404,6 +425,7 @@ public class RestaurantsMapFragment extends BaseFragment implements
 
                             @Override
                             public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                                System.out.println("VI3 mora ovde: uspesno");
                                 Marker marker = mMap.addMarker(new MarkerOptions()
                                         .position(restaurantLocation));
                                 // kesiramo u listu
@@ -433,6 +455,7 @@ public class RestaurantsMapFragment extends BaseFragment implements
                                         .into(new SimpleTarget<Drawable>() {
                                             @Override
                                             public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                                                System.out.println("VI3 mora ovde: neuspesno");
                                                 Marker marker = mMap.addMarker(new MarkerOptions()
                                                         .position(restaurantLocation));
                                                 // kesiramo u listu
@@ -495,105 +518,5 @@ public class RestaurantsMapFragment extends BaseFragment implements
     public void onsEmptyViewRetryButtonClick() {
 
     }
-
-    //    private BitmapDescriptor getMarkerIconFromDrawable(Drawable drawable) {
-//        Canvas canvas = new Canvas();
-//        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-//        canvas.setBitmap(bitmap);
-//        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
-//        drawable.draw(canvas);
-//        return BitmapDescriptorFactory.fromBitmap(bitmap);
-//    }
-
-//    public Bitmap createCustomMarker(Context context, Drawable resource, String _name) {
-//
-//        View marker = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.custom_marker_layout, null);
-//
-//        CircleImageView markerImage = marker.findViewById(R.id.user_dp);
-//
-//        markerImage.setImageDrawable(resource);
-//
-////        markerImage.
-////
-////                setImageResource(resource);
-////        TextView txt_name = (TextView) marker.findViewById(R.id.name);
-////        txt_name.setText(_name);
-//
-//        DisplayMetrics displayMetrics = new DisplayMetrics();
-//        ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-//        marker.setLayoutParams(new ViewGroup.LayoutParams(52, ViewGroup.LayoutParams.WRAP_CONTENT));
-//        marker.measure(displayMetrics.widthPixels, displayMetrics.heightPixels);
-//        marker.layout(0, 0, displayMetrics.widthPixels, displayMetrics.heightPixels);
-//        marker.buildDrawingCache();
-//        Bitmap bitmap = Bitmap.createBitmap(marker.getMeasuredWidth(), marker.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
-//        Canvas canvas = new Canvas(bitmap);
-//        marker.draw(canvas);
-//
-//        return bitmap;
-//    }
-
-// //When Map Loads Successfully
-//        mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
-//            @Override
-//            public void onMapLoaded() {
-//
-////                LatLng customMarkerLocationOne = new LatLng(28.583911, 77.319116);
-////                LatLng customMarkerLocationTwo = new LatLng(28.583078, 77.313744);
-////                LatLng customMarkerLocationThree = new LatLng(28.580903, 77.317408);
-////                final LatLng customMarkerLocationFour = new LatLng(28.580108, 77.315271);
-////                mMap.addMarker(new MarkerOptions().position(customMarkerLocationOne).
-////                        icon(BitmapDescriptorFactory.fromBitmap(
-////                                createCustomMarker(getContext(),R.drawable.login_bg,"Manish")))).setTitle("iPragmatech Solutions Pvt Lmt");
-////                mMap.addMarker(new MarkerOptions().position(customMarkerLocationTwo).
-////                        icon(BitmapDescriptorFactory.fromBitmap(
-////                                createCustomMarker(getContext(),R.drawable.login_bg,"Narender")))).setTitle("Hotel Nirulas Noida");
-////
-////                mMap.addMarker(new MarkerOptions().position(customMarkerLocationThree).
-////                        icon(BitmapDescriptorFactory.fromBitmap(
-////                                createCustomMarker(getContext(),R.drawable.login_bg,"Neha")))).setTitle(
-////                                        "Acha Khao Acha Khilao");
-////                mMap.addMarker(new MarkerOptions().position(customMarkerLocationFour).
-////                        icon(BitmapDescriptorFactory.fromBitmap(
-////                                createCustomMarker(getContext(),R.drawable.login_bg,"Nupur")))).setTitle("Subway Sector 16 Noida");
-//
-////                final Marker m = mMap.addMarker(new MarkerOptions()
-////                        .position(customMarkerLocationFour)
-////                        .title("Naslov")
-////                        .snippet("Opis")
-////                        .anchor(0.5f, 0.5f)
-////                        .icon(BitmapDescriptorFactory.fromBitmap(
-////                                createCustomMarker(getContext(), R.drawable.login_bg, "Nupur"))));
-//
-////                Glide.with(getActivity()).load(R.drawable.login_bg)
-////                        .into(new SimpleTarget<Drawable>() {
-////                            @Override
-////                            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-////                                mMap.addMarker(new MarkerOptions()
-////                                        .icon(BitmapDescriptorFactory.fromBitmap(createCustomMarker(getContext(), resource, "")))
-////                                        .position(customMarkerLocationFour)
-////                                        .title("Naslov neki"))
-////                                ;
-////                            }
-////                        });
-////
-////
-//                LatLngBound will cover all your marker on Google Maps
-////                LatLngBounds.Builder builder = new LatLngBounds.Builder();
-////                builder.include(customMarkerLocationOne); //Taking Point A (First LatLng)
-////                builder.include(customMarkerLocationThree); //Taking Point B (Second LatLng)
-////                LatLngBounds bounds = builder.build();
-////                CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 200);
-////                mMap.moveCamera(cu);
-////                mMap.animateCamera(CameraUpdateFactory.zoomTo(14), 2000, null);
-////
-//
-////                mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
-////                    @Override
-////                    public void onInfoWindowClick(Marker marker) {
-////                        System.out.println("kliknuo???? " + marker.getTitle());
-////                    }
-////                });
-////            }
-////        });
 
 }

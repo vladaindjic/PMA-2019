@@ -15,11 +15,17 @@
 
 package com.mindorks.framework.mvp.ui.login;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.ui.base.BaseActivity;
@@ -50,6 +56,9 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
 
     @BindView(R.id.et_password)
     EditText mPasswordEditText;
+
+    private static final int LOCATION_REQUEST_CODE = 171;
+
 
     public static Intent getStartIntent(Context context) {
         Intent intent = new Intent(context, LoginActivity.class);
@@ -96,10 +105,38 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
 
     @Override
     public void openUserRestaurantsActivity() {
+        // prvo trazimo permisiju za mapu, pa onda otvaramo aktivnost
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ActivityCompat.checkSelfPermission(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQUEST_CODE);
+                return;
+            }
+        }
+
+        realOpenUserRestaurantsActivity();
+    }
+
+    private void realOpenUserRestaurantsActivity() {
         Intent intent = UserRestaurantsActivity.getStartIntent(LoginActivity.this);
         startActivity(intent);
         finish();
+    }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        System.out.println("****************************************** POZOVI SE PLS " + requestCode);
+        switch (requestCode) {
+            case LOCATION_REQUEST_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    realOpenUserRestaurantsActivity();
+                } else {
+                    realOpenUserRestaurantsActivity();
+                }
+                break;
+        }
     }
 
     @Override
