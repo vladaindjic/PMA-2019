@@ -35,4 +35,7 @@ public interface UserRestaurantsMvpView extends MvpView {
     void openSettingsActivity();
 
     void openUserDetailsUpdateActivity(UserDetailsResponse.UserDetails userDetails);
+
+    void openUserDetailsPasswordActivity(UserDetailsResponse.UserDetails userDetails);
+
 }

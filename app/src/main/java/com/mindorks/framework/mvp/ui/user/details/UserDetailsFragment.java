@@ -150,7 +150,7 @@ public class UserDetailsFragment extends BaseFragment implements
         btnChangePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO vi3: change password
+                openUserDetailsPasswordActivity();
             }
         });
     }
@@ -197,5 +197,10 @@ public class UserDetailsFragment extends BaseFragment implements
     private void openUserDetailsUpdateActivity() {
         ((UserRestaurantsActivity)getBaseActivity()).openUserDetailsUpdateActivity(this.details);
     }
+
+    private void openUserDetailsPasswordActivity() {
+        ((UserRestaurantsActivity)getBaseActivity()).openUserDetailsPasswordActivity(this.details);
+    }
+
 
 }

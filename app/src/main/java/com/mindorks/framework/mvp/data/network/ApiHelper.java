@@ -18,6 +18,7 @@ package com.mindorks.framework.mvp.data.network;
 import com.mindorks.framework.mvp.data.db.model.UserFilter;
 import com.mindorks.framework.mvp.data.network.model.AllKitchensResponse;
 import com.mindorks.framework.mvp.data.network.model.BlogResponse;
+import com.mindorks.framework.mvp.data.network.model.ChangePasswordRequest;
 import com.mindorks.framework.mvp.data.network.model.ComentVoteRequest;
 import com.mindorks.framework.mvp.data.network.model.CommentRequest;
 import com.mindorks.framework.mvp.data.network.model.DailyMenuResponse;
@@ -123,6 +124,8 @@ public interface ApiHelper {
     Single<UserDetailsResponse> putUserImageUpdateRaw(byte[] imageBytes);
 
     Single<UserDetailsResponse> putUserDetailsUpdate(UpdateUserDetailsRequest request);
+
+    Single<UserDetailsResponse> putUserDetailsPassword(ChangePasswordRequest request);
 
     Single<RestaurantDetailsResponse> putRestaurantImageUpdateRaw(byte[] imageBytes);
 

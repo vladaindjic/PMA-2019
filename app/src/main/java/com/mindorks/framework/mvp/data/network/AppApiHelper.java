@@ -22,6 +22,7 @@ import android.media.Image;
 
 import com.mindorks.framework.mvp.data.network.model.AllKitchensResponse;
 import com.mindorks.framework.mvp.data.network.model.BlogResponse;
+import com.mindorks.framework.mvp.data.network.model.ChangePasswordRequest;
 import com.mindorks.framework.mvp.data.network.model.ComentVoteRequest;
 import com.mindorks.framework.mvp.data.network.model.CommentRequest;
 import com.mindorks.framework.mvp.data.network.model.DailyMenuResponse;
@@ -581,6 +582,15 @@ public class AppApiHelper implements ApiHelper {
                     .addApplicationJsonBody(request)
                     .build()
                     .getObjectSingle(UserDetailsResponse.class);
+    }
+
+    @Override
+    public Single<UserDetailsResponse> putUserDetailsPassword(ChangePasswordRequest request) {
+        return Rx2AndroidNetworking.put(ApiEndPoint.ENDPOINT_USER_PASSWORD)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .addApplicationJsonBody(request)
+                .build()
+                .getObjectSingle(UserDetailsResponse.class);
     }
 }
 

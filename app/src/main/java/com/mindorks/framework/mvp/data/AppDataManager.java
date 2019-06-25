@@ -35,6 +35,7 @@ import com.mindorks.framework.mvp.data.network.ApiHeader;
 import com.mindorks.framework.mvp.data.network.ApiHelper;
 import com.mindorks.framework.mvp.data.network.model.AllKitchensResponse;
 import com.mindorks.framework.mvp.data.network.model.BlogResponse;
+import com.mindorks.framework.mvp.data.network.model.ChangePasswordRequest;
 import com.mindorks.framework.mvp.data.network.model.ComentVoteRequest;
 import com.mindorks.framework.mvp.data.network.model.CommentRequest;
 import com.mindorks.framework.mvp.data.network.model.DailyMenuResponse;
@@ -676,5 +677,10 @@ public class AppDataManager implements DataManager {
     @Override
     public Single<UserDetailsResponse> putUserDetailsUpdate(UpdateUserDetailsRequest request) {
         return mApiHelper.putUserDetailsUpdate(request);
+    }
+
+    @Override
+    public Single<UserDetailsResponse> putUserDetailsPassword(ChangePasswordRequest request) {
+        return mApiHelper.putUserDetailsPassword(request);
     }
 }

@@ -67,6 +67,7 @@ public class UserDetailsUpdatePresenter<V extends UserDetailsUpdateMvpView> exte
 
     @Override
     public void updateUserDetails(UpdateUserDetailsRequest request) {
+        getMvpView().showLoading();
         getCompositeDisposable().add(getDataManager()
                 .putUserDetailsUpdate(request)
                 .subscribeOn(getSchedulerProvider().io())
@@ -91,6 +92,7 @@ public class UserDetailsUpdatePresenter<V extends UserDetailsUpdateMvpView> exte
 
     @Override
     public void submitUserImage(byte[] imgBytes, final UpdateUserDetailsRequest request) {
+        getMvpView().showLoading();
         getCompositeDisposable().add(getDataManager()
                 .putUserImageUpdateRaw(imgBytes)
                 .subscribeOn(getSchedulerProvider().io())

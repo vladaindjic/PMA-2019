@@ -96,6 +96,10 @@ public final class ApiEndPoint {
 
     public static final String ENDPOINT_USER_DETAILS = BuildConfig.BASE_URL
             + "/user/";
+
+    public static final String ENDPOINT_USER_PASSWORD = BuildConfig.BASE_URL
+            + "/user/change-password";
+
     public static final String ENDPOINT_USER_UPLOAD_IMAGE = BuildConfig.BASE_URL
             + "/user/image";
 
