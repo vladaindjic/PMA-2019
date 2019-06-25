@@ -128,6 +128,7 @@ public class UserRestaurantRatingFragment extends BaseFragment implements UserRe
                     Toast.makeText(getActivity(), ratingBar.getRating() + " " + restaurantId, Toast.LENGTH_SHORT).show();
                     // ponistimo klik korisnika
                     userClickRatingBar = false;
+                    callRatingChnaged = false;
                 }
             }
         });
@@ -135,10 +136,7 @@ public class UserRestaurantRatingFragment extends BaseFragment implements UserRe
         ratingBar.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    if (!callRatingChnaged) {
-                        return true;
-                    }
+                if (event.getAction() == MotionEvent.ACTION_UP && callRatingChnaged) {
                     userClickRatingBar = true;
                     float touchPositionX = event.getX();
                     float width = ratingBar.getWidth();
@@ -147,13 +145,6 @@ public class UserRestaurantRatingFragment extends BaseFragment implements UserRe
                     ratingBar.setRating(stars);
 
                     Toast.makeText(getBaseActivity(), String.valueOf("test"), Toast.LENGTH_SHORT).show();
-                    v.setPressed(false);
-                }
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    v.setPressed(true);
-                }
-
-                if (event.getAction() == MotionEvent.ACTION_CANCEL) {
                     v.setPressed(false);
                 }
 
