@@ -25,9 +25,8 @@
         android:layout_gravity="center"
         android:textStyle="bold"
         android:textSize="20sp"
-        android:textColor="@color/white"
-        android:backgroundTint="@color/transparent"
         android:gravity="center"
+        android:backgroundTint="@color/transparent"
         />
 
 </LinearLayout>

@@ -3,9 +3,9 @@
     android:id="@+id/user_restaurant_promotions_list_item_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="16dp"
-    android:background="@drawable/customborder"
-    android:orientation="horizontal">
+    android:background="?attr/promotion_border"
+    android:orientation="horizontal"
+    android:layout_marginTop="8dp">
 
 
     <ImageView
@@ -15,9 +15,7 @@
         android:padding="8dp"
         android:scaleType="fitXY"
         android:src="@drawable/login_bg"
-        android:background="@color/transparent"
-
-        />
+        android:background="@color/transparent" />
 
     <TextView
         android:id="@+id/promotions_list_item_text_view"

@@ -3,28 +3,25 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
     >
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:text="@string/bullet"
-        android:padding="10dp"
         android:textStyle="bold"
         android:textSize="36sp"
+        android:layout_marginEnd="6dp"
         />
 
     <TextView
         android:id="@+id/user_dish_details_nutritive_values_item_txt_name"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:padding="5dp"
         android:text="kalorijska vrednost"
         android:textStyle="bold"
         android:textSize="20sp"
         android:gravity="center_vertical"
-        android:layout_marginStart="16dp"
         />
 
 
@@ -35,7 +32,7 @@
         android:textStyle="bold"
         android:textSize="20sp"
         android:gravity="center_vertical"
-        android:layout_marginStart="2dp"
+        android:layout_marginStart="4dp"
         />
 
     <TextView
@@ -46,7 +43,7 @@
         android:textStyle="bold"
         android:textSize="20sp"
         android:gravity="center_vertical"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="4dp"
         />
 
     <TextView
@@ -57,7 +54,7 @@
         android:textStyle="bold"
         android:textSize="20sp"
         android:gravity="center_vertical"
-        android:layout_marginStart="1dp"
+        android:layout_marginStart="4dp"
         />
 
 </LinearLayout>

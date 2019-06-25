@@ -19,7 +19,9 @@
             android:layout_marginTop="16dp"
             android:text="@string/restaurant_rating"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="24sp"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/restaurant_rating_text_value"
@@ -28,7 +30,9 @@
             android:layout_marginStart="16dp"
             android:text="5.0"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView2"
-            app:layout_constraintStart_toEndOf="@+id/textView2" />
+            app:layout_constraintStart_toEndOf="@+id/textView2"
+            android:textSize="24sp"
+            android:textStyle="bold"/>
 
 
         <LinearLayout
@@ -61,7 +65,6 @@
                 android:layout_marginTop="8dp"
                 android:numStars="5"
                 android:stepSize="1"
-                android:background="@drawable/my_button"
                 app:layout_constraintStart_toEndOf="@+id/textView3"
                 app:layout_constraintTop_toBottomOf="@+id/restaurant_rating_text_value" />
 
@@ -73,6 +76,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
+            android:background="?attr/comment_box"
             android:layout_marginEnd="16dp"
             android:gravity="top|start"
             android:hint="@string/comment_us"
@@ -80,10 +84,10 @@
             android:lines="5"
             android:minLines="3"
             android:scrollbars="vertical"
-            android:background="@drawable/my_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linear_layout_rating" />
+            app:layout_constraintTop_toBottomOf="@+id/linear_layout_rating"
+            android:textColor="?attr/button_text"/>
 
         <Button
             android:id="@+id/restaurant_comment_button"
@@ -93,10 +97,10 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
             android:text="@string/leave_comment"
-            android:background="@drawable/my_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/restaurant_comment_text_edit" />
+            app:layout_constraintTop_toBottomOf="@+id/restaurant_comment_text_edit"
+            android:textColor="?attr/button_text"/>
 
     </android.support.constraint.ConstraintLayout>
 

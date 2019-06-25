@@ -33,22 +33,17 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:background="@color/transparent"
-            android:tint="@color/white"
-            app:srcCompat="@drawable/ic_keyboard_backspace_24px" />
+            app:srcCompat="?attr/back_icon" />
 
         <TextView
-            style="@style/TextStyle.Heading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:text="@string/about"
-            android:textColor="@color/white"
             android:textSize="20sp" />
     </LinearLayout>
 
     <TextView
-        style="@style/TextStyle.Heading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -56,7 +51,6 @@
         android:background="@color/transparent"
         android:padding="20dp"
         android:text="@string/project_info"
-        android:textColor="@color/white"
         android:textSize="20sp" />
 
     <!--<TextView-->

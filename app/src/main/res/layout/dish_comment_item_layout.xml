@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="3dp"
-    android:background="@drawable/customborder"
+    android:background="?attr/comment_border"
     android:orientation="vertical"
     android:padding="2dp">
 

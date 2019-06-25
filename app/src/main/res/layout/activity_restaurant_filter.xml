@@ -12,14 +12,11 @@
 
     <SeekBar
         android:id="@+id/distanceBar"
-        android:layout_width="180dp"
-        android:layout_height="33dp"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
         android:max="200"
-        android:outlineSpotShadowColor="@color/logo_color"
-        android:outlineAmbientShadowColor="@color/logo_color"
-        android:background="@drawable/my_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.382"
         app:layout_constraintStart_toEndOf="@+id/filterDistanceText"
@@ -27,9 +24,9 @@
 
     <TextView
         android:id="@+id/filterDistanceText"
-        android:layout_width="135dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:ems="10"
         android:text="@string/filterDistanceString"
@@ -58,35 +55,36 @@
         android:id="@+id/kitchens_user_filter_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginStart="56dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
         android:text="@string/kitchen"
         app:layout_constraintTop_toBottomOf="@+id/daily_menu_user_preferences_txt"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteX="56dp" />
+        android:textSize="18dp"
+        android:textStyle="bold"
+         />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/filter_kitchen_options_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/rectangle_border_white"
         app:layout_constraintBottom_toTopOf="@+id/filterSubmitBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/kitchens_user_filter_txt"
-        tools:listitem="@layout/item_kitchen_option_view" />
+        tools:listitem="@layout/item_kitchen_option_view"
+        android:scrollbars="vertical"/>
 
 
     <TextView
         android:id="@+id/work_time_active_restaurant_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:text="@string/work_time_active_restaurant"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/filterDistanceText"
@@ -106,8 +104,8 @@
         android:id="@+id/delivery_user_preferences_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:text="@string/delivery_txt_user_preferences"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -128,8 +126,8 @@
         android:id="@+id/daily_menu_user_preferences_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:text="@string/delivery_user_preferences_txt"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -143,7 +141,6 @@
         android:layout_marginEnd="56dp"
         app:layout_constraintBottom_toBottomOf="@+id/daily_menu_user_preferences_txt"
         app:layout_constraintEnd_toEndOf="parent" />
-
 
 
     <Button

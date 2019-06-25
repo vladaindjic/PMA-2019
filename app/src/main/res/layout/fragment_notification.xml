@@ -11,8 +11,7 @@
         android:layout_height="55dp"
         android:layout_marginTop="@dimen/app_bar_height"
         android:gravity="center|start"
-        android:orientation="horizontal"
-        android:background="@color/app_color">
+        android:orientation="horizontal">
 
         <ImageButton
             android:id="@+id/nav_back_btn"
@@ -21,20 +20,18 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:background="@color/transparent"
-            android:tint="@color/white"
-            app:srcCompat="@drawable/ic_keyboard_backspace_24px" />
+            app:srcCompat="?attr/back_icon" />
 
         <TextView
             android:backgroundTint="@color/transparent"
-            style="@style/TextStyle.Heading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:text="@string/notifications"
-            android:textColor="@color/white"
             android:textSize="20sp" />
+
     </LinearLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/item_notifications_view"
         android:layout_width="match_parent"

@@ -6,7 +6,7 @@
   ~
   ~     https://mindorks.com/license/apache-v2
   ~
-  ~ Unless required by applicable law or agreed to in writing, software
+  ~ Unless required by applicable law or agreed to in writing, softwarese
   ~ distributed under the License is distributed on an "AS IS" BASIS,
   ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   ~ See the License for the specific language governing permissions and
@@ -31,14 +31,14 @@
         <item
             android:id="@+id/nav_item_feed"
             android:checked="true"
-            android:icon="@drawable/ic_rss_symbol"
+            android:icon="@drawable/ic_rss_feed_white"
             android:title="@string/notifications" />
 
         <item
             android:id="@+id/nav_item_settings"
             android:checked="true"
             android:icon="@drawable/settings"
-            android:title="@string/settings" />
+            android:title="@string/settings"/>
 
         <item
             android:id="@+id/nav_item_about"

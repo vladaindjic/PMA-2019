@@ -42,8 +42,8 @@ public class UserRestaurantMenuFragment extends BaseFragment implements UserRest
     @BindView(R.id.dish_type_list_recyclerview)
     RecyclerView mRecyclerView;
 
-    @BindView(R.id.txt_menu_name)
-    TextView txtMenuName;
+//    @BindView(R.id.txt_menu_name)
+//    TextView txtMenuName;
 
 
     public UserRestaurantMenuFragment() {
@@ -91,7 +91,7 @@ public class UserRestaurantMenuFragment extends BaseFragment implements UserRest
 
     @Override
     public void updateMenu(MenuResponse.Menu menu) {
-        txtMenuName.setText(menu.getName());
+//        txtMenuName.setText(menu.getName());
         mDishTypeListAdapter.addItems(menu.getDishTypeList());
 
     }

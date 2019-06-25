@@ -33,8 +33,6 @@
         android:textSize="20sp"
         android:gravity="center"
         android:backgroundTint="@color/transparent"
-        android:textColor="@color/white"
-
         />
 
 </LinearLayout>

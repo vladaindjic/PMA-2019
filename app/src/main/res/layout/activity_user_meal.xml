@@ -32,7 +32,6 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
                 android:text="Obrok"
                 android:background="@color/transparent"
                 android:textAlignment="center"
@@ -43,7 +42,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -156,7 +154,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/dishes"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -166,9 +164,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="0dp"
+                android:layout_marginTop="2dp"
                 android:layout_marginEnd="32dp"
-                android:background="@drawable/rectangle_border_white"
                 android:scrollbars="vertical" />
 
 
@@ -187,9 +184,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="0dp"
+                android:layout_marginTop="2dp"
                 android:layout_marginEnd="32dp"
-                android:background="@drawable/rectangle_border_white"
                 android:scrollbars="vertical" />
 
             <Button
@@ -201,7 +197,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
                 android:text="@string/eat_me"
-                android:background="@drawable/my_button"
+                android:textColor="?attr/button_text"
                 />
 
 

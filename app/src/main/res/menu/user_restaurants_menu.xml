@@ -5,7 +5,7 @@
     <item
         android:id="@+id/action_restaurants_search"
         android:title="@string/search"
-        android:icon="@drawable/ic_search"
+        android:icon="?attr/search_icon"
         app:showAsAction="ifRoom|collapseActionView"
         app:actionViewClass="android.support.v7.widget.SearchView"
         />
@@ -14,7 +14,7 @@
         android:id="@+id/action_restaurants_filter"
         android:title="@string/filter"
         app:showAsAction="ifRoom"
-        android:icon="@drawable/ic_filter" />
+        android:icon="?attr/filter_icon" />
 
 
 </menu>

@@ -28,7 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="20dp"
+                android:layout_margin="8dp"
                 android:orientation="vertical">
 
                 <ImageView
@@ -133,7 +133,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:textSize="20sp"
-                android:background="@drawable/my_button"
                 app:layout_constraintBaseline_toBaselineOf="@+id/user_dish_details_txt_description"
                 app:layout_constraintStart_toEndOf="@+id/user_dish_details_txt_description"
                 android:checked="true"
@@ -222,9 +221,9 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:text="@string/how_to_find_us"
-                android:background="@drawable/my_button"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:textColor="?attr/button_text"/>
 
 
             <TextView
@@ -232,7 +231,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="64dp"
+                android:layout_marginTop="32dp"
                 android:text="@string/kitchens"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"

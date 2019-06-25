@@ -59,12 +59,11 @@ public class UserRestaurantRatingFragment extends BaseFragment implements UserRe
     @Inject
     UserRestaurantCommentAdapter mUserRestaurantCommentAdapter;
 
-    boolean callRatingChnaged;
+    boolean callRatingChnaged = true;
     Long restaurantId;
 
     public UserRestaurantRatingFragment() {
         // Required empty public constructor
-        this.callRatingChnaged = true;
     }
 
     public static UserRestaurantRatingFragment newInstance() {

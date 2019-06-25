@@ -23,7 +23,7 @@
             android:layout_gravity="center"
             android:layout_margin="20dp"
             android:orientation="vertical"
-            android:background="@color/white">
+            android:background="@color/button_login">
 
             <!--<TextView
                 style="@style/TextStyle.Heading"
@@ -42,16 +42,15 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="2dp"
                 android:src="@mipmap/final_logo"
-                android:background="@color/white"/>
+                android:background="@color/button_login"/>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:textColorHint="@color/gray"
                 android:hint="@string/email"
-                android:background="@color/white"
-                app:hintTextAppearance="@style/TextAppearence.App.TextInputLayoutShadow">
-
+                android:background="@color/button_login"
+>
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/et_email"
                     style="@style/TextStyle"
@@ -59,7 +58,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:background="@drawable/input_border_rectangle"
                     android:cursorVisible="true"
                     android:gravity="center|start|center_vertical"
                     android:inputType="textEmailAddress"
@@ -69,6 +67,7 @@
                     android:paddingLeft="10dp"
                     android:textColor="@color/black_effective"
                     android:textSize="16sp"
+                    android:background="@color/button_login"
                     />
 
             </android.support.design.widget.TextInputLayout>
@@ -80,7 +79,7 @@
                 android:textColorHint="@color/gray"
                 app:hintTextAppearance="@style/TextAppearence.App.TextInputLayoutShadow"
                 app:passwordToggleEnabled="true"
-                android:background="@color/white"
+                android:background="@color/button_login"
                 >
 
                 <android.support.design.widget.TextInputEditText
@@ -91,7 +90,6 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="30dp"
                     android:layout_marginRight="20dp"
-                    android:background="@drawable/input_border_rectangle"
                     android:cursorVisible="true"
                     android:gravity="center|start|center_vertical"
                     android:inputType="textPassword"
@@ -100,7 +98,9 @@
                     android:paddingBottom="8dp"
                     android:paddingLeft="10dp"
                     android:textColor="@color/black_effective"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:background="@color/button_login"
+                    />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -114,7 +114,7 @@
                 android:text="@string/login"
                 android:textAllCaps="true"
                 android:background="@drawable/login_button"
-                android:textColor="@color/white"
+                android:textColor="@color/button_login"
                 android:textSize="18dp" />
 
 
