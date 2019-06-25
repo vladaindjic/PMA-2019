@@ -114,8 +114,11 @@ public class RestaurantsGridFragment extends BaseFragment implements
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ActivityCompat.checkSelfPermission(getBaseActivity(),
                     Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getBaseActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(getBaseActivity(),
-                        new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQUEST_CODE);
+//                ActivityCompat.requestPermissions(getBaseActivity(),
+//                        new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQUEST_CODE);
+                // necemo traziti permisiju
+                Toast.makeText(getBaseActivity(), "No Location recorded", Toast.LENGTH_SHORT).show();
+                mPresenter.onViewPrepared(null, null);
                 return;
             }
         }
@@ -138,20 +141,20 @@ public class RestaurantsGridFragment extends BaseFragment implements
         });
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResult) {
-        switch (requestCode) {
-            case LOCATION_REQUEST_CODE:
-                if (grantResult.length > 0 && grantResult[0] == PackageManager.PERMISSION_GRANTED) {
-                    fetchLastLocation();
-                } else {
-                    Toast.makeText(getBaseActivity(), "Location permission missing", Toast.LENGTH_SHORT).show();
-                    // korisnik ne dozvoljava da pristupimo lokaciji
-                    mPresenter.onViewPrepared(null, null);
-                }
-                break;
-        }
-    }
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResult) {
+//        switch (requestCode) {
+//            case LOCATION_REQUEST_CODE:
+//                if (grantResult.length > 0 && grantResult[0] == PackageManager.PERMISSION_GRANTED) {
+//                    fetchLastLocation();
+//                } else {
+//                    Toast.makeText(getBaseActivity(), "Location permission missing", Toast.LENGTH_SHORT).show();
+//                    // korisnik ne dozvoljava da pristupimo lokaciji
+//                    mPresenter.onViewPrepared(null, null);
+//                }
+//                break;
+//        }
+//    }
 
     @Override
     public void updateRestaurantsList(List<RestaurantsResponse.Restaurant> restaurants) {

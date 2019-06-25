@@ -137,7 +137,7 @@ public class RestaurantsMapFragment extends BaseFragment implements
         // vi3 prebaceno onResume
         // dobavljamo lokaciju
         System.out.println("VI3 uvek je null: " + mMap);
-        if (mMap != null && myLocationPermission) {
+        if (mMap != null) {
             fetchLastLocation();
         }
 
@@ -145,10 +145,6 @@ public class RestaurantsMapFragment extends BaseFragment implements
 
     @Override
     protected void setUp(View view) {
-//        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-//        mRecyclerView.setLayoutManager(mLayoutManager);
-//        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-//        mRecyclerView.setAdapter(mRestaurantsListAdapter);
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getBaseActivity());
 //        // vi3 prebaceno onResume
@@ -165,7 +161,10 @@ public class RestaurantsMapFragment extends BaseFragment implements
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ActivityCompat.checkSelfPermission(getBaseActivity(),
                     Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getBaseActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQUEST_CODE);
+                // necemo traziti lokaciju
+                // ako korisnik nije dao, nikom nista
+                Toast.makeText(getBaseActivity(), "No Location enabled", Toast.LENGTH_SHORT).show();
+                mPresenter.onViewPrepared(null, null);
                 return;
             }
         }
@@ -175,7 +174,6 @@ public class RestaurantsMapFragment extends BaseFragment implements
         task.addOnSuccessListener(new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
-
                 if (location != null) {
                     currentLocation = location;
                     Toast.makeText(getBaseActivity(),
@@ -192,51 +190,8 @@ public class RestaurantsMapFragment extends BaseFragment implements
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResult) {
-        System.out.println("****************************************** POZOVI SE PLS " + requestCode);
-        switch (requestCode) {
-            case LOCATION_REQUEST_CODE:
-                if (grantResult.length > 0 && grantResult[0] == PackageManager.PERMISSION_GRANTED) {
-                    // moramo prvo postaviti sve sto treba na mapu, pa onda ucitavati
-                    System.out.println("VI3: ovo je mMap " + mMap + ", a ja sam ti dozvolio " +
-                            "permisiju");
-                    myLocalGoogleMapSetUp();
-                } else {
-                    Toast.makeText(getBaseActivity(), "Location permission missing", Toast.LENGTH_SHORT).show();
-                    // korisnik ne dozvoljava da pristupimo lokaciji
-                    mPresenter.onViewPrepared(null, null);
-                }
-                break;
-        }
-    }
-    //  37.4219983 -122.084
-
-
-    @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        System.out.println("VI3: ovo je mMap " + mMap);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ActivityCompat.checkSelfPermission(getBaseActivity(),
-                    Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getBaseActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQUEST_CODE);
-                System.out.println("VI3: ovo je mMap " + mMap + " a ja ispadam");
-                return;
-            }
-        }
-
-        myLocalGoogleMapSetUp();
-
-    }
-
-    @SuppressLint("MissingPermission")
-    private void myLocalGoogleMapSetUp() {
-        if (mMap == null) {
-            System.out.println("VI3 MAPA: ne valja, Vladimire, dzaba... :(");
-        }
-
-        mMap.setMyLocationEnabled(true);
-
         mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter());
 
         mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
@@ -247,8 +202,21 @@ public class RestaurantsMapFragment extends BaseFragment implements
                 }
             }
         });
-        myLocationPermission = true;
+
         fetchLastLocation();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ActivityCompat.checkSelfPermission(getBaseActivity(),
+                    Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getBaseActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                mMap.setMyLocationEnabled(false);
+                myLocationPermission = false;
+                return;
+            }
+        }
+
+        mMap.setMyLocationEnabled(true);
+        myLocationPermission = true;
+
     }
 
 
