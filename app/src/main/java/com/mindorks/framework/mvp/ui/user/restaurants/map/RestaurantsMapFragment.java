@@ -161,14 +161,22 @@ public class RestaurantsMapFragment extends BaseFragment implements
 
                 if (location != null) {
                     currentLocation = location;
-                    Toast.makeText(getBaseActivity(),
-                            currentLocation.getLatitude() + " " + currentLocation.getLongitude(), Toast.LENGTH_SHORT).show();
                     System.out.println(currentLocation.getLatitude() + " " + currentLocation.getLongitude());
-                    mPresenter.onViewPrepared(currentLocation.getLatitude(),
-                            currentLocation.getLongitude());
+
+                    if (getContext() != null) {
+                        mPresenter.onViewPrepared(currentLocation.getLatitude(),
+                                currentLocation.getLongitude());
+                    } else {
+                        System.out.println("VI3 GADNO: ROTACIJA RESTORAN LISTA 1");
+                    }
+
                 } else {
-                    Toast.makeText(getBaseActivity(), "No Location recorded", Toast.LENGTH_SHORT).show();
-                    mPresenter.onViewPrepared(null, null);
+                    if (getContext() != null) {
+                        Toast.makeText(getBaseActivity(), "No Location recorded", Toast.LENGTH_SHORT).show();
+                        mPresenter.onViewPrepared(null, null);
+                    } else {
+                        System.out.println("VI3 GADNO: ROTACIJA RESTORAN LISTA 2");
+                    }
                 }
             }
         });
@@ -195,6 +203,11 @@ public class RestaurantsMapFragment extends BaseFragment implements
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        if (getContext() == null) {
+            System.out.println("VI3 GADNO: ROTACIJA RESTORAN MAPA 3. Trazi permisije na null " +
+                    "objektu");
+            return;
+        }
         if (ActivityCompat.checkSelfPermission(getBaseActivity(),
                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getBaseActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getBaseActivity(),

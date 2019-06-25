@@ -124,10 +124,19 @@ public class RestaurantsListFragment extends BaseFragment implements
                 if (location != null) {
                     currentLocation = location;
                     System.out.println(currentLocation.getLatitude() + " " + currentLocation.getLongitude());
-                    findAndPrepareProperView(currentLocation.getLatitude(), currentLocation.getLongitude());
+                    if (getContext() != null) {
+                        findAndPrepareProperView(currentLocation.getLatitude(), currentLocation.getLongitude());
+                    } else {
+                        System.out.println("VI3 GADNO: ROTACIJA RESTORAN MAPA 1");
+                    }
                 } else {
-                    Toast.makeText(getBaseActivity(), "No Location recorded", Toast.LENGTH_SHORT).show();
-                    findAndPrepareProperView(null, null);
+                    if (getContext() != null) {
+                        Toast.makeText(getBaseActivity(), "No Location recorded", Toast.LENGTH_SHORT).show();
+                        findAndPrepareProperView(null, null);
+                    } else {
+                        System.out.println("VI3 GADNO: ROTACIJA RESTORAN MAPA 2");
+                    }
+
                 }
             }
         });
