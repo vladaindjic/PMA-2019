@@ -16,6 +16,7 @@
 package com.mindorks.framework.mvp.ui.login;
 
 import com.androidnetworking.error.ANError;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.DataManager;
 import com.mindorks.framework.mvp.data.network.model.LoginRequest;
@@ -84,6 +85,7 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
 
                         if (response.getUserRole().equals("USER")) {
                             getMvpView().hideLoading();
+                            FirebaseMessaging.getInstance().subscribeToTopic("JavaSampleApproach");
                             getMvpView().openUserRestaurantsActivity();
                         } else {
                             getMvpView().hideLoading();

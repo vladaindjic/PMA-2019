@@ -50,7 +50,8 @@
         <item name="filter_text_color">@color/black_effective</item>
         <item name="notification_icon">@drawable/ic_notifications_black</item>
         <item name="navigation_header">@drawable/bg_design_orange</item>
-
+        <item name="like_button">@drawable/ic_thumb_up_black</item>
+        <item name="dislike_button">@drawable/ic_thumb_down_black</item>
         <!--Mora zbog preferences da se doda-->
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
 
@@ -94,6 +95,8 @@
         <item name="notification_icon">@drawable/ic_notifications_white</item>
         <item name="notification_border">@drawable/notification_border_light</item>
         <item name="navigation_header">@drawable/header_dark</item>
+        <item name="like_button">@drawable/ic_like</item>
+        <item name="dislike_button">@drawable/ic_dislike</item>
         <!--Mora zbog preferences da se doda-->
         <item name="preferenceTheme">@style/ThemeOverlay.AppCompat.Dark</item>
 
@@ -276,5 +279,7 @@
     <attr name="notification_icon" format="reference"/>
     <attr name="notification_border" format="reference"/>
     <attr name="navigation_header" format="reference"/>
+    <attr name="like_button" format="reference"/>
+    <attr name="dislike_button" format="reference"/>
 
 </resources>

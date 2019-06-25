@@ -488,7 +488,7 @@ public class ManagerDishDetailsActivity extends BaseActivity implements
         this.dishDetailsOrginal.setDescription(this.dishDetailsEdited.getDescription());
         DishDetailsResponse.Kitchen kitchen = new DishDetailsResponse.Kitchen();
         kitchen.setId(this.dishDetailsEdited.getKitchen().getId());
-        kitchen.setName(this.dishDetailsEdited.getName());
+        kitchen.setName(this.dishDetailsEdited.getKitchen().getName());
         this.dishDetailsOrginal.setKitchen(kitchen);
         this.dishDetailsOrginal.setImageUrl(this.dishDetailsEdited.getImageUrl());
         this.dishDetailsOrginal.setName(this.dishDetailsEdited.getName());
@@ -500,9 +500,15 @@ public class ManagerDishDetailsActivity extends BaseActivity implements
 
     @OnClick(R.id.manager_dish_details_cancel_btn)
     public void cancelUpdate() {
-        this.updateDishDetails(this.dishDetailsOrginal);
-        // vi3: slika - ponistimo imgBytes
+
+        if(this.dishDetailsOrginal.getId()!=null) {
+            this.updateDishDetails(this.dishDetailsOrginal);
+        }else{
+            back();
+        }
         imgBytes = null;
+        // vi3: slika - ponistimo imgBytes
+
     }
 
     @OnClick(R.id.manager_dish_details_submit_btn)

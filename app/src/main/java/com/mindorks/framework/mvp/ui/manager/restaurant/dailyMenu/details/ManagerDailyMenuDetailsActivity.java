@@ -303,8 +303,11 @@ public class ManagerDailyMenuDetailsActivity extends BaseActivity implements Man
 
     @OnClick(R.id.cancel_meal_details_btn)
     public void cancelSubmit() {
-        this.updateMeal(mealDetailsOrginal);
-
+        if(this.mealDetailsOrginal.getId()!=null) {
+            this.updateMeal(mealDetailsOrginal);
+        }else {
+            back();
+        }
     }
 
     private void addDishToMeal() {
