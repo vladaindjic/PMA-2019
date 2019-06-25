@@ -38,8 +38,6 @@ import com.mindorks.framework.mvp.ui.user.details.UserDetailsFragment;
 import com.mindorks.framework.mvp.ui.user.details.password.UserDetailsPasswordActivity;
 import com.mindorks.framework.mvp.ui.user.details.update.UserDetailsUpdateActivity;
 import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantActivity;
-import com.mindorks.framework.mvp.ui.user.restaurant.promotions.details.PromotionDetailsActivity;
-import com.mindorks.framework.mvp.ui.user.restaurants.utils.PromotionNotificationCallBack;
 import com.mindorks.framework.mvp.ui.user.restaurants.utils.UserRestaurantsCallback;
 import com.mindorks.framework.mvp.ui.user.subscrptions.SubscriptionActivity;
 
