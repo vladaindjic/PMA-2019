@@ -84,16 +84,35 @@ public class UserRestaurantDailyMenuFragment extends BaseFragment implements Use
     }
 
     @Override
-    protected void setUp(View view) {
-        Bundle bundle = getArguments();
+    public void onResume() {
+        super.onResume();
+        // vi3 prebaceno onResume
         Long restaurantId = getBaseActivity().getIntent().getLongExtra("restaurantId", 0L);
+        mPresenter.onViewPrepared(restaurantId);
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            if (getBaseActivity() != null) {
+                // vi3 prebaceno onResume
+                Long restaurantId = getBaseActivity().getIntent().getLongExtra("restaurantId", 0L);
+                mPresenter.onViewPrepared(restaurantId);
+            }
+        }
+    }
+
+    @Override
+    protected void setUp(View view) {
 
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mMealListAdapter);
-
-        mPresenter.onViewPrepared(restaurantId);
+//        // vi3 prebaceno onResume
+//        Long restaurantId = getBaseActivity().getIntent().getLongExtra("restaurantId", 0L);
+//        mPresenter.onViewPrepared(restaurantId);
     }
 
     @Override

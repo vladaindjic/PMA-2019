@@ -89,6 +89,24 @@ public class UserRestaurantRatingFragment extends BaseFragment implements UserRe
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        // vi3 prebaceno onResume
+        mPresenter.onViewPrepared(restaurantId);
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            if (getBaseActivity() != null) {
+                // vi3 prebaceno onResume
+                mPresenter.onViewPrepared(restaurantId);
+            }
+        }
+    }
+
+    @Override
     protected void setUp(View view) {
         final Long restaurantId = getBaseActivity().getIntent().getLongExtra("restaurantId", 0L);
         this.restaurantId =restaurantId;
@@ -110,8 +128,8 @@ public class UserRestaurantRatingFragment extends BaseFragment implements UserRe
                 }
             }
         });
-
-        mPresenter.onViewPrepared(restaurantId);
+//        // vi3 prebaceno onResume
+//        mPresenter.onViewPrepared(restaurantId);
 
     }
 
