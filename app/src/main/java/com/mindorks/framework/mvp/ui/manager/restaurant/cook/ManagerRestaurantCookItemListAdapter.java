@@ -5,8 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.MenuResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantCookResponse;
@@ -89,6 +92,9 @@ public class ManagerRestaurantCookItemListAdapter extends RecyclerView.Adapter<B
         @BindView(R.id.cook_item_delete_btn)
         Button removeButton;
 
+        @BindView(R.id.cook_item_image_view)
+        ImageView imageView;
+
 //          TODO ovde se slika treba dodati
 //        @BindView(R.id.cook_item_image_view)
 //        TextView textView;
@@ -125,6 +131,16 @@ public class ManagerRestaurantCookItemListAdapter extends RecyclerView.Adapter<B
                     notifyDataSetChanged();
                 }
             });
+
+            if (restaurantCookItem.getImgUrl() != null) {
+                Glide.with(itemView.getContext())
+                        .load(restaurantCookItem.getImgUrl())
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .skipMemoryCache(true)
+//                        .asBitmap()
+//                        .centerCrop()
+                        .into(imageView);
+            }
 
             // TODO PREBACI SE NA KLIK TAMO DE TREBA
             itemView.setOnClickListener(new View.OnClickListener() {
