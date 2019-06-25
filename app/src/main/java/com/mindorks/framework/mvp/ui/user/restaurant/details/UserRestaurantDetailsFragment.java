@@ -1,11 +1,19 @@
 package com.mindorks.framework.mvp.ui.user.restaurant.details;
 
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.StrictMode;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -33,6 +41,8 @@ import com.mindorks.framework.mvp.di.component.ActivityComponent;
 import com.mindorks.framework.mvp.ui.base.BaseFragment;
 import com.mindorks.framework.mvp.ui.base.BasePresenter;
 
+import java.io.File;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -45,6 +55,8 @@ public class UserRestaurantDetailsFragment extends BaseFragment implements
         UserRestaurantDetailsMvpView {
 
     private static final String TAG = "UserDishDetailsFragment";
+
+    private static final int CALL_PHONE_REQUEST_CODE = 3323;
 
     @Inject
     UserRestaurantDetailsMvpPresenter<UserRestaurantDetailsMvpView> mPresenter;
@@ -174,6 +186,12 @@ public class UserRestaurantDetailsFragment extends BaseFragment implements
         checkBoxDelivery.setClickable(false);
 
         txtViewPhone.setText(restaurantDetails.getPhone());
+        txtViewPhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callPhone();
+            }
+        });
 
         txtViewWorkTime.setText(restaurantDetails.getWorkTime());
         txtViewEmail.setText(restaurantDetails.getEmail());
@@ -248,5 +266,37 @@ public class UserRestaurantDetailsFragment extends BaseFragment implements
     public void failSubscription() {
         // Zvezdica je cekirana, ali moramo je ponistiti.
         checkBoxStar.setChecked(!checkBoxStar.isChecked());
+    }
+
+    private void callPhone() {
+        // prvo moramo traziti permission za pisanje
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ActivityCompat.checkSelfPermission(getBaseActivity(),
+                    Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.CALL_PHONE}, CALL_PHONE_REQUEST_CODE);
+                return;
+            }
+        }
+
+        Intent callIntent = new Intent(Intent.ACTION_CALL);
+        callIntent.setData(Uri.parse("tel:"+restaurantDetails.getPhone()));
+        startActivity(callIntent);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case CALL_PHONE_REQUEST_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Intent callIntent = new Intent(Intent.ACTION_CALL);
+                    callIntent.setData(Uri.parse("tel:"+restaurantDetails.getPhone()));
+                    startActivity(callIntent);
+                } else {
+                    Toast.makeText(getBaseActivity(), "Call phone permission missing",
+                            Toast.LENGTH_SHORT).show();
+                }
+                break;
+        }
     }
 }
