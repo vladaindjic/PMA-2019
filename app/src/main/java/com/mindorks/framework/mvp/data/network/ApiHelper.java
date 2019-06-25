@@ -41,6 +41,7 @@ import com.mindorks.framework.mvp.data.network.model.RestaurantRatingResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantScoreRequest;
 import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.data.network.model.SettingsResponse;
+import com.mindorks.framework.mvp.data.network.model.UpdateUserDetailsRequest;
 import com.mindorks.framework.mvp.data.network.model.UserDetailsResponse;
 import com.mindorks.framework.mvp.data.network.model.UserRegistrationRequest;
 import com.mindorks.framework.mvp.data.network.model.UserRegistrationResponse;
@@ -120,6 +121,8 @@ public interface ApiHelper {
     Single<UserDetailsResponse> putUserImageUpdate(File imageBytes);
 
     Single<UserDetailsResponse> putUserImageUpdateRaw(byte[] imageBytes);
+
+    Single<UserDetailsResponse> putUserDetailsUpdate(UpdateUserDetailsRequest request);
 
     Single<RestaurantDetailsResponse> putRestaurantImageUpdateRaw(byte[] imageBytes);
 

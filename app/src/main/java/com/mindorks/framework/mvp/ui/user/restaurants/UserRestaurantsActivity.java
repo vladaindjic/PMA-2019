@@ -25,6 +25,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
+import com.mindorks.framework.mvp.data.network.model.UserDetailsResponse;
 import com.mindorks.framework.mvp.ui.about.AboutFragment;
 import com.mindorks.framework.mvp.ui.base.BaseActivity;
 import com.mindorks.framework.mvp.ui.custom.RoundedImageView;
@@ -34,6 +35,7 @@ import com.mindorks.framework.mvp.ui.main.MainActivity;
 import com.mindorks.framework.mvp.ui.notification.NotificationFragment;
 import com.mindorks.framework.mvp.ui.settings.SettingsFragment;
 import com.mindorks.framework.mvp.ui.user.details.UserDetailsFragment;
+import com.mindorks.framework.mvp.ui.user.details.update.UserDetailsUpdateActivity;
 import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantActivity;
 import com.mindorks.framework.mvp.ui.user.restaurant.promotions.details.PromotionDetailsActivity;
 import com.mindorks.framework.mvp.ui.user.restaurants.utils.PromotionNotificationCallBack;
@@ -383,6 +385,13 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
         Intent intent = SubscriptionActivity.getStartIntent(this);
         startActivity(intent);
 
+    }
+
+    @Override
+    public void openUserDetailsUpdateActivity(UserDetailsResponse.UserDetails userDetails) {
+        Intent intent = UserDetailsUpdateActivity.getStartIntent(this);
+        intent.putExtra("userId", userDetails.getId());
+        startActivity(intent);
     }
 
     @Override

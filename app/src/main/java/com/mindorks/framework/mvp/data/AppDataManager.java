@@ -58,6 +58,7 @@ import com.mindorks.framework.mvp.data.network.model.RestaurantRatingResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantScoreRequest;
 import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.data.network.model.SettingsResponse;
+import com.mindorks.framework.mvp.data.network.model.UpdateUserDetailsRequest;
 import com.mindorks.framework.mvp.data.network.model.UserDetailsResponse;
 import com.mindorks.framework.mvp.data.network.model.UserRegistrationRequest;
 import com.mindorks.framework.mvp.data.network.model.UserRegistrationResponse;
@@ -672,5 +673,8 @@ public class AppDataManager implements DataManager {
         return mApiHelper.updateMeal(mealId,data);
     }
 
-
+    @Override
+    public Single<UserDetailsResponse> putUserDetailsUpdate(UpdateUserDetailsRequest request) {
+        return mApiHelper.putUserDetailsUpdate(request);
+    }
 }
