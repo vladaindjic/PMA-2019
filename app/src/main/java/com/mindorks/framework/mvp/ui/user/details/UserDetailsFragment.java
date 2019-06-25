@@ -132,13 +132,21 @@ public class UserDetailsFragment extends BaseFragment implements
     }
 
     @Override
-    protected void setUp(View view) {
+    public void onResume() {
+        super.onResume();
+        // vi3 prebaceno onResume
         Bundle bundle = getArguments();
         Long Id = bundle.getLong("Id");
-
-        //mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-
         mPresenter.onViewPrepared(Id);
+
+    }
+
+    @Override
+    protected void setUp(View view) {
+        // vi3 prebaceno onResume
+//        Bundle bundle = getArguments();
+//        Long Id = bundle.getLong("Id");
+//        mPresenter.onViewPrepared(Id);
 
         btnUpdateUserDetails.setOnClickListener(new View.OnClickListener() {
             @Override

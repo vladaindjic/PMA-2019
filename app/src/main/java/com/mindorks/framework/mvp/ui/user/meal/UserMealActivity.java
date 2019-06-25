@@ -122,15 +122,15 @@ public class UserMealActivity extends BaseActivity implements UserMealMvpView, D
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        // vi3 prebaceno onResume
+        myLocalSetUp();
+    }
+
+    @Override
     protected void setUp() {
         setSupportActionBar(mToolbar);
-
-
-        Intent intent = getIntent();
-        Long mealId = intent.getLongExtra("mealId", 0L);
-        if (mealId == 0L) {
-            Toast.makeText(this, "Ne valja ti ovo, druze (:", Toast.LENGTH_SHORT).show();
-        }
 
         // potrebno za prikaz jela
         mLayoutManagerDishes.setOrientation(LinearLayoutManager.VERTICAL);
@@ -147,9 +147,17 @@ public class UserMealActivity extends BaseActivity implements UserMealMvpView, D
         mDishListAdapter.setmCallback(this);
         mDishListAdapter.setBasePresenterForImageUrlProviding((BasePresenter)mPresenter);
 
+        // vi3 prebaceno onResume
+        // myLocalSetUp();
+    }
+
+    private void myLocalSetUp() {
+        Intent intent = getIntent();
+        Long mealId = intent.getLongExtra("mealId", 0L);
+        if (mealId == 0L) {
+            Toast.makeText(this, "Ne valja ti ovo, druze (:", Toast.LENGTH_SHORT).show();
+        }
         mPresenter.onViewPrepared(mealId);
-
-
     }
 
     @Override
