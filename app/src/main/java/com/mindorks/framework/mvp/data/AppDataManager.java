@@ -35,6 +35,7 @@ import com.mindorks.framework.mvp.data.network.ApiHeader;
 import com.mindorks.framework.mvp.data.network.ApiHelper;
 import com.mindorks.framework.mvp.data.network.model.AllKitchensResponse;
 import com.mindorks.framework.mvp.data.network.model.BlogResponse;
+import com.mindorks.framework.mvp.data.network.model.ChangePasswordRequest;
 import com.mindorks.framework.mvp.data.network.model.ComentVoteRequest;
 import com.mindorks.framework.mvp.data.network.model.CommentRequest;
 import com.mindorks.framework.mvp.data.network.model.DailyMenuResponse;
@@ -58,6 +59,7 @@ import com.mindorks.framework.mvp.data.network.model.RestaurantRatingResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantScoreRequest;
 import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.data.network.model.SettingsResponse;
+import com.mindorks.framework.mvp.data.network.model.UpdateUserDetailsRequest;
 import com.mindorks.framework.mvp.data.network.model.UserDetailsResponse;
 import com.mindorks.framework.mvp.data.network.model.UserRegistrationRequest;
 import com.mindorks.framework.mvp.data.network.model.UserRegistrationResponse;
@@ -672,5 +674,13 @@ public class AppDataManager implements DataManager {
         return mApiHelper.updateMeal(mealId,data);
     }
 
+    @Override
+    public Single<UserDetailsResponse> putUserDetailsUpdate(UpdateUserDetailsRequest request) {
+        return mApiHelper.putUserDetailsUpdate(request);
+    }
 
+    @Override
+    public Single<UserDetailsResponse> putUserDetailsPassword(ChangePasswordRequest request) {
+        return mApiHelper.putUserDetailsPassword(request);
+    }
 }

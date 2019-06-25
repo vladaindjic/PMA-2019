@@ -8,6 +8,4 @@ public interface UserDetailsMvpPresenter<V extends UserDetailsMvpView>
         extends MvpPresenter<V> {
 
     void onViewPrepared(Long Id);
-    void uploadImageBytes(File imageBytes);
-    void uploadImageRaw(byte[] imageBytes);
 }

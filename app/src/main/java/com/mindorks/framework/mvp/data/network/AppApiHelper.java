@@ -22,6 +22,7 @@ import android.media.Image;
 
 import com.mindorks.framework.mvp.data.network.model.AllKitchensResponse;
 import com.mindorks.framework.mvp.data.network.model.BlogResponse;
+import com.mindorks.framework.mvp.data.network.model.ChangePasswordRequest;
 import com.mindorks.framework.mvp.data.network.model.ComentVoteRequest;
 import com.mindorks.framework.mvp.data.network.model.CommentRequest;
 import com.mindorks.framework.mvp.data.network.model.DailyMenuResponse;
@@ -45,6 +46,7 @@ import com.mindorks.framework.mvp.data.network.model.RestaurantRatingResponse;
 import com.mindorks.framework.mvp.data.network.model.RestaurantScoreRequest;
 import com.mindorks.framework.mvp.data.network.model.RestaurantsResponse;
 import com.mindorks.framework.mvp.data.network.model.SettingsResponse;
+import com.mindorks.framework.mvp.data.network.model.UpdateUserDetailsRequest;
 import com.mindorks.framework.mvp.data.network.model.UserDetailsResponse;
 import com.mindorks.framework.mvp.data.network.model.UserRegistrationRequest;
 import com.mindorks.framework.mvp.data.network.model.UserRegistrationResponse;
@@ -286,6 +288,8 @@ public class AppApiHelper implements ApiHelper {
                 .build()
                 .getObjectSingle(UserDetailsResponse.class);
     }
+
+
 
     @Override
     public Single<RestaurantDetailsResponse> putRestaurantImageUpdateRaw(byte[] imageBytes) {
@@ -569,6 +573,24 @@ public class AppApiHelper implements ApiHelper {
                 .addApplicationJsonBody(data)
                 .build()
                 .getObjectSingle(DailyMenuResponse.class);
+    }
+
+    @Override
+    public Single<UserDetailsResponse> putUserDetailsUpdate(UpdateUserDetailsRequest request) {
+            return Rx2AndroidNetworking.put(ApiEndPoint.ENDPOINT_USER_DETAILS)
+                    .addHeaders(mApiHeader.getProtectedApiHeader())
+                    .addApplicationJsonBody(request)
+                    .build()
+                    .getObjectSingle(UserDetailsResponse.class);
+    }
+
+    @Override
+    public Single<UserDetailsResponse> putUserDetailsPassword(ChangePasswordRequest request) {
+        return Rx2AndroidNetworking.put(ApiEndPoint.ENDPOINT_USER_PASSWORD)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .addApplicationJsonBody(request)
+                .build()
+                .getObjectSingle(UserDetailsResponse.class);
     }
 }
 

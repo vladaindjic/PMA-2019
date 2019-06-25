@@ -114,6 +114,12 @@ import com.mindorks.framework.mvp.ui.splash.SplashPresenter;
 import com.mindorks.framework.mvp.ui.user.details.UserDetailsMvpPresenter;
 import com.mindorks.framework.mvp.ui.user.details.UserDetailsMvpView;
 import com.mindorks.framework.mvp.ui.user.details.UserDetailsPresenter;
+import com.mindorks.framework.mvp.ui.user.details.password.UserDetailsPasswordMvpPresenter;
+import com.mindorks.framework.mvp.ui.user.details.password.UserDetailsPasswordMvpView;
+import com.mindorks.framework.mvp.ui.user.details.password.UserDetailsPasswordPresenter;
+import com.mindorks.framework.mvp.ui.user.details.update.UserDetailsUpdateMvpPresenter;
+import com.mindorks.framework.mvp.ui.user.details.update.UserDetailsUpdateMvpView;
+import com.mindorks.framework.mvp.ui.user.details.update.UserDetailsUpdatePresenter;
 import com.mindorks.framework.mvp.ui.user.dish.UserDishMvpPresenter;
 import com.mindorks.framework.mvp.ui.user.dish.UserDishMvpView;
 import com.mindorks.framework.mvp.ui.user.dish.UserDishPagerAdapter;
@@ -539,6 +545,18 @@ public class ActivityModule {
     @Provides
     UserDetailsMvpPresenter<UserDetailsMvpView> provideUserDetailsPresenter(
             UserDetailsPresenter<UserDetailsMvpView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    UserDetailsUpdateMvpPresenter<UserDetailsUpdateMvpView>  provideUserDetailsUpdatePresenter(
+            UserDetailsUpdatePresenter<UserDetailsUpdateMvpView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    UserDetailsPasswordMvpPresenter<UserDetailsPasswordMvpView> provideUserDetailsPasswordPresenter(
+            UserDetailsPasswordPresenter<UserDetailsPasswordMvpView> presenter) {
         return presenter;
     }
 
