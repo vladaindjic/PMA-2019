@@ -95,7 +95,7 @@
 
     <!--button-->
     <string name="later">Kasnije</string>
-    <string name="submit">Posalji</string>
+    <string name="submit">Pošalji</string>
 
     <!--feed-->
     <string name="title">Moje objave</string>
@@ -148,8 +148,8 @@
     <string name="comments">Komentari</string>
 
     <string name="filterDistanceString">Udaljenost (km)</string>
-    <string name="cancelBtn">Odkazi</string>
-    <string name="submitBtn">Posalji</string>
+    <string name="cancelBtn">Otkaži</string>
+    <string name="submitBtn">Pošalji</string>
     <string name="kitchen">Kuhinja</string>
     <string name="no">Ne</string>
     <string name="yes">Da</string>
@@ -224,4 +224,23 @@
 
     <string name="dish">Jelo</string>
     <string name="nutritive_value">Nutritivne vrednosti</string>
+
+    <string name="here_you_are">Vi ste ovde.</string>
+
+    <string name="work_time_active_restaurant">Otvoreno</string>
+    <string name="delivery_txt_user_preferences">Dostava</string>
+    <string name="delivery_user_preferences_txt">Dnevni meni</string>
+
+    <string name="old_password">Stara lozinka</string>
+    <string name="new_password">Nova lozink</string>
+    <string name="repeated_password">Ponoviti lozinku</string>
+    <string name="change_password">Izmeni</string>
+
+    <string name="save_btn">Sačuvaj</string>
+    <string name="update_details_btn">Izmeni profil</string>
+    <string name="change_password_btn">Izmeni lozinku</string>
+
+    <string name="my_profile_label">Moj profil</string>
+
+
 </resources>

@@ -12,6 +12,16 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+
+        <EditText
+            android:id="@+id/cook_dish_search_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/search"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"/>
+
         <!--<LinearLayout-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="55dp"-->

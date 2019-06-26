@@ -80,7 +80,6 @@ public class ManagerRestaurantActivity extends BaseActivity implements ManagerRe
     protected void setUp() {
         setSupportActionBar(mToolbar);
 
-        setSupportActionBar(mToolbar);
 
 //        if (getSupportActionBar() != null) {
 //            getSupportActionBar().setDisplayHomeAsUpEnabled(true);

@@ -24,6 +24,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -64,6 +65,8 @@ public class ManagerDishDetailsActivity extends BaseActivity implements
     @Inject
     ManagerDishDetailsMvpPresenter<ManagerDishDetailsMvpView> mPresenter;
 
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
 
     @BindView(R.id.manager_dish_details_img)
     ImageView imageView;
@@ -154,6 +157,8 @@ public class ManagerDishDetailsActivity extends BaseActivity implements
 
     @Override
     protected void setUp() {
+        setSupportActionBar(mToolbar);
+
         mNutritiveValuesAdapter.setmCallback(this);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);

@@ -148,7 +148,7 @@
     <string name="comments">Коментари</string>
 
     <string name="filterDistanceString">Удаљеност (км)</string>
-    <string name="cancelBtn">Одкажи</string>
+    <string name="cancelBtn">Откажи</string>
     <string name="submitBtn">Пошаљи</string>
     <string name="kitchen">Кухиња</string>
     <string name="no">Нe</string>
@@ -226,4 +226,24 @@
 
     <string name="dish">Јело</string>
     <string name="nutritive_value">Нутритивне вредности</string>
+
+    <string name="here_you_are">Ви сте овде.</string>
+
+    <string name="work_time_active_restaurant">Отворено</string>
+    <string name="delivery_txt_user_preferences">Достава</string>
+    <string name="delivery_user_preferences_txt">Дневни мени</string>
+
+    <string name="old_password">Стара лозинк</string>
+    <string name="new_password">Нова лозинка</string>
+    <string name="repeated_password">Поновити лозинку</string>
+    <string name="change_password">Измени</string>
+
+    <string name="save_btn">Сачувај</string>
+
+    <string name="update_details_btn">Измени профил</string>
+    <string name="change_password_btn">Измени лозинку</string>
+
+    <string name="my_profile_label">Мој профил</string>
+
+
 </resources>

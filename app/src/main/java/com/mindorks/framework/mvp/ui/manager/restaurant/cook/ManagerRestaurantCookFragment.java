@@ -7,10 +7,13 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.mindorks.framework.mvp.R;
@@ -22,6 +25,7 @@ import com.mindorks.framework.mvp.ui.base.BaseFragment;
 import com.mindorks.framework.mvp.ui.manager.restaurant.ManagerRestaurantActivity;
 import com.mindorks.framework.mvp.ui.user.restaurants.utils.UserRestaurantsCallback;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -52,6 +56,11 @@ public class ManagerRestaurantCookFragment extends BaseFragment implements
 
     @BindView(R.id.cook_item_add_btn)
     FloatingActionButton addDishBtn;
+
+    @BindView(R.id.cook_dish_search_edit)
+    EditText editSearch;
+
+    List<RestaurantCookResponse.RestaurantCook.RestaurantCookItem> dishList;
 
     public ManagerRestaurantCookFragment() {
         // Required empty public constructor
@@ -119,6 +128,22 @@ public class ManagerRestaurantCookFragment extends BaseFragment implements
             }
         });
 
+        editSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // ubaciti novu listu
+                applyLocalSearch();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
     }
 
     @Override
@@ -130,7 +155,9 @@ public class ManagerRestaurantCookFragment extends BaseFragment implements
 
     @Override
     public void updateRestaurantCook(List<RestaurantCookResponse.RestaurantCook.RestaurantCookItem> restaurantCookItemList) {
-
+        editSearch.setText("");
+        // memoizacija dishList-e
+        this.dishList = restaurantCookItemList;
         mManagerRestaurantCookItemListAdapter.addItems(restaurantCookItemList);
     }
 
@@ -149,5 +176,27 @@ public class ManagerRestaurantCookFragment extends BaseFragment implements
     public void deleteDish(Long id) {
         Toast.makeText(getContext(),"Id: "+id,Toast.LENGTH_SHORT).show();
         mPresenter.deleteDish(id);
+    }
+
+    private void applyLocalSearch() {
+        if (this.dishList == null || this.dishList.size() <= 0) {
+            return;
+        }
+
+        String query = editSearch.getText().toString().trim().toUpperCase();
+        if (query.trim().equals("") && this.dishList != null) {
+            // ponistavamo pretragu
+            mManagerRestaurantCookItemListAdapter.addItems(this.dishList);
+            return;
+        }
+
+        List<RestaurantCookResponse.RestaurantCook.RestaurantCookItem> tmpList = new ArrayList<>();
+        for(RestaurantCookResponse.RestaurantCook.RestaurantCookItem rci: this.dishList) {
+            if (rci.getName().trim().toUpperCase().contains(query)) {
+                tmpList.add(rci);
+            }
+        }
+
+        mManagerRestaurantCookItemListAdapter.addItems(tmpList);
     }
 }

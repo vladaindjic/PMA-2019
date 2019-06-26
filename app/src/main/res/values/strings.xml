@@ -234,7 +234,7 @@
 
     <string name="here_you_are">Here you are.</string>
 
-    <string name="work_time_active_restaurant">Work</string>
+    <string name="work_time_active_restaurant">Open</string>
     <string name="delivery_txt_user_preferences">Delivery</string>
     <string name="delivery_user_preferences_txt">Daily Menu</string>
 
@@ -250,5 +250,11 @@
     <string name="repeated_password">Repeated Password</string>
     <string name="change_password">Change</string>
 
+    <string name="save_btn">Save</string>
+
+    <string name="update_details_btn">Update Info</string>
+    <string name="change_password_btn">Change Password</string>
+
+    <string name="my_profile_label">My Profile</string>
 
 </resources>

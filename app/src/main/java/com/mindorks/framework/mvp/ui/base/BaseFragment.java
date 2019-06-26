@@ -18,11 +18,13 @@ package com.mindorks.framework.mvp.ui.base;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Toast;
 
@@ -30,6 +32,8 @@ import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.di.component.ActivityComponent;
 import com.mindorks.framework.mvp.utils.CommonUtils;
 import com.mindorks.framework.mvp.utils.LocaleHelper;
+
+import java.util.Locale;
 
 import butterknife.Unbinder;
 
