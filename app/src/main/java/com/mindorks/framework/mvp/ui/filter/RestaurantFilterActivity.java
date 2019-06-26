@@ -291,7 +291,11 @@ public class RestaurantFilterActivity extends BaseActivity implements Restaurant
         userFilter.setDistance(currentDistance);
 
 
-        ((BasePresenter) mPresenter).getDataManager().saveUserFilter(userFilter).subscribe(new Consumer<Long>() {
+        ((BasePresenter) mPresenter).getDataManager()
+                .saveUserFilter(userFilter)
+                .subscribeOn(((BasePresenter)mPresenter).getSchedulerProvider().io())
+                .observeOn(((BasePresenter)mPresenter).getSchedulerProvider().ui())
+                .subscribe(new Consumer<Long>() {
             @Override
             public void accept(Long userFilterId) throws Exception {
                 KitchenOption kitchenOption;
@@ -300,7 +304,11 @@ public class RestaurantFilterActivity extends BaseActivity implements Restaurant
                     kitchenOption.setChecked(ko.getValue() == null ? false : ko.getValue());
                     kitchenOption.setKitchenName(ko.getName());
                     kitchenOption.setUserFilterId(userFilterId);
-                    ((BasePresenter) mPresenter).getDataManager().saveKitchenOption(kitchenOption).subscribe(new Consumer<Boolean>() {
+                    ((BasePresenter) mPresenter).getDataManager()
+                            .saveKitchenOption(kitchenOption)
+                            .subscribeOn(((BasePresenter)mPresenter).getSchedulerProvider().io())
+                            .observeOn(((BasePresenter)mPresenter).getSchedulerProvider().ui())
+                            .subscribe(new Consumer<Boolean>() {
                         @Override
                         public void accept(Boolean aBoolean) throws Exception {
                         }

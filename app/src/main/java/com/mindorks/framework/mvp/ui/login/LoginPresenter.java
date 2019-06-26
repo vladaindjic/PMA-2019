@@ -102,11 +102,19 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
                             getDataManager().setNotificationTurnedOn(true);
 
                             // ponistimo sve restorane koje je korisnik kesirao
-                            getCompositeDisposable().add(getDataManager().deleteAllMyRestaurants().subscribe(new Consumer<Boolean>() {
+                            getCompositeDisposable().add(getDataManager()
+                                    .deleteAllMyRestaurants()
+                                    .subscribeOn(getSchedulerProvider().io())
+                                    .observeOn(getSchedulerProvider().ui())
+                                    .subscribe(new Consumer<Boolean>() {
                                 @Override
                                 public void accept(Boolean aBoolean) throws Exception {
                                     // ponistimo sve kuhinje restorana
-                                    getDataManager().deleteAllKitchensDB().subscribe(new Consumer<Boolean>() {
+                                    getDataManager()
+                                            .deleteAllKitchensDB()
+                                            .subscribeOn(getSchedulerProvider().io())
+                                            .observeOn(getSchedulerProvider().ui())
+                                            .subscribe(new Consumer<Boolean>() {
                                         @Override
                                         public void accept(Boolean aBoolean) throws Exception {
                                             // setujemo podrazumevani user filter

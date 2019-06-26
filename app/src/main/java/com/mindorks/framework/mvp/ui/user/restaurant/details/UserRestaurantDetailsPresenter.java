@@ -67,6 +67,8 @@ public class UserRestaurantDetailsPresenter<V extends UserRestaurantDetailsMvpVi
             getCompositeDisposable().add(
                     getDataManager()
                             .getMyRestaurantByRemoteDatabaseId(restaurantId)
+                            .subscribeOn(getSchedulerProvider().io())
+                            .observeOn(getSchedulerProvider().ui())
                             .subscribe(new Consumer<MyRestaurantDB>() {
                 @Override
                 public void accept(@NonNull MyRestaurantDB myRestaurantDB)

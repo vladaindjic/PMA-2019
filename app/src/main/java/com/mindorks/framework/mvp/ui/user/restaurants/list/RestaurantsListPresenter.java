@@ -45,6 +45,8 @@ public class RestaurantsListPresenter<V extends RestaurantsListMvpView> extends 
 
             // show all restaurants
             getCompositeDisposable().add(getDataManager().getUserFilter(getDataManager().getActiveUserFilterId())
+                    .subscribeOn(getSchedulerProvider().io())
+                    .observeOn(getSchedulerProvider().ui())
                     .subscribe(new Consumer<UserFilter>() {
                         @Override
                         public void accept(UserFilter userFilter) throws Exception {
@@ -100,6 +102,8 @@ public class RestaurantsListPresenter<V extends RestaurantsListMvpView> extends 
                 // povlacenje kesiranih restorana iz baze
                 getCompositeDisposable().add(getDataManager()
                         .getAllMyRestaurants()
+                        .subscribeOn(getSchedulerProvider().io())
+                        .observeOn(getSchedulerProvider().ui())
                         .subscribe(
                         new Consumer<List<MyRestaurantDB>>() {
                             @Override
@@ -177,11 +181,19 @@ public class RestaurantsListPresenter<V extends RestaurantsListMvpView> extends 
     }
 
     private void cacheMyRestaurants(final MyRestaurantsResponse myRestaurantsResponse) {
-        getCompositeDisposable().add(getDataManager().deleteAllKitchensDB().subscribe(new Consumer<Boolean>() {
+        getCompositeDisposable().add(getDataManager()
+                .deleteAllKitchensDB()
+                .subscribeOn(getSchedulerProvider().io())
+                .observeOn(getSchedulerProvider().ui())
+                .subscribe(new Consumer<Boolean>() {
             @Override
             public void accept(Boolean aBoolean) throws Exception {
                 if (aBoolean) {
-                    getDataManager().deleteAllMyRestaurants().subscribe(new Consumer<Boolean>() {
+                    getDataManager()
+                            .deleteAllMyRestaurants()
+                            .subscribeOn(getSchedulerProvider().io())
+                            .observeOn(getSchedulerProvider().ui())
+                            .subscribe(new Consumer<Boolean>() {
                         @Override
                         public void accept(Boolean aBoolean) throws Exception {
                             if (aBoolean) {
@@ -190,7 +202,11 @@ public class RestaurantsListPresenter<V extends RestaurantsListMvpView> extends 
                                 for (final MyRestaurantsResponse.MyRestaurant mr : myRestaurantsResponse.getData()) {
                                     // dobijamo podatke koji se upisuju u lokalnu bazu
                                     mrdb = mr.getMyRestaurantDBFromMyRestaurant();
-                                    getDataManager().saveMyRestaurant(mrdb).subscribe(new Consumer<Long>() {
+                                    getDataManager()
+                                            .saveMyRestaurant(mrdb)
+                                            .subscribeOn(getSchedulerProvider().io())
+                                            .observeOn(getSchedulerProvider().ui())
+                                            .subscribe(new Consumer<Long>() {
                                         @Override
                                         public void accept(Long newMyRestaurantDBId) throws Exception {
                                             // sada cuvamo sve kuhinje
@@ -198,7 +214,11 @@ public class RestaurantsListPresenter<V extends RestaurantsListMvpView> extends 
                                             for (RestaurantDetailsResponse.Kitchen k : mr.getKitchens()) {
                                                 kdb = k.getKitchenDB();
                                                 kdb.setMyRestaurantId(newMyRestaurantDBId);
-                                                getDataManager().saveKitchenDB(kdb).subscribe(new Consumer<Long>() {
+                                                getDataManager()
+                                                        .saveKitchenDB(kdb)
+                                                        .subscribeOn(getSchedulerProvider().io())
+                                                        .observeOn(getSchedulerProvider().ui())
+                                                        .subscribe(new Consumer<Long>() {
                                                     @Override
                                                     public void accept(Long newKitchenDBId) throws Exception {
                                                         System.out.println("New kitchen saved: " + newKitchenDBId);

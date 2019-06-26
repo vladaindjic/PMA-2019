@@ -38,6 +38,8 @@ public class RestaurantsGridPresenter<V extends RestaurantsGridMvpView> extends 
         final String query = activity.getSearchQuery();
 
         getDataManager().getUserFilter(getDataManager().getActiveUserFilterId())
+                .subscribeOn(getSchedulerProvider().io())
+                .observeOn(getSchedulerProvider().ui())
                 .subscribe(new Consumer<UserFilter>() {
                     @Override
                     public void accept(UserFilter userFilter) throws Exception {

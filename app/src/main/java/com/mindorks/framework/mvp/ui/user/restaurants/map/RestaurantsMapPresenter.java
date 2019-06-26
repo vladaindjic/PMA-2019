@@ -36,6 +36,8 @@ public class RestaurantsMapPresenter<V extends RestaurantsMapMvpView> extends Ba
         UserRestaurantsActivity activity = (UserRestaurantsActivity)fragment.getBaseActivity();
         final String query = activity.getSearchQuery();
         getDataManager().getUserFilter(getDataManager().getActiveUserFilterId())
+                .subscribeOn(getSchedulerProvider().io())
+                .observeOn(getSchedulerProvider().ui())
                 .subscribe(new Consumer<UserFilter>() {
                     @Override
                     public void accept(UserFilter userFilter) throws Exception {

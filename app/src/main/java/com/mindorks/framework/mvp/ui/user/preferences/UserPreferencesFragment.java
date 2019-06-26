@@ -136,13 +136,13 @@ public class UserPreferencesFragment extends PreferenceFragmentCompat implements
 //
 //        }
 
-//        getActivity().recreate();
 
         // obavestavamo UserRestaurantsActivity da je doslo do promene ove opcije
         if (key.equals(AppPreferencesHelper.PREF_KEY_NOTIFICATIONS)) {
             AppPreferencesHelper.RECENTLY_CHANGED_NOTIFICATION_PREFERENCE = true;
         }
 
+//        getActivity().recreate();
         restartActivity();
     }
 
