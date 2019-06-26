@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black_effective"
     android:orientation="vertical"
     android:clickable="true"
     android:focusable="true">
@@ -17,7 +16,6 @@
         android:layout_marginTop="@dimen/app_bar_height"
         android:gravity="center|start"
         android:orientation="horizontal"
-        android:background="@color/app_color"
         >
 
         <ImageButton
@@ -28,8 +26,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:background="@color/transparent"
-            android:tint="@color/white"
-            app:srcCompat="@drawable/ic_keyboard_backspace_24px" />
+            app:srcCompat="?attr/back_icon" />
 
         <TextView
             style="@style/TextStyle.Heading"
@@ -38,7 +35,7 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:text="MyProfile"
             android:backgroundTint="@color/transparent"
-            android:textColor="@color/white"
+            android:textColor="?attr/filter_text_color"
             android:textSize="20sp" />
     </LinearLayout>
 
@@ -65,7 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="260dp"
                 android:layout_gravity="center"
-                android:layout_margin="20dp"
+                android:layout_margin="10dp"
                 android:orientation="vertical">
 
                 <ImageView
@@ -78,10 +75,10 @@
 
                 <TextView
                     android:id="@+id/user_details_username"
-                    style="@style/TextStyle.Title.Sub"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center|top"
+                    android:textColor="?attr/filter_text_color"
                     android:text="Username"
                     android:textAlignment="center"
                     android:textSize="30sp"
@@ -96,7 +93,6 @@
             android:layout_height="400dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:background="@color/app_color_back"
             android:orientation="horizontal">
 
             <TextView
@@ -105,7 +101,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|top"
                 android:layout_marginTop="48dp"
-                android:textColor="@color/white"
                 android:text="Firstname"
                 android:backgroundTint="@color/transparent"
                 android:textAlignment="center"
@@ -123,7 +118,6 @@
                 android:layout_gravity="center|top"
                 android:text="Lastname"
                 android:backgroundTint="@color/transparent"
-                android:textColor="@color/white"
                 android:textAlignment="center"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -139,7 +133,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|top"
                 android:layout_marginTop="68dp"
-                android:textColor="@color/white"
                 android:text="Email"
                 android:backgroundTint="@color/transparent"
                 android:textAlignment="center"
@@ -156,6 +149,7 @@
                 android:layout_marginStart="50dp"
                 android:layout_marginEnd="70dp"
                 android:text="Update details"
+                android:textColor="?attr/button_text"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/change_password_update_btn"
                 app:layout_constraintStart_toStartOf="parent"
@@ -167,6 +161,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="50dp"
                 android:text="Change Password"
+                android:textColor="?attr/button_text"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/edit_user_details_update_btn"

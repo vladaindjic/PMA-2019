@@ -33,7 +33,6 @@
             android:entries="@array/pref_language_entries"
 
             android:entryValues="@array/pref_languages_values"
-            android:textColor="@color/blue_grey_light"
             android:key="@string/pref_language_key"
             android:summary="@string/pref_languages_summary"
             android:title="@string/pref_languages_title" />

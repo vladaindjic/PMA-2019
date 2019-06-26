@@ -1,6 +1,7 @@
 package com.mindorks.framework.mvp.ui.settings;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -96,6 +97,7 @@ public class LanguageSettingsOptionsAdapter extends RecyclerView.Adapter<BaseVie
                 RadioButton radioButton = new RadioButton(context);
                 radioButton.setId(View.generateViewId());
                 radioButton.setText(option.getName());
+                radioButton.setTextColor(Color.WHITE);
                 languageRadioGroup.addView(radioButton,position);
 //                notifyDataSetChanged();
             }
