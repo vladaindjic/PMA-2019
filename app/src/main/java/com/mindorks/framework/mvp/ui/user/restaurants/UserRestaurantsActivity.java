@@ -39,6 +39,7 @@ import com.mindorks.framework.mvp.ui.user.details.password.UserDetailsPasswordAc
 import com.mindorks.framework.mvp.ui.user.details.update.UserDetailsUpdateActivity;
 import com.mindorks.framework.mvp.ui.user.restaurant.UserRestaurantActivity;
 import com.mindorks.framework.mvp.ui.user.restaurants.utils.UserRestaurantsCallback;
+import com.mindorks.framework.mvp.ui.user.settings.UserSettingsActivity;
 import com.mindorks.framework.mvp.ui.user.subscrptions.SubscriptionActivity;
 
 import javax.inject.Inject;
@@ -413,13 +414,13 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
 
     @Override
     public void openSettingsActivity() {
-        lockDrawer();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .disallowAddToBackStack()
-                .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
-                .add(R.id.user_cl_root_view, SettingsFragment.newInstance(), SettingsFragment.TAG)
-                .commit();
+//        lockDrawer();
+//        getSupportFragmentManager()
+//                .beginTransaction()
+//                .disallowAddToBackStack()
+//                .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
+//                .add(R.id.user_cl_root_view, SettingsFragment.newInstance(), SettingsFragment.TAG)
+//                .commit();
 //
 //        getSupportFragmentManager()
 //                .beginTransaction()
@@ -429,6 +430,11 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
 //                        SettingsFragment.TAG)
 //                .commit();
         // TODO vi3: ovde otvoriti fragment
+
+        // Otvaranje settings Activity-a
+        Intent intent = UserSettingsActivity.getStartIntent(this);
+        startActivity(intent);
+        finish();
     }
 
     public String getSearchQuery() {

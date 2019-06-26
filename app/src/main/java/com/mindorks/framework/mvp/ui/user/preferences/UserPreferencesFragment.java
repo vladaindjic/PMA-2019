@@ -142,8 +142,7 @@ public class UserPreferencesFragment extends PreferenceFragmentCompat implements
             AppPreferencesHelper.RECENTLY_CHANGED_NOTIFICATION_PREFERENCE = true;
         }
 
-//        getActivity().recreate();
-        restartActivity();
+        getActivity().recreate();
     }
 
 }

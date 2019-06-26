@@ -26,7 +26,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.user.details.password.UserDetailsPasswordActivity"></activity>
+        <activity android:name=".ui.user.settings.UserSettingsActivity"></activity>
+        <activity android:name=".ui.user.details.password.UserDetailsPasswordActivity" />
         <activity android:name=".ui.manager.restaurant.dailyMenu.details.ManagerDailyMenuDetailsActivity" />
         <activity android:name=".ui.user.details.update.UserDetailsUpdateActivity" />
         <activity android:name=".ui.manager.restaurant.promotions.details.ManagerRestaurantPromotionDetailsActivity" />

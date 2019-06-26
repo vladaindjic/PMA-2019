@@ -178,6 +178,9 @@ import com.mindorks.framework.mvp.ui.user.restaurants.list.RestaurantsListPresen
 import com.mindorks.framework.mvp.ui.user.restaurants.map.RestaurantsMapMvpPresenter;
 import com.mindorks.framework.mvp.ui.user.restaurants.map.RestaurantsMapMvpView;
 import com.mindorks.framework.mvp.ui.user.restaurants.map.RestaurantsMapPresenter;
+import com.mindorks.framework.mvp.ui.user.settings.UserSettingsMvpPresenter;
+import com.mindorks.framework.mvp.ui.user.settings.UserSettingsMvpView;
+import com.mindorks.framework.mvp.ui.user.settings.UserSettingsPresenter;
 import com.mindorks.framework.mvp.ui.user.subscrptions.SubscriptionMvpPresenter;
 import com.mindorks.framework.mvp.ui.user.subscrptions.SubscriptionMvpView;
 import com.mindorks.framework.mvp.ui.user.subscrptions.SubscriptionPresenter;
@@ -260,6 +263,14 @@ public class ActivityModule {
             UserRestaurantsPresenter<UserRestaurantsMvpView> presenter) {
         return presenter;
     }
+    
+    @Provides
+    @PerActivity
+    UserSettingsMvpPresenter<UserSettingsMvpView> provideUserSettingsPresenter(
+            UserSettingsPresenter<UserSettingsMvpView> presenter) {
+        return presenter;
+    }
+    
 
     @Provides
     @PerActivity
