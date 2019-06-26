@@ -187,7 +187,14 @@ public class UserRestaurantDetailsFragment extends BaseFragment implements
         });
 
         txtViewWorkTime.setText(restaurantDetails.getWorkTime());
+
         txtViewEmail.setText(restaurantDetails.getEmail());
+        txtViewEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendEmail();
+            }
+        });
 
         btnHowToFindUs.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -274,7 +281,7 @@ public class UserRestaurantDetailsFragment extends BaseFragment implements
         // prvo moramo traziti permission za pisanje
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ActivityCompat.checkSelfPermission(getBaseActivity(),
-                    Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(new String[]{Manifest.permission.CALL_PHONE}, CALL_PHONE_REQUEST_CODE);
                 return;
             }
@@ -283,6 +290,12 @@ public class UserRestaurantDetailsFragment extends BaseFragment implements
         Intent callIntent = new Intent(Intent.ACTION_CALL);
         callIntent.setData(Uri.parse("tel:"+restaurantDetails.getPhone()));
         startActivity(callIntent);
+    }
+
+    private void sendEmail() {
+        Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+        emailIntent.setData(Uri.parse("mailto:" + this.restaurantDetails.getEmail()));
+        startActivity(emailIntent);
     }
 
     @Override
