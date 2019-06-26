@@ -22,6 +22,8 @@ import com.mindorks.framework.mvp.data.DataManager;
 import com.mindorks.framework.mvp.data.db.model.UserFilter;
 import com.mindorks.framework.mvp.data.network.model.LoginRequest;
 import com.mindorks.framework.mvp.data.network.model.LoginResponse;
+import com.mindorks.framework.mvp.data.network.model.MyRestaurantsResponse;
+import com.mindorks.framework.mvp.data.prefs.AppPreferencesHelper;
 import com.mindorks.framework.mvp.ui.base.BasePresenter;
 import com.mindorks.framework.mvp.utils.CommonUtils;
 import com.mindorks.framework.mvp.utils.rx.SchedulerProvider;
@@ -85,8 +87,10 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
                         }
 
                         if (response.getUserRole().equals("USER")) {
+                            // da UserRestaurantsActivity odradi pretplatu
+                            AppPreferencesHelper.RECENTLY_CHANGED_NOTIFICATION_PREFERENCE = true;
+
                             getMvpView().hideLoading();
-                            FirebaseMessaging.getInstance().subscribeToTopic("JavaSampleApproach");
 
                             // podrazumevana svetla tema
                             getDataManager().setDarkThemeOn(false);

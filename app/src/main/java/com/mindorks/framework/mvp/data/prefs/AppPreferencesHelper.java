@@ -50,9 +50,10 @@ public class AppPreferencesHelper implements PreferencesHelper {
     // iscitano iz strings.xml
     private static final String PREF_KEY_DARK_THEME = "pref_dark_theme";
     private static final String PREF_KEY_SAVE_NETWORK_DATA = "pref_save_network_data";
-    private static final String PREF_KEY_NOTIFICATIONS = "pref_notifications";
+    public static final String PREF_KEY_NOTIFICATIONS = "pref_notifications";
     private static final String PREF_KEY_LANGUAGE = "pref_language";
 
+    public static boolean RECENTLY_CHANGED_NOTIFICATION_PREFERENCE = false;
 
     private final SharedPreferences mPrefs;
 

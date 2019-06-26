@@ -19,5 +19,5 @@ public interface UserRestaurantsMvpPresenter<V extends UserRestaurantsMvpView> e
 
     void onDrawerMySettingsClick();
 
-
+    void checkIfSubscriptionOptionChange();
 }

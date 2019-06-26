@@ -161,7 +161,8 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
         mPresenter.onNavMenuCreated();
 //        setupCardContainerView();
 //        mPresenter.onViewInitialized();
-
+        // FIXME vi3: trebalo bi da je ok ovde proveriti
+        mPresenter.checkIfSubscriptionOptionChange();
     }
 
     void setupNavMenu() {

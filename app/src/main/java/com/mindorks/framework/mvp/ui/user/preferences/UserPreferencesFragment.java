@@ -7,12 +7,14 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.content.Intent;
+
 import com.mindorks.framework.mvp.R;
+import com.mindorks.framework.mvp.data.prefs.AppPreferencesHelper;
 import com.mindorks.framework.mvp.utils.LocaleHelper;
 
 import java.util.Locale;
 
-public class UserPreferencesFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener{
+public class UserPreferencesFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     public static final String TAG = "UserPreferencesFragment";
 
@@ -22,6 +24,7 @@ public class UserPreferencesFragment extends PreferenceFragmentCompat implements
     private SharedPreferences.OnSharedPreferenceChangeListener preferenceChangeListener;
     public static final String KEY_PREF_LANGUAGE = "pref_language";
     public String languagePref_ID;
+
     public static UserPreferencesFragment newInstance() {
         Bundle args = new Bundle();
         UserPreferencesFragment fragment = new UserPreferencesFragment();
@@ -36,7 +39,7 @@ public class UserPreferencesFragment extends PreferenceFragmentCompat implements
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState){
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         //registerChangeListener();
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getContext());
         boolean useThemeDark = sp.getBoolean("pref_dark_theme", false);
@@ -90,8 +93,7 @@ public class UserPreferencesFragment extends PreferenceFragmentCompat implements
                 getContext().getResources().getDisplayMetrics());
     }
 
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,String key)
-    {
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 //        //Your Code
 //        if (key.equals("pref_dark_theme")) {
 //            getActivity().recreate();
@@ -135,6 +137,12 @@ public class UserPreferencesFragment extends PreferenceFragmentCompat implements
 //        }
 
 //        getActivity().recreate();
+
+        // obavestavamo UserRestaurantsActivity da je doslo do promene ove opcije
+        if (key.equals(AppPreferencesHelper.PREF_KEY_NOTIFICATIONS)) {
+            AppPreferencesHelper.RECENTLY_CHANGED_NOTIFICATION_PREFERENCE = true;
+        }
+
         restartActivity();
     }
 

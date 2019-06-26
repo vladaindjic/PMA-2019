@@ -35,6 +35,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.RestaurantDetailsResponse;
 import com.mindorks.framework.mvp.di.component.ActivityComponent;
@@ -174,15 +175,7 @@ public class UserRestaurantDetailsFragment extends BaseFragment implements
         txtViewAddress.setText(restaurantDetails.getAddress());
 
         checkBoxDelivery.setChecked(restaurantDetails.isDelivery());
-//        checkBoxDelivery.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // TODO vi3: intent koji ce otvoriti pozivanje broja
-//                Toast.makeText(getContext(),
-//                        "kliknuo sam te",
-//                        Toast.LENGTH_SHORT).show();
-//            }
-//        });
+        // korisnik ovo ne moze da menja
         checkBoxDelivery.setClickable(false);
 
         txtViewPhone.setText(restaurantDetails.getPhone());
@@ -260,6 +253,15 @@ public class UserRestaurantDetailsFragment extends BaseFragment implements
     public void successSubscription() {
         // Kada se korisnik uspesno pretplatio ili otplation, onda ne menjamo status zvezdice.
         // Ona se menja cim cekiramo.
+        if (checkBoxStar.isChecked()) {
+            // subscribe to restaurant's topic
+            FirebaseMessaging.getInstance().subscribeToTopic(
+                    "RESTAURANT-" + this.restaurantDetails.getId());
+        } else {
+            // unsubscribe to restaurant's topic
+            FirebaseMessaging.getInstance().unsubscribeFromTopic(
+                "RESTAURANT-" + this.restaurantDetails.getId());
+        }
     }
 
     @Override
