@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.mindorks.framework.mvp.R;
@@ -95,7 +96,7 @@ public class ManagerDishDetailsNutritiveValuesAdapter extends RecyclerView.Adapt
         TextView txtViewUnit;
 
         @BindView(R.id.manager_restaurant_details_remove_nutritive_value_btn)
-        Button nutitiveValueDeleteBtn;
+        ImageButton nutitiveValueDeleteBtn;
 
 
         public ViewHolder(View itemView) {

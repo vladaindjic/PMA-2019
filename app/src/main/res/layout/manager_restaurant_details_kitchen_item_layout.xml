@@ -1,27 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/customborder"
-    >
-
-    <Button
-        android:id="@+id/manager_restaurant_details_remove_kitchen_btn"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_gravity="center"
-        android:background="@drawable/ic_remove_circle_red_24dp"/>
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="2dp"
+    android:background="@drawable/promotion_border_light">
 
     <TextView
         android:id="@+id/manager_restaurant_details_kitchen_item_txt"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:text="Kuhinjica"
-        android:textStyle="bold"
-        android:textSize="20sp"
+        android:background="@color/transparent"
         android:gravity="center_vertical"
-        android:layout_marginStart="16dp"
+        android:text="Kuhinjica"
+        android:textSize="20sp"
+        android:layout_marginStart="5dp"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <ImageButton
+        android:id="@+id/manager_restaurant_details_remove_kitchen_btn"
+        app:srcCompat="@drawable/ic_delete_black"
+        android:layout_width="30dp"
+        android:layout_margin="3dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:background="@drawable/roundedbutton"
+
         />
+
 
 </LinearLayout>

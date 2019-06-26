@@ -1,69 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:id="@+id/manager_dish_type_list_item_linear_layout"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/manager_dish_type_list_item_linear_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/customborder"
-    android:orientation="horizontal"
-    >
+    android:layout_margin="3dp"
+    android:background="@drawable/dish_border_light"
+    android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/manager_remove_dish_btn"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_gravity="center"
-        android:background="@drawable/ic_remove_circle_red_24dp"/>
+    <ImageView
+        android:id="@+id/manager_img_dish"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/login_bg" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <TextView
+        android:id="@+id/manager_txt_dish_name"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:orientation="horizontal"
-        android:background="@color/transparent">
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:background="@color/transparent"
+        android:maxWidth="178dp"
+        android:text="Mesiste"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:textStyle="bold"
 
-        <ImageView
-            android:id="@+id/manager_img_dish"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/login_bg"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            />
+        />
 
-        <TextView
-            android:id="@+id/manager_txt_dish_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Mesiste"
-            android:textAlignment="center"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:maxWidth="178dp"
-            android:layout_centerInParent="true"
-            android:background="@color/transparent"
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="5" />
 
-            />
+    <TextView
+        android:id="@+id/manager_txt_dish_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:background="@color/transparent"
+        android:maxWidth="90dp"
+        android:text="10000"
+        android:textAlignment="center"
 
-        <TextView
-            android:id="@+id/manager_txt_dish_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_gravity="center"
-            android:textAlignment="center"
-            android:text="10000"
-            android:maxWidth="90dp"
-            android:background="@color/transparent"
+        />
 
-            />
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+    <!--FIXME vi3: Vidi da promenis Max Width ako bude trebalo zbog landscape-a-->
+    <ImageButton
+        android:id="@+id/manager_remove_dish_btn"
+        app:srcCompat="@drawable/ic_delete_black"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginEnd="3dp"
 
-        <!--FIXME vi3: Vidi da promenis Max Width ako bude trebalo zbog landscape-a-->
+        android:layout_gravity="center"
+        android:background="@drawable/roundedbutton"
 
-    </RelativeLayout>
+        />
 </LinearLayout>

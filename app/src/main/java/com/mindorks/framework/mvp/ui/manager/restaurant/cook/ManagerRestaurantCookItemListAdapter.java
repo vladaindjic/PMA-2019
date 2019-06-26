@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -108,7 +109,7 @@ public class ManagerRestaurantCookItemListAdapter extends RecyclerView.Adapter<B
         TextView textPrice;
 
         @BindView(R.id.cook_item_delete_btn)
-        Button removeButton;
+        ImageButton removeButton;
 
         @BindView(R.id.cook_item_image_view)
         ImageView imageView;

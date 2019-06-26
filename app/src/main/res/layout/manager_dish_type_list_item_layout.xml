@@ -1,47 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/manager_dish_type_list_item_linear_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/manager_dish_type_list_item_linear_layout"
+    android:layout_margin="8dp"
     android:background="@drawable/dish_type_border_light"
-    android:layout_margin="16dp">
+    android:orientation="vertical">
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="16dp">
-
-        <Button
-            android:id="@+id/manager_remove_dish_type_btn"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="@drawable/ic_remove_circle_red_24dp"/>
+        android:background="@color/transparent"
+        android:orientation="horizontal">
 
         <EditText
             android:id="@+id/manager_edit_text_dish_type_name"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/dishes"
             android:inputType="text"
-            android:textSize="20sp"
             android:textAlignment="center"
-            android:layout_gravity="center"
-            android:textStyle="bold"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"/>
+            android:textSize="20sp"
+            android:layout_centerInParent="true"
+            android:textStyle="bold"/>
 
-    </LinearLayout>
+
+        <ImageButton
+            android:layout_alignParentEnd="true"
+            android:id="@+id/manager_remove_dish_type_btn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="6dp"
+            android:background="@drawable/roundedbutton"
+            app:srcCompat="@drawable/ic_delete_black"/>
+    </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/manager_dish_list_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/manager_dish_list_recyclerview"
-        android:scrollbars="vertical"
-        />
+        android:scrollbars="vertical" />
 
     <LinearLayout
         android:id="@+id/manager_dish_type_linear_layout_autocomplete_kitchen"
@@ -51,8 +51,8 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:gravity="center"
-        android:orientation="horizontal"
-        >
+        android:background="@color/transparent"
+        android:orientation="horizontal">
 
         <!--FIXME vi3: zasto ne radi kada se uredjaj rotira-->
         <!--FIXME vi3: namesti da ide ispod. Nekako da ga zavaram da predje preko
@@ -65,8 +65,9 @@
             android:layout_gravity="center"
             android:dropDownHeight="wrap_content"
             android:hint="@string/dish"
+            android:background="@color/transparent"
             android:minWidth="200dp"
-            android:textSize="20sp"/>
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/manager_dish_type_add_kitchen_btn"
@@ -74,8 +75,7 @@
             android:layout_height="48dp"
             android:layout_gravity="center"
             android:layout_marginStart="16dp"
-            android:background="@drawable/ic_add_circle_grey_24dp"
-            />
+            android:background="@drawable/ic_add_circle_orginal_24dp" />
 
     </LinearLayout>
 

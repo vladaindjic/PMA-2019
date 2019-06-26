@@ -49,12 +49,12 @@ public class ManagerRestaurantDailyMenuFragment extends BaseFragment implements 
     RecyclerView mRecyclerView;
 
 
-    @BindView(R.id.txt_manager_daily_menu_name)
-    TextView txtName;
-    @BindView(R.id.manager_daily_menu_start_time_txt)
-    TextView txtStart;
-    @BindView(R.id.manager_daily_menu_end_time_txt)
-    TextView txtEnd;
+//    @BindView(R.id.txt_manager_daily_menu_name)
+//    TextView txtName;
+//    @BindView(R.id.manager_daily_menu_start_time_txt)
+//    TextView txtStart;
+//    @BindView(R.id.manager_daily_menu_end_time_txt)
+//    TextView txtEnd;
 
     private Long dailyMenuId;
 
@@ -117,19 +117,19 @@ public class ManagerRestaurantDailyMenuFragment extends BaseFragment implements 
 
         this.dailyMenuId = dailyMenu.getId();
 
-        if (dailyMenu.getName() != null) {
-            txtName.setText(dailyMenu.getName());
-        }
+//        if (dailyMenu.getName() != null) {
+//            txtName.setText(dailyMenu.getName());
+//        }
 
         SimpleDateFormat timeFormat = new SimpleDateFormat(getString(R.string.time_format));
 
-        if (dailyMenu.getStartTime() != null) {
-            txtStart.setText(timeFormat.format(dailyMenu.getStartTime()));
-        }
-
-        if (dailyMenu.getEndTime() != null) {
-            txtEnd.setText(timeFormat.format(dailyMenu.getEndTime()));
-        }
+//        if (dailyMenu.getStartTime() != null) {
+//            txtStart.setText(timeFormat.format(dailyMenu.getStartTime()));
+//        }
+//
+//        if (dailyMenu.getEndTime() != null) {
+//            txtEnd.setText(timeFormat.format(dailyMenu.getEndTime()));
+//        }
         if (dailyMenu.getMeals() != null) {
             mMealListAdapter.addItems(dailyMenu.getMeals());
         }
