@@ -38,19 +38,4 @@
         android:layout_height="match_parent"
         android:background="@color/transparent"/>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/general_settings_option_view"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="24dp"
-        tools:listitem="@layout/item_general_settings_option_view" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/language_settings_option_view"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="8dp"
-        tools:listitem="@layout/item_language_settings_option_view" />
-
-
 </LinearLayout>

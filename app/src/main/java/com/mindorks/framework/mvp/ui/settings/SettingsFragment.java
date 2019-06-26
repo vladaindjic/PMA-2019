@@ -34,24 +34,6 @@ public class SettingsFragment extends BaseFragment implements SettingsMvpView {
 
     public static final String TAG = "SettingsFragment";
 
-    @BindView(R.id.general_settings_option_view)
-    RecyclerView mGeneralSettingsOptionsView;
-
-    @BindView(R.id.language_settings_option_view)
-    RecyclerView mLanguageSettingsView;
-
-    @Inject
-    LinearLayoutManager mLayoutManager1;
-
-    @Inject
-    LinearLayoutManager mLayoutManager2;
-
-    @Inject
-    GeneralSettingsOptionsAdapter mGeneralSettingsOptionsAdapter;
-
-
-    LanguageSettingsOptionsAdapter mLanguageSettingsOptionsAdapter;
-
     @Inject
     SettingsMvpPresenter<SettingsMvpView> mPresenter;
 
@@ -73,9 +55,6 @@ public class SettingsFragment extends BaseFragment implements SettingsMvpView {
             setUnBinder(ButterKnife.bind(this, view));
             mPresenter.onAttach(this);
         }
-
-        mLanguageSettingsOptionsAdapter = new LanguageSettingsOptionsAdapter(container.getContext(), new ArrayList<SettingsResponse.SettingsData.LanguageOption>());
-
 
         // FIXME vi3: ili sve ukloniti ili ovo negde premestiti. Ovo je u 2:59am napravljeno
         // FIXME vi3: dodati i back dugme
@@ -99,15 +78,6 @@ public class SettingsFragment extends BaseFragment implements SettingsMvpView {
             }
         });
 
-        mLayoutManager1.setOrientation(LinearLayoutManager.VERTICAL);
-        mGeneralSettingsOptionsView.setLayoutManager(mLayoutManager1);
-        mGeneralSettingsOptionsView.setItemAnimator(new DefaultItemAnimator());
-        mGeneralSettingsOptionsView.setAdapter(mGeneralSettingsOptionsAdapter);
-
-        mLayoutManager2.setOrientation(LinearLayoutManager.VERTICAL);
-        mLanguageSettingsView.setLayoutManager(mLayoutManager2);
-        mLanguageSettingsView.setItemAnimator(new DefaultItemAnimator());
-        mLanguageSettingsView.setAdapter(mLanguageSettingsOptionsAdapter);
 
         mPresenter.onViewPrepared();
     }
@@ -125,13 +95,11 @@ public class SettingsFragment extends BaseFragment implements SettingsMvpView {
 
     @Override
     public void updateGeneralSettingsOptions(List<SettingsResponse.SettingsData.SettingsGeneralOption> settingsResponse) {
-        mGeneralSettingsOptionsAdapter.addItems(settingsResponse);
 
     }
 
     @Override
     public void updateLanguageSettingsOptions(List<SettingsResponse.SettingsData.LanguageOption> settingsResponse) {
-        mLanguageSettingsOptionsAdapter.addItems(settingsResponse);
 
     }
 }

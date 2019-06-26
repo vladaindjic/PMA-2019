@@ -134,8 +134,8 @@ public class UserPreferencesFragment extends PreferenceFragmentCompat implements
 //
 //        }
 
-        getActivity().recreate();
-
+//        getActivity().recreate();
+        restartActivity();
     }
 
 }

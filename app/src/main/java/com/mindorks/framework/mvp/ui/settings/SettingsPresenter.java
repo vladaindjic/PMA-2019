@@ -29,39 +29,39 @@ public class SettingsPresenter <V extends SettingsMvpView> extends BasePresenter
 
         getMvpView().showLoading();
 
-        getCompositeDisposable().add(getDataManager()
-                .getSettingsApiCall()
-                .subscribeOn(getSchedulerProvider().io())
-                .observeOn(getSchedulerProvider().ui())
-                .subscribe(new Consumer<SettingsResponse>() {
-
-                    @Override
-                    public void accept(@NonNull SettingsResponse response)
-                            throws Exception {
-                        if (response != null && response.getData() != null) {
-                            getMvpView().updateGeneralSettingsOptions(response.getData().getSettingsGeneralOptionsList());
-                            getMvpView().updateLanguageSettingsOptions(response.getData().getLanguageOptionList());
-                        }
-                        getMvpView().hideLoading();
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(@NonNull Throwable throwable)
-                            throws Exception {
-                        if (!isViewAttached()) {
-                            return;
-                        }
-
-                        getMvpView().hideLoading();
-
-                        // handle the error here
-                        if (throwable instanceof ANError) {
-                            System.out.println("********************* " + throwable);
-                            ANError anError = (ANError) throwable;
-                            handleApiError(anError);
-                        }
-                    }
-                }));
+//        getCompositeDisposable().add(getDataManager()
+//                .getSettingsApiCall()
+//                .subscribeOn(getSchedulerProvider().io())
+//                .observeOn(getSchedulerProvider().ui())
+//                .subscribe(new Consumer<SettingsResponse>() {
+//
+//                    @Override
+//                    public void accept(@NonNull SettingsResponse response)
+//                            throws Exception {
+//                        if (response != null && response.getData() != null) {
+//                            getMvpView().updateGeneralSettingsOptions(response.getData().getSettingsGeneralOptionsList());
+//                            getMvpView().updateLanguageSettingsOptions(response.getData().getLanguageOptionList());
+//                        }
+//                        getMvpView().hideLoading();
+//                    }
+//                }, new Consumer<Throwable>() {
+//                    @Override
+//                    public void accept(@NonNull Throwable throwable)
+//                            throws Exception {
+//                        if (!isViewAttached()) {
+//                            return;
+//                        }
+//
+//                        getMvpView().hideLoading();
+//
+//                        // handle the error here
+//                        if (throwable instanceof ANError) {
+//                            System.out.println("********************* " + throwable);
+//                            ANError anError = (ANError) throwable;
+//                            handleApiError(anError);
+//                        }
+//                    }
+//                }));
 
         getMvpView().hideLoading();
 
