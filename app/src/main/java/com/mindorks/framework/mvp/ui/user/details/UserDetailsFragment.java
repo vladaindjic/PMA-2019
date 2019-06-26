@@ -59,16 +59,6 @@ public class UserDetailsFragment extends BaseFragment implements
 
     public static final String TAG = "UserDetailsFragment";
 
-    private static final int CAMERA_REQUEST_CODE = 1001;
-    private static final int READ_EXTERNAL_STORAGE_REQUEST_CODE = 1002;
-    private static final int READ_EXTERNAL_STORAGE_REQUEST_CODE_CAMERA_SHOT = 1007;
-    private static final int WRITE_EXTERNAL_STORAGE_REQUEST_CODE = 1003;
-
-    private static final int REQUEST_CAMERA = 1, SELECT_FILE = 0;
-
-    private Bitmap userImageBitmap = null;
-    private Uri userImageUri = null;
-
     UserDetailsResponse.UserDetails oldUser;
 
 
