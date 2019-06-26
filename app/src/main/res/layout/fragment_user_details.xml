@@ -1,173 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:clickable="true"
-    android:focusable="true">
-    <!--FIXME vi3: zasto se uopste pravi problem da kada klikne bilo gde on klik spusti do restorana-->
-    <!--DA li sam to sa clickable=true resio?-->
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:layout_marginTop="@dimen/app_bar_height"
-        android:gravity="center|start"
-        android:orientation="horizontal"
-        >
-
-        <ImageButton
-            android:id="@+id/nav_back_btn"
-            style="@style/Button.ImageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:background="@color/transparent"
-            app:srcCompat="?attr/back_icon" />
-
-        <TextView
-            style="@style/TextStyle.Heading"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:text="@string/my_profile_label"
-            android:backgroundTint="@color/transparent"
-            android:textColor="?attr/filter_text_color"
-            android:textSize="20sp" />
-    </LinearLayout>
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@color/logo_color"
-        >
+        android:clickable="true"
+        android:focusable="true">
+        <!--FIXME vi3: zasto se uopste pravi problem da kada klikne bilo gde on klik spusti do restorana-->
+        <!--DA li sam to sa clickable=true resio?-->
 
-        <android.support.v7.widget.CardView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            app:cardCornerRadius="7dp"
-            app:cardElevation="22dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="55dp"
+            android:layout_marginTop="@dimen/app_bar_height"
+            android:gravity="center|start"
+            android:orientation="horizontal"
+            >
 
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="260dp"
+            <ImageButton
+                android:id="@+id/nav_back_btn"
+                style="@style/Button.ImageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:orientation="vertical">
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:background="@color/transparent"
+                app:srcCompat="?attr/back_icon" />
 
-                <ImageView
-                    android:id="@+id/user_details_img"
+            <TextView
+                style="@style/TextStyle.Heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:text="@string/my_profile_label"
+                android:backgroundTint="@color/transparent"
+                android:textColor="?attr/filter_text_color"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/logo_color"
+            >
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                app:cardCornerRadius="7dp"
+                app:cardElevation="22dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="217dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/person_details" />
+                    android:layout_height="260dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
 
+                    <ImageView
+                        android:id="@+id/user_details_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="217dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/person_details" />
+
+
+                    <TextView
+                        android:id="@+id/user_details_username"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|top"
+                        android:textColor="?attr/filter_text_color"
+                        android:text="Username"
+                        android:textAlignment="center"
+                        android:textSize="30sp"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/user_details_username"
+                    android:id="@+id/user_details_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center|top"
-                    android:textColor="?attr/filter_text_color"
-                    android:text="Username"
+                    android:layout_marginTop="48dp"
+                    android:text="Firstname"
+                    android:backgroundTint="@color/transparent"
                     android:textAlignment="center"
-                    android:textSize="30sp"
-                    android:textStyle="bold" />
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/user_details_lastname"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/user_details_lastname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|top"
+                    android:text="Lastname"
+                    android:backgroundTint="@color/transparent"
+                    android:textAlignment="center"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/user_details_name"
+                    app:layout_constraintTop_toTopOf="@+id/user_details_name" />
 
 
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
+                <TextView
+                    android:id="@+id/user_details_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|top"
+                    android:layout_marginTop="68dp"
+                    android:text="Email"
+                    android:backgroundTint="@color/transparent"
+                    android:textAlignment="center"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/user_details_name" />
 
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:orientation="horizontal">
+                <Button
+                    android:id="@+id/edit_user_details_update_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginEnd="70dp"
+                    android:text="@string/update_details_btn"
+                    android:textColor="?attr/button_text"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/change_password_update_btn"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/user_details_email" />
 
-            <TextView
-                android:id="@+id/user_details_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center|top"
-                android:layout_marginTop="48dp"
-                android:text="Firstname"
-                android:backgroundTint="@color/transparent"
-                android:textAlignment="center"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/user_details_lastname"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <Button
+                    android:id="@+id/change_password_update_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="50dp"
+                    android:text="@string/change_password_btn"
+                    android:textColor="?attr/button_text"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/edit_user_details_update_btn"
+                    app:layout_constraintTop_toBottomOf="@id/user_details_email" />
 
-            <TextView
-                android:id="@+id/user_details_lastname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center|top"
-                android:text="Lastname"
-                android:backgroundTint="@color/transparent"
-                android:textAlignment="center"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/user_details_name"
-                app:layout_constraintTop_toTopOf="@+id/user_details_name" />
+            </android.support.constraint.ConstraintLayout>
 
-
-            <TextView
-                android:id="@+id/user_details_email"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center|top"
-                android:layout_marginTop="68dp"
-                android:text="Email"
-                android:backgroundTint="@color/transparent"
-                android:textAlignment="center"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/user_details_name" />
-
-            <Button
-                android:id="@+id/edit_user_details_update_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:layout_marginEnd="70dp"
-                android:text="@string/update_details_btn"
-                android:textColor="?attr/button_text"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/change_password_update_btn"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/user_details_email" />
-
-            <Button
-                android:id="@+id/change_password_update_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="50dp"
-                android:text="@string/change_password_btn"
-                android:textColor="?attr/button_text"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/edit_user_details_update_btn"
-                app:layout_constraintTop_toBottomOf="@id/user_details_email" />
-
-        </android.support.constraint.ConstraintLayout>
-
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+
+</ScrollView>
+
