@@ -154,7 +154,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     @Override
     public String getActiveLanguage() {
-        return mPrefs.getString(PREF_KEY_LANGUAGE, "en");
+        return mPrefs.getString(PREF_KEY_LANGUAGE, "sr");
     }
 
     @Override

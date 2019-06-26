@@ -95,7 +95,7 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
                             // podrazumevana svetla tema
                             getDataManager().setDarkThemeOn(false);
                             // podrazumevano engleski jezik
-                            getDataManager().setActiveLanguage("en");
+                            getDataManager().setActiveLanguage("sr");
                             // podrazumevano nema ustede podataka
                             getDataManager().setSaveNetworkDataOn(false);
                             // podrazumevano ukljucene notifikacije
@@ -142,7 +142,7 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
                             // podrazumevana svetla tema
                             getDataManager().setDarkThemeOn(false);
                             // podrazumevano engleski jezik
-                            getDataManager().setActiveLanguage("en");
+                            getDataManager().setActiveLanguage("sr");
                             // podrazumevano nema ustede podataka
                             getDataManager().setSaveNetworkDataOn(false);
                             // podrazumevano ukljucene notifikacije

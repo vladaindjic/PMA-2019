@@ -58,7 +58,7 @@ public abstract class BaseFragment extends Fragment implements MvpView {
             getContext().setTheme(R.style.AppTheme);
         }
 
-        languagePref_ID = sp.getString(KEY_PREF_LANGUAGE, "en");
+        languagePref_ID = sp.getString(KEY_PREF_LANGUAGE, "sr");
 
         switch (languagePref_ID) {
             case "en":
