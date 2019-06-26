@@ -19,6 +19,7 @@ import com.androidnetworking.error.ANError;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.DataManager;
+import com.mindorks.framework.mvp.data.db.model.UserFilter;
 import com.mindorks.framework.mvp.data.network.model.LoginRequest;
 import com.mindorks.framework.mvp.data.network.model.LoginResponse;
 import com.mindorks.framework.mvp.ui.base.BasePresenter;
@@ -86,9 +87,55 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
                         if (response.getUserRole().equals("USER")) {
                             getMvpView().hideLoading();
                             FirebaseMessaging.getInstance().subscribeToTopic("JavaSampleApproach");
-                            getMvpView().openUserRestaurantsActivity();
+
+                            // podrazumevana svetla tema
+                            getDataManager().setDarkThemeOn(false);
+                            // podrazumevano engleski jezik
+                            getDataManager().setActiveLanguage("en");
+                            // podrazumevano nema ustede podataka
+                            getDataManager().setSaveNetworkDataOn(false);
+                            // podrazumevano ukljucene notifikacije
+                            getDataManager().setNotificationTurnedOn(true);
+
+                            // ponistimo sve restorane koje je korisnik kesirao
+                            getCompositeDisposable().add(getDataManager().deleteAllMyRestaurants().subscribe(new Consumer<Boolean>() {
+                                @Override
+                                public void accept(Boolean aBoolean) throws Exception {
+                                    // ponistimo sve kuhinje restorana
+                                    getDataManager().deleteAllKitchensDB().subscribe(new Consumer<Boolean>() {
+                                        @Override
+                                        public void accept(Boolean aBoolean) throws Exception {
+                                            // setujemo podrazumevani user filter
+                                            UserFilter userFilter = new UserFilter();
+                                            userFilter.setDistance(33.0);
+                                            userFilter.setOpen(false);
+                                            userFilter.setDelivery(false);
+                                            userFilter.setDailyMenu(false);
+                                            getDataManager().saveUserFilter(userFilter).subscribe(new Consumer<Long>() {
+                                                @Override
+                                                public void accept(Long aLong) throws Exception {
+                                                    getDataManager().setActiveUserFilterId(aLong);
+                                                    // konacno otvaranje
+                                                    getMvpView().openUserRestaurantsActivity();
+                                                }
+                                            });
+
+                                        }
+                                    });
+                                }
+                            }));
+
                         } else {
                             getMvpView().hideLoading();
+                            // podrazumevana svetla tema
+                            getDataManager().setDarkThemeOn(false);
+                            // podrazumevano engleski jezik
+                            getDataManager().setActiveLanguage("en");
+                            // podrazumevano nema ustede podataka
+                            getDataManager().setSaveNetworkDataOn(false);
+                            // podrazumevano ukljucene notifikacije
+                            getDataManager().setNotificationTurnedOn(true);
+
                             getMvpView().openManagerRestaurantActivity();
                             getDataManager().setRestaurantIdManager(response.getRestaurantId());
                         }

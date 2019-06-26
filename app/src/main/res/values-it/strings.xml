@@ -147,7 +147,7 @@
     <string name="leave_comment">Commento</string>
     <string name="comments">Commenti</string>
 
-    <string name="filterDistanceString">Distanza</string>
+    <string name="filterDistanceString">Distanza (km)</string>
     <string name="cancelBtn">Annulla</string>
     <string name="submitBtn">Sottoscrivi</string>
     <string name="kitchen">Cucina</string>

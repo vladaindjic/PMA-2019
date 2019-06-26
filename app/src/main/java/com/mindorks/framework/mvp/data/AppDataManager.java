@@ -267,6 +267,26 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public void setDarkThemeOn(boolean darkThemeOn) {
+        mPreferencesHelper.setDarkThemeOn(darkThemeOn);
+    }
+
+    @Override
+    public void setNotificationTurnedOn(boolean notificationTurnedOn) {
+        mPreferencesHelper.setNotificationTurnedOn(notificationTurnedOn);
+    }
+
+    @Override
+    public void setSaveNetworkDataOn(boolean saveNetworkDataOn) {
+        mPreferencesHelper.setSaveNetworkDataOn(saveNetworkDataOn);
+    }
+
+    @Override
+    public void setActiveLanguage(String activeLanguage) {
+        mPreferencesHelper.setActiveLanguage(activeLanguage);
+    }
+
+    @Override
     public void updateUserInfo(
             String accessToken,
             Long userId,

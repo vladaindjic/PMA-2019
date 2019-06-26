@@ -147,7 +147,7 @@
     <string name="leave_comment">Komentar</string>
     <string name="comments">Komentari</string>
 
-    <string name="filterDistanceString">Udaljenost</string>
+    <string name="filterDistanceString">Udaljenost (km)</string>
     <string name="cancelBtn">Odkazi</string>
     <string name="submitBtn">Posalji</string>
     <string name="kitchen">Kuhinja</string>

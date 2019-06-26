@@ -33,6 +33,16 @@ public class UserRestaurantsPresenter<V extends UserRestaurantsMvpView> extends 
     public void onDrawerOptionLogoutClick() {
         getMvpView().showLoading();
         getDataManager().setUserAsLoggedOut();
+
+        // podrazumevana svetla tema
+        getDataManager().setDarkThemeOn(false);
+        // podrazumevano engleski jezik
+        getDataManager().setActiveLanguage("en");
+        // podrazumevano nema ustede podataka
+        getDataManager().setSaveNetworkDataOn(false);
+        // podrazumevano ukljucene notifikacije
+        getDataManager().setNotificationTurnedOn(true);
+
         getMvpView().hideLoading();
         getMvpView().openLoginActivity();
 

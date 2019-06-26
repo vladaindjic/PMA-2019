@@ -55,9 +55,17 @@ public interface PreferencesHelper {
     void setRestaurantIdManager(Long restaurantId);
 
     boolean isDarkThemeOn();
+    void setDarkThemeOn(boolean darkThemeOn);
+
     boolean isNotificationsTurnedOn();
+    void setNotificationTurnedOn(boolean notificationTurnedOn);
+
     boolean isSaveNetworkDataOn();
+    void setSaveNetworkDataOn(boolean saveNetworkDataOn);
+
     String getActiveLanguage();
+    void setActiveLanguage(String activeLanguage);
+
     void setActiveUserFilterId(Long userFilterId);
     Long getActiveUserFilterId();
 

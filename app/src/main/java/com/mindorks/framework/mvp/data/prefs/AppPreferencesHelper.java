@@ -153,7 +153,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     @Override
     public String getActiveLanguage() {
-        return mPrefs.getString(PREF_KEY_LANGUAGE, "english_us");
+        return mPrefs.getString(PREF_KEY_LANGUAGE, "en");
     }
 
     @Override
@@ -177,5 +177,25 @@ public class AppPreferencesHelper implements PreferencesHelper {
     public void setRestaurantIdManager(Long restaurantId) {
         mPrefs.edit().putLong(PREF_KEY_RESTAURANT_ID_MANAGER,
                 restaurantId != null ? restaurantId : -1L).apply();
+    }
+
+    @Override
+    public void setDarkThemeOn(boolean darkThemeOn) {
+        mPrefs.edit().putBoolean(PREF_KEY_DARK_THEME, darkThemeOn).apply();
+    }
+
+    @Override
+    public void setNotificationTurnedOn(boolean notificationTurnedOn) {
+        mPrefs.edit().putBoolean(PREF_KEY_NOTIFICATIONS, notificationTurnedOn).apply();
+    }
+
+    @Override
+    public void setSaveNetworkDataOn(boolean saveNetworkDataOn) {
+        mPrefs.edit().putBoolean(PREF_KEY_SAVE_NETWORK_DATA, saveNetworkDataOn).apply();
+    }
+
+    @Override
+    public void setActiveLanguage(String activeLanguage) {
+        mPrefs.edit().putString(PREF_KEY_LANGUAGE, activeLanguage).apply();
     }
 }

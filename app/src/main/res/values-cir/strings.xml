@@ -147,7 +147,7 @@
     <string name="leave_comment">Коментар</string>
     <string name="comments">Коментари</string>
 
-    <string name="filterDistanceString">Удаљеност</string>
+    <string name="filterDistanceString">Удаљеност (км)</string>
     <string name="cancelBtn">Одкажи</string>
     <string name="submitBtn">Пошаљи</string>
     <string name="kitchen">Кухиња</string>
