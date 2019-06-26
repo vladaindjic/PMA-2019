@@ -76,7 +76,7 @@ public abstract class BaseActivity extends AppCompatActivity
             this.setTheme(R.style.AppTheme);
         }
 
-        languagePref_ID = sp.getString(KEY_PREF_LANGUAGE,"");
+        languagePref_ID = sp.getString(KEY_PREF_LANGUAGE,"en");
 
         switch (languagePref_ID) {
             case "en":
