@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.mindorks.framework.mvp.R;
@@ -96,7 +97,7 @@ public class ManagerRestaurantDetailsKitchensAdapter extends RecyclerView.Adapte
         TextView titleTextView;
 
         @BindView(R.id.manager_restaurant_details_remove_kitchen_btn)
-        Button btnRemoveKitchen;
+        ImageButton btnRemoveKitchen;
 
         public ViewHolder(View itemView) {
             super(itemView);

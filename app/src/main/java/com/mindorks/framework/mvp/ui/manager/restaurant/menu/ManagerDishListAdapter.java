@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -117,7 +118,7 @@ public class ManagerDishListAdapter extends RecyclerView.Adapter<BaseViewHolder>
     public class ViewHolder extends BaseViewHolder {
 
         @BindView(R.id.manager_remove_dish_btn)
-        Button btnRemoveDish;
+        ImageButton btnRemoveDish;
 
         @BindView(R.id.manager_txt_dish_name)
         TextView txtDishName;

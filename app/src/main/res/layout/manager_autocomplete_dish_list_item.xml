@@ -4,7 +4,9 @@
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
-    android:background="@drawable/customborder"
+    android:background="@drawable/dish_border_light"
+    android:layout_marginTop="3dp"
+    android:layout_marginBottom="3dp"
     >
 
     <TextView
@@ -14,6 +16,7 @@
         android:textSize="32sp"
         android:layout_gravity="center_vertical"
         android:layout_marginEnd="2dp"
+        android:background="@color/transparent"
         />
 
     <TextView
@@ -25,6 +28,8 @@
         android:text="Kuhinja"
         android:textSize="20sp"
         android:layout_gravity="center_vertical"
+        android:background="@color/transparent"
+
         />
 
 </LinearLayout>

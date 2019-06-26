@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.MenuResponse;
@@ -127,7 +128,7 @@ public class ManagerDishTypeListAdapter extends RecyclerView.Adapter<BaseViewHol
     public class ViewHolder extends BaseViewHolder {
 
         @BindView(R.id.manager_remove_dish_type_btn)
-        Button btnRemoveDishType;
+        ImageButton btnRemoveDishType;
 
         @BindView(R.id.manager_edit_text_dish_type_name)
         EditText editDishTypeName;

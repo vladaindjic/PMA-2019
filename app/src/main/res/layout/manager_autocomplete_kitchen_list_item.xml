@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
-    android:background="@drawable/customborder"
+    android:background="@drawable/promotion_border_light"
     >
 
     <TextView
@@ -13,6 +13,7 @@
         android:text="@string/bullet"
         android:textSize="32sp"
         android:layout_gravity="center_vertical"
+        android:background="@color/transparent"
         android:layout_marginEnd="2dp"
         />
 
@@ -22,6 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
+        android:background="@color/transparent"
         android:text="Kuhinja"
         android:textSize="20sp"
         android:layout_gravity="center_vertical"

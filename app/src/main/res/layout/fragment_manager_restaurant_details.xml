@@ -216,7 +216,6 @@
                 android:layout_marginEnd="32dp"
                 android:layout_marginBottom="32dp"
                 android:background="@drawable/rectangle_border_white"
-                android:scrollbars="vertical"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/manager_restaurant_details_txt_kitchens" />
 

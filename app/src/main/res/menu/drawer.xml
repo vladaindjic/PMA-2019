@@ -24,7 +24,7 @@
         <item
             android:id="@+id/nav_item_my_restaurants"
             android:checked="true"
-            android:icon="@drawable/my_restaurant"
+            android:icon="@drawable/ic_restaurant"
             android:title="@string/my_restaurants"
             />
 
@@ -37,7 +37,7 @@
         <item
             android:id="@+id/nav_item_settings"
             android:checked="true"
-            android:icon="@drawable/settings"
+            android:icon="@drawable/ic_settings"
             android:title="@string/settings"/>
 
         <item

@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/app_color_back"
     tools:context=".ui.user.meal.UserMealActivity">
     <!--FIXME vi3: check if you need this-->
     <include layout="@layout/toolbar_layout"
@@ -30,9 +29,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
                 android:hint="Insert meal name"
                 android:textAlignment="center"
                 android:textSize="24sp"
@@ -41,7 +39,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
                 android:gravity="center"
                 android:orientation="horizontal">
@@ -89,9 +87,10 @@
                     android:id="@+id/user_meal_details_txt_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:text="@string/price_colon"
+                    android:minWidth="100dp"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
@@ -114,7 +113,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:gravity="center"
+                    android:layout_marginStart="16dp"
                     android:orientation="horizontal"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/user_meal_details_txt_price">
@@ -125,6 +124,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/description"
+                        android:minWidth="100dp"
                         android:textSize="18sp"
                         android:textStyle="bold" />
                     <!--FIXME vi3: sredi opis-->
@@ -147,7 +147,7 @@
                 android:id="@+id/user_meal_details_txt_dishes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="@string/dishes"
                 android:textSize="18sp"
@@ -157,22 +157,25 @@
                 android:id="@+id/manager_meal_dish_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="0dp"
-                android:layout_marginEnd="32dp"
+                android:layout_marginEnd="16dp"
                 android:background="@drawable/rectangle_border_white"
                 android:scrollbars="vertical" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp">
+                android:gravity="center"
+                android:layout_marginTop="8dp">
 
                 <AutoCompleteTextView
                     android:id="@+id/manager_dish_autocomplete_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
                     android:dropDownHeight="wrap_content"
                     android:hint="@string/dish"
                     android:minWidth="256dp"
@@ -192,21 +195,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:gravity="bottom|center">
+                android:gravity="bottom|center"
+                android:layout_marginTop="8dp">
 
                 <Button
                     android:id="@+id/submit_meal_details_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/logo_color"
                     android:padding="10dp"
                     android:text="@string/submitBtn" />
-
 
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/logo_color"
                     android:text="@string/cancelBtn"
                     android:id="@+id/cancel_meal_details_btn"/>
             </LinearLayout>
