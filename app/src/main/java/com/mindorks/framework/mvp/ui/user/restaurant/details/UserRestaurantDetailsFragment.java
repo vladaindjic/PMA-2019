@@ -147,8 +147,8 @@ public class UserRestaurantDetailsFragment extends BaseFragment implements
         if (isVisibleToUser) {
             // vi3 prebaceno onResume
             if (getBaseActivity() != null) {
-                Long restaurantId = getBaseActivity().getIntent().getLongExtra("restaurantId", 0L);
-                mPresenter.onViewPrepared(restaurantId);
+//                Long restaurantId = getBaseActivity().getIntent().getLongExtra("restaurantId", 0L);
+//                mPresenter.onViewPrepared(restaurantId);
             }
 
         }

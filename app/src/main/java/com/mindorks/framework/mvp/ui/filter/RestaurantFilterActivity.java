@@ -37,7 +37,7 @@ import io.reactivex.functions.Consumer;
 
 public class RestaurantFilterActivity extends BaseActivity implements RestaurantFilterMvpView {
 
-    private static final int DEFAULT_DISTANCE = 33;
+    public static final int DEFAULT_DISTANCE = 30;
 
     @Inject
     RestaurantFilterMvpPresenter<RestaurantFilterMvpView> mPresenter;
@@ -140,7 +140,7 @@ public class RestaurantFilterActivity extends BaseActivity implements Restaurant
             public void onClick(View v) {
                 Intent intent = UserRestaurantsActivity.getStartIntent(RestaurantFilterActivity.this);
                 startActivity(intent);
-                //finish();
+                finish();
             }
         });
 
@@ -150,7 +150,7 @@ public class RestaurantFilterActivity extends BaseActivity implements Restaurant
                 saveFilterState();
                 Intent intent = UserRestaurantsActivity.getStartIntent(RestaurantFilterActivity.this);
                 startActivity(intent);
-                //finish();
+                finish();
             }
         });
 
@@ -232,29 +232,27 @@ public class RestaurantFilterActivity extends BaseActivity implements Restaurant
     }
 
     @Override
-    public void updateDistance(int distance) {
+    public void updateDistance(final int distance) {
         this.currentDistance = distance;
-        distanceProgres.setText("Distance " + distance + "/" + distanceBar.getMax());
+        distanceProgres.setText(getString(R.string.filterDistanceString) + " " + distance + "/" + distanceBar.getMax());
         distanceBar.setProgress(distance);
         distanceBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                distanceProgres.setText("Distance " + progress + "/" + distanceBar.getMax());
+                distanceProgres.setText(getString(R.string.filterDistanceString) + " " + progress + "/" + distanceBar.getMax());
                 currentDistance = progress;
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                Toast.makeText(getApplicationContext(),
-                        "vrednost se pocinje menjati " + distanceBar.getScrollX() + "do" + distanceBar.getScrollY(),
-                        Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(),
+//                        "vrednost se pocinje menjati " + distanceBar.getScrollX() + "do" + distanceBar.getScrollY(),
+//                        Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                Toast.makeText(getApplicationContext(),
-                        "vrednost se promenila na " + distanceBar.getScrollX() + "do" + distanceBar.getScrollY(),
-                        Toast.LENGTH_SHORT).show();
+                distanceProgres.setText(getString(R.string.filterDistanceString) + " " + currentDistance + "/" + distanceBar.getMax());
             }
         });
     }

@@ -172,7 +172,7 @@ public class UserDetailsFragment extends BaseFragment implements
         String imgUrl = ((BasePresenter) mPresenter).getDataManager().getCurrentUserProfilePicUrl();
         System.out.println("updateDetails " + imgUrl);
         Glide.with(this)
-                .load(imgUrl)
+                .load(((BasePresenter) mPresenter).getImageUrlFor(BasePresenter.ENTITY_USER, imgUrl))
                 // kako bismo izbegli kesiranje
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)

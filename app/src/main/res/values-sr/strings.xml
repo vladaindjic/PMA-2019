@@ -39,7 +39,7 @@
 
     <!--App Message-->
     <string name="api_retry_error">Molimo pokusajte ponovo!</string>
-    <string name="api_default_error">Nesto lose se desilo!</string>
+    <string name="api_default_error">Proveriti internet konekciju.</string>
     <string name="some_error">Dogodila se greska!</string>
     <string name="connection_error">Izgubila se konekcija sa internetom!</string>
 

@@ -89,9 +89,8 @@ public class UserRestaurantMenuFragment extends BaseFragment implements UserRest
         if (isVisibleToUser) {
             if (getBaseActivity() != null) {
                 // vi3 prebaceno onResume
-                Long restaurantId = getBaseActivity().getIntent().getLongExtra("restaurantId", 0L);
-                mPresenter.onViewPrepared(restaurantId);
-
+//                Long restaurantId = getBaseActivity().getIntent().getLongExtra("restaurantId", 0L);
+//                mPresenter.onViewPrepared(restaurantId);
             }
         }
     }

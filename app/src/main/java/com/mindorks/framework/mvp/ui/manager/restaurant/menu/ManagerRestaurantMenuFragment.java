@@ -116,7 +116,7 @@ public class ManagerRestaurantMenuFragment extends BaseFragment implements Manag
         if (isVisibleToUser) {
             if (getBaseActivity() != null) {
                 // vi3 prebaceno onResume
-                myLocalSetUp();
+                // myLocalSetUp();
             }
         }
     }

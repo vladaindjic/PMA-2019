@@ -1,107 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.manager.restaurant.menu.ManagerRestaurantMenuFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    android:orientation="vertical"
+    tools:context=".ui.manager.restaurant.menu.ManagerRestaurantMenuFragment">
+
+    <EditText
+        android:id="@+id/manager_edit_text_menu_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:hint="@string/restaurant_menu"
+        android:inputType="text"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <LinearLayout
+        android:id="@+id/manager_menu_linear_layout_adding_dish_type"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:gravity="center"
+        android:orientation="horizontal">
 
+        <!--FIXME vi3: zasto ne radi kada se uredjaj rotira-->
+        <!--FIXME vi3: namesti da ide ispod. Nekako da ga zavaram da predje preko
+        tastarute mozda. Kada postavim veliko bottom marginu na Submit dugme, prikaze
+         se ispod-->
         <EditText
-            android:id="@+id/manager_edit_text_menu_name"
-            android:layout_width="match_parent"
+            android:id="@+id/manager_menu_dish_type_edit_text"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/restaurant_menu"
-            android:textAlignment="center"
             android:layout_gravity="center"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="16dp"
-            android:inputType="text"
-            />
-
-        <LinearLayout
-            android:id="@+id/manager_menu_linear_layout_adding_dish_type"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            >
-
-            <!--FIXME vi3: zasto ne radi kada se uredjaj rotira-->
-            <!--FIXME vi3: namesti da ide ispod. Nekako da ga zavaram da predje preko
-            tastarute mozda. Kada postavim veliko bottom marginu na Submit dugme, prikaze
-             se ispod-->
-            <EditText
-                android:id="@+id/manager_menu_dish_type_edit_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:dropDownHeight="wrap_content"
-                android:hint="@string/dish"
-                android:minWidth="200dp"
-                android:textSize="20sp"
-                android:background="@drawable/rectangle_border_white"
-                />
-
-            <Button
-                android:id="@+id/manager_menu_add_dish_type_btn"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_gravity="center"
-                android:layout_marginStart="16dp"
-                android:background="@drawable/ic_add_circle_grey_24dp"
-                />
-
-        </LinearLayout>
-
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:background="@drawable/rectangle_border_white"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
+            android:dropDownHeight="wrap_content"
+            android:hint="@string/dish"
+            android:minWidth="200dp"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/manager_menu_add_dish_type_btn"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
             android:layout_marginStart="16dp"
-            android:id="@+id/manager_dish_type_list_recyclerview"
-            android:scrollbars="vertical"
-            />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
-
-            <Button
-                android:id="@+id/manager_menu_submit_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/submitBtn"
-                />
-
-            <Button
-                android:id="@+id/manager_menu_cancel_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/cancelBtn"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"/>
-
-        </LinearLayout>
-
+            android:background="@drawable/ic_add_circle_grey_24dp" />
 
     </LinearLayout>
 
-</ScrollView>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/manager_dish_type_list_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/rectangle_border_white"
+        android:scrollbars="vertical" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/manager_menu_submit_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/submitBtn" />
+
+        <Button
+            android:id="@+id/manager_menu_cancel_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/cancelBtn" />
+
+    </LinearLayout>
+
+
+</LinearLayout>
+
 

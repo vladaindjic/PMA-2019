@@ -44,6 +44,7 @@ import com.mindorks.framework.mvp.R;
 import com.mindorks.framework.mvp.data.network.model.RestaurantDetailsResponse;
 import com.mindorks.framework.mvp.di.component.ActivityComponent;
 import com.mindorks.framework.mvp.ui.base.BaseFragment;
+import com.mindorks.framework.mvp.ui.base.BasePresenter;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
@@ -269,6 +270,7 @@ public class ManagerRestaurantDetailsFragment extends BaseFragment implements
             mKitchenArrayAdapter.checkKitchensThatAreInRestaurantAndUpdateList(this.restaurantDetails);
         }
     }
+
     @Override
     synchronized public void updateRestaurantDetails(final RestaurantDetailsResponse.RestaurantDetails restaurantDetails) {
         this.restaurantDetails = restaurantDetails;
@@ -296,7 +298,8 @@ public class ManagerRestaurantDetailsFragment extends BaseFragment implements
 
         if (restaurantDetails.getImageUrl() != null) {
             Glide.with(this)
-                    .load(restaurantDetails.getImageUrl())
+                    .load(((BasePresenter) mPresenter).getImageUrlFor(BasePresenter.ENTITY_RESTAURANT,
+                                    restaurantDetails.getImageUrl()))
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .skipMemoryCache(true)
                     .into(imageView);
@@ -313,6 +316,7 @@ public class ManagerRestaurantDetailsFragment extends BaseFragment implements
             }
         });
     }
+
     // vi3: slika
     private void chooseOrTakeImage() {
         final CharSequence[] items = {"Camera", "Gallery", "Cancel"};
@@ -383,6 +387,7 @@ public class ManagerRestaurantDetailsFragment extends BaseFragment implements
         });
         builder.show();
     }
+
     // vi3: slika
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -436,6 +441,7 @@ public class ManagerRestaurantDetailsFragment extends BaseFragment implements
 
         }
     }
+
     // vi3: slika
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -474,7 +480,7 @@ public class ManagerRestaurantDetailsFragment extends BaseFragment implements
                 if (path == null) {
                     path = mCameraFileName;
                 }
-               imgBytes = getBytesFromFile(path);
+                imgBytes = getBytesFromFile(path);
 
             } else if (requestCode == SELECT_FILE) {
                 userImageUri = data.getData();
@@ -488,19 +494,21 @@ public class ManagerRestaurantDetailsFragment extends BaseFragment implements
             }
         }
     }
+
     // vi3: slika
     //method to get the file path from uri
     public String getPath(Uri uri) {
-        String[] projection = { MediaStore.Images.Media.DATA };
+        String[] projection = {MediaStore.Images.Media.DATA};
         Cursor cursor = getBaseActivity().getContentResolver().query(uri, projection, null, null,
                 null);
         if (cursor == null) return null;
-        int column_index =             cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
         cursor.moveToFirst();
-        String s=cursor.getString(column_index);
+        String s = cursor.getString(column_index);
         cursor.close();
         return s;
     }
+
     // vi3: slika
     public byte[] getBytesFromFile(String imgPath) {
         File file = new File(imgPath);
@@ -540,7 +548,6 @@ public class ManagerRestaurantDetailsFragment extends BaseFragment implements
 
         return stream.toByteArray();
     }
-
 
 
     private static int getImageRotation(final File imageFile) {
@@ -646,7 +653,7 @@ public class ManagerRestaurantDetailsFragment extends BaseFragment implements
         // update-ujemo samo prikaz kuhinja
         mKitchensAdapter.addItems(this.restaurantDetails.getKitchens());
         // moramo odraditi i update svih kuhinja u adapteru
-        if(mKitchenArrayAdapter != null)
+        if (mKitchenArrayAdapter != null)
             mKitchenArrayAdapter.checkKitchensThatAreInRestaurantAndUpdateList(this.restaurantDetails);
     }
 

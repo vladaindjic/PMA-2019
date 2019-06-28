@@ -112,7 +112,6 @@ public class ManagerRestaurantPromotionsFragment extends BaseFragment implements
 
     @OnClick(R.id.add_promotion_button)
     public void onAddPromotionButton(){
-        Toast.makeText(getActivity(),"Dodaj novu promociju",Toast.LENGTH_SHORT).show();
 
         ManagerRestaurantActivity managerRestaurantActivity = (ManagerRestaurantActivity)getActivity();
         if (managerRestaurantActivity != null) {
@@ -130,7 +129,6 @@ public class ManagerRestaurantPromotionsFragment extends BaseFragment implements
     @Override
     public void openPromotionDetailsActivity(RestaurantPromotionsResponse.Promotion promotion) {
         // TODO vi3: ovde ima smisla implementirati logiku za editovanje ili brisanje
-        Toast.makeText(getActivity(),"Detalji promocije",Toast.LENGTH_SHORT).show();
         ManagerRestaurantActivity managerRestaurantActivity = (ManagerRestaurantActivity)getActivity();
         if (managerRestaurantActivity != null) {
             managerRestaurantActivity.openPromotionDetailsActivity(promotion.getId());

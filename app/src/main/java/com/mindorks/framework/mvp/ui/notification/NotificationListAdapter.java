@@ -57,6 +57,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<BaseViewHolder
     }
 
     public void addItems(List<Notification> notificationList) {
+        this.mNotifications.clear();
         this.mNotifications.addAll(notificationList);
         notifyDataSetChanged();
     }
@@ -72,7 +73,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<BaseViewHolder
         switch (viewType) {
             case VIEW_TYPE_NORMAL:
                 return new NotificationListAdapter.ViewHolder(
-                        LayoutInflater.from(parent.getContext()).inflate(R.layout.manager_restaurant_promotions_list_item_layout, parent,
+                        LayoutInflater.from(parent.getContext()).inflate(R.layout.notification_item_view, parent,
                                 false));
             case VIEW_TYPE_EMPTY:
             default:

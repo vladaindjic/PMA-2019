@@ -96,7 +96,7 @@ public class ManagerRestaurantCookFragment extends BaseFragment implements
     public void onResume() {
         super.onResume();
         // vi3 prebaceno onResume
-        mPresenter.onViewPrepared();
+        //mPresenter.onViewPrepared();
     }
 
     @Override
@@ -105,7 +105,7 @@ public class ManagerRestaurantCookFragment extends BaseFragment implements
         if(isVisibleToUser) {
             if (getBaseActivity() != null) {
                 // vi3 prebaceno onResume
-                mPresenter.onViewPrepared();
+                //mPresenter.onViewPrepared();
             }
         }
     }
@@ -113,7 +113,7 @@ public class ManagerRestaurantCookFragment extends BaseFragment implements
     @Override
     protected void setUp(View view) {
         // vi3 prebaceno onResume
-//        mPresenter.onViewPrepared();
+        mPresenter.onViewPrepared();
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mManagerRestaurantCookView.setLayoutManager(mLayoutManager);
         mManagerRestaurantCookView.setItemAnimator(new DefaultItemAnimator());
@@ -174,7 +174,6 @@ public class ManagerRestaurantCookFragment extends BaseFragment implements
 
     @Override
     public void deleteDish(Long id) {
-        Toast.makeText(getContext(),"Id: "+id,Toast.LENGTH_SHORT).show();
         mPresenter.deleteDish(id);
     }
 

@@ -219,8 +219,8 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Toast.makeText(UserRestaurantsActivity.this, "Upit je: " + query,
-                        Toast.LENGTH_SHORT).show();
+//                Toast.makeText(UserRestaurantsActivity.this, "Upit je: " + query,
+//                        Toast.LENGTH_SHORT).show();
                 searchItem.collapseActionView();
                 // TODO vi3: posalji upit i reloaduj restorane
                 // postavicemo parametar pretrage da bi mogli fragmenti da ga dobave
@@ -232,14 +232,17 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                return false;
+                return true;
             }
         });
 
         searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
             @Override
             public boolean onMenuItemActionExpand(MenuItem item) {
-                searchQuery = null;
+                //searchQuery = null;
+                if (searchQuery != null) {
+                    ((SearchView)item.getActionView()).setQuery(searchQuery, false);
+                }
                 return true;
             }
 
@@ -258,7 +261,7 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
         switch (item.getItemId()) {
             case R.id.action_restaurants_filter:
 
-                Toast.makeText(this, "Share option selected", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "Share option selected", Toast.LENGTH_SHORT).show();
                 Intent intent = RestaurantFilterActivity.getStartIntent(UserRestaurantsActivity.this);
                 startActivity(intent);
                 return true;

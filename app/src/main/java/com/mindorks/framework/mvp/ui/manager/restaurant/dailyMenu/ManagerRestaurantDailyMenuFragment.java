@@ -138,7 +138,6 @@ public class ManagerRestaurantDailyMenuFragment extends BaseFragment implements 
     @Override
     public void openMealActivity(DailyMenuResponse.Meal meal) {
 
-        Toast.makeText(getActivity(),"Otvaram aktivnost izmena",Toast.LENGTH_SHORT).show();
         ManagerRestaurantActivity managerRestaurantActivity = (ManagerRestaurantActivity)getActivity();
         if (managerRestaurantActivity != null) {
             managerRestaurantActivity.openDailyMenuDetailsActivity(dailyMenuId,meal.getId());
@@ -161,7 +160,6 @@ public class ManagerRestaurantDailyMenuFragment extends BaseFragment implements 
         } else {
             Toast.makeText(getContext(), "Ne valja ti ovo, druze (:", Toast.LENGTH_SHORT).show();
         }
-        Toast.makeText(getActivity(),"Otvaram aktivnost novi dnevni meni",Toast.LENGTH_SHORT).show();
 
     }
 }

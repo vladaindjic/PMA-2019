@@ -25,6 +25,7 @@ import com.mindorks.framework.mvp.data.network.model.LoginResponse;
 import com.mindorks.framework.mvp.data.network.model.MyRestaurantsResponse;
 import com.mindorks.framework.mvp.data.prefs.AppPreferencesHelper;
 import com.mindorks.framework.mvp.ui.base.BasePresenter;
+import com.mindorks.framework.mvp.ui.filter.RestaurantFilterActivity;
 import com.mindorks.framework.mvp.utils.CommonUtils;
 import com.mindorks.framework.mvp.utils.rx.SchedulerProvider;
 
@@ -119,7 +120,7 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
                                         public void accept(Boolean aBoolean) throws Exception {
                                             // setujemo podrazumevani user filter
                                             UserFilter userFilter = new UserFilter();
-                                            userFilter.setDistance(33.0);
+                                            userFilter.setDistance(RestaurantFilterActivity.DEFAULT_DISTANCE);
                                             userFilter.setOpen(false);
                                             userFilter.setDelivery(false);
                                             userFilter.setDailyMenu(false);
