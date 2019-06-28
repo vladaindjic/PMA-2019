@@ -28,7 +28,6 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         android:largeHeap="true"
-        android:hardwareAccelerated="false"
         >
         <activity android:name=".ui.user.settings.UserSettingsActivity"></activity>
         <activity android:name=".ui.user.details.password.UserDetailsPasswordActivity" />

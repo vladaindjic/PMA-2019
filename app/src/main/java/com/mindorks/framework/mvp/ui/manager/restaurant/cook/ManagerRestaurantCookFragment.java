@@ -96,7 +96,7 @@ public class ManagerRestaurantCookFragment extends BaseFragment implements
     public void onResume() {
         super.onResume();
         // vi3 prebaceno onResume
-        //mPresenter.onViewPrepared();
+        mPresenter.onViewPrepared();
     }
 
     @Override
@@ -105,7 +105,7 @@ public class ManagerRestaurantCookFragment extends BaseFragment implements
         if(isVisibleToUser) {
             if (getBaseActivity() != null) {
                 // vi3 prebaceno onResume
-                //mPresenter.onViewPrepared();
+                mPresenter.onViewPrepared();
             }
         }
     }

@@ -41,7 +41,7 @@
                 android:layout_height="24dp"
                 android:layout_gravity="end|bottom"
                 android:layout_margin="2dp"
-                android:background="@drawable/ic_like"
+                android:background="?attr/like_button"
                 android:id="@+id/dish_comment_vote_positive"/>
 
             <TextView
@@ -68,7 +68,7 @@
                 android:layout_gravity="end|bottom"
                 android:layout_margin="2dp"
 
-                android:background="@drawable/ic_dislike"
+                android:background="?attr/dislike_button"
                 android:id="@+id/dish_comment_vote_negative"/>
 
             <TextView
