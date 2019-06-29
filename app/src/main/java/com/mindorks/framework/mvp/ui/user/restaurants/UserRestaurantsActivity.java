@@ -18,6 +18,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -98,6 +99,7 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
 
         setUp();
     }
+
 
     // add toolbar
     @Override
@@ -219,6 +221,7 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                System.out.println("SUBMIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIT");
 //                Toast.makeText(UserRestaurantsActivity.this, "Upit je: " + query,
 //                        Toast.LENGTH_SHORT).show();
                 searchItem.collapseActionView();
@@ -239,9 +242,12 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
         searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
             @Override
             public boolean onMenuItemActionExpand(MenuItem item) {
-                //searchQuery = null;
+                // vratimo ispis
                 if (searchQuery != null) {
-                    ((SearchView)item.getActionView()).setQuery(searchQuery, false);
+                    SearchView sw = (SearchView) item.getActionView();
+                    // ovo se mora pozvati
+                    sw.onActionViewExpanded();
+                    sw.setQuery(searchQuery, false);
                 }
                 return true;
             }
@@ -251,6 +257,18 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
                 return true;
             }
         });
+
+        ImageView closeButton = (ImageView)searchView.findViewById(R.id.search_close_btn);
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // kada korisnik pritisne x dugme, sve ponistavamo.
+                searchQuery = null;
+                mViewPager.getAdapter().notifyDataSetChanged();
+                searchView.setQuery(searchQuery, false);
+            }
+        });
+        System.out.println("Ovo je closeButton: " + closeButton);
 
         return true;
     }
@@ -264,6 +282,7 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
 //                Toast.makeText(this, "Share option selected", Toast.LENGTH_SHORT).show();
                 Intent intent = RestaurantFilterActivity.getStartIntent(UserRestaurantsActivity.this);
                 startActivity(intent);
+                // eventualno zatvaranje
                 return true;
         }
         // ako nismo nista izabrali, pozovemo super metodu
