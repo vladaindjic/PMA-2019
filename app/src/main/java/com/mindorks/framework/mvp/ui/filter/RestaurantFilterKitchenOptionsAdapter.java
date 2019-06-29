@@ -44,7 +44,7 @@ public class RestaurantFilterKitchenOptionsAdapter extends RecyclerView.Adapter<
     }
 
     public void addItems(List<RestaurantFilterResponse.RestaurantFilter.KitchenOptions> kitchenOptionsList) {
-        System.out.println("DODAJEM " + kitchenOptionsList.size());
+        this.mKitchenOptionList.clear();
         this.mKitchenOptionList.addAll(kitchenOptionsList);
         notifyDataSetChanged();
     }
@@ -129,13 +129,20 @@ public class RestaurantFilterKitchenOptionsAdapter extends RecyclerView.Adapter<
 
             if (kitchen.getValue() != null) {
                 checkBox.setChecked(kitchen.getValue());
+            } else {
+                // postavicemo da je podrazumevana vrednost false
+                kitchen.setValue(false);
+                checkBox.setChecked(false);
             }
 
-            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            checkBox.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    checkBox.setChecked(isChecked);
-                    kitchen.setValue(isChecked);
+                public void onClick(View v) {
+                    if (kitchen.getValue() != null) {
+                        kitchen.setValue(!kitchen.getValue());
+                    } else {
+                        kitchen.setValue(true);
+                    }
                 }
             });
         }

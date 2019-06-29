@@ -77,5 +77,6 @@ public class UserSettingsActivity extends BaseActivity implements UserSettingsMv
     public void onBackPressed() {
         Intent intent = UserRestaurantsActivity.getStartIntent(this);
         startActivity(intent);
+        finish();
     }
 }

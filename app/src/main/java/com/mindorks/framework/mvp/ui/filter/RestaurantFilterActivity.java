@@ -38,6 +38,7 @@ import io.reactivex.functions.Consumer;
 public class RestaurantFilterActivity extends BaseActivity implements RestaurantFilterMvpView {
 
     public static final int DEFAULT_DISTANCE = 30;
+    private int KITCHEN_NUMBER = 0;
 
     @Inject
     RestaurantFilterMvpPresenter<RestaurantFilterMvpView> mPresenter;
@@ -115,18 +116,11 @@ public class RestaurantFilterActivity extends BaseActivity implements Restaurant
     protected void setUp() {
         setSupportActionBar(mToolbar);
 
-        System.out.println("OVDE");
         if (getSupportActionBar() != null) {
-            System.out.println("OVDI ?");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
-        System.out.println("Ovde sam");
         mLayoutManager1.setOrientation(LinearLayoutManager.VERTICAL);
-//        mFilterOptionsView.setLayoutManager(mLayoutManager1);
-//        mFilterOptionsView.setItemAnimator(new DefaultItemAnimator());
-//        mFilterOptionsView.setAdapter(mRestaurantFilterOptionsAdapter);
-
         mLayoutManager2.setOrientation(LinearLayoutManager.VERTICAL);
         mKitchenOptionsView.setLayoutManager(mLayoutManager2);
         mKitchenOptionsView.setItemAnimator(new DefaultItemAnimator());
@@ -148,9 +142,6 @@ public class RestaurantFilterActivity extends BaseActivity implements Restaurant
             @Override
             public void onClick(View v) {
                 saveFilterState();
-                Intent intent = UserRestaurantsActivity.getStartIntent(RestaurantFilterActivity.this);
-                startActivity(intent);
-                finish();
             }
         });
 
@@ -228,7 +219,12 @@ public class RestaurantFilterActivity extends BaseActivity implements Restaurant
                 }
             }
         }
-        mRestaurantFilterKitchenOptionsAdapter.notifyDataSetChanged();
+        List<RestaurantFilterResponse.RestaurantFilter.KitchenOptions> tmpList = new ArrayList<>();
+        for (RestaurantFilterResponse.RestaurantFilter.KitchenOptions koServer :
+                kitchenOptionsFromServer) {
+            tmpList.add(koServer);
+        }
+        mRestaurantFilterKitchenOptionsAdapter.addItems(tmpList);
     }
 
     @Override
@@ -294,31 +290,72 @@ public class RestaurantFilterActivity extends BaseActivity implements Restaurant
                 .subscribeOn(((BasePresenter)mPresenter).getSchedulerProvider().io())
                 .observeOn(((BasePresenter)mPresenter).getSchedulerProvider().ui())
                 .subscribe(new Consumer<Long>() {
-            @Override
-            public void accept(Long userFilterId) throws Exception {
-                KitchenOption kitchenOption;
-                for (RestaurantFilterResponse.RestaurantFilter.KitchenOptions ko : kos) {
-                    kitchenOption = new KitchenOption();
-                    kitchenOption.setChecked(ko.getValue() == null ? false : ko.getValue());
-                    kitchenOption.setKitchenName(ko.getName());
-                    kitchenOption.setUserFilterId(userFilterId);
-                    ((BasePresenter) mPresenter).getDataManager()
-                            .saveKitchenOption(kitchenOption)
-                            .subscribeOn(((BasePresenter)mPresenter).getSchedulerProvider().io())
-                            .observeOn(((BasePresenter)mPresenter).getSchedulerProvider().ui())
-                            .subscribe(new Consumer<Boolean>() {
-                        @Override
-                        public void accept(Boolean aBoolean) throws Exception {
+                    @Override
+                    public void accept(Long userFilterId) throws Exception {
+                        setKitchenNumber(kos.size());
+                        KitchenOption kitchenOption;
+                        for (RestaurantFilterResponse.RestaurantFilter.KitchenOptions ko : kos) {
+                            kitchenOption = new KitchenOption();
+                            kitchenOption.setChecked(ko.getValue() == null ? false : ko.getValue());
+                            kitchenOption.setKitchenName(ko.getName());
+                            kitchenOption.setUserFilterId(userFilterId);
+                            ((BasePresenter) mPresenter).getDataManager()
+                                    .saveKitchenOption(kitchenOption)
+                                    .subscribeOn(((BasePresenter) mPresenter).getSchedulerProvider().io())
+                                    .observeOn(((BasePresenter) mPresenter).getSchedulerProvider().ui())
+                                    .subscribe(new Consumer<Boolean>() {
+                                        @Override
+                                        public void accept(Boolean aBoolean) throws Exception {
+
+                                            // tek kada se sacuvaju sve kuhinje, ima smisla otvoriti novu aktivnost
+                                            if (decrementKitchenNumber() <= 0) {
+                                                // sve zavrseno i otvarano aktivnost
+                                                openUserRestaurantsActivity();
+                                            }
+
+                                        }
+                                    }, new Consumer<Throwable>() {
+                                        @Override
+                                        public void accept(Throwable throwable) throws Exception {
+                                            // ako se desi bilo kakva greska, sve se ponistava
+                                            openUserRestaurantsActivity();
+                                        }
+                                    });
                         }
-                    });
-                }
-                ((BasePresenter) mPresenter).getDataManager().setActiveUserFilterId(userFilterId);
-            }
-        });
+                        ((BasePresenter) mPresenter).getDataManager().setActiveUserFilterId(userFilterId);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        // ako se desi bilo kakva greska, sve se ponistava
+                        openUserRestaurantsActivity();
+                    }
+                });
 
         // TODO vi3: odraditi proveru da li postoji trenutni user filter, pa onda na njega
         // vezivati dalje i brisati sve kitchen options-e
 
     }
+
+    private void openUserRestaurantsActivity() {
+        Intent intent = UserRestaurantsActivity.getStartIntent(RestaurantFilterActivity.this);
+        startActivity(intent);
+        finish();
+    }
+
+    private synchronized void setKitchenNumber(int number) {
+        KITCHEN_NUMBER = number;
+    }
+
+    private synchronized int getKitchenNumber() {
+        return KITCHEN_NUMBER;
+    }
+
+    private synchronized int decrementKitchenNumber() {
+        KITCHEN_NUMBER--;
+        return KITCHEN_NUMBER;
+    }
+
+
 
 }
