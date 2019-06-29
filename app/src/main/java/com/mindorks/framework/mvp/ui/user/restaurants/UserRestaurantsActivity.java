@@ -283,6 +283,7 @@ public class UserRestaurantsActivity extends BaseActivity implements UserRestaur
                 Intent intent = RestaurantFilterActivity.getStartIntent(UserRestaurantsActivity.this);
                 startActivity(intent);
                 // eventualno zatvaranje
+                finish();
                 return true;
         }
         // ako nismo nista izabrali, pozovemo super metodu

@@ -61,6 +61,7 @@ public class UserSettingsActivity extends BaseActivity implements UserSettingsMv
         super.onDestroy();
     }
 
+    // ako se pritisne back, vracamo se na restorane
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event)  {
         if (Build.VERSION.SDK_INT > 5

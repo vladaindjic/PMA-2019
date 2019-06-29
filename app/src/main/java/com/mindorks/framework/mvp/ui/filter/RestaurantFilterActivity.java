@@ -2,12 +2,14 @@ package com.mindorks.framework.mvp.ui.filter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -116,10 +118,6 @@ public class RestaurantFilterActivity extends BaseActivity implements Restaurant
     protected void setUp() {
         setSupportActionBar(mToolbar);
 
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
         mLayoutManager1.setOrientation(LinearLayoutManager.VERTICAL);
         mLayoutManager2.setOrientation(LinearLayoutManager.VERTICAL);
         mKitchenOptionsView.setLayoutManager(mLayoutManager2);
@@ -354,6 +352,26 @@ public class RestaurantFilterActivity extends BaseActivity implements Restaurant
     private synchronized int decrementKitchenNumber() {
         KITCHEN_NUMBER--;
         return KITCHEN_NUMBER;
+    }
+
+    // ako se pritisne back, vracamo se na restorane
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (Build.VERSION.SDK_INT > 5
+                && keyCode == KeyEvent.KEYCODE_BACK
+                && event.getRepeatCount() == 0) {
+            onBackPressed();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = UserRestaurantsActivity.getStartIntent(this);
+        startActivity(intent);
+        finish();
     }
 
 

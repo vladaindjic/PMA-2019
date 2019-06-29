@@ -229,6 +229,7 @@ public class UserRestaurantDetailsFragment extends BaseFragment implements
         checkBoxStar.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                System.out.println("ALOOOOOOOOOOOOOOOOOOOOOOOOO KURCINAAAAAAAAAAAAA " + isChecked);
                 mPresenter.subscribeToRestaurant(restaurantDetails.getId());
             }
         });
