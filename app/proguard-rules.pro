@@ -16,3 +16,4 @@
 #   public *;
 #}
 -ignorewarnings
+-keep class org.greenrobot.greendao.**
